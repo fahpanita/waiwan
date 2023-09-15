@@ -1,16 +1,17 @@
+import liff from "@line/liff";
 import { Button } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLiff } from "react-liff";
 
 const LineLogin = () => {
     const [profile, setProfile] = useState();
-    const { error, isLoggedIn, isReady, liff } = useLiff();
+    const { error, isLoggedIn, isReady } = useLiff();
 
     useEffect(() => {
         if (!isLoggedIn) return;
 
         (async () => {
-            const profile = await liff.getProfile();
+            const profile = await liff.getAccessToken();
             setProfile(profile);
         })();
     }, [liff, isLoggedIn]);
