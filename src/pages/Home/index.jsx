@@ -5,6 +5,7 @@ import LineLogin from "./LineLogin";
 import Link from "../../components/Link";
 import { Input, Space, Image, Select } from "antd";
 import { getProducts } from "../../services/product";
+import liff from "@line/liff";
 
 const Home = () => {
   const { Search } = Input;
@@ -14,8 +15,8 @@ const Home = () => {
   };
 
   const handleGetProduct = async () => {
-    const res = await getProducts();
-    console.log(res);
+    const res = await getProducts(liff.getAccessToken());
+    console.log(res.data);
   };
 
   useEffect(() => {

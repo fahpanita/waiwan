@@ -8,8 +8,8 @@ const liffId = import.meta.env.VITE_LIFF_ID;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <LiffProvider liffId={liffId}> */}
-    <App />
-    {/* </LiffProvider> */}
+    <LiffProvider liffId={liffId}>
+      <App />
+    </LiffProvider>
   </React.StrictMode>
 );
