@@ -6,6 +6,7 @@ export const getProducts = async () => {
       url: "/products",
       method: "GET",
     });
+    console.log(res);
     return res;
   } catch (error) {
     return undefined;

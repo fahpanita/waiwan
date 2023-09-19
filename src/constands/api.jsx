@@ -12,9 +12,11 @@ export const requestBackend = axios.create({
 
 export const setInterceptorRequestToken = (token, idToken = "") => {
   requestBackend.interceptors.request.use((config) => {
+    console.log(idToken);
     if (token) {
       config.headers = {
         Authorization: `Bearer ${token}`,
+
         "ngrok-skip-browser-warning": "69420",
       };
     }

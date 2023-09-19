@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import AuthenticatedProvider from "../../Providers/AuthenticatedProvider";
 import LineLogin from "./LineLogin";
 import Link from "../../components/Link";
 import { Input, Space, Image, Select } from "antd";
@@ -14,69 +13,63 @@ const Home = () => {
     console.log(`selected ${value}`);
   };
 
-  const handleGetProduct = async () => {
-    const res = await getProducts(liff.getAccessToken());
-    console.log(res.data);
-  };
-
-  useEffect(() => {
-    handleGetProduct();
-  }, []);
+  
 
   return (
-    <AuthenticatedProvider>
-      <Container>
-        <div className="abc">ไหว้วาน</div>
-        <Img src="image/img/banner-1.png" />
-        <div className="row">
-          <div className="col-md-2">
-            <Select
-              defaultValue="lucy"
-              style={{
-                width: "100%",
-              }}
-              onChange={handleChange}
-              options={[
-                {
-                  value: "jack",
-                  label: "Jack",
-                },
-                {
-                  value: "lucy",
-                  label: "Lucy",
-                },
-                {
-                  value: "Yiminghe",
-                  label: "yiminghe",
-                },
-              ]}
-            />
-          </div>
-          <div className="col col-md-10">
-            <Search
-              placeholder="input search text"
-              onSearch={onSearch}
-              enterButton
-            />
-          </div>
+    // <AuthenticatedProvider>
+    <Container>
+      <div className="abc">ไหว้วาน</div>
+      <Img src="image/img/banner-1.png" />
+      <div className="row">
+        <div className="col-md-2">
+          <Select
+            defaultValue="lucy"
+            style={{
+              width: "100%",
+            }}
+            onChange={handleChange}
+            options={[
+              {
+                value: "jack",
+                label: "Jack",
+              },
+              {
+                value: "lucy",
+                label: "Lucy",
+              },
+              {
+                value: "Yiminghe",
+                label: "yiminghe",
+              },
+            ]}
+          />
         </div>
-        <Icon src="image/icons/fire-left.png" />
-        <div className="font-36">เทรนด์นิยมช่วงนี้</div>
-        <div className="center">
-          <Card src="image/img/card-1.png" />
-          <Card src="image/img/card-2.png" />
-          <Card src="image/img/card-1.png" />
+        <div className="col col-md-10">
+          <Search
+            placeholder="input search text"
+            onSearch={onSearch}
+            enterButton
+          />
         </div>
+      </div>
+      <Icon src="image/icons/fire-left.png" />
+      <div className="font-36">เทรนด์นิยมช่วงนี้</div>
+      <div className="center">
+        <Card src="image/img/card-1.png" />
+        <Card src="image/img/card-2.png" />
+        <Card src="image/img/card-1.png" />
+      </div>
 
-        {/* <Icon src="image/icons/line_2k.svg" />
+      {/* <Icon src="image/icons/line_2k.svg" />
                 <Link to="/stock">Blogs</Link> */}
-        {/* <Imgrounder
+      {/* <Imgrounder
                     width={200}
                     src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
                 /> */}
-        <LineLogin />
-      </Container>
-    </AuthenticatedProvider>
+      <LineLogin />
+      <Link to="/stock">asdf</Link>
+    </Container>
+    // </AuthenticatedProvider>
   );
 };
 
