@@ -5,6 +5,7 @@ import AuthProvider from "./Providers/AuthProvider";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import Home from "./pages/Home";
 import Stock from "./pages/Stock";
+import Dashboard from "./pages/Dashboard";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const Stock = lazy(() => import("./pages/Stock"));
@@ -28,6 +29,16 @@ const Routing = () => {
               <ProtectedRoute>
                 <Suspense fallback={<Loading />}>
                   <Stock />
+                </Suspense>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <Dashboard />
                 </Suspense>
               </ProtectedRoute>
             }

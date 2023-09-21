@@ -13,12 +13,12 @@ const Home = () => {
     console.log(`selected ${value}`);
   };
 
-  
-
   return (
     // <AuthenticatedProvider>
+
     <Container>
       <div className="abc">ไหว้วาน</div>
+
       <Img src="image/img/banner-1.png" />
       <div className="row">
         <div className="col-md-2">
@@ -68,6 +68,7 @@ const Home = () => {
                 /> */}
       <LineLogin />
       <Link to="/stock">asdf</Link>
+      <Link to="/Dashboard">dashboard</Link>
     </Container>
     // </AuthenticatedProvider>
   );
