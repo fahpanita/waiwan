@@ -5,7 +5,7 @@ import { Image } from "antd";
 const Dashboard = () => {
   return (
     <Container>
-      <div className="">234567</div>
+      <div className="">กดเ้่าสวงกดเ้่าส</div>
     </Container>
   );
 };

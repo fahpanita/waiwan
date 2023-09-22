@@ -5,6 +5,9 @@ import Link from "../../components/Link";
 import { Input, Space, Image, Select } from "antd";
 import { getProducts } from "../../services/product";
 import liff from "@line/liff";
+import { Navbar } from "../../components/Navbar/Navbar";
+import Banner from "../../components/Slide/Banner";
+import Filter from "../../components/Tree/Filter";
 
 const Home = () => {
   const { Search } = Input;
@@ -17,10 +20,12 @@ const Home = () => {
     // <AuthenticatedProvider>
 
     <Container>
-      <div className="abc">ไหว้วาน</div>
+      <Navbar />
+      <Banner />
+      <Filter />
 
-      <Img src="image/img/banner-1.png" />
-      <div className="row">
+      {/* <Img src="image/img/banner-1.png" /> */}
+      {/* <div className="row">
         <div className="col-md-2">
           <Select
             defaultValue="lucy"
@@ -51,14 +56,14 @@ const Home = () => {
             enterButton
           />
         </div>
-      </div>
-      <Icon src="image/icons/fire-left.png" />
+      </div> */}
+      {/* <Icon src="image/icons/fire-left.png" />
       <div className="font-36">เทรนด์นิยมช่วงนี้</div>
       <div className="center">
         <Card src="image/img/card-1.png" />
         <Card src="image/img/card-2.png" />
         <Card src="image/img/card-1.png" />
-      </div>
+      </div> */}
 
       {/* <Icon src="image/icons/line_2k.svg" />
                 <Link to="/stock">Blogs</Link> */}
@@ -66,9 +71,8 @@ const Home = () => {
                     width={200}
                     src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
                 /> */}
-      <LineLogin />
-      <Link to="/stock">asdf</Link>
-      <Link to="/Dashboard">dashboard</Link>
+
+      {/* <Link to="/stock">บัญชีผู้ใช้</Link> */}
     </Container>
     // </AuthenticatedProvider>
   );
