@@ -5,7 +5,7 @@ import Link from "../../components/Link";
 import { Input, Space, Image, Select } from "antd";
 import { getProducts } from "../../services/product";
 import liff from "@line/liff";
-import { Navbar } from "../../components/Navbar/Navbar";
+import { Navbar } from "../../components/Header/Navbar";
 import Banner from "../../components/Slide/Banner";
 import Filter from "../../components/Tree/Filter";
 
@@ -23,40 +23,9 @@ const Home = () => {
       <Navbar />
       <Banner />
       <Filter />
-
+      <Search placeholder="input search text" onSearch={onSearch} enterButton />
       {/* <Img src="image/img/banner-1.png" /> */}
-      {/* <div className="row">
-        <div className="col-md-2">
-          <Select
-            defaultValue="lucy"
-            style={{
-              width: "100%",
-            }}
-            onChange={handleChange}
-            options={[
-              {
-                value: "jack",
-                label: "Jack",
-              },
-              {
-                value: "lucy",
-                label: "Lucy",
-              },
-              {
-                value: "Yiminghe",
-                label: "yiminghe",
-              },
-            ]}
-          />
-        </div>
-        <div className="col col-md-10">
-          <Search
-            placeholder="input search text"
-            onSearch={onSearch}
-            enterButton
-          />
-        </div>
-      </div> */}
+
       {/* <Icon src="image/icons/fire-left.png" />
       <div className="font-36">เทรนด์นิยมช่วงนี้</div>
       <div className="center">
@@ -91,26 +60,26 @@ export const Container = styled.div`
   }
 `;
 
-export const Img = styled.img`
-  width: 100%;
-`;
+// export const Img = styled.img`
+//   width: 100%;
+// `;
 
-export const Card = styled.img`
-  width: 32%;
-  float: left;
-`;
+// export const Card = styled.img`
+//   width: 32%;
+//   float: left;
+// `;
 
-export const Icon = styled.img`
-  width: 36px;
-  float: left;
-`;
+// export const Icon = styled.img`
+//   width: 36px;
+//   float: left;
+// `;
 
-export const Imgrounder = styled(Image)`
-  border-radius: 100px;
+// export const Imgrounder = styled(Image)`
+//   border-radius: 100px;
 
-  &.ant-image .ant-image-mask {
-    color: aqua !important;
-  }
-`;
+//   &.ant-image .ant-image-mask {
+//     color: aqua !important;
+//   }
+// `;
 
 export default Home;

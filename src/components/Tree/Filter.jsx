@@ -3,34 +3,34 @@ import { TreeSelect } from "antd";
 const { SHOW_PARENT } = TreeSelect;
 const treeData = [
   {
-    title: "Node1",
+    title: "ประเพณีไทย",
     value: "0-0",
     key: "0-0",
     children: [
       {
-        title: "Child Node1",
+        title: "ไหว้ศาลตายาย",
         value: "0-0-0",
         key: "0-0-0",
       },
     ],
   },
   {
-    title: "Node2",
+    title: "ประเพณีจีน",
     value: "0-1",
     key: "0-1",
     children: [
       {
-        title: "Child Node3",
+        title: "ตรุษจีน",
         value: "0-1-0",
         key: "0-1-0",
       },
       {
-        title: "Child Node4",
+        title: "เช็งเม้ง",
         value: "0-1-1",
         key: "0-1-1",
       },
       {
-        title: "Child Node5",
+        title: "สารทจีน",
         value: "0-1-2",
         key: "0-1-2",
       },
