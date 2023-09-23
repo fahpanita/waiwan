@@ -36,11 +36,11 @@ const Routing = () => {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute>
-                <Suspense fallback={<Loading />}>
-                  <Dashboard />
-                </Suspense>
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <Dashboard />
+              </Suspense>
+              // {/* </ProtectedRoute> */}
             }
           />
         </Routes>
