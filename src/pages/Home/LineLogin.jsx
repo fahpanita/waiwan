@@ -23,11 +23,17 @@ const LineLogin = () => {
     if (!isReady) return <p>Loading...</p>;
 
     if (!isLoggedIn) {
-      return <Button onClick={onLogin}>Login</Button>;
+      return (
+        <Button type="primary" onClick={onLogin}>
+          Login
+        </Button>
+      );
     }
     return (
       <>
-        <Button onClick={onLogout}>Logout</Button>
+        <Button type="primary" onClick={onLogout}>
+          Logout
+        </Button>
       </>
     );
   };

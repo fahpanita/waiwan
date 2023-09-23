@@ -5,6 +5,9 @@ import Link from "../../components/Link";
 import { Input, Space, Image, Select } from "antd";
 import { getProducts } from "../../services/product";
 import liff from "@line/liff";
+import { Navbar } from "../../components/Header/Navbar";
+import Banner from "../../components/Slide/Banner";
+import Filter from "../../components/Tree/Filter";
 
 const Home = () => {
   const { Search } = Input;
@@ -17,48 +20,19 @@ const Home = () => {
     // <AuthenticatedProvider>
 
     <Container>
-      <div className="abc">ไหว้วาน</div>
+      <Navbar />
+      <Banner />
+      <Filter />
+      <Search placeholder="input search text" onSearch={onSearch} enterButton />
+      {/* <Img src="image/img/banner-1.png" /> */}
 
-      <Img src="image/img/banner-1.png" />
-      <div className="row">
-        <div className="col-md-2">
-          <Select
-            defaultValue="lucy"
-            style={{
-              width: "100%",
-            }}
-            onChange={handleChange}
-            options={[
-              {
-                value: "jack",
-                label: "Jack",
-              },
-              {
-                value: "lucy",
-                label: "Lucy",
-              },
-              {
-                value: "Yiminghe",
-                label: "yiminghe",
-              },
-            ]}
-          />
-        </div>
-        <div className="col col-md-10">
-          <Search
-            placeholder="input search text"
-            onSearch={onSearch}
-            enterButton
-          />
-        </div>
-      </div>
-      <Icon src="image/icons/fire-left.png" />
+      {/* <Icon src="image/icons/fire-left.png" />
       <div className="font-36">เทรนด์นิยมช่วงนี้</div>
       <div className="center">
         <Card src="image/img/card-1.png" />
         <Card src="image/img/card-2.png" />
         <Card src="image/img/card-1.png" />
-      </div>
+      </div> */}
 
       {/* <Icon src="image/icons/line_2k.svg" />
                 <Link to="/stock">Blogs</Link> */}
@@ -66,9 +40,8 @@ const Home = () => {
                     width={200}
                     src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
                 /> */}
-      <LineLogin />
-      <Link to="/stock">asdf</Link>
-      <Link to="/Dashboard">dashboard</Link>
+
+      {/* <Link to="/stock">บัญชีผู้ใช้</Link> */}
     </Container>
     // </AuthenticatedProvider>
   );
@@ -87,26 +60,26 @@ export const Container = styled.div`
   }
 `;
 
-export const Img = styled.img`
-  width: 100%;
-`;
+// export const Img = styled.img`
+//   width: 100%;
+// `;
 
-export const Card = styled.img`
-  width: 32%;
-  float: left;
-`;
+// export const Card = styled.img`
+//   width: 32%;
+//   float: left;
+// `;
 
-export const Icon = styled.img`
-  width: 36px;
-  float: left;
-`;
+// export const Icon = styled.img`
+//   width: 36px;
+//   float: left;
+// `;
 
-export const Imgrounder = styled(Image)`
-  border-radius: 100px;
+// export const Imgrounder = styled(Image)`
+//   border-radius: 100px;
 
-  &.ant-image .ant-image-mask {
-    color: aqua !important;
-  }
-`;
+//   &.ant-image .ant-image-mask {
+//     color: aqua !important;
+//   }
+// `;
 
 export default Home;
