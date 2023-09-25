@@ -6,6 +6,9 @@ import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import Home from "./pages/Home";
 import Stock from "./pages/Stock";
 import Dashboard from "./pages/Dashboard";
+import AddProducts from "./pages/Dashboard/addProduct";
+import AddCatagorys from "./pages/Dashboard/addCatagory";
+import AddEvents from "./pages/Dashboard/addEvent";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const Stock = lazy(() => import("./pages/Stock"));
@@ -39,6 +42,37 @@ const Routing = () => {
               // <ProtectedRoute>
               <Suspense fallback={<Loading />}>
                 <Dashboard />
+              </Suspense>
+              // {/* </ProtectedRoute> */}
+            }
+          />
+
+          <Route
+            path="/addProduct"
+            element={
+              // <ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <AddProducts />
+              </Suspense>
+              // {/* </ProtectedRoute> */}
+            }
+          />
+          <Route
+            path="/addCatagory"
+            element={
+              // <ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <AddCatagorys />
+              </Suspense>
+              // {/* </ProtectedRoute> */}
+            }
+          />
+          <Route
+            path="/addEvent"
+            element={
+              // <ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <AddEvents />
               </Suspense>
               // {/* </ProtectedRoute> */}
             }

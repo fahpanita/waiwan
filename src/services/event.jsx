@@ -34,6 +34,7 @@ export const getEvent = async () => {
         const res = await requestBackend({
             url: "/parent-event",
             method: "GET",
+
         });
         return res;
     } catch (error) {

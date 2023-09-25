@@ -16,7 +16,11 @@ const AddEvent = () => {
 
     const handleGetEvent = async () => {
         const res = await getEvent()
+        // if (typeof res?.data === "object") {
+        //     setEvents(res?.data)
+        // }
         setEvents(res?.data)
+        console.log(typeof res?.data);
     }
     const onCreateEventFinish = async (value) => {
         console.log(value);
@@ -51,12 +55,12 @@ const AddEvent = () => {
         },
     ];
 
-    const maindata = events.map(d => {
+    const maindata = events?.map(d => {
         return {
             key: d.id,
             id: d.id,
             name: d.name,
-            children: d.sub.map(s => {
+            children: d.sub?.map(s => {
                 return {
                     key: s.id + "sub",
                     id: s.id,
@@ -64,6 +68,7 @@ const AddEvent = () => {
                 }
             })
         }
+
     });
 
     useEffect(() => {
@@ -107,7 +112,7 @@ const AddEvent = () => {
                                 </Form.Item>
                                 <Form.Item name="parent_id" label="Select">
                                     <Select>
-                                        {events.map(e => {
+                                        {events?.map(e => {
                                             return <Select.Option key={e.id} value={e.id}>{e.name}</Select.Option>
                                         })}
                                     </Select>
