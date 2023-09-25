@@ -1,5 +1,6 @@
 import React from "react";
-import { Carousel } from "antd";
+import { Carousel, Image } from "antd";
+import styled from "styled-components";
 const contentStyle = {
   height: "160px",
   color: "#fff",
@@ -8,20 +9,21 @@ const contentStyle = {
   background: "#000",
 };
 
+export const Img = styled.img`
+  width: 100%;
+`;
+
 const Banner = () => {
   return (
     <Carousel autoplay>
       <div>
-        <h3 style={contentStyle}>1</h3>
+        <Img src="image/img/banner-1.png" />
       </div>
       <div>
-        <h3 style={contentStyle}>2</h3>
+        <Img src="image/img/banner-1.png" />
       </div>
       <div>
-        <h3 style={contentStyle}>3</h3>
-      </div>
-      <div>
-        <h3 style={contentStyle}>4</h3>
+        <Img src="image/img/banner-1.png" />
       </div>
     </Carousel>
   );
