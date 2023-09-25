@@ -39,7 +39,7 @@ const treeData = [
 ];
 
 const Filter = () => {
-  const [value, setValue] = useState(["0-0-0"]);
+  const [value, setValue] = useState();
   const onChange = (newValue) => {
     console.log("onChange ", value);
     setValue(newValue);
@@ -49,8 +49,10 @@ const Filter = () => {
     value,
     onChange,
     treeCheckable: true,
-    showCheckedStrategy: SHOW_PARENT,
-    placeholder: "Please select",
+    placeholder: "เลือกเทศกาล",
+    showSearch: false,
+    showCheckedStrategy: TreeSelect.SHOW_PARENT,
+
     style: {
       width: "100%",
     },
