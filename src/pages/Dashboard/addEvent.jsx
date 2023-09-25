@@ -9,7 +9,7 @@ const AddEvents = () => {
     <>
       <div className="col-md-12 row">
         <div className="col-md-2">
-          <MenuBar></MenuBar>
+          <Menubar></Menubar>
         </div>
         <div className="col-md-10">
           {/* <AddEvent></AddEvent> */}

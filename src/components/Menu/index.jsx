@@ -3,7 +3,6 @@ import { AppstoreOutlined, ShoppingCartOutlined, ShoppingOutlined, TeamOutlined 
 import { Menu } from 'antd';
 import styled from 'styled-components';
 
-
 function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -22,7 +21,8 @@ export const Imglogo = styled.img`
 
 const items = [
     // getItem(<Imglogo src="image/img/logowaiwan.png" />),
-    getItem('Dashboard', 'dashboard', <AppstoreOutlined />), getItem('การขาย', 'seller', <ShoppingCartOutlined />),
+    getItem('Dashboard', 'dashboard', <AppstoreOutlined />),
+    getItem('การขาย', 'seller', <ShoppingCartOutlined />),
     getItem('สินค้า', 'sub1', <ShoppingOutlined />, [
         getItem('รายการสินค้า', 'product'),
         getItem('เพิ่มสินค้า', 'addItem'),
