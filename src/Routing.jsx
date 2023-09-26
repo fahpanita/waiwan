@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import AddProducts from "./pages/Dashboard/addProduct";
 import AddCatagorys from "./pages/Dashboard/addCatagory";
 import AddEvents from "./pages/Dashboard/addEvent";
+import AddEvent from "./pages/Dashboard/addEvent";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const Stock = lazy(() => import("./pages/Stock"));
@@ -72,7 +73,7 @@ const Routing = () => {
             element={
               // <ProtectedRoute>
               <Suspense fallback={<Loading />}>
-                <AddEvents />
+                <AddEvent />
               </Suspense>
               // {/* </ProtectedRoute> */}
             }
