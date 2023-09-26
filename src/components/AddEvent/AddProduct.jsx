@@ -31,6 +31,23 @@ const beforeUpload = (file) => {
 
 const AddProduct = () => {
 
+    const [createProductForm] = Form.useForm();
+    const formDataProduct = Form.useWatch([], createProductForm);
+
+    const [products, setProduct] = useState([]);
+
+    const handleGetProduct = async () => {
+        const res = await getCatagory()
+        setCatagory(res?.data)
+        console.log(typeof res?.data);
+    }
+    const onCreateProductFinish = async (value) => {
+        console.log(value);
+        await createProduts(value);
+        handleGetProduct();
+        createProductForm.setFieldValue("name", "")
+    };
+
     const [value, setValue] = useState('');
 
     const [loading, setLoading] = useState(false);
@@ -51,11 +68,7 @@ const AddProduct = () => {
     const uploadButton = (
         <div>
             {loading ? <LoadingOutlined /> : <PlusOutlined />}
-            <div
-                style={{
-                    marginTop: 8,
-                }}
-            >
+            <div style={{ marginTop: 8, }}>
                 Upload
             </div>
         </div>
@@ -64,7 +77,7 @@ const AddProduct = () => {
     return (
         <>
             <Layout>
-                <Form layout="vertical" >
+                <Form form={createProductForm} layout="vertical" onFinish={onCreateProductFinish}>
                     <Header style={{ background: '#fff', }}>
                         <div className="font-24">เพิ่มสินค้า</div>
                     </Header >
@@ -75,21 +88,22 @@ const AddProduct = () => {
                                     <CardBoxRadius>
                                         <div className="font-24 mb-3">ข้อมูลทั่วไปของสินค้า</div>
                                         <Form.Item name="name" label="ชื่อสินค้า*" >
-                                            <Input />
+                                            <Input value={formDataProduct?.name} />
                                         </Form.Item>
                                     </CardBoxRadius>
                                     <CardBoxRadius>
                                         <div className="font-24 mb-3">ราคาสินค้า</div>
 
                                         <Form.Item name="price" label="ราคาขาย*" >
-                                            <Input prefix="฿" suffix="บาท" />
+                                            <Input value={formDataProduct?.price} prefix="฿" suffix="บาท" />
                                         </Form.Item>
                                     </CardBoxRadius>
                                     <CardBoxRadius>
                                         <div className="font-24 mb-3">ภาพสินค้า</div>
                                         <Form.Item name="picture" >
                                             <Upload
-                                                name="avatar"
+                                                name="picture"
+                                                value={formDataProduct?.picture}
                                                 listType="picture-card"
                                                 className="avatar-uploader"
                                                 showUploadList={false}
@@ -113,21 +127,21 @@ const AddProduct = () => {
                                     </CardBoxRadius>
                                     <CardBoxRadius>
                                         <div className="font-24 mb-3">รายละเอียด</div>
-                                        <Form.Item name="price" label="รายละเอียดสินค้า*" >
-                                            <TextArea placeholder="โปรดรายละเอียดสินค้า" autoSize={{
+                                        <Form.Item name="detailProduct" label="รายละเอียดสินค้า*" >
+                                            <TextArea value={formDataProduct?.detailProduct} placeholder="โปรดรายละเอียดสินค้า" autoSize={{
                                                 minRows: 5,
                                                 maxRows: 6,
                                             }} />
                                         </Form.Item>
-                                        <Form.Item name="price" label="รายละเอียดการจัดส่ง*" >
-                                            <TextArea placeholder="โปรดรายละเอียดการจัดส่ง" autoSize={{
+                                        <Form.Item name="detailShipping" label="รายละเอียดการจัดส่ง*" >
+                                            <TextArea value={formDataProduct?.detailShipping} placeholder="โปรดรายละเอียดการจัดส่ง" autoSize={{
                                                 minRows: 5,
                                                 maxRows: 6,
                                             }} />
 
                                         </Form.Item>
-                                        <Form.Item name="price" label="เงื่อนไขอื่น ๆ" >
-                                            <TextArea placeholder="โปรดกรอกเงื่อนไขอื่น ๆ" autoSize={{
+                                        <Form.Item name="condition" label="เงื่อนไขอื่น ๆ" >
+                                            <TextArea value={formDataProduct?.condition} placeholder="โปรดกรอกเงื่อนไขอื่น ๆ" autoSize={{
                                                 minRows: 5,
                                                 maxRows: 6,
                                             }} />
