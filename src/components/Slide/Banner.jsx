@@ -17,13 +17,13 @@ const Banner = () => {
   return (
     <Carousel autoplay>
       <div>
-        <Img src="image/img/banner-1.png" />
+        <Img src="image/img/banner-01.png" />
       </div>
       <div>
-        <Img src="image/img/banner-1.png" />
+        <Img src="image/img/banner-02.png" />
       </div>
       <div>
-        <Img src="image/img/banner-1.png" />
+        <Img src="image/img/banner-01.png" />
       </div>
     </Carousel>
   );
