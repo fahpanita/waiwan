@@ -6,15 +6,6 @@ import { theme, Col, Row } from 'antd';
 
 const { Header, Content } = Layout;
 
-// function getItem(label, key, icon, children) {
-//     return {
-//         key,
-//         icon,
-//         children,
-//         label,
-//     };
-// }
-
 const AddCatagories = () => {
 
     const [createCatagoryForm] = Form.useForm();

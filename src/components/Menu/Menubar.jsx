@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppstoreOutlined, ShoppingCartOutlined, ShoppingOutlined, TeamOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, ShoppingCartOutlined, ShoppingOutlined, TeamOutlined, CalendarOutlined } from '@ant-design/icons';
 import { Layout, Menu, } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -20,9 +20,13 @@ const items = [
         getItem('รายการสินค้า', 'product'),
         getItem(<Link to="/addProduct" style={{ textDecoration: 'none' }}>เพิ่มสินค้า</Link>, 'addItem'),
         getItem(<Link to="/addCatagory" style={{ textDecoration: 'none' }}>หมวดหมู่สินค้า</Link>, 'addCatagory', undefined),
+    ]),
+    getItem('เทศกาล', 'sub2', <CalendarOutlined />, [
+        getItem('รายการเทศกาลแนะนำ', 'event'),
+        getItem(<Link to="/addInfoEvent" style={{ textDecoration: 'none' }}>เพิ่มข้อมูลเทศกาล</Link>, 'addInfoEvent'),
         getItem(<Link to="/addEvent" style={{ textDecoration: 'none' }}>หมวดหมู่เทศกาล</Link>, 'addEvent', undefined),
     ]),
-    getItem('ลูกค้า', '9', <TeamOutlined />),
+    getItem(<Link to="/infoUsers" style={{ textDecoration: 'none' }}>ลูกค้า</Link>, 'infoUsers', <TeamOutlined />),
 ];
 
 const Menubar = () => {
@@ -32,7 +36,7 @@ const Menubar = () => {
                 mode="inline"
                 defaultSelectedKeys={['dashboard']}
                 items={items}
-                style={{ position: 'fixed' }}
+            // style={{ position: 'fixed' }}
             />
         </Layout >
 

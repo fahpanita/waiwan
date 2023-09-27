@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TreeSelect } from "antd";
 const { SHOW_PARENT } = TreeSelect;
+
 const treeData = [
   {
     title: "ประเพณีไทย",
@@ -14,28 +15,7 @@ const treeData = [
       },
     ],
   },
-  {
-    title: "ประเพณีจีน",
-    value: "0-1",
-    key: "0-1",
-    children: [
-      {
-        title: "ตรุษจีน",
-        value: "0-1-0",
-        key: "0-1-0",
-      },
-      {
-        title: "เช็งเม้ง",
-        value: "0-1-1",
-        key: "0-1-1",
-      },
-      {
-        title: "สารทจีน",
-        value: "0-1-2",
-        key: "0-1-2",
-      },
-    ],
-  },
+
 ];
 
 const Filter = () => {

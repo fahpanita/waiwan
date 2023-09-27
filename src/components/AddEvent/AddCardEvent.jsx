@@ -5,9 +5,9 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Col, Row } from 'antd';
 import Filter from '../Tree/Filter';
 import TextArea from 'antd/es/input/TextArea';
-import { Footer } from 'antd/es/layout/layout';
+import { Footer, Header, Content } from 'antd/es/layout/layout';
 
-const { Header, Content } = Layout;
+
 const handleChangeType = (value) => {
     console.log(`selected ${value}`);
 }
@@ -29,7 +29,7 @@ const beforeUpload = (file) => {
     return isJpgOrPng && isLt2M;
 };
 
-const AddProduct = () => {
+const AddCardEvent = () => {
 
     const [createProductForm] = Form.useForm();
     const formDataProduct = Form.useWatch([], createProductForm);
@@ -76,34 +76,46 @@ const AddProduct = () => {
 
     return (
         <>
-            <Layout>
+            <Layout style={{ minHeight: '100vh' }}>
                 <Form form={createProductForm} layout="vertical" onFinish={onCreateProductFinish}>
                     <Header style={{ background: '#fff', }}>
-                        <div className="font-24">เพิ่มสินค้า</div>
+                        <div className="font-24">เพิ่มการ์ดเทศกาล</div>
                     </Header >
                     <Content style={{ margin: '24px 24px 0', }}>
                         <div style={{ background: '#F5F5F5', }}>
                             <Row>
                                 <Col span={16}>
                                     <CardBoxRadius>
-                                        <div className="font-24 mb-3">ข้อมูลทั่วไปของสินค้า</div>
-                                        <Form.Item name="name" label="ชื่อสินค้า*" >
-                                            <Input value={formDataProduct?.name} />
+                                        <div className="font-24 mb-3">ข้อมูลทั่วไปของเทศกาล</div>
+                                        <Form.Item name="name" label="ชื่อเทศกาล" >
+                                            <Input value='' />
                                         </Form.Item>
-                                    </CardBoxRadius>
-                                    <CardBoxRadius>
-                                        <div className="font-24 mb-3">ราคาสินค้า</div>
 
-                                        <Form.Item name="price" label="ราคาขาย*" >
-                                            <Input value={formDataProduct?.price} prefix="฿" suffix="บาท" />
+                                        <Form.Item name="history" label="ประวัติคร่าว ๆ" >
+                                            <Input value='' />
+                                        </Form.Item>
+
+                                        <Form.Item name="symbol" label="สัญลักษณ์ของเทศกาล" >
+                                            <Input value='' />
+                                        </Form.Item>
+
+                                        <Form.Item name="arrangement" label="การจัดโต๊ะไหว้" >
+                                            <Input value='' />
+                                        </Form.Item>
+
+                                        <Form.Item name="step" label="พิธีไหว้*" >
+                                            <Input value='' />
                                         </Form.Item>
                                     </CardBoxRadius>
+                                </Col>
+
+                                <Col span={8}>
                                     <CardBoxRadius>
-                                        <div className="font-24 mb-3">ภาพสินค้า</div>
+                                        <div className="font-24 mb-3">ภาพปกเทศกาล</div>
                                         <Form.Item name="picture" >
                                             <Upload
                                                 name="picture"
-                                                value={formDataProduct?.picture}
+                                                value=''
                                                 listType="picture-card"
                                                 className="avatar-uploader"
                                                 showUploadList={false}
@@ -125,72 +137,67 @@ const AddProduct = () => {
                                             </Upload>
                                         </Form.Item>
                                     </CardBoxRadius>
-                                    <CardBoxRadius style={{ marginBottom: '150px' }}>
-                                        <div className="font-24 mb-3">รายละเอียด</div>
-                                        <Form.Item name="detailProduct" label="รายละเอียดสินค้า*" >
-                                            <TextArea value={formDataProduct?.detailProduct} placeholder="โปรดรายละเอียดสินค้า" autoSize={{
-                                                minRows: 5,
-                                                maxRows: 6,
-                                            }} />
-                                        </Form.Item>
-                                        <Form.Item name="detailShipping" label="รายละเอียดการจัดส่ง*" >
-                                            <TextArea value={formDataProduct?.detailShipping} placeholder="โปรดรายละเอียดการจัดส่ง" autoSize={{
-                                                minRows: 5,
-                                                maxRows: 6,
-                                            }} />
 
-                                        </Form.Item>
-                                        <Form.Item name="condition" label="เงื่อนไขอื่น ๆ" >
-                                            <TextArea value={formDataProduct?.condition} placeholder="โปรดกรอกเงื่อนไขอื่น ๆ" autoSize={{
-                                                minRows: 5,
-                                                maxRows: 6,
-                                            }} />
-
+                                    <CardBoxRadius>
+                                        <div className="font-24 mb-3">ภาพสัญลักษณ์เทศกาล</div>
+                                        <Form.Item name="picture" >
+                                            <Upload
+                                                name="picture"
+                                                value=''
+                                                listType="picture-card"
+                                                className="avatar-uploader"
+                                                showUploadList={false}
+                                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                                                beforeUpload={beforeUpload}
+                                                onChange={handleChangeImg}
+                                            >
+                                                {imageUrl ? (
+                                                    <img
+                                                        src={imageUrl}
+                                                        alt="avatar"
+                                                        style={{
+                                                            width: '100%',
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    uploadButton
+                                                )}
+                                            </Upload>
                                         </Form.Item>
                                     </CardBoxRadius>
-                                </Col>
-                                <Col span={8}>
-                                    <CardBoxRadius>
-                                        <div className="font-24 mb-3">เลือกหมวดหมู่สินค้า*</div>
-                                        <Form layout="vertical" >
-                                            <Filter />
-                                        </Form>
-                                    </CardBoxRadius>
-                                    <CardBoxRadius>
-                                        <div className="font-24 mb-3">เลือกหมวดหมู่เทศกาล*
-                                        </div>
-                                        <Form layout="vertical" >
-                                            <Filter />
 
-                                        </Form>
-                                    </CardBoxRadius>
                                     <CardBoxRadius>
-                                        <div className="font-24 mb-3">ประเภทสินค้า*
-                                        </div>
-                                        <Form layout="vertical" >
-                                            <Select
-                                                defaultValue="readySend"
-                                                style={{
-                                                    width: '100%',
-                                                }}
-                                                onChange={handleChangeType}
-                                                options={[
-                                                    {
-                                                        value: 'preorder',
-                                                        label: 'สินค้าPreorder',
-                                                    },
-                                                    {
-                                                        value: 'readySend',
-                                                        label: 'สินค้าพร้อมส่ง',
-                                                    },
-                                                ]}
-                                            />
-                                        </Form>
+                                        <div className="font-24 mb-3">ภาพการจัดโต๊ะ</div>
+                                        <Form.Item name="picture" >
+                                            <Upload
+                                                name="picture"
+                                                value=''
+                                                listType="picture-card"
+                                                className="avatar-uploader"
+                                                showUploadList={false}
+                                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                                                beforeUpload={beforeUpload}
+                                                onChange={handleChangeImg}
+                                            >
+                                                {imageUrl ? (
+                                                    <img
+                                                        src={imageUrl}
+                                                        alt="avatar"
+                                                        style={{
+                                                            width: '100%',
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    uploadButton
+                                                )}
+                                            </Upload>
+                                        </Form.Item>
                                     </CardBoxRadius>
                                 </Col>
                             </Row>
                         </div>
                     </Content>
+
                     <FooterCustom>
                         <Col align={'right'}>
                             <Button danger type="primary" htmlType="submit" style={{ marginRight: 10 }}>
@@ -202,11 +209,10 @@ const AddProduct = () => {
                         </Col>
                     </FooterCustom>
                 </Form>
-            </Layout >
+            </Layout>
         </>
     )
 }
-
 export const CardBox = styled.div`
 background: #FFF;
 box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
@@ -230,4 +236,4 @@ margin: 10px;
 padding: 16px;
 `;
 
-export default AddProduct
+export default AddCardEvent
