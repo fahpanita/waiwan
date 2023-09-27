@@ -46,35 +46,69 @@ const Home = () => {
           </Col>
         </Row>
 
-        <Divider orientation="left">เทรนด์นิยมช่วงนี้</Divider>
-        <Row justify="space-evenly">
-          <Col span={3}>
-            <CardEvent />
+        <Divider orientation="left">การ์ดความรู้เทศกาล</Divider>
+        <Row
+          justify="space-evenly"
+          gutter={{
+            xs: 8,
+            sm: 16,
+            md: 24,
+            lg: 32,
+          }}
+          // gutter={[8, 8]}
+        >
+          <Col className="gutter-row" span={5}>
+            <div>
+              <CardEvent />
+            </div>
           </Col>
-          <Col span={3}>
-            <CardEvent />
+          <Col className="gutter-row" span={5}>
+            <div>
+              <CardEvent />
+            </div>
           </Col>
-          <Col span={3}>
-            <CardEvent />
+          <Col className="gutter-row" span={5}>
+            <div>
+              <CardEvent />
+            </div>
           </Col>
         </Row>
 
-        <Divider orientation="left">สินค้ายอดนิยม</Divider>
-        <Row justify="space-evenly">
-          <Col span={3}>
-            <CardProduct />
+        <Divider orientation="left">สินค้าทั้งหมด</Divider>
+        <Row
+          justify="space-evenly"
+          // gutter={{
+          //   xs: 8,
+          //   sm: 16,
+          //   md: 24,
+          //   lg: 32,
+          // }}
+          gutter={[8, 8]}
+        >
+          <Col className="gutter-row" span={4}>
+            <div>
+              <CardProduct />
+            </div>
           </Col>
-          <Col span={3}>
-            <CardProduct />
+          <Col className="gutter-row" span={4}>
+            <div>
+              <CardProduct />
+            </div>
           </Col>
-          <Col span={3}>
-            <CardProduct />
+          <Col className="gutter-row" span={4}>
+            <div>
+              <CardProduct />
+            </div>
           </Col>
-          <Col span={3}>
-            <CardProduct />
+          <Col className="gutter-row" span={4}>
+            <div>
+              <CardProduct />
+            </div>
           </Col>
-          <Col span={3}>
-            <CardProduct />
+          <Col className="gutter-row" span={4}>
+            <div>
+              <CardProduct />
+            </div>
           </Col>
         </Row>
       </Content>

@@ -13,7 +13,7 @@ const items = [
     key: "1",
     label: (
       <Link to="/stock" icon={<UserOutlined />}>
-        บัญชีผู้ใช้
+        จัดการบัญชีผู้ใช้
       </Link>
     ),
   },

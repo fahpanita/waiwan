@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel, Image } from "antd";
+import { Carousel } from "antd";
 import styled from "styled-components";
 const contentStyle = {
   height: "160px",

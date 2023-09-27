@@ -8,8 +8,12 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import LineLogin from "../../pages/Home/LineLogin";
-
+import styled from "styled-components";
 const { Header } = Layout;
+
+export const Img = styled.img`
+  width: 100%;
+`;
 
 const ResponsiveNav = () => {
   const [visible, setVisible] = useState(false);
@@ -26,7 +30,7 @@ const ResponsiveNav = () => {
     <Layout className="layout">
       <Header style={{ background: "white" }}>
         <Row justify="center">
-          <Col xs={0} sm={20} md={20}>
+          <Col xs={0} sm={18} md={18}>
             <Menu theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
               <Menu.Item key="1">หน้าแรก</Menu.Item>
               <Menu.Item key="2">รายการสินค้า</Menu.Item>

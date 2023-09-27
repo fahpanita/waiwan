@@ -5,9 +5,9 @@ const CardEvent = () => {
   return (
     <Card
       hoverable
-      style={{
-        width: 240,
-      }}
+      // style={{
+      //   width: 240,
+      // }}
       cover={<img src="image/img/cardTrend-01.png" />}
     >
       <Button type="link">More</Button>

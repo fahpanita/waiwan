@@ -6,9 +6,9 @@ const CardProduct = () => {
   return (
     <Card
       hoverable
-      style={{
-        width: 240,
-      }}
+      // style={{
+      //   width: 240,
+      // }}
       cover={<img src="image/img/product-01.png" />}
     >
       <Meta title="ซาลาเปา 6 ลูก" description="฿139" />
