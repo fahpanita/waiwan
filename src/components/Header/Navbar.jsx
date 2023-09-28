@@ -37,8 +37,7 @@ const Navbar = () => {
           </Col>
           <Col xs={0} sm={0} md={8} align="center">
             <div className="logo" style={{ paddingLeft: "20px" }}>
-              {/* <Img src="image/img/Logo.png" /> */}
-              Logo
+              <Image width={88.61} height={40} src="image/img/Logo.png" />
             </div>
           </Col>
           <Col xs={0} sm={0} md={8}>
