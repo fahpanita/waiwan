@@ -9,8 +9,11 @@ import {
 } from "@ant-design/icons";
 import LineLogin from "../../pages/Home/LineLogin";
 import styled from "styled-components";
-
 const { Header } = Layout;
+
+export const Img = styled.img`
+  width: 100%;
+`;
 
 const ResponsiveNav = () => {
   const [visible, setVisible] = useState(false);
@@ -27,14 +30,14 @@ const ResponsiveNav = () => {
     <Layout className="layout">
       <Header style={{ background: "white" }}>
         <Row justify="center">
-          <Col xs={0} sm={20} md={21}>
+          <Col xs={0} sm={20} md={20}>
             <Menu theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
               <Menu.Item key="1">หน้าแรก</Menu.Item>
               <Menu.Item key="2">รายการสินค้า</Menu.Item>
               <Menu.Item key="3">ทดลองจัดวาง</Menu.Item>
             </Menu>
           </Col>
-          <Col xs={0} sm={4} md={3}>
+          <Col xs={0} sm={4} md={4}>
             <Menu theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
               <Menu.Item key="4">
                 <LineLogin></LineLogin>

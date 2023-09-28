@@ -1,67 +1,89 @@
-import React from "react";
+import React, { useState } from "react";
+import { Layout, Menu, Button, Drawer, Row, Col, Image } from "antd";
+import {
+  HomeOutlined,
+  UserOutlined,
+  SettingOutlined,
+  MenuOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
 import LineLogin from "../../pages/Home/LineLogin";
-import Link from "../Link";
-import { Layout, Menu, Button } from "antd";
+import styled from "styled-components";
+import { Img } from "../Slide/Banner";
 
 const { Header } = Layout;
 
-export const Navbar = () => {
+const Navbar = () => {
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
   return (
     <Layout className="layout">
-      <Header style={{ display: "flex", justifyContent: "space-between" }}>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-          <Menu.Item key="1">หน้าหลัก</Menu.Item>
-          <Menu.Item key="2">รายการสินค้า</Menu.Item>
-          <Menu.Item key="3">ทดลองจัดวาง</Menu.Item>
-        </Menu>
-
-        {/* <Link type="primary" to="/stock">
-          บัญชี
-        </Link> */}
-        <Link to="/stock">บัญชี</Link>
-        <LineLogin />
+      <Header style={{ background: "white" }}>
+        <Row justify="space-between" align="middle">
+          <Col xs={20} sm={20} md={8}>
+            <Menu theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
+              <Menu.Item key="1">หน้าแรก</Menu.Item>
+              <Menu.Item key="2">รายการสินค้า</Menu.Item>
+              <Menu.Item key="3">ทดลองจัดวาง</Menu.Item>
+            </Menu>
+          </Col>
+          <Col xs={0} sm={0} md={8} align="center">
+            <div className="logo" style={{ paddingLeft: "20px" }}>
+              {/* <Img src="image/img/Logo.png" /> */}
+              Logo
+            </div>
+          </Col>
+          <Col xs={0} sm={0} md={8}>
+            <Menus theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
+              <Menu.Item key="4">
+                <LineLogin></LineLogin>
+              </Menu.Item>
+              <Menu.Item key="5" icon={<ShoppingCartOutlined />}></Menu.Item>
+            </Menus>
+          </Col>
+          <Col xs={2} sm={2} md={0}>
+            <Button type="primary" onClick={showDrawer}>
+              <MenuOutlined />
+            </Button>
+          </Col>
+        </Row>
+        <Drawer
+          title="Menu"
+          placement="left"
+          onClick={onClose}
+          onClose={onClose}
+          visible={visible}
+        >
+          <Menu mode="vertical" defaultSelectedKeys={["1"]}>
+            <Menu.Item key="4">
+              <LineLogin></LineLogin>
+            </Menu.Item>
+            <Menu.Item key="1" icon={<HomeOutlined />}>
+              หน้าแรก
+            </Menu.Item>
+            <Menu.Item key="2" icon={<UserOutlined />}>
+              รายการสินค้า
+            </Menu.Item>
+            <Menu.Item key="3" icon={<SettingOutlined />}>
+              ทดลองจัดวาง
+            </Menu.Item>
+          </Menu>
+        </Drawer>
       </Header>
     </Layout>
-    // <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    //   <div class="container-fluid">
-    //     <a class="navbar-brand">ไหว้วาน</a>
-    //     <button
-    //       class="navbar-toggler"
-    //       type="button"
-    //       data-bs-toggle="collapse"
-    //       data-bs-target="#navbarText"
-    //       aria-controls="navbarText"
-    //       aria-expanded="false"
-    //       aria-label="Toggle navigation"
-    //     >
-    //       <span class="navbar-toggler-icon"></span>
-    //     </button>
-    //     <div class="collapse navbar-collapse" id="navbarText">
-    //       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-    //         <li class="nav-item">
-    //           <a class="nav-link active" aria-current="page" href="#">
-    //             หน้าหลัก
-    //           </a>
-    //         </li>
-    //         <li class="nav-item">
-    //           <a class="nav-link" href="#">
-    //             รายการสินค้า
-    //           </a>
-    //         </li>
-    //         <li class="nav-item">
-    //           <a class="nav-link" href="#">
-    //             ทดลองจัดวาง
-    //           </a>
-    //         </li>
-    //       </ul>
-    //       <a class="nav-link">
-    //         <Link to="/stock">บัญชี</Link>
-    //       </a>
-
-    //       <LineLogin />
-    //     </div>
-    //   </div>
-    // </nav>
   );
 };
+
+const Menus = styled(Menu)`
+  justify-content: right;
+`;
+
 export default Navbar;
