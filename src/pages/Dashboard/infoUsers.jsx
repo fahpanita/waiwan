@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
-import AddProduct from "../../components/AddEvent/AddProduct";
 import Menubar from "../../components/Menu/Menubar";
 import { Col, Row } from "antd";
+import InfoUser from "../../components/Users/InfoUser";
 
-const AddProducts = () => {
+const InfoUsers = () => {
   return (
     <>
       <Row >
         <Col span={4}><Menubar /></Col>
-        <Col span={20}><AddProduct /></Col>
+        <Col span={20}><InfoUser /></Col>
       </Row >
     </>
   );
 };
 
-export default AddProducts;
+export default InfoUsers;

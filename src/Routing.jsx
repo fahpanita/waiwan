@@ -8,7 +8,9 @@ import Stock from "./pages/Stock";
 import Dashboard from "./pages/Dashboard";
 import AddProducts from "./pages/Dashboard/addProduct";
 import AddCatagorys from "./pages/Dashboard/addCatagory";
-import AddEvents from "./pages/Dashboard/addEvent";
+import AddEvent from "./pages/Dashboard/addEvent";
+import AddInfoEvent from "./pages/Dashboard/addInfoEvent";
+import InfoUsers from "./pages/Dashboard/infoUsers";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const Stock = lazy(() => import("./pages/Stock"));
@@ -68,11 +70,31 @@ const Routing = () => {
             }
           />
           <Route
+            path="/addInfoEvent"
+            element={
+              // <ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <AddInfoEvent />
+              </Suspense>
+              // {/* </ProtectedRoute> */}
+            }
+          />
+          <Route
             path="/addEvent"
             element={
               // <ProtectedRoute>
               <Suspense fallback={<Loading />}>
-                <AddEvents />
+                <AddEvent />
+              </Suspense>
+              // {/* </ProtectedRoute> */}
+            }
+          />
+          <Route
+            path="/infoUsers"
+            element={
+              // <ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <InfoUsers />
               </Suspense>
               // {/* </ProtectedRoute> */}
             }

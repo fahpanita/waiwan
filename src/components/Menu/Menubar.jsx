@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { AppstoreOutlined, ShoppingCartOutlined, ShoppingOutlined, TeamOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, ShoppingCartOutlined, ShoppingOutlined, TeamOutlined, CalendarOutlined } from '@ant-design/icons';
 import { Layout, Menu, } from 'antd';
+import { Link } from 'react-router-dom';
 
 const { Sider } = Layout;
 
@@ -13,15 +14,19 @@ function getItem(label, key, icon, children) {
     };
 }
 const items = [
-    getItem('Dashboard', 'dashboard', <AppstoreOutlined />),
+    getItem(<Link to="/dashboard" style={{ textDecoration: 'none' }}>Dashboard</Link>, 'Dashboard', <AppstoreOutlined />),
     getItem('การขาย', 'seller', <ShoppingCartOutlined />),
     getItem('สินค้า', 'sub1', <ShoppingOutlined />, [
         getItem('รายการสินค้า', 'product'),
-        getItem('เพิ่มสินค้าสินค้า', 'addItem'),
-        getItem('หมวดหมู่สินค้า', 'addCatagory'),
-        getItem('หมวดหมู่เทศกาล', 'addEvent'),
+        getItem(<Link to="/addProduct" style={{ textDecoration: 'none' }}>เพิ่มสินค้า</Link>, 'addItem'),
+        getItem(<Link to="/addCatagory" style={{ textDecoration: 'none' }}>หมวดหมู่สินค้า</Link>, 'addCatagory', undefined),
     ]),
-    getItem('ลูกค้า', '9', <TeamOutlined />),
+    getItem('เทศกาล', 'sub2', <CalendarOutlined />, [
+        getItem('รายการเทศกาลแนะนำ', 'event'),
+        getItem(<Link to="/addInfoEvent" style={{ textDecoration: 'none' }}>เพิ่มข้อมูลเทศกาล</Link>, 'addInfoEvent'),
+        getItem(<Link to="/addEvent" style={{ textDecoration: 'none' }}>หมวดหมู่เทศกาล</Link>, 'addEvent', undefined),
+    ]),
+    getItem(<Link to="/infoUsers" style={{ textDecoration: 'none' }}>ลูกค้า</Link>, 'infoUsers', <TeamOutlined />),
 ];
 
 const Menubar = () => {
@@ -29,29 +34,12 @@ const Menubar = () => {
         <Layout>
             <Menu
                 mode="inline"
-                defaultSelectedKeys={['4']}
+                defaultSelectedKeys={['dashboard']}
                 items={items}
+            // style={{ position: 'fixed' }}
             />
         </Layout >
-        // <Layout
-        //     style={{
-        //         minHeight: '100vh',
-        //         background: '#F5F5F5',
-        //     }}
-        // >
-        //     <Sider style={{
-        //         background: '#fff',
-        //         // boxShadow: '2px 4px 15px 0px rgba(0, 0, 0, 0.09)',
-        //     }}
-        //     // collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
-        //     >
-        //         <Menu style={{
-        //             background: '#fff',
-        //         }}
-        //             defaultSelectedKeys={['1']} mode="inline" items={items}
-        //         />
-        //     </Sider>
-        // </Layout>
+
     )
 }
 

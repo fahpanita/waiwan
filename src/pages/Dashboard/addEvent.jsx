@@ -1,25 +1,18 @@
-import React, { useEffect } from "react";
-import { Container } from "../Home";
-import { Image } from "antd";
-import MenuBar from "../../components/Menu";
-import AddEvent from "../../components/AddEvent";
+import React from "react";
+import Menubar from "../../components/Menu/Menubar";
+import AddEvents from "../../components/AddEvent/AddEvents";
+import { Col, Row } from "antd";
 
-const AddEvents = () => {
+
+const AddEvent = () => {
   return (
     <>
-      <div className="col-md-12 row">
-        <div className="col-md-2">
-          <Menubar></Menubar>
-        </div>
-        <div className="col-md-10">
-          {/* <AddEvent></AddEvent> */}
-          jhgfds
-        </div>
-      </div>
-
-
+      <Row >
+        <Col span={4}><Menubar /></Col>
+        <Col span={20}><AddEvents /></Col>
+      </Row >
     </>
   );
 };
 
-export default AddEvents;
+export default AddEvent;

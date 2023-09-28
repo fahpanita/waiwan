@@ -1,59 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import { Form, Input, Button, Select, Table, Layout, Space } from 'antd';
-import { createEvent, createSubEvent, deleteEvent, getEvent } from '../../services/event';
+import { createCatagory, createSubCatagory, deleteCatagory, getCatagory } from '../../services/catagory';
 import { theme, Col, Row } from 'antd';
 
 const { Header, Content } = Layout;
 
-function getItem(label, key, icon, children) {
-    return {
-        key,
-        icon,
-        children,
-        label,
-    };
-}
+const AddCatagories = () => {
 
-const AddEvents = () => {
+    const [createCatagoryForm] = Form.useForm();
+    const [createSubCatagoryForm] = Form.useForm();
+    const formDataCatagory = Form.useWatch([], createCatagoryForm);
+    const formDataSubCatagory = Form.useWatch([], createSubCatagoryForm);
 
-    const [createEventForm] = Form.useForm();
-    const [createSubEventForm] = Form.useForm();
-    const formDataEvent = Form.useWatch([], createEventForm);
-    const formDataSubEvent = Form.useWatch([], createSubEventForm);
+    const [catagories, setCatagory] = useState([]);
 
-    const [events, setEvents] = useState([]);
-
-    const handleGetEvent = async () => {
-        const res = await getEvent()
-        // if (typeof res?.data === "object") {
-        //     setEvents(res?.data)
-        // }
-        setEvents(res?.data)
+    const handleGetCatagory = async () => {
+        const res = await getCatagory()
+        setCatagory(res?.data)
         console.log(typeof res?.data);
     }
-    const onCreateEventFinish = async (value) => {
+    const onCreateCatagoryFinish = async (value) => {
         console.log(value);
-        await createEvent(value);
-        handleGetEvent();
-        createEventForm.setFieldValue("name", "")
+        await createCatagory(value);
+        handleGetCatagory();
+        createCatagoryForm.setFieldValue("name", "")
     };
 
     const onFinish = async (value) => {
         console.log(value);
-        await createSubEvent(value);
-        handleGetEvent();
-        createSubEventForm.setFieldValue("name", "")
+        await createSubCatagory(value);
+        handleGetCatagory();
+        createSubCatagoryForm.setFieldValue("name", "")
     };
 
-    const onDeleteEvent = async (id) => {
-        await deleteEvent(id);
-        handleGetEvent();
+    const onDeleteCatagory = async (id) => {
+        await deleteCatagory(id);
+        handleGetCatagory();
     };
 
     const columns = [
         {
-            title: 'ชื่อ',
+            title: 'ชื่อหมวดหมู่สินค้า',
             dataIndex: 'name',
             key: 'name',
         },
@@ -62,13 +50,13 @@ const AddEvents = () => {
             title: 'Action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Button danger onClick={() => onDeleteEvent(record.id)}>Delete</Button>
+                    <Button danger onClick={() => onDeleteCatagory(record.id)}>Delete</Button>
 
                 </Space>),
         },
     ];
 
-    const maindata = events?.map(d => {
+    const maindata = catagories?.map(d => {
         return {
             key: d.id,
             id: d.id,
@@ -84,7 +72,7 @@ const AddEvents = () => {
     });
 
     useEffect(() => {
-        handleGetEvent()
+        handleGetCatagory()
     }, [])
 
     return (
@@ -96,7 +84,7 @@ const AddEvents = () => {
                 }}
             >
                 <Header style={{ background: '#fff', }}>
-                    <div className="font-24">หมวดหมู่เทศกาล</div>
+                    <div className="font-24">หมวดหมู่สินค้า</div>
                 </Header >
                 <Content
                     style={{
@@ -121,11 +109,11 @@ const AddEvents = () => {
 
                             <Col span={8}>
                                 <CardBoxRadius>
-                                    <div className="font-24 mb-3">เพิ่มหมวดหมู่เทศกาลหลัก
+                                    <div className="font-24 mb-3">เพิ่มหมวดหมู่สินค้าหลัก
                                     </div>
-                                    <Form form={createEventForm} layout="vertical" onFinish={onCreateEventFinish}>
-                                        <Form.Item name="name" label="ชื่อหมวดหมู่เทศกาลหลัก*" >
-                                            <Input value={formDataEvent?.name} />
+                                    <Form form={createCatagoryForm} layout="vertical" onFinish={onCreateCatagoryFinish}>
+                                        <Form.Item name="name" label="ชื่อหมวดหมู่สินค้าหลัก*" >
+                                            <Input value={formDataCatagory?.name} />
                                         </Form.Item>
                                         <div className="center">
                                             <Button type="primary" htmlType="submit" style={{ background: '#C54142' }}>
@@ -135,15 +123,15 @@ const AddEvents = () => {
                                     </Form>
                                 </CardBoxRadius>
                                 <CardBoxRadius>
-                                    <div className="font-24 mb-3">เพิ่มหมวดหมู่เทศกาลย่อย
+                                    <div className="font-24 mb-3">เพิ่มหมวดหมู่สินค้าย่อย
                                     </div>
-                                    <Form form={createSubEventForm} layout="vertical" onFinish={onFinish}>
-                                        <Form.Item name="name" label="ชื่อหมวดหมู่เทศกาลย่อย*">
-                                            <Input value={formDataSubEvent?.name} />
+                                    <Form form={createSubCatagoryForm} layout="vertical" onFinish={onFinish}>
+                                        <Form.Item name="name" label="ชื่อหมวดหมู่สินค้าย่อย*">
+                                            <Input value={formDataSubCatagory?.name} />
                                         </Form.Item>
-                                        <Form.Item name="parent_id" label="อยู่ในหมวดหมู่เทศกาลหลัก*" >
+                                        <Form.Item name="parent_id" label="อยู่ในหมวดหมู่สินค้าหลัก*" >
                                             <Select>
-                                                {events?.map(e => {
+                                                {catagories?.map(e => {
                                                     return <Select.Option key={e.id} value={e.id}>{e.name}</Select.Option>
                                                 })}
                                             </Select>
@@ -180,4 +168,4 @@ margin: 10px;
 padding: 16px;
 `;
 
-export default AddEvents
+export default AddCatagories

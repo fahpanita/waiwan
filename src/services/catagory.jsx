@@ -1,10 +1,10 @@
 import { message } from "antd";
 import { requestBackend } from "../constands/api";
 
-export const createEvent = async (data) => {
+export const createCatagory = async (data) => {
     try {
         const res = await requestBackend({
-            url: "/event",
+            url: "/catagories",
             method: "POST",
             data: data,
         });
@@ -15,10 +15,10 @@ export const createEvent = async (data) => {
     }
 };
 
-export const createSubEvent = async (data) => {
+export const createSubCatagory = async (data) => {
     try {
         const res = await requestBackend({
-            url: "/subevent",
+            url: "/subcatagories",
             method: "POST",
             data: data,
         });
@@ -29,10 +29,10 @@ export const createSubEvent = async (data) => {
     }
 };
 
-export const getEvent = async () => {
+export const getCatagory = async () => {
     try {
         const res = await requestBackend({
-            url: "/parent-event",
+            url: "/parent-catagories",
             method: "GET",
 
         });
@@ -42,11 +42,11 @@ export const getEvent = async () => {
     }
 };
 
-export const deleteEvent = async (id) => {
+export const deleteCatagory = async (id) => {
     try {
         const res = await requestBackend({
             // url: "/destroy-event/" + id,
-            url: `/destroy-event/${id}`,
+            url: `/destroy-catagories/${id}`,
             method: "POST",
         });
         message.success("ลบสำเร็จ")
