@@ -1,17 +1,18 @@
 import React from "react";
-import { Card } from "antd";
-const { Meta } = Card;
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 
 const CardProduct = () => {
   return (
     <Card
-      hoverable
-      // style={{
-      //   width: 240,
-      // }}
-      cover={<img src="image/img/product-01.png" />}
+    // style={{ width: "18rem" }}
     >
-      <Meta title="ซาลาเปา 6 ลูก" description="฿139" />
+      <Card.Img variant="top" src="image/img/product-01.png" />
+      <Card.Body>
+        <Card.Title>ซาลาเปา6ลูก</Card.Title>
+        <Card.Text>฿139</Card.Text>
+        {/* <Button variant="primary">ซื้อสินค้า</Button> */}
+      </Card.Body>
     </Card>
   );
 };

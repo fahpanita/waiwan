@@ -30,7 +30,7 @@ const ResponsiveNav = () => {
     <Layout className="layout">
       <Header style={{ background: "white" }}>
         <Row justify="center">
-          <Col xs={0} sm={18} md={18}>
+          <Col xs={0} sm={20} md={20}>
             <Menu theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
               <Menu.Item key="1">หน้าแรก</Menu.Item>
               <Menu.Item key="2">รายการสินค้า</Menu.Item>
@@ -61,7 +61,7 @@ const ResponsiveNav = () => {
           placement="left"
           onClick={onClose}
           onClose={onClose}
-          // visible={visible}
+          visible={visible}
         >
           <Menu mode="vertical" defaultSelectedKeys={["1"]}>
             <Menu.Item key="4">
