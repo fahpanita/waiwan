@@ -25,8 +25,8 @@ const Stock = () => {
   return (
     <>
       <Layout>
+        <Navbar />
         <Content>
-          <Navbar />
           <Row justify="center">
             <div className="">บัญชีของฉัน</div>
             <div className="abc">ชื่อผู้ใช้ {profile?.displayName}</div>
