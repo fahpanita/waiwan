@@ -6,6 +6,9 @@ import { Col, Row } from 'antd';
 import Filter from '../Tree/Filter';
 import TextArea from 'antd/es/input/TextArea';
 import { Footer } from 'antd/es/layout/layout';
+import { getCatagory } from '../../services/catagory';
+import { createProduts } from '../../services/product';
+import { useNavigate } from 'react-router-dom';
 
 const { Header, Content } = Layout;
 const handleChangeType = (value) => {
@@ -31,10 +34,37 @@ const beforeUpload = (file) => {
 
 const AddProduct = () => {
 
+
     const [createProductForm] = Form.useForm();
     const formDataProduct = Form.useWatch([], createProductForm);
 
+    const navigate = useNavigate();
+
     const [products, setProduct] = useState([]);
+
+    const [catagories, setCatagory] = useState([]);
+
+    const handleGetCatagory = async () => {
+        const res = await getCatagory()
+
+        const data = res?.data?.map(c => {
+            return {
+                title: c.name,
+                value: c.id,
+                key: c.id,
+                children: c.sub.map(s => {
+                    return {
+                        title: s.name,
+                        value: s.id,
+                        key: s.id,
+                    }
+                }),
+            }
+        })
+
+        setCatagory(data)
+        console.log(res?.data);
+    }
 
     const handleGetProduct = async () => {
         const res = await getCatagory()
@@ -44,8 +74,8 @@ const AddProduct = () => {
     const onCreateProductFinish = async (value) => {
         console.log(value);
         await createProduts(value);
-        handleGetProduct();
-        createProductForm.setFieldValue("name", "")
+        navigate("/dashboard")
+        // createProductForm.setFieldValue("name", "")
     };
 
     const [value, setValue] = useState('');
@@ -73,6 +103,10 @@ const AddProduct = () => {
             </div>
         </div>
     );
+
+    useEffect(() => {
+        handleGetCatagory()
+    }, []);
 
     return (
         <>
@@ -152,22 +186,19 @@ const AddProduct = () => {
                                 <Col span={8}>
                                     <CardBoxRadius>
                                         <div className="font-24 mb-3">เลือกหมวดหมู่สินค้า*</div>
-                                        <Form layout="vertical" >
-                                            <Filter />
-                                        </Form>
+                                        <Form.Item name="filterCat">
+                                            <Filter filterData={catagories} />
+                                        </Form.Item>
                                     </CardBoxRadius>
                                     <CardBoxRadius>
                                         <div className="font-24 mb-3">เลือกหมวดหมู่เทศกาล*
                                         </div>
-                                        <Form layout="vertical" >
-                                            <Filter />
-
-                                        </Form>
+                                        <Filter />
                                     </CardBoxRadius>
                                     <CardBoxRadius>
                                         <div className="font-24 mb-3">ประเภทสินค้า*
                                         </div>
-                                        <Form layout="vertical" >
+                                        <Form.Item name="typeProduct" layout="vertical" >
                                             <Select
                                                 defaultValue="readySend"
                                                 style={{
@@ -185,7 +216,7 @@ const AddProduct = () => {
                                                     },
                                                 ]}
                                             />
-                                        </Form>
+                                        </Form.Item>
                                     </CardBoxRadius>
                                 </Col>
                             </Row>

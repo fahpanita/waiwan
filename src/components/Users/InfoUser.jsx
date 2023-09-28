@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import { Layout, Divider, Radio, Table, Row, Col } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
+import { getUser } from '../../services/user';
 
 const columns = [
     {
@@ -26,24 +27,6 @@ const columns = [
         dataIndex: 'amount',
     },
 ];
-const data = [
-    {
-        key: '1',
-        name: 'ปนิตา ไหลนานานุกูล',
-        address: '226/105 (16C) อาคารริเวียร่า 1 ถนนบอนด์สตรีท ต.บางพูด อ.ปากเกร็ด จ.นนทบุรี 11120',
-        email: 'fahhh678@gmail.com',
-        tal: '0924609988',
-        amount: '0',
-    },
-    {
-        key: '2',
-        name: 'ณัฐนันท์ เหว่าขจร',
-        address: '226/105 (16C) อาคารริเวียร่า 1 ถนนบอนด์สตรีท ต.บางพูด อ.ปากเกร็ด จ.นนทบุรี 11120',
-        email: 'ppimnatt@gmail.com',
-        tal: '0928683438',
-        amount: '0',
-    },
-];
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -57,7 +40,31 @@ const rowSelection = {
 };
 
 const InfoUser = () => {
+
     const [selectionType] = useState('checkbox');
+    const [users, setUser] = useState([]);
+
+    const handleGetUser = async () => {
+        const res = await getUser()
+
+        const data = users[
+            {
+                key: users?.id,
+                name: users?.name,
+                address: 'Null',
+                email: users?.email,
+                tal: 'Null',
+                amount: 'Null',
+            }
+        ];
+
+        setUser(res?.data)
+        console.log(typeof res?.data);
+    }
+
+    useEffect(() => {
+        handleGetUser()
+    }, [])
 
     return (
         <>
@@ -80,7 +87,7 @@ const InfoUser = () => {
                                     ...rowSelection,
                                 }}
                                 columns={columns}
-                                dataSource={data}
+                                dataSource={users}
                             />
                         </Col>
 
