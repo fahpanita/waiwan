@@ -9,6 +9,7 @@ import { Footer } from 'antd/es/layout/layout';
 import { getCatagory } from '../../services/catagory';
 import { createProduts } from '../../services/product';
 import { useNavigate } from 'react-router-dom';
+import { getEvent } from '../../services/event';
 
 const { Header, Content } = Layout;
 const handleChangeType = (value) => {
@@ -40,9 +41,8 @@ const AddProduct = () => {
 
     const navigate = useNavigate();
 
-    const [products, setProduct] = useState([]);
-
     const [catagories, setCatagory] = useState([]);
+    const [events, setEvent] = useState([]);
 
     const handleGetCatagory = async () => {
         const res = await getCatagory()
@@ -66,19 +66,34 @@ const AddProduct = () => {
         console.log(res?.data);
     }
 
-    const handleGetProduct = async () => {
-        const res = await getCatagory()
-        setCatagory(res?.data)
-        console.log(typeof res?.data);
+    const handleGetEvent = async () => {
+        const res = await getEvent()
+
+        const data = res?.data?.map(e => {
+            return {
+                title: e.name,
+                value: e.id,
+                key: e.id,
+                children: e.sub.map(t => {
+                    return {
+                        title: t.name,
+                        value: t.id,
+                        key: t.id,
+                    }
+                }),
+            }
+        })
+
+        setEvent(data)
+        console.log(res?.data);
     }
+
     const onCreateProductFinish = async (value) => {
         console.log(value);
         await createProduts(value);
         navigate("/dashboard")
         // createProductForm.setFieldValue("name", "")
     };
-
-    const [value, setValue] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
@@ -105,7 +120,8 @@ const AddProduct = () => {
     );
 
     useEffect(() => {
-        handleGetCatagory()
+        handleGetCatagory(),
+            handleGetEvent()
     }, []);
 
     return (
@@ -193,7 +209,9 @@ const AddProduct = () => {
                                     <CardBoxRadius>
                                         <div className="font-24 mb-3">เลือกหมวดหมู่เทศกาล*
                                         </div>
-                                        <Filter />
+                                        <Form.Item name="filterEvent">
+                                            <Filter filterData={events} />
+                                        </Form.Item>
                                     </CardBoxRadius>
                                     <CardBoxRadius>
                                         <div className="font-24 mb-3">ประเภทสินค้า*

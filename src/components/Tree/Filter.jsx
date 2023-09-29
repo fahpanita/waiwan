@@ -29,7 +29,7 @@ const Filter = (props) => {
     value,
     onChange,
     treeCheckable: true,
-    placeholder: "เลือกเทศกาล",
+    placeholder: "เลือกหมวดหมู่",
     showSearch: false,
     showCheckedStrategy: TreeSelect.SHOW_PARENT,
     ...props,
