@@ -9,7 +9,8 @@ import {
 } from "@ant-design/icons";
 import LineLogin from "../../pages/Home/LineLogin";
 import styled from "styled-components";
-import { Img } from "../Slide/Banner";
+import { Img } from "../Slide/BannerHome";
+import { Link } from "react-router-dom";
 
 const { Header } = Layout;
 
@@ -30,8 +31,16 @@ const Navbar = () => {
         <Row justify="space-between" align="middle">
           <Col xs={20} sm={20} md={8}>
             <Menu theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
-              <Menu.Item key="1">หน้าแรก</Menu.Item>
-              <Menu.Item key="2">รายการสินค้า</Menu.Item>
+              <Menu.Item key="1">
+                <Link to="/" style={{ textDecoration: "none" }}>
+                  หน้าแรก
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Link to="/listProduct" style={{ textDecoration: "none" }}>
+                  รายการสินค้า
+                </Link>
+              </Menu.Item>
               <Menu.Item key="3">ทดลองจัดวาง</Menu.Item>
             </Menu>
           </Col>
@@ -41,7 +50,7 @@ const Navbar = () => {
             </div>
           </Col>
           <Col xs={0} sm={0} md={8}>
-            <Menus theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
+            <Menus theme="light" mode="horizontal">
               <Menu.Item key="4">
                 <LineLogin></LineLogin>
               </Menu.Item>
@@ -61,7 +70,7 @@ const Navbar = () => {
           onClose={onClose}
           visible={visible}
         >
-          <Menu mode="vertical" defaultSelectedKeys={["1"]}>
+          <Menu mode="vertical">
             <Menu.Item key="4">
               <LineLogin></LineLogin>
             </Menu.Item>

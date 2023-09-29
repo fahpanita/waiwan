@@ -13,7 +13,7 @@ export const Img = styled.img`
   width: 100%;
 `;
 
-const Banner = () => {
+const BannerHome = () => {
   return (
     <Carousel autoplay>
       <div>
@@ -29,4 +29,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default BannerHome;
