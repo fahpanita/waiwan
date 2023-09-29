@@ -3,11 +3,12 @@ import { Container } from "../Home";
 import { useAuth } from "../../Providers/AuthProvider";
 import { Image } from "antd";
 import { getProducts } from "../../services/product";
-import { Input, Col, Row, Divider, Layout } from "antd";
+import { Input, Col, Row, Divider, Layout, Typography } from "antd";
 import ResponsiveNav from "../../components/Header/ResponsiveNav";
 import Navbar from "../../components/Header/Navbar";
 
 const { Header, Footer, Sider, Content } = Layout;
+const { Title } = Typography;
 
 const Stock = () => {
   const { profile } = useAuth();
@@ -26,13 +27,22 @@ const Stock = () => {
     <>
       <Layout>
         <Navbar />
-        <Content>
-          <Row justify="center">
-            <div className="">บัญชีของฉัน</div>
-            <div className="abc">ชื่อผู้ใช้ {profile?.displayName}</div>
-            <Image width={200} src={profile?.pictureUrl} />
+        <Content
+          style={{
+            padding: "0 50px",
+          }}
+        >
+          <Title level={4} style={{ marginTop: "50px" }}>
+            บัญชีของฉัน
+          </Title>
+          <Row style={{ marginTop: "50px" }}>
+            <Col span={10}>
+              <Image width={200} src={profile?.pictureUrl} />
+              <div className="abc mb-3">ชื่อผู้ใช้: {profile?.displayName}</div>
+            </Col>
           </Row>
         </Content>
+        <Footer></Footer>
       </Layout>
     </>
   );

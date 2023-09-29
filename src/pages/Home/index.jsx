@@ -1,15 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { Input, Col, Row, Divider, Layout } from "antd";
+import { Input, Col, Row, Layout, Typography } from "antd";
 import Filter from "../../components/Tree/Filter";
-import Navbars from "../../components/Header/ResponsiveNav";
-import ResponsiveNav from "../../components/Header/ResponsiveNav";
 import CardEvent from "../../components/CardKnowlage/CardEvent";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
 import Navbar from "../../components/Header/Navbar";
 import BannerHome from "../../components/Slide/BannerHome";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Title } = Typography;
+const { Footer, Content } = Layout;
 
 const Home = () => {
   const { Search } = Input;
@@ -21,23 +20,29 @@ const Home = () => {
   return (
     // <AuthenticatedProvider>
     <Layout>
-      <Content>
-        <Navbar />
-        <BannerHome />
-        <Row justify="space-evenly" style={{ marginTop: "-20px" }}>
-          <Col span={5}>
-            <Filter />
-          </Col>
-          <Col span={17}>
-            <Search
-              placeholder="ค้นหาสินค้าที่่ต้องการ"
-              onSearch={onSearch}
-              enterButton
-            />
-          </Col>
-        </Row>
+      <Navbar />
+      <BannerHome />
+      <Row justify="space-evenly" style={{ marginTop: "-20px" }}>
+        <Col span={5}>
+          <Filter />
+        </Col>
+        <Col span={17}>
+          <Search
+            placeholder="ค้นหาสินค้าที่่ต้องการ"
+            onSearch={onSearch}
+            enterButton
+          />
+        </Col>
+      </Row>
+      <Content
+        style={{
+          padding: "0 50px",
+        }}
+      >
+        <Title level={4} style={{ marginTop: "50px" }}>
+          การ์ดความรู้เทศกาล
+        </Title>
 
-        <Divider orientation="left">การ์ดความรู้เทศกาล</Divider>
         <Row
           justify="space-evenly"
           gutter={{
@@ -65,16 +70,19 @@ const Home = () => {
           </Col>
         </Row>
 
-        <Divider orientation="left">สินค้าทั้งหมด</Divider>
+        <Title level={4} style={{ marginTop: "50px" }}>
+          สินค้าทั้งหมด
+        </Title>
+
         <Row
           justify="space-evenly"
-          // gutter={{
-          //   xs: 8,
-          //   sm: 16,
-          //   md: 24,
-          //   lg: 32,
-          // }}
-          gutter={[8, 8]}
+          gutter={{
+            xs: 8,
+            sm: 16,
+            md: 24,
+            lg: 32,
+          }}
+          // gutter={[8, 8]}
         >
           <Col className="gutter-row" span={4}>
             <div>
