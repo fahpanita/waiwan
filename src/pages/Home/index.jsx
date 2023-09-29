@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { Input, Col, Row, Divider, Layout } from "antd";
-import Banner from "../../components/Slide/Banner";
 import Filter from "../../components/Tree/Filter";
 import Navbars from "../../components/Header/ResponsiveNav";
 import ResponsiveNav from "../../components/Header/ResponsiveNav";
 import CardEvent from "../../components/CardKnowlage/CardEvent";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
 import Navbar from "../../components/Header/Navbar";
+import BannerHome from "../../components/Slide/BannerHome";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -23,7 +23,7 @@ const Home = () => {
     <Layout>
       <Content>
         <Navbar />
-        <Banner />
+        <BannerHome />
         <Row justify="space-evenly" style={{ marginTop: "-20px" }}>
           <Col span={5}>
             <Filter />
