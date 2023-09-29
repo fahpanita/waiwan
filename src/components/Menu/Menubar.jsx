@@ -17,7 +17,7 @@ const items = [
     getItem(<Link to="/dashboard" style={{ textDecoration: 'none' }}>Dashboard</Link>, 'Dashboard', <AppstoreOutlined />),
     getItem('การขาย', 'seller', <ShoppingCartOutlined />),
     getItem('สินค้า', 'sub1', <ShoppingOutlined />, [
-        getItem('รายการสินค้า', 'product'),
+        getItem(<Link to="/listStock" style={{ textDecoration: 'none' }}>รายการสินค้า</Link>, 'product'),
         getItem(<Link to="/addProduct" style={{ textDecoration: 'none' }}>เพิ่มสินค้า</Link>, 'addItem'),
         getItem(<Link to="/addCatagory" style={{ textDecoration: 'none' }}>หมวดหมู่สินค้า</Link>, 'addCatagory', undefined),
     ]),

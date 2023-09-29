@@ -115,7 +115,7 @@ const AddCatagories = () => {
                                         <Form.Item name="name" label="ชื่อหมวดหมู่สินค้าหลัก*" >
                                             <Input value={formDataCatagory?.name} />
                                         </Form.Item>
-                                        <div className="center">
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
                                             <Button type="primary" htmlType="submit" style={{ background: '#C54142' }}>
                                                 เพิ่ม
                                             </Button>
@@ -136,7 +136,7 @@ const AddCatagories = () => {
                                                 })}
                                             </Select>
                                         </Form.Item>
-                                        <div className="center">
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
                                             <Button type="primary" htmlType="submit" style={{ background: '#C54142' }}>
                                                 เพิ่ม
                                             </Button>

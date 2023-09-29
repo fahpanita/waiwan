@@ -149,6 +149,7 @@ const AddProduct = () => {
                                         </Form.Item>
                                     </CardBoxRadius>
                                     <CardBoxRadius>
+
                                         <div className="font-24 mb-3">ภาพสินค้า</div>
                                         <Form.Item name="picture" >
                                             <Upload

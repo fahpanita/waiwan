@@ -127,7 +127,7 @@ const AddEvents = () => {
                                         <Form.Item name="name" label="ชื่อหมวดหมู่เทศกาลหลัก*" >
                                             <Input value={formDataEvent?.name} />
                                         </Form.Item>
-                                        <div className="center">
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
                                             <Button type="primary" htmlType="submit" style={{ background: '#C54142' }}>
                                                 เพิ่ม
                                             </Button>
@@ -148,7 +148,7 @@ const AddEvents = () => {
                                                 })}
                                             </Select>
                                         </Form.Item>
-                                        <div className="center">
+                                        <div style={{ display: 'flex', justifyContent: 'center' }}>
                                             <Button type="primary" htmlType="submit" style={{ background: '#C54142' }}>
                                                 เพิ่ม
                                             </Button>
