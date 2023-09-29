@@ -12,6 +12,7 @@ const contentStyle = {
 export const Img = styled.img`
   width: 100%;
 `;
+
 const BannerListProduct = () => {
   return (
     <Carousel autoplay>

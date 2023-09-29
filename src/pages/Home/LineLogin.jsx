@@ -84,6 +84,7 @@ const LineLogin = () => {
         >
           <a onClick={(e) => e.preventDefault()}>
             <Space>
+              <UserOutlined />
               บัญชี
               <DownOutlined />
             </Space>
