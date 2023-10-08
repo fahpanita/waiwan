@@ -37,8 +37,8 @@ const Stock = () => {
           </Title>
           <Row style={{ marginTop: "50px" }}>
             <Col span={10}>
-              <Image width={200} src={profile?.pictureUrl} />
-              <div className="abc mb-3">ชื่อผู้ใช้: {profile?.displayName}</div>
+              <Image width={200} src={profile?.picture} />
+              <div className="abc mb-3">ชื่อผู้ใช้: {profile?.name}</div>
             </Col>
           </Row>
         </Content>

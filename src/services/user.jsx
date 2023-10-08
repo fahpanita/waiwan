@@ -4,7 +4,7 @@ import { requestBackend } from "../constands/api";
 export const getUser = async () => {
     try {
         const res = await requestBackend({
-            url: "/user",
+            url: "/me",
             method: "GET",
 
         });

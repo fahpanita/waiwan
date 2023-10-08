@@ -40,7 +40,10 @@ const Navbar = () => {
                   รายการสินค้า
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3">ทดลองจัดวาง</Menu.Item>
+              <Menu.Item key="3"><Link to="/experiment" style={{ textDecoration: "none" }}>
+                ทดลองจัดวาง
+              </Link>
+              </Menu.Item>
             </Menu>
           </Col>
           <Col xs={0} sm={0} md={8} align="center">
@@ -51,7 +54,9 @@ const Navbar = () => {
               <Menu.Item key="4">
                 <LineLogin></LineLogin>
               </Menu.Item>
-              <Menu.Item key="5" icon={<ShoppingCartOutlined />}></Menu.Item>
+              <Menu.Item key="5" icon={<ShoppingCartOutlined />}>
+                <Link to="/cart" style={{ textDecoration: "none" }}></Link>
+              </Menu.Item>
             </Menus>
           </Col>
           <Col xs={2} sm={2} md={0}>

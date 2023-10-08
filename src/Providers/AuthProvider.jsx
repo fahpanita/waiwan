@@ -1,6 +1,8 @@
 import liff from "@line/liff";
 import React, { useEffect } from "react";
 import { useLiff } from "react-liff";
+import { getUser } from "../services/user";
+import { setInterceptorRequestToken } from "../constands/api";
 
 const initialState = {
   token: undefined,
@@ -34,12 +36,26 @@ const AuthProvider = ({ children }) => {
     (async () => {
       const token = await liff.getAccessToken();
       const idToken = await liff.getIDToken();
-      const profile = await liff.getProfile();
+      // console.log(token, '123');
+      // console.log(idToken, '678');
+      // const profile = await liff.getProfile();
       setToken(token);
       setIdToken(idToken);
-      setProfile(profile);
+      // setProfile(profile);
     })();
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (token) {
+
+      setInterceptorRequestToken(token, idToken);
+
+      (async () => {
+        const res = await getUser();
+        setProfile(res?.data);
+      })();
+    }
+  }, [token])
 
   const handleLogout = () => {
     setToken(null);

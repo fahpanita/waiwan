@@ -13,6 +13,8 @@ import AddInfoEvent from "./pages/Dashboard/addInfoEvent";
 import InfoUsers from "./pages/Dashboard/infoUsers";
 import ListProduct from "./pages/Home/ListProduct";
 import ListStock from "./pages/Dashboard/ListStock";
+import { ProtectedRouteAdmin } from "./components/ProtectedRoute/ProtectedRouteAdmin";
+import Experiment from "./pages/Home/Experiment";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const Stock = lazy(() => import("./pages/Stock"));
@@ -39,6 +41,22 @@ const Routing = () => {
             }
           />
           <Route
+            path="/experiment"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Experiment />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Experiment />
+              </Suspense>
+            }
+          />
+          <Route
             path="/stock"
             element={
               <ProtectedRoute>
@@ -51,11 +69,11 @@ const Routing = () => {
           <Route
             path="/dashboard"
             element={
-              // <ProtectedRoute>
-              <Suspense fallback={<Loading />}>
-                <Dashboard />
-              </Suspense>
-              // {/* </ProtectedRoute> */}
+              <ProtectedRouteAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Dashboard />
+                </Suspense>
+              </ProtectedRouteAdmin>
             }
           />
 

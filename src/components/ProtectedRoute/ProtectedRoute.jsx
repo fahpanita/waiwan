@@ -8,9 +8,7 @@ export const ProtectedRoute = ({ children }) => {
   const { token, idToken } = useAuth();
 
   useEffect(() => {
-    if (token && idToken) {
-      setInterceptorRequestToken(token, idToken);
-    }
+
   }, []);
 
   if (!token) {
