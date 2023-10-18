@@ -40,9 +40,10 @@ const Navbar = () => {
                   รายการสินค้า
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3"><Link to="/experiment" style={{ textDecoration: "none" }}>
-                ทดลองจัดวาง
-              </Link>
+              <Menu.Item key="3">
+                <Link to="/experiment" style={{ textDecoration: "none" }}>
+                  ทดลองจัดวาง
+                </Link>
               </Menu.Item>
             </Menu>
           </Col>

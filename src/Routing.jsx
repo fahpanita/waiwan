@@ -15,6 +15,9 @@ import ListProduct from "./pages/Home/ListProduct";
 import ListStock from "./pages/Dashboard/ListStock";
 import { ProtectedRouteAdmin } from "./components/ProtectedRoute/ProtectedRouteAdmin";
 import Experiment from "./pages/Home/Experiment";
+import Cart from "./pages/Home/Cart";
+import DetailProduct from "./pages/Home/DetailProduct";
+// import Cart from "./pages/Home/Cart";
 
 // const Home = lazy(() => import("./pages/Home"));
 // const Stock = lazy(() => import("./pages/Stock"));
@@ -52,7 +55,15 @@ const Routing = () => {
             path="/cart"
             element={
               <Suspense fallback={<Loading />}>
-                <Experiment />
+                <Cart />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/detailProduct"
+            element={
+              <Suspense fallback={<Loading />}>
+                <DetailProduct />
               </Suspense>
             }
           />
@@ -80,11 +91,12 @@ const Routing = () => {
           <Route
             path="/addProduct"
             element={
-              // <ProtectedRoute>
-              <Suspense fallback={<Loading />}>
-                <AddProducts />
-              </Suspense>
-              // {/* </ProtectedRoute> */}
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <AddProducts />
+                </Suspense>
+                //{" "}
+              </ProtectedRoute>
             }
           />
           <Route
@@ -120,11 +132,12 @@ const Routing = () => {
           <Route
             path="/infoUsers"
             element={
-              // <ProtectedRoute>
-              <Suspense fallback={<Loading />}>
-                <InfoUsers />
-              </Suspense>
-              // {/* </ProtectedRoute> */}
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <InfoUsers />
+                </Suspense>
+                //{" "}
+              </ProtectedRoute>
             }
           />
           <Route
