@@ -18,7 +18,7 @@ const columns = [
     },
     {
         title: 'รูป',
-        dataIndex: 'picture',
+        dataIndex: 'thumbnail',
     },
     {
         title: 'ชื่อสินค้า',
@@ -29,8 +29,16 @@ const columns = [
         dataIndex: 'price',
     },
     {
+        title: 'จำนวนสินค้า',
+        dataIndex: 'stock',
+    },
+    {
         title: 'ประเภทสินค้า',
         dataIndex: 'typeProduct',
+    },
+    {
+        title: 'ประเภทจัดส่ง',
+        dataIndex: 'typeShipping',
     },
     {
         title: 'Action',
@@ -64,10 +72,12 @@ const ListStocks = () => {
         const data = products[
             {
                 key: products?.id,
-                picture: products?.picture,
+                thumbnail: products?.thumbnail,
                 name: products?.name,
                 price: products?.price,
+                stock: products?.stock,
                 typeProduct: products?.typeProduct,
+                typeShipping: products?.typeShipping,
             }
         ];
 

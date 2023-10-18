@@ -13,3 +13,16 @@ export const getUser = async () => {
         return undefined;
     }
 };
+
+export const getAllUser = async () => {
+    try {
+        const res = await requestBackend({
+            url: "/users",
+            method: "GET",
+
+        });
+        return res;
+    } catch (error) {
+        return undefined;
+    }
+};

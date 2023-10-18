@@ -52,6 +52,7 @@ const AuthProvider = ({ children }) => {
 
       (async () => {
         const res = await getUser();
+        console.log(token);
         setProfile(res?.data);
       })();
     }

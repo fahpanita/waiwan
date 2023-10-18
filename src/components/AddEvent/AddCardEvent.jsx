@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styled from "styled-components";
 import { Form, Input, Button, Select, Table, Layout, Space, Upload } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
@@ -6,6 +6,7 @@ import { Col, Row } from 'antd';
 import Filter from '../Tree/Filter';
 import TextArea from 'antd/es/input/TextArea';
 import { Footer, Header, Content } from 'antd/es/layout/layout';
+import { Editor } from '@tinymce/tinymce-react';
 
 
 const handleChangeType = (value) => {
@@ -36,16 +37,27 @@ const AddCardEvent = () => {
 
     const [products, setProduct] = useState([]);
 
+    const editorRef = useRef(null);
+    const log = () => {
+        if (editorRef.current) {
+            return (editorRef.current.getContent());
+        }
+    };
+
     const handleGetProduct = async () => {
         const res = await getCatagory()
         setCatagory(res?.data)
         console.log(typeof res?.data);
     }
     const onCreateProductFinish = async (value) => {
-        console.log(value);
-        await createProduts(value);
-        handleGetProduct();
-        createProductForm.setFieldValue("name", "")
+        const newData = {
+            ...value,
+            detail: log()
+        }
+        console.log(newData);
+        // await createProduts(value);
+        // handleGetProduct();
+        // createProductForm.setFieldValue("name", "")
     };
 
     const [value, setValue] = useState('');
@@ -73,6 +85,8 @@ const AddCardEvent = () => {
             </div>
         </div>
     );
+
+
 
     return (
         <>
@@ -196,6 +210,25 @@ const AddCardEvent = () => {
                                 </Col>
                             </Row>
                         </div>
+                        <Editor
+                            apiKey='7ioen7hcz2mc303clydftkxt1ez6ao4nggsb7esgdovg35a7'
+                            onInit={(evt, editor) => editorRef.current = editor}
+                            initialValue="<p>This is the initial content of the editor.</p>"
+                            init={{
+                                height: 500,
+                                menubar: false,
+                                plugins: [
+                                    'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+                                    'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+                                    'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount', 'image editimage',
+                                ],
+                                toolbar: 'undo redo | casechange blocks | bold italic backcolor | ' +
+                                    'alignleft aligncenter alignright alignjustify | ' +
+                                    'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help' + ' image',
+                                content_style: 'body {font - family:Helvetica,Arial,sans-serif; font-size:14px }'
+                            }}
+                        />
+
                     </Content>
 
                     <FooterCustom>

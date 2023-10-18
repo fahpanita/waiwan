@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import { Layout, Divider, Radio, Table, Row, Col } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import { getUser } from '../../services/user';
+import { getAllUser, getUser } from '../../services/user';
 
 const columns = [
     {
@@ -20,7 +20,7 @@ const columns = [
     },
     {
         title: 'เบอร์โทรศัพท์',
-        dataIndex: 'tal',
+        dataIndex: 'tel',
     },
     {
         title: 'ยอดการสั่งซื้อ',
@@ -28,37 +28,24 @@ const columns = [
     },
 ];
 
-const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
-    getCheckboxProps: (record) => ({
-        disabled: record.name === 'Disabled User',
-        // Column configuration not to be checked
-        name: record.name,
-    }),
-};
-
 const InfoUser = () => {
 
-    const [selectionType] = useState('checkbox');
     const [users, setUser] = useState([]);
 
     const handleGetUser = async () => {
-        const res = await getUser()
+        const res = await getAllUser()
 
-        const data = users[
-            {
-                key: users?.id,
-                name: users?.name,
-                address: 'Null',
-                email: users?.email,
-                tal: 'Null',
-                amount: 'Null',
+        setUser(res?.data?.map(u => {
+            return {
+                key: u?.id,
+                name: u?.name,
+                address: u?.address || "-",
+                email: u?.email,
+                tel: u?.tel || "-",
+                amount: u?.amount || "-",
             }
-        ];
-
-        setUser(res?.data)
+        }))
+        console.log(res);
         console.log(typeof res?.data);
     }
 
@@ -83,8 +70,8 @@ const InfoUser = () => {
                         <Col>
                             <Table
                                 rowSelection={{
-                                    type: selectionType,
-                                    ...rowSelection,
+                                    type: "checkbox",
+
                                 }}
                                 columns={columns}
                                 dataSource={users}

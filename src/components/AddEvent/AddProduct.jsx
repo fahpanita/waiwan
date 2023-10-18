@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import { Form, Input, Button, Select, Table, Layout, Space, Upload } from 'antd';
+import ImgCrop from 'antd-img-crop';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Col, Row } from 'antd';
 import Filter from '../Tree/Filter';
@@ -10,18 +11,19 @@ import { getCatagory } from '../../services/catagory';
 import { createProduts } from '../../services/product';
 import { useNavigate } from 'react-router-dom';
 import { getEvent } from '../../services/event';
+import { BASE_URL } from '../../constands/api';
+import { uploadImages } from '../../services/upload';
 
 const { Header, Content } = Layout;
-const handleChangeType = (value) => {
-    console.log(`selected ${value}`);
-}
+
 
 const getBase64 = (img, callback) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
 };
-const beforeUpload = (file) => {
+const beforeUpload = async (file) => {
+
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
         message.error('You can only upload JPG/PNG file!');
@@ -30,6 +32,7 @@ const beforeUpload = (file) => {
     if (!isLt2M) {
         message.error('Image must smaller than 2MB!');
     }
+
     return isJpgOrPng && isLt2M;
 };
 
@@ -43,6 +46,16 @@ const AddProduct = () => {
 
     const [catagories, setCatagory] = useState([]);
     const [events, setEvent] = useState([]);
+
+    const uploadImageFromAnd = async ({ file, onSuccess, onError }) => {
+        try {
+            const res = await uploadImages(file)
+            onSuccess(res?.data?.path)
+        } catch (error) {
+            onError("Error")
+        }
+
+    }
 
     const handleGetCatagory = async () => {
         const res = await getCatagory()
@@ -90,8 +103,17 @@ const AddProduct = () => {
 
     const onCreateProductFinish = async (value) => {
         console.log(value);
-        await createProduts(value);
-        navigate("/dashboard")
+        try {
+            const res = await createProduts(value);
+            console.log(res)
+            if (res) {
+                navigate("/listStock")
+            }
+
+        } catch (error) {
+
+        }
+
         // createProductForm.setFieldValue("name", "")
     };
 
@@ -109,6 +131,7 @@ const AddProduct = () => {
                 setImageUrl(url);
             });
         }
+        createProductForm.setFieldValue("thumbnail", info.file.response)
     };
     const uploadButton = (
         <div>
@@ -119,6 +142,27 @@ const AddProduct = () => {
         </div>
     );
 
+    const [fileList, setFileList] = useState([
+    ]);
+    const onChange = ({ fileList: newFileList }) => {
+        setFileList(newFileList);
+        createProductForm.setFieldValue("gallery", newFileList?.map(f => f.response))
+    };
+    const onPreview = async (file) => {
+        let src = file.url;
+        if (!src) {
+            src = await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file.originFileObj);
+                reader.onload = () => resolve(reader.result);
+            });
+        }
+        const image = new Image();
+        image.src = src;
+        const imgWindow = window.open(src);
+        imgWindow?.document.write(image.outerHTML);
+    };
+
     useEffect(() => {
         handleGetCatagory(),
             handleGetEvent()
@@ -127,7 +171,7 @@ const AddProduct = () => {
     return (
         <>
             <Layout>
-                <Form form={createProductForm} layout="vertical" onFinish={onCreateProductFinish}>
+                <Form form={createProductForm} layout="vertical" onFinish={onCreateProductFinish} onValuesChange={e => console.log(e)}>
                     <Header style={{ background: '#fff', }}>
                         <div className="font-24">เพิ่มสินค้า</div>
                     </Header >
@@ -137,54 +181,75 @@ const AddProduct = () => {
                                 <Col span={16}>
                                     <CardBoxRadius>
                                         <div className="font-24 mb-3">ข้อมูลทั่วไปของสินค้า</div>
-                                        <Form.Item name="name" label="ชื่อสินค้า*" >
+                                        <Form.Item name="name" label="ชื่อสินค้า" rules={[{ required: true, message: "กรุณากรอกชื่อสินค้า" }]}>
                                             <Input value={formDataProduct?.name} />
                                         </Form.Item>
-                                    </CardBoxRadius>
-                                    <CardBoxRadius>
-                                        <div className="font-24 mb-3">ราคาสินค้า</div>
-
-                                        <Form.Item name="price" label="ราคาขาย*" >
+                                        <Form.Item name="price" label="ราคาขาย" rules={[{ required: true, message: "กรุณากรอกราคา" }]}>
                                             <Input value={formDataProduct?.price} prefix="฿" suffix="บาท" />
+                                        </Form.Item>
+                                        <Form.Item name="stock" label="จำนวนสินค้า" rules={[{ required: true, message: "กรุณากรอกจำนวนสินค้า" }]}>
+                                            <Input value={formDataProduct?.stock} suffix="ชิ้น" />
+                                        </Form.Item>
+                                    </CardBoxRadius>
+
+                                    <CardBoxRadius>
+
+                                        <div className="font-24 mb-3">ภาพปกสินค้า</div>
+                                        <Form.Item name="thumbnail" rules={[{ required: true, message: "กรุณาใส่รูป" }]}>
+                                            <ImgCrop rotationSlider>
+                                                <Upload
+                                                    name="thumbnail"
+                                                    value={formDataProduct?.thumbnail}
+                                                    listType="picture-card"
+                                                    className="avatar-uploader"
+                                                    showUploadList={false}
+                                                    customRequest={uploadImageFromAnd}
+                                                    beforeUpload={beforeUpload}
+                                                    onChange={handleChangeImg}
+                                                    onPreview={onPreview}
+                                                >
+                                                    {imageUrl ? (
+                                                        <img
+                                                            src={imageUrl}
+                                                            alt="avatar"
+                                                            style={{
+                                                                width: '100%',
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        uploadButton
+                                                    )}
+                                                </Upload>
+                                            </ImgCrop>
                                         </Form.Item>
                                     </CardBoxRadius>
                                     <CardBoxRadius>
-
-                                        <div className="font-24 mb-3">ภาพสินค้า</div>
-                                        <Form.Item name="picture" >
-                                            <Upload
-                                                name="picture"
-                                                value={formDataProduct?.picture}
-                                                listType="picture-card"
-                                                className="avatar-uploader"
-                                                showUploadList={false}
-                                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                                                beforeUpload={beforeUpload}
-                                                onChange={handleChangeImg}
-                                            >
-                                                {imageUrl ? (
-                                                    <img
-                                                        src={imageUrl}
-                                                        alt="avatar"
-                                                        style={{
-                                                            width: '100%',
-                                                        }}
-                                                    />
-                                                ) : (
-                                                    uploadButton
-                                                )}
-                                            </Upload>
+                                        <div className="font-24 mb-3">ภาพอื่น ๆ</div>
+                                        <Form.Item name="gallery" >
+                                            <ImgCrop rotationSlider>
+                                                <Upload
+                                                    name="gallery"
+                                                    customRequest={uploadImageFromAnd}
+                                                    beforeUpload={beforeUpload}
+                                                    listType="picture-card"
+                                                    fileList={fileList}
+                                                    onChange={onChange}
+                                                    onPreview={onPreview}
+                                                >
+                                                    {fileList.length < 5 && '+ Upload'}
+                                                </Upload>
+                                            </ImgCrop>
                                         </Form.Item>
                                     </CardBoxRadius>
                                     <CardBoxRadius style={{ marginBottom: '150px' }}>
                                         <div className="font-24 mb-3">รายละเอียด</div>
-                                        <Form.Item name="detailProduct" label="รายละเอียดสินค้า*" >
+                                        <Form.Item name="detailProduct" label="รายละเอียดสินค้า" rules={[{ required: true, message: "กรุณากรอกรายละเอียดสินค้า" }]}>
                                             <TextArea value={formDataProduct?.detailProduct} placeholder="โปรดรายละเอียดสินค้า" autoSize={{
                                                 minRows: 5,
                                                 maxRows: 6,
                                             }} />
                                         </Form.Item>
-                                        <Form.Item name="detailShipping" label="รายละเอียดการจัดส่ง*" >
+                                        <Form.Item name="detailShipping" label="รายละเอียดการจัดส่ง" rules={[{ required: true, message: "กรุณากรอกรายละเอียดการจัดส่ง" }]}>
                                             <TextArea value={formDataProduct?.detailShipping} placeholder="โปรดรายละเอียดการจัดส่ง" autoSize={{
                                                 minRows: 5,
                                                 maxRows: 6,
@@ -202,36 +267,57 @@ const AddProduct = () => {
                                 </Col>
                                 <Col span={8}>
                                     <CardBoxRadius>
-                                        <div className="font-24 mb-3">เลือกหมวดหมู่สินค้า*</div>
-                                        <Form.Item name="filterCat">
+                                        <div className="font-24 mb-3">เลือกหมวดหมู่สินค้า</div>
+                                        <Form.Item name="categories_id" rules={[{ required: true, message: "กรุณาเลือกหมวดหมู่สินค้า" }]}>
                                             <Filter filterData={catagories} />
                                         </Form.Item>
                                     </CardBoxRadius>
                                     <CardBoxRadius>
-                                        <div className="font-24 mb-3">เลือกหมวดหมู่เทศกาล*
+                                        <div className="font-24 mb-3">เลือกหมวดหมู่เทศกาล
                                         </div>
-                                        <Form.Item name="filterEvent">
+                                        <Form.Item name="events_id" rules={[{ required: true, message: "กรุณาเลือกหมวดหมู่เทศกาล" }]}>
                                             <Filter filterData={events} />
                                         </Form.Item>
                                     </CardBoxRadius>
                                     <CardBoxRadius>
-                                        <div className="font-24 mb-3">ประเภทสินค้า*
+                                        <div className="font-24 mb-3">ประเภทสินค้า
                                         </div>
-                                        <Form.Item name="typeProduct" layout="vertical" >
+                                        <Form.Item name="typeProduct" layout="vertical" rules={[{ required: true, message: "กรุณาเลือกประเภทสินค้า" }]}>
                                             <Select
-                                                defaultValue="readySend"
+                                                defaultValue="สินค้าพร้อมส่ง"
                                                 style={{
                                                     width: '100%',
                                                 }}
-                                                onChange={handleChangeType}
                                                 options={[
                                                     {
-                                                        value: 'preorder',
+                                                        value: 'สินค้าPreorder',
                                                         label: 'สินค้าPreorder',
                                                     },
                                                     {
-                                                        value: 'readySend',
+                                                        value: 'สินค้าพร้อมส่ง',
                                                         label: 'สินค้าพร้อมส่ง',
+                                                    },
+                                                ]}
+                                            />
+                                        </Form.Item>
+                                    </CardBoxRadius>
+                                    <CardBoxRadius>
+                                        <div className="font-24 mb-3">ประเภทการจัดส่ง
+                                        </div>
+                                        <Form.Item name="typeShipping" layout="vertical" rules={[{ required: true, message: "กรุณาเลือกประเภทการจัดส่ง" }]}>
+                                            <Select
+                                                defaultValue="ส่งไปรษณีย์"
+                                                style={{
+                                                    width: '100%',
+                                                }}
+                                                options={[
+                                                    {
+                                                        value: 'ส่งไปรษณีย์',
+                                                        label: 'ส่งไปรษณีย์',
+                                                    },
+                                                    {
+                                                        value: 'ส่งแช่แข็ง',
+                                                        label: 'ส่งแช่แข็ง',
                                                     },
                                                 ]}
                                             />
