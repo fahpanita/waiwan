@@ -45,6 +45,11 @@ const Navbar = () => {
                   ทดลองจัดวาง
                 </Link>
               </Menu.Item>
+              <Menu.Item key="4">
+                <Link to="/dashboard" style={{ textDecoration: "none" }}>
+                  เข้าหลังบ้าน
+                </Link>
+              </Menu.Item>
             </Menu>
           </Col>
           <Col xs={0} sm={0} md={8} align="center">
@@ -52,10 +57,10 @@ const Navbar = () => {
           </Col>
           <Col xs={0} sm={0} md={8}>
             <Menus theme="light" mode="horizontal">
-              <Menu.Item key="4">
+              <Menu.Item key="5">
                 <LineLogin></LineLogin>
               </Menu.Item>
-              <Menu.Item key="5" icon={<ShoppingCartOutlined />}>
+              <Menu.Item key="6" icon={<ShoppingCartOutlined />}>
                 <Link to="/cart" style={{ textDecoration: "none" }}></Link>
               </Menu.Item>
             </Menus>
@@ -74,23 +79,23 @@ const Navbar = () => {
           visible={visible}
         >
           <Menu mode="vertical">
-            <Menu.Item key="8" icon={<HomeOutlined />}>
+            <Menu.Item key="7" icon={<HomeOutlined />}>
               <Link to="/" style={{ textDecoration: "none" }}>
                 หน้าแรก
               </Link>
             </Menu.Item>
-            <Menu.Item key="9" icon={<UnorderedListOutlined />}>
+            <Menu.Item key="8" icon={<UnorderedListOutlined />}>
               <Link to="/listProduct" style={{ textDecoration: "none" }}>
                 รายการสินค้า
               </Link>
             </Menu.Item>
-            <Menu.Item key="10" icon={<ExperimentOutlined />}>
+            <Menu.Item key="9" icon={<ExperimentOutlined />}>
               ทดลองจัดวาง
             </Menu.Item>
-            <Menu.Item key="7" icon={<ShoppingCartOutlined />}>
+            <Menu.Item key="10" icon={<ShoppingCartOutlined />}>
               ตะกร้าสินค้า
             </Menu.Item>
-            <Menu.Item key="6">
+            <Menu.Item key="11">
               <LineLogin></LineLogin>
             </Menu.Item>
           </Menu>
