@@ -17,6 +17,8 @@ import { ProtectedRouteAdmin } from "./components/ProtectedRoute/ProtectedRouteA
 import Experiment from "./pages/Home/Experiment";
 import Cart from "./pages/Home/Cart";
 import DetailProduct from "./pages/Home/DetailProduct";
+import DetailCardEvent from "./pages/Home/DetailCardEvent";
+import AllCardEvent from "./pages/Home/AllCardEvent";
 // import Cart from "./pages/Home/Cart";
 
 // const Home = lazy(() => import("./pages/Home"));
@@ -64,6 +66,22 @@ const Routing = () => {
             element={
               <Suspense fallback={<Loading />}>
                 <DetailProduct />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/allCardEvent"
+            element={
+              <Suspense fallback={<Loading />}>
+                <AllCardEvent />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/detailCardEvent"
+            element={
+              <Suspense fallback={<Loading />}>
+                <DetailCardEvent />
               </Suspense>
             }
           />

@@ -1,8 +1,5 @@
 import React from "react";
-// import { Card, Button } from "antd";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { ArrowRightOutlined } from "@ant-design/icons";
 
 const CardEvent = () => {
   return (
@@ -10,6 +7,9 @@ const CardEvent = () => {
     // style={{ width: "18rem" }}
     >
       <Card.Img src="image/img/cardTrend-01.png" />
+      <a style={{ float: "right" }} href="/detailCardEvent">
+        ดูเพิ่มเติม
+      </a>
     </Card>
     // <Card
     //   hoverable

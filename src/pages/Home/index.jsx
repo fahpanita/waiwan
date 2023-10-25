@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { Input, Col, Row, Layout, Typography } from "antd";
+import { Input, Col, Row, Layout, Typography, Divider } from "antd";
 import Filter from "../../components/Tree/Filter";
 import CardEvent from "../../components/CardKnowlage/CardEvent";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
 import Navbar from "../../components/Header/Navbar";
 import BannerHome from "../../components/Slide/BannerHome";
+import FooterPage from "../../components/Footer/FooterPage";
 
 const { Title } = Typography;
-const { Footer, Content } = Layout;
+const { Content } = Layout;
 
 const Home = () => {
   const { Search } = Input;
@@ -19,7 +20,11 @@ const Home = () => {
 
   return (
     // <AuthenticatedProvider>
-    <Layout>
+    <Layout
+      style={{
+        background: "#FFFEF6",
+      }}
+    >
       <Navbar />
       <BannerHome />
       <Row justify="space-evenly" style={{ marginTop: "-20px" }}>
@@ -39,9 +44,16 @@ const Home = () => {
           padding: "0 50px",
         }}
       >
-        <Title level={4} style={{ marginTop: "50px" }}>
-          การ์ดความรู้เทศกาล
-        </Title>
+        <Row style={{ marginTop: "50px" }}>
+          <Col span={8}>
+            <Title level={4}>การ์ดความรู้เทศกาล</Title>
+          </Col>
+          <Col span={8} offset={8}>
+            <a style={{ float: "right" }} href="/allCardEvent">
+              ดูทั้งหมด
+            </a>
+          </Col>
+        </Row>
 
         <Row
           justify="space-evenly"
@@ -69,11 +81,9 @@ const Home = () => {
             </div>
           </Col>
         </Row>
-
         <Title level={4} style={{ marginTop: "50px" }}>
           สินค้าทั้งหมด
         </Title>
-
         <Row
           justify="space-evenly"
           gutter={{
@@ -111,7 +121,7 @@ const Home = () => {
           </Col>
         </Row>
       </Content>
-      <Footer></Footer>
+      <FooterPage />
     </Layout>
     // </AuthenticatedProvider>
   );

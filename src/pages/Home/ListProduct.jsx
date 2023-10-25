@@ -3,6 +3,7 @@ import { Layout, Row, Col, Collapse, Input, Typography } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import BannerListProduct from "../../components/Slide/BannerListProduct";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
+import FooterPage from "../../components/Footer/FooterPage";
 
 const { Title } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
@@ -16,7 +17,7 @@ const select = (
       paddingLeft: 24,
     }}
   >
-    A dog is a type of domesticated animal.
+    No information
   </p>
 );
 
@@ -26,7 +27,7 @@ const priceSlide = (
       paddingLeft: 24,
     }}
   >
-    A dog is a type of domesticated animal.
+    No information
   </p>
 );
 
@@ -57,7 +58,11 @@ const ListProduct = () => {
 
   return (
     <>
-      <Layout>
+      <Layout
+        style={{
+          background: "#FFFEF6",
+        }}
+      >
         <Navbar />
         <BannerListProduct />
         <Row justify="space-evenly" style={{ marginTop: "-20px" }}>
@@ -129,7 +134,7 @@ const ListProduct = () => {
             </Col>
           </Row>
         </Content>
-        <Footer></Footer>
+        <FooterPage />
       </Layout>
     </>
   );

@@ -26,10 +26,20 @@ const Navbar = () => {
 
   return (
     <Layout className="layout">
-      <Header style={{ background: "white" }}>
+      <Header
+        style={{
+          background: "#FFFEF6",
+          boxShadow: "2px 2px 9px 0px rgba(0, 0, 0, 0.09)",
+        }}
+      >
         <Row justify="space-between" align="middle">
           <Col xs={0} sm={20} md={8}>
-            <Menu theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
+            <Menu
+              theme="light"
+              mode="horizontal"
+              defaultSelectedKeys={["1"]}
+              style={{ background: "#FFFEF6" }}
+            >
               <Menu.Item key="1">
                 <Link to="/" style={{ textDecoration: "none" }}>
                   หน้าแรก
@@ -56,7 +66,11 @@ const Navbar = () => {
             <Image preview={false} width={88.61} src="image/img/Logo.png" />
           </Col>
           <Col xs={0} sm={0} md={8}>
-            <Menus theme="light" mode="horizontal">
+            <Menus
+              theme="light"
+              mode="horizontal"
+              style={{ background: "#FFFEF6" }}
+            >
               <Menu.Item key="5">
                 <LineLogin></LineLogin>
               </Menu.Item>
