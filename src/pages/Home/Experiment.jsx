@@ -15,6 +15,7 @@ const Experiment = () => {
             ทดลองจัดวาง
           </Title>
         </Content>
+        <Footer></Footer>
       </Layout>
     </>
   );
