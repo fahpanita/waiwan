@@ -45,8 +45,8 @@ const InfoUser = () => {
                 amount: u?.amount || "-",
             }
         }))
-        console.log(res);
-        console.log(typeof res?.data);
+        // console.log(res);
+        // console.log(typeof res?.data);
     }
 
     useEffect(() => {
@@ -78,16 +78,6 @@ const InfoUser = () => {
                             />
                         </Col>
 
-                        {/* <Radio.Group
-                                onChange={({ target: { value } }) => {
-                                    setSelectionType(value);
-                                }}
-                                value={selectionType}
-                            >
-                                <Radio value="checkbox">Checkbox</Radio>
-                                <Radio value="radio">radio</Radio>
-                        </Radio.Group>
-                        <Divider /> */}
                     </div>
                 </Content>
             </Layout >

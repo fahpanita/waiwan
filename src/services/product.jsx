@@ -7,7 +7,6 @@ export const getProducts = async () => {
       url: "/product",
       method: "GET",
     });
-    console.log(res);
     return res;
   } catch (error) {
     return undefined;
@@ -24,7 +23,7 @@ export const createProduts = async (data) => {
     message.success("บันทึกสำเร็จ")
     return res;
   } catch (error) {
-    notification["error"]({ message: error?.response?.data?.message || "Something when wrong" })
+    //notification["error"]({ message: error?.response?.data?.message || "Something when wrong" })
     return undefined;
   }
 };

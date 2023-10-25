@@ -76,7 +76,6 @@ const AddProduct = () => {
         })
 
         setCatagory(data)
-        console.log(res?.data);
     }
 
     const handleGetEvent = async () => {
@@ -102,19 +101,11 @@ const AddProduct = () => {
     }
 
     const onCreateProductFinish = async (value) => {
-        console.log(value);
-        try {
-            const res = await createProduts(value);
-            console.log(res)
-            if (res) {
-                navigate("/listStock")
-            }
-
-        } catch (error) {
-
+        const res = await createProduts(value);
+        if (res) {
+            navigate("/listStock")
         }
 
-        // createProductForm.setFieldValue("name", "")
     };
 
     const [loading, setLoading] = useState(false);

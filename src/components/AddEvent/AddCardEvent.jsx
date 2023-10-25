@@ -3,22 +3,21 @@ import styled from "styled-components";
 import { Form, Input, Button, Select, Table, Layout, Space, Upload } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Col, Row } from 'antd';
-import Filter from '../Tree/Filter';
-import TextArea from 'antd/es/input/TextArea';
+import ImgCrop from 'antd-img-crop';
 import { Footer, Header, Content } from 'antd/es/layout/layout';
 import { Editor } from '@tinymce/tinymce-react';
+import { createCartEvents } from '../../services/cartEvents';
+import { uploadImages } from '../../services/upload';
 
-
-const handleChangeType = (value) => {
-    console.log(`selected ${value}`);
-}
 
 const getBase64 = (img, callback) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
 };
-const beforeUpload = (file) => {
+
+const beforeUpload = async (file) => {
+
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
         message.error('You can only upload JPG/PNG file!');
@@ -27,15 +26,24 @@ const beforeUpload = (file) => {
     if (!isLt2M) {
         message.error('Image must smaller than 2MB!');
     }
+
     return isJpgOrPng && isLt2M;
 };
 
+const uploadImageFromAnd = async ({ file, onSuccess, onError }) => {
+    try {
+        const res = await uploadImages(file)
+        onSuccess(res?.data?.path)
+    } catch (error) {
+        onError("Error")
+    }
+
+}
+
 const AddCardEvent = () => {
 
-    const [createProductForm] = Form.useForm();
-    const formDataProduct = Form.useWatch([], createProductForm);
-
-    const [products, setProduct] = useState([]);
+    const [createCartEventsForm] = Form.useForm();
+    const formDataCartEvents = Form.useWatch([], createCartEventsForm);
 
     const editorRef = useRef(null);
     const log = () => {
@@ -44,23 +52,26 @@ const AddCardEvent = () => {
         }
     };
 
-    const handleGetProduct = async () => {
-        const res = await getCatagory()
-        setCatagory(res?.data)
-        console.log(typeof res?.data);
-    }
-    const onCreateProductFinish = async (value) => {
-        const newData = {
-            ...value,
-            detail: log()
-        }
-        console.log(newData);
-        // await createProduts(value);
-        // handleGetProduct();
-        // createProductForm.setFieldValue("name", "")
+    const handleChangeDetail = () => {
+        //createCartEventsForm.setFieldValue('detail', log())
+        console.log(log())
     };
 
-    const [value, setValue] = useState('');
+    const onCreateCartEventsFinish = async (value) => {
+        const newValue = { ...value, detail: log() }
+
+        console.log(newValue)
+        try {
+            const res = await createCartEvents(newValue);
+            console.log(res)
+            if (res) {
+                navigate("/addInfoEvent")
+            }
+
+        } catch (error) {
+
+        }
+    };
 
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
@@ -76,7 +87,9 @@ const AddCardEvent = () => {
                 setImageUrl(url);
             });
         }
+        createCartEventsForm.setFieldValue("thumbnail", info.file.response)
     };
+
     const uploadButton = (
         <div>
             {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -86,148 +99,92 @@ const AddCardEvent = () => {
         </div>
     );
 
-
+    const onPreview = async (file) => {
+        let src = file.url;
+        if (!src) {
+            src = await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file.originFileObj);
+                reader.onload = () => resolve(reader.result);
+            });
+        }
+        const image = new Image();
+        image.src = src;
+        const imgWindow = window.open(src);
+        imgWindow?.document.write(image.outerHTML);
+    };
 
     return (
         <>
             <Layout style={{ minHeight: '100vh' }}>
-                <Form form={createProductForm} layout="vertical" onFinish={onCreateProductFinish}>
+                <Form form={createCartEventsForm} layout="vertical" onFinish={onCreateCartEventsFinish}>
                     <Header style={{ background: '#fff', }}>
                         <div className="font-24">เพิ่มการ์ดเทศกาล</div>
                     </Header >
                     <Content style={{ margin: '24px 24px 0', }}>
                         <div style={{ background: '#F5F5F5', }}>
                             <Row>
-                                <Col span={16}>
-                                    <CardBoxRadius>
+                                <Col span={24}>
+                                    <CardBoxRadius style={{ marginBottom: '150px' }}>
                                         <div className="font-24 mb-3">ข้อมูลทั่วไปของเทศกาล</div>
                                         <Form.Item name="name" label="ชื่อเทศกาล" >
-                                            <Input value='' />
+                                            <Input value={formDataCartEvents?.name} />
                                         </Form.Item>
+                                        <Form.Item name="thumbnail" label="ภาพปกเทศกาล">
+                                            <ImgCrop rotationSlider>
+                                                <Upload
+                                                    name="thumbnail"
+                                                    value={formDataCartEvents?.thumbnail}
+                                                    listType="picture-card"
+                                                    className="avatar-uploader"
+                                                    showUploadList={false}
+                                                    customRequest={uploadImageFromAnd}
+                                                    beforeUpload={beforeUpload}
+                                                    onChange={handleChangeImg}
+                                                    onPreview={onPreview}
+                                                >
+                                                    {imageUrl ? (
+                                                        <img
+                                                            src={imageUrl}
+                                                            alt="avatar"
+                                                            style={{
+                                                                width: '100%',
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        uploadButton
+                                                    )}
+                                                </Upload>
+                                            </ImgCrop>
+                                        </Form.Item>
+                                        <Form.Item name="detail" label="รายละเอียดเทศกาล" style={{ display: 'none' }} />
+                                        <Editor
+                                            onChange={handleChangeDetail}
+                                            //value={formDataCartEvents?.detail}
+                                            apiKey='7ioen7hcz2mc303clydftkxt1ez6ao4nggsb7esgdovg35a7'
+                                            onInit={(evt, editor) => editorRef.current = editor}
+                                            initialValue="<p>Please put your content in here...</p>"
+                                            init={{
+                                                height: 500,
+                                                menubar: false,
+                                                plugins: [
+                                                    'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+                                                    'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+                                                    'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount', 'image editimage',
+                                                ],
+                                                toolbar: 'undo redo | casechange blocks | bold italic backcolor | ' +
+                                                    'alignleft aligncenter alignright alignjustify | ' +
+                                                    'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help' + ' image',
+                                                content_style: 'body {font - family:Helvetica,Arial,sans-serif; font-size:14px }'
+                                            }}
+                                        />
 
-                                        <Form.Item name="history" label="ประวัติคร่าว ๆ" >
-                                            <Input value='' />
-                                        </Form.Item>
-
-                                        <Form.Item name="symbol" label="สัญลักษณ์ของเทศกาล" >
-                                            <Input value='' />
-                                        </Form.Item>
-
-                                        <Form.Item name="arrangement" label="การจัดโต๊ะไหว้" >
-                                            <Input value='' />
-                                        </Form.Item>
-
-                                        <Form.Item name="step" label="พิธีไหว้*" >
-                                            <Input value='' />
-                                        </Form.Item>
-                                    </CardBoxRadius>
-                                </Col>
-
-                                <Col span={8}>
-                                    <CardBoxRadius>
-                                        <div className="font-24 mb-3">ภาพปกเทศกาล</div>
-                                        <Form.Item name="picture" >
-                                            <Upload
-                                                name="picture"
-                                                value=''
-                                                listType="picture-card"
-                                                className="avatar-uploader"
-                                                showUploadList={false}
-                                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                                                beforeUpload={beforeUpload}
-                                                onChange={handleChangeImg}
-                                            >
-                                                {imageUrl ? (
-                                                    <img
-                                                        src={imageUrl}
-                                                        alt="avatar"
-                                                        style={{
-                                                            width: '100%',
-                                                        }}
-                                                    />
-                                                ) : (
-                                                    uploadButton
-                                                )}
-                                            </Upload>
-                                        </Form.Item>
-                                    </CardBoxRadius>
-
-                                    <CardBoxRadius>
-                                        <div className="font-24 mb-3">ภาพสัญลักษณ์เทศกาล</div>
-                                        <Form.Item name="picture" >
-                                            <Upload
-                                                name="picture"
-                                                value=''
-                                                listType="picture-card"
-                                                className="avatar-uploader"
-                                                showUploadList={false}
-                                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                                                beforeUpload={beforeUpload}
-                                                onChange={handleChangeImg}
-                                            >
-                                                {imageUrl ? (
-                                                    <img
-                                                        src={imageUrl}
-                                                        alt="avatar"
-                                                        style={{
-                                                            width: '100%',
-                                                        }}
-                                                    />
-                                                ) : (
-                                                    uploadButton
-                                                )}
-                                            </Upload>
-                                        </Form.Item>
                                     </CardBoxRadius>
 
-                                    <CardBoxRadius>
-                                        <div className="font-24 mb-3">ภาพการจัดโต๊ะ</div>
-                                        <Form.Item name="picture" >
-                                            <Upload
-                                                name="picture"
-                                                value=''
-                                                listType="picture-card"
-                                                className="avatar-uploader"
-                                                showUploadList={false}
-                                                action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                                                beforeUpload={beforeUpload}
-                                                onChange={handleChangeImg}
-                                            >
-                                                {imageUrl ? (
-                                                    <img
-                                                        src={imageUrl}
-                                                        alt="avatar"
-                                                        style={{
-                                                            width: '100%',
-                                                        }}
-                                                    />
-                                                ) : (
-                                                    uploadButton
-                                                )}
-                                            </Upload>
-                                        </Form.Item>
-                                    </CardBoxRadius>
                                 </Col>
                             </Row>
                         </div>
-                        <Editor
-                            apiKey='7ioen7hcz2mc303clydftkxt1ez6ao4nggsb7esgdovg35a7'
-                            onInit={(evt, editor) => editorRef.current = editor}
-                            initialValue="<p>This is the initial content of the editor.</p>"
-                            init={{
-                                height: 500,
-                                menubar: false,
-                                plugins: [
-                                    'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
-                                    'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
-                                    'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount', 'image editimage',
-                                ],
-                                toolbar: 'undo redo | casechange blocks | bold italic backcolor | ' +
-                                    'alignleft aligncenter alignright alignjustify | ' +
-                                    'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help' + ' image',
-                                content_style: 'body {font - family:Helvetica,Arial,sans-serif; font-size:14px }'
-                            }}
-                        />
+
 
                     </Content>
 

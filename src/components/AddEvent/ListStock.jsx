@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
-import { Layout, Divider, Radio, Table, Row, Col, Button, Space } from 'antd';
+import { Layout, Divider, Radio, Table, Row, Col, Button, Space, Image } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
 import { getUser } from '../../services/user';
 import { deleteProduts, getProducts } from '../../services/product';
+import { BASE_URL } from '../../constands/api';
 
 const onDeleteProduct = async (id) => {
     await deleteProduts(id);
@@ -19,6 +20,7 @@ const columns = [
     {
         title: 'รูป',
         dataIndex: 'thumbnail',
+        render: (text) => <Image src={`${BASE_URL}/${text}`} width={70} />,
     },
     {
         title: 'ชื่อสินค้า',
@@ -50,20 +52,7 @@ const columns = [
     },
 ];
 
-const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
-    getCheckboxProps: (record) => ({
-        disabled: record.name === 'Disabled User',
-        // Column configuration not to be checked
-        name: record.name,
-    }),
-};
-
 const ListStocks = () => {
-
-    const [selectionType] = useState('checkbox');
     const [products, setProducts] = useState([]);
 
     const handleGetProducts = async () => {
@@ -82,7 +71,7 @@ const ListStocks = () => {
         ];
 
         setProducts(res?.data)
-        console.log(typeof res?.data);
+        // console.log(typeof res?.data);
     }
 
     useEffect(() => {
@@ -106,24 +95,13 @@ const ListStocks = () => {
                         <Col>
                             <Table
                                 rowSelection={{
-                                    type: selectionType,
-                                    ...rowSelection,
+                                    type: "checkbox",
+
                                 }}
                                 columns={columns}
                                 dataSource={products}
                             />
                         </Col>
-
-                        {/* <Radio.Group
-                                onChange={({ target: { value } }) => {
-                                    setSelectionType(value);
-                                }}
-                                value={selectionType}
-                            >
-                                <Radio value="checkbox">Checkbox</Radio>
-                                <Radio value="radio">radio</Radio>
-                        </Radio.Group>
-                        <Divider /> */}
                     </div>
                 </Content>
             </Layout >
