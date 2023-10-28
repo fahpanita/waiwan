@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Input, Col, Row, Layout, Typography, Divider } from "antd";
 import Filter from "../../components/Tree/Filter";
@@ -7,6 +7,7 @@ import CardProduct from "../../components/CardKnowlage/CardProduct";
 import Navbar from "../../components/Header/Navbar";
 import BannerHome from "../../components/Slide/BannerHome";
 import FooterPage from "../../components/Footer/FooterPage";
+import { getProducts } from "../../services/product";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -17,6 +18,18 @@ const Home = () => {
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
+
+  const [products, setProducts] = useState([]);
+
+  const handleGetProducts = async () => {
+    const res = await getProducts()
+    setProducts(res?.data)
+    console.log(res?.data)
+  }
+
+  useEffect(() => {
+    handleGetProducts()
+  }, [])
 
   return (
     // <AuthenticatedProvider>
@@ -63,7 +76,7 @@ const Home = () => {
             md: 24,
             lg: 32,
           }}
-          // gutter={[8, 8]}
+        // gutter={[8, 8]}
         >
           <Col className="gutter-row" span={5}>
             <div>
@@ -92,33 +105,16 @@ const Home = () => {
             md: 24,
             lg: 32,
           }}
-          // gutter={[8, 8]}
+        // gutter={[8, 8]}
         >
-          <Col className="gutter-row" span={4}>
-            <div>
-              <CardProduct />
-            </div>
-          </Col>
-          <Col className="gutter-row" span={4}>
-            <div>
-              <CardProduct />
-            </div>
-          </Col>
-          <Col className="gutter-row" span={4}>
-            <div>
-              <CardProduct />
-            </div>
-          </Col>
-          <Col className="gutter-row" span={4}>
-            <div>
-              <CardProduct />
-            </div>
-          </Col>
-          <Col className="gutter-row" span={4}>
-            <div>
-              <CardProduct />
-            </div>
-          </Col>
+          {products?.map(p => (
+            <Col className="gutter-row" span={4}>
+              <div>
+                <CardProduct data={p} />
+              </div>
+            </Col>))}
+
+
         </Row>
       </Content>
       <FooterPage />

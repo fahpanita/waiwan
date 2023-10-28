@@ -2,21 +2,23 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../../constands/api";
 
-const CardProduct = () => {
+const CardProduct = (prop) => {
+  const { data } = prop
   return (
     <Card
     // style={{ width: "18rem" }}
     >
-      <Card.Img variant="top" src="image/img/product-01.png"></Card.Img>
+      <Card.Img variant="top" src={`${BASE_URL}/${data?.thumbnail}`}></Card.Img>
       <Card.Body>
-        <Card.Title>ซาลาเปา6ลูก</Card.Title>
-        <Card.Text>฿{139}</Card.Text>
-        <Link to="/detailProduct">
+        <Card.Title>{data?.name}</Card.Title>
+        <Card.Text>฿{data?.price}</Card.Text>
+        <Link to={`/detailProduct?id=${data?.id}`}>
           <Button>ดูเพิ่มเติม</Button>
         </Link>
       </Card.Body>
-    </Card>
+    </Card >
   );
 };
 

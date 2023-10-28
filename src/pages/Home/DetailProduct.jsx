@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Layout,
   Row,
@@ -15,15 +15,35 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import FooterPage from "../../components/Footer/FooterPage";
+import { useSearchParams } from "react-router-dom";
+import { getProductId } from "../../services/product";
+import { BASE_URL } from "../../constands/api";
 const { Title } = Typography;
 const { Content } = Layout;
 const onChange = (value) => {
   console.log("changed", value);
 };
 
-const text = `no data `;
-
 const DetailProduct = () => {
+
+  const [searchParams] = useSearchParams()
+  const id = searchParams.get('id')
+  const [product, setProduct] = useState([]);
+  // console.log(id)
+
+  const handleGetProduct = async (id) => {
+    const res = await getProductId(id)
+    setProduct(res?.data)
+    console.log(res?.data)
+  }
+
+  useEffect(() => {
+    if (id) {
+      handleGetProduct(id)
+    }
+
+  }, [id])
+
   return (
     <>
       <Layout style={{ background: "#FFFEF6" }}>
@@ -50,30 +70,22 @@ const DetailProduct = () => {
             <Col className="gutter-row" span={8}>
               <Carousel axis="horizontal">
                 <div>
-                  <img src="image/img/product-01.png" />
+                  <img src={`${BASE_URL}/${product?.thumbnail}`} />
                   {/* <p className="legend">Legend 1</p> */}
                 </div>
                 <div>
                   <img src="image/img/product-01.png" />
                 </div>
-                <div>
-                  <img src="image/img/product-01.png" />
-                </div>
-                <div>
-                  <img src="image/img/product-01.png" />
-                </div>
-                <div>
-                  <img src="image/img/product-01.png" />
-                </div>
+
               </Carousel>
             </Col>
 
             <Col className="gutter-row" span={12}>
-              <Title level={4}>ซาลาเปา 6 ลูก</Title>
+              <Title level={4}>{product?.name}</Title>
               <div>
-                ประเภทสินค้า<Tag color="error">{"สินค้าพรีออเดอร์"}</Tag>
+                ประเภทสินค้า<Tag color="error">{product?.typeProduct}</Tag>
               </div>
-              <div>ราคา {"80.00"} บาท</div>
+              <div>ราคา {product?.price} บาท</div>
               <div>
                 จำนวน
                 {
@@ -126,7 +138,7 @@ const DetailProduct = () => {
                   {
                     key: "1",
                     label: "รายละเอียดสินค้า",
-                    children: <p>{text}</p>,
+                    children: <p>{product?.detailProduct}</p>,
                   },
                 ]}
               />
@@ -162,7 +174,7 @@ const DetailProduct = () => {
                   {
                     key: "2",
                     label: "รายละเอียดการจัดส่ง",
-                    children: <p>{text}</p>,
+                    children: <p>{product?.detailShipping}</p>,
                     Divider: "",
                   },
                 ]}
@@ -199,7 +211,7 @@ const DetailProduct = () => {
                   {
                     key: "3",
                     label: "เงื่อนไขอื่น ๆ",
-                    children: <p>{text}</p>,
+                    children: <p>{product?.condition}</p>,
                   },
                 ]}
               />

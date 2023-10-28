@@ -1,10 +1,22 @@
-import { notification } from "antd";
+import { message, notification } from "antd";
 import { requestBackend } from "../constands/api";
 
 export const getProducts = async () => {
   try {
     const res = await requestBackend({
       url: "/product",
+      method: "GET",
+    });
+    return res;
+  } catch (error) {
+    return undefined;
+  }
+};
+
+export const getProductId = async (id) => {
+  try {
+    const res = await requestBackend({
+      url: `/product/${id}`,
       method: "GET",
     });
     return res;
@@ -23,7 +35,7 @@ export const createProduts = async (data) => {
     message.success("บันทึกสำเร็จ")
     return res;
   } catch (error) {
-    //notification["error"]({ message: error?.response?.data?.message || "Something when wrong" })
+    notification["error"]({ message: error?.response?.data?.message || "Something when wrong" })
     return undefined;
   }
 };
