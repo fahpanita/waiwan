@@ -25,24 +25,22 @@ const onChange = (value) => {
 };
 
 const DetailProduct = () => {
-
-  const [searchParams] = useSearchParams()
-  const id = searchParams.get('id')
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
   const [product, setProduct] = useState([]);
   // console.log(id)
 
   const handleGetProduct = async (id) => {
-    const res = await getProductId(id)
-    setProduct(res?.data)
-    console.log(res?.data)
-  }
+    const res = await getProductId(id);
+    setProduct(res?.data);
+    console.log(res?.data);
+  };
 
   useEffect(() => {
     if (id) {
-      handleGetProduct(id)
+      handleGetProduct(id);
     }
-
-  }, [id])
+  }, [id]);
 
   return (
     <>
@@ -76,7 +74,6 @@ const DetailProduct = () => {
                 <div>
                   <img src="image/img/product-01.png" />
                 </div>
-
               </Carousel>
             </Col>
 
@@ -102,9 +99,13 @@ const DetailProduct = () => {
                 <Button danger icon={<ShoppingCartOutlined />}>
                   เพิ่มไปยังตะกร้า
                 </Button>
-                <Button type="primary" danger to="/">
-                  ซื้อสินค้า
-                </Button>
+                <div>
+                  <a href="/buyProduct">
+                    <Button type="primary" danger>
+                      ซื้อสินค้า
+                    </Button>
+                  </a>
+                </div>
               </Space>
             </Col>
           </Row>
