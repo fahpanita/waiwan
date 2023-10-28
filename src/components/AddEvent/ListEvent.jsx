@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import { Layout, Table, Col, Button, Space, Image } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import { deleteProduts, getProducts } from '../../services/product';
 import { BASE_URL } from '../../constands/api';
+import { deleteCartEvents, getCartEvents } from '../../services/cartEvents';
 
-const onDeleteProduct = async (id) => {
-    await deleteProduts(id);
-    handleGetProducts();
+const onDeleteCartEvents = async (id) => {
+    await deleteCartEvents(id);
+    handleGetCartEvents();
 };
 
 const columns = [
     {
-        title: 'รหัสสินค้า',
+        title: 'รหัสเทศกาล',
         dataIndex: 'id',
         render: (text) => <a>{text}</a>,
     },
@@ -22,59 +22,38 @@ const columns = [
         render: (text) => <Image src={`${BASE_URL}/${text}`} width={70} />,
     },
     {
-        title: 'ชื่อสินค้า',
+        title: 'ชื่อเทศกาล',
         dataIndex: 'name',
-    },
-    {
-        title: 'ราคา',
-        dataIndex: 'price',
-    },
-    {
-        title: 'จำนวนสินค้า',
-        dataIndex: 'stock',
-    },
-    {
-        title: 'ประเภทสินค้า',
-        dataIndex: 'typeProduct',
-    },
-    {
-        title: 'ประเภทจัดส่ง',
-        dataIndex: 'typeShipping',
     },
     {
         title: 'Action',
         render: (_, record) => (
             <Space size="middle">
                 <Button >Edit</Button>
-                <Button danger onClick={() => onDeleteProduct(record.id)}>Delete</Button>
+                <Button danger onClick={() => onDeleteCartEvents(record.id)}>Delete</Button>
             </Space>),
     },
 ];
 
-const ListStocks = () => {
-    const [products, setProducts] = useState([]);
+const ListEvent = () => {
+    const [cardEvents, setCartEvents] = useState([]);
 
-    const handleGetProducts = async () => {
-        const res = await getProducts()
+    const handleGetCartEvents = async () => {
+        const res = await getCartEvents()
 
-        const data = products[
+        const data = cardEvents[
             {
-                key: products?.id,
-                thumbnail: products?.thumbnail,
-                name: products?.name,
-                price: products?.price,
-                stock: products?.stock,
-                typeProduct: products?.typeProduct,
-                typeShipping: products?.typeShipping,
+                key: cardEvents?.id,
+                thumbnail: cardEvents?.thumbnail,
+                name: cardEvents?.name,
             }
         ];
 
-        setProducts(res?.data)
-        // console.log(typeof res?.data);
+        setCartEvents(res?.data)
     }
 
     useEffect(() => {
-        handleGetProducts()
+        handleGetCartEvents()
     }, [])
 
     return (
@@ -86,7 +65,7 @@ const ListStocks = () => {
                 }}
             >
                 <Header style={{ background: '#fff', }}>
-                    <div className="font-24">รายการสินค้า</div>
+                    <div className="font-24">บทความเทศกาล</div>
                 </Header >
                 <Content style={{ margin: '24px 24px 0', }}>
                     <div style={{ background: '#F5F5F5', }}>
@@ -98,7 +77,7 @@ const ListStocks = () => {
 
                                 }}
                                 columns={columns}
-                                dataSource={products}
+                                dataSource={cardEvents}
                             />
                         </Col>
                     </div>
@@ -131,4 +110,4 @@ margin: 10px;
 padding: 16px;
 `;
 
-export default ListStocks
+export default ListEvent

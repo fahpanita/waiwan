@@ -8,6 +8,7 @@ import Navbar from "../../components/Header/Navbar";
 import BannerHome from "../../components/Slide/BannerHome";
 import FooterPage from "../../components/Footer/FooterPage";
 import { getProducts } from "../../services/product";
+import { getCartEvents } from "../../services/cartEvents";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -27,8 +28,17 @@ const Home = () => {
     console.log(res?.data)
   }
 
+  const [cardevents, setCartEvents] = useState([]);
+
+  const handleGetCartEvents = async () => {
+    const res = await getCartEvents()
+    setCartEvents(res?.data)
+    console.log(res?.data)
+  }
+
   useEffect(() => {
-    handleGetProducts()
+    handleGetProducts(),
+      handleGetCartEvents()
   }, [])
 
   return (
@@ -78,21 +88,15 @@ const Home = () => {
           }}
         // gutter={[8, 8]}
         >
-          <Col className="gutter-row" span={5}>
-            <div>
-              <CardEvent />
-            </div>
-          </Col>
-          <Col className="gutter-row" span={5}>
-            <div>
-              <CardEvent />
-            </div>
-          </Col>
-          <Col className="gutter-row" span={5}>
-            <div>
-              <CardEvent />
-            </div>
-          </Col>
+
+          {cardevents?.map(c => (
+            <Col className="gutter-row" span={5}>
+              <div>
+                <CardEvent datacard={c} />
+              </div>
+            </Col>
+          ))}
+
         </Row>
         <Title level={4} style={{ marginTop: "50px" }}>
           สินค้าทั้งหมด
@@ -112,7 +116,8 @@ const Home = () => {
               <div>
                 <CardProduct data={p} />
               </div>
-            </Col>))}
+            </Col>
+          ))}
 
 
         </Row>

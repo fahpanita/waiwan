@@ -4,6 +4,9 @@ import Navbar from "../../components/Header/Navbar";
 import BannerListProduct from "../../components/Slide/BannerListProduct";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
 import FooterPage from "../../components/Footer/FooterPage";
+import { useState } from "react";
+import { useEffect } from "react";
+import { getProducts } from "../../services/product";
 
 const { Title } = Typography;
 const { Header, Footer, Sider, Content } = Layout;
@@ -56,6 +59,18 @@ const ListProduct = () => {
     console.log(`selected ${value}`);
   };
 
+  const [products, setProducts] = useState([]);
+
+  const handleGetProducts = async () => {
+    const res = await getProducts()
+    setProducts(res?.data)
+    console.log(res?.data)
+  }
+
+  useEffect(() => {
+    handleGetProducts()
+  }, [])
+
   return (
     <>
       <Layout
@@ -89,7 +104,7 @@ const ListProduct = () => {
               md: 24,
               lg: 32,
             }}
-            // gutter={[8, 8]}
+          // gutter={[8, 8]}
           >
             <Col className="gutter-row" span={5}>
               <Collapse
@@ -108,28 +123,15 @@ const ListProduct = () => {
                   md: 24,
                   lg: 32,
                 }}
-                // gutter={[8, 8]}
+              // gutter={[8, 8]}
               >
-                <Col className="gutter-row" span={5}>
-                  <div>
-                    <CardProduct />
-                  </div>
-                </Col>
-                <Col className="gutter-row" span={5}>
-                  <div>
-                    <CardProduct />
-                  </div>
-                </Col>
-                <Col className="gutter-row" span={5}>
-                  <div>
-                    <CardProduct />
-                  </div>
-                </Col>
-                <Col className="gutter-row" span={5}>
-                  <div>
-                    <CardProduct />
-                  </div>
-                </Col>
+                {products?.map(p => (
+                  <Col className="gutter-row" span={4}>
+                    <div>
+                      <CardProduct data={p} />
+                    </div>
+                  </Col>
+                ))}
               </Row>
             </Col>
           </Row>

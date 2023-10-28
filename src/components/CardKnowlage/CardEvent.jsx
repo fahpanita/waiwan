@@ -1,25 +1,22 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+import { BASE_URL } from "../../constands/api";
+import { Link } from "react-router-dom";
+import { Button } from "antd";
 
-const CardEvent = () => {
+const CardEvent = (prop) => {
+  const { datacard } = prop
   return (
     <Card
-    // style={{ width: "18rem" }}
     >
-      <Card.Img src="image/img/cardTrend-01.png" />
-      <a style={{ float: "right" }} href="/detailCardEvent">
+      <Card.Img src={`${BASE_URL}/${datacard?.thumbnail}`} />
+      <Link to={`/detailCardEvent?id=${datacard?.id}`}>
+        <Button>ดูเพิ่มเติม</Button>
+      </Link>
+      {/* <a style={{ float: "right" }} href="/detailCardEvent">
         ดูเพิ่มเติม
-      </a>
+      </a> */}
     </Card>
-    // <Card
-    //   hoverable
-    //   // style={{
-    //   //   width: 240,
-    //   // }}
-    //   cover={<img src="image/img/cardTrend-01.png" />}
-    // >
-    //   <Button type="link">More</Button>
-    // </Card>
   );
 };
 

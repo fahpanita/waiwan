@@ -21,6 +21,7 @@ import DetailCardEvent from "./pages/Home/DetailCardEvent";
 import AllCardEvent from "./pages/Home/AllCardEvent";
 import BuyProduct from "./pages/Home/BuyProduct";
 import Payment from "./pages/Home/Payment";
+import ListEvents from "./pages/Dashboard/listEvents";
 // import Cart from "./pages/Home/Cart";
 
 // const Home = lazy(() => import("./pages/Home"));
@@ -182,6 +183,16 @@ const Routing = () => {
               // <ProtectedRoute>
               <Suspense fallback={<Loading />}>
                 <ListStock />
+              </Suspense>
+              // {/* </ProtectedRoute> */}
+            }
+          />
+          <Route
+            path="/listEvents"
+            element={
+              // <ProtectedRoute>
+              <Suspense fallback={<Loading />}>
+                <ListEvents />
               </Suspense>
               // {/* </ProtectedRoute> */}
             }

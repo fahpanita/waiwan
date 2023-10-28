@@ -4,6 +4,9 @@ import { Layout, Row, Col, Typography, Button, Input } from "antd";
 import BannerListProduct from "../../components/Slide/BannerListProduct";
 import CardEvent from "../../components/CardKnowlage/CardEvent";
 import FooterPage from "../../components/Footer/FooterPage";
+import { getCartEvents } from "../../services/cartEvents";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -11,6 +14,17 @@ const { Content } = Layout;
 const AllCardEvent = () => {
   const { Search } = Input;
   const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const [cardevents, setCartEvents] = useState([]);
+
+  const handleGetCartEvents = async () => {
+    const res = await getCartEvents()
+    setCartEvents(res?.data)
+    console.log(res?.data)
+  }
+
+  useEffect(() => {
+    handleGetCartEvents()
+  }, [])
 
   return (
     <>
@@ -47,23 +61,15 @@ const AllCardEvent = () => {
               md: 24,
               lg: 32,
             }}
-            // gutter={[8, 8]}
+          // gutter={[8, 8]}
           >
-            <Col className="gutter-row" span={5}>
-              <div>
-                <CardEvent />
-              </div>
-            </Col>
-            <Col className="gutter-row" span={5}>
-              <div>
-                <CardEvent />
-              </div>
-            </Col>
-            <Col className="gutter-row" span={5}>
-              <div>
-                <CardEvent />
-              </div>
-            </Col>
+            {cardevents?.map(c => (
+              <Col className="gutter-row" span={5}>
+                <div>
+                  <CardEvent datacard={c} />
+                </div>
+              </Col>
+            ))}
           </Row>
         </Content>
         <FooterPage />

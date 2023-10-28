@@ -20,11 +20,11 @@ const items = [
         getItem(<Link to="/listStock" style={{ textDecoration: 'none' }}>รายการสินค้า</Link>, 'product'),
         getItem(<Link to="/addProduct" style={{ textDecoration: 'none' }}>เพิ่มสินค้า</Link>, 'addItem'),
         getItem(<Link to="/addCatagory" style={{ textDecoration: 'none' }}>หมวดหมู่สินค้า</Link>, 'addCatagory', undefined),
-    ]),
-    getItem('เทศกาล', 'sub2', <CalendarOutlined />, [
-        getItem('รายการเทศกาลแนะนำ', 'event'),
-        getItem(<Link to="/addInfoEvent" style={{ textDecoration: 'none' }}>เพิ่มข้อมูลเทศกาล</Link>, 'addInfoEvent'),
         getItem(<Link to="/addEvent" style={{ textDecoration: 'none' }}>หมวดหมู่เทศกาล</Link>, 'addEvent', undefined),
+    ]),
+    getItem('บทความเทศกาล', 'sub2', <CalendarOutlined />, [
+        getItem(<Link to="/listEvents" style={{ textDecoration: 'none' }}>บทความเทศกาล</Link>, 'listEvents'),
+        getItem(<Link to="/addInfoEvent" style={{ textDecoration: 'none' }}>เพิ่มบทความเทศกาล</Link>, 'addInfoEvent'),
     ]),
     getItem(<Link to="/infoUsers" style={{ textDecoration: 'none' }}>ลูกค้า</Link>, 'infoUsers', <TeamOutlined />),
 ];

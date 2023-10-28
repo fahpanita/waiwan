@@ -187,7 +187,7 @@ const AddProduct = () => {
 
                                         <div className="font-24 mb-3">ภาพปกสินค้า</div>
                                         <Form.Item name="thumbnail" rules={[{ required: true, message: "กรุณาใส่รูป" }]}>
-                                            <ImgCrop rotationSlider>
+                                            <ImgCrop rotationSlider cropperProps={{ restrictPosition: false }} aspect={1 / 1}>
                                                 <Upload
                                                     name="thumbnail"
                                                     value={formDataProduct?.thumbnail}
@@ -217,7 +217,7 @@ const AddProduct = () => {
                                     <CardBoxRadius>
                                         <div className="font-24 mb-3">ภาพอื่น ๆ</div>
                                         <Form.Item name="gallery" >
-                                            <ImgCrop rotationSlider>
+                                            <ImgCrop rotationSlider cropperProps={{ restrictPosition: false }} aspect={1 / 1}>
                                                 <Upload
                                                     name="gallery"
                                                     customRequest={uploadImageFromAnd}

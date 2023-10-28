@@ -131,7 +131,7 @@ const AddCardEvent = () => {
                                             <Input value={formDataCartEvents?.name} />
                                         </Form.Item>
                                         <Form.Item name="thumbnail" label="ภาพปกเทศกาล">
-                                            <ImgCrop rotationSlider>
+                                            <ImgCrop rotationSlider cropperProps={{ restrictPosition: false }} aspect={1440 / 590}>
                                                 <Upload
                                                     name="thumbnail"
                                                     value={formDataCartEvents?.thumbnail}

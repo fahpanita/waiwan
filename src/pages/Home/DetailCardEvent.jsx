@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Header/Navbar";
-import { Layout, Row, Col, Typography } from "antd";
+import { Layout, Typography } from "antd";
 import FooterPage from "../../components/Footer/FooterPage";
 import styled from "styled-components";
+import { getCartEventsId } from "../../services/cartEvents";
+import { BASE_URL } from "../../constands/api";
+import { useSearchParams } from "react-router-dom";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -12,11 +15,28 @@ export const Img = styled.img`
 `;
 
 const DetailCardEvent = () => {
+
+  const [searchParams] = useSearchParams()
+  const id = searchParams.get('id')
+  const [cardevents, setCartEvents] = useState([]);
+  //console.log(id)
+
+  const handleGetCartEvents = async (id) => {
+    const res = await getCartEventsId(id)
+    setCartEvents(res?.data)
+  }
+
+  useEffect(() => {
+    if (id) {
+      handleGetCartEvents(id)
+    }
+
+  }, [id])
   return (
     <>
       <Layout style={{ background: "#FFFEF6" }}>
         <Navbar />
-        <Img src="image/img/img-card-1.png" />
+        <Img src={`${BASE_URL}/${cardevents?.thumbnail}`} />
         <div
           className="card"
           style={{
@@ -35,22 +55,10 @@ const DetailCardEvent = () => {
           }}
         >
           <Title level={2} style={{ textAlign: "left" }}>
-            เทศกาลตรุษจีน
+            {cardevents?.name}
           </Title>
-          <p>
-            "วันตรุษจีน" หรือ "เทศกาลตรุษจีน" ถือเป็นงานเฉลิมฉลอง
-            ที่สำคัญที่สุดใน ปฏิทินจีน โดยเป็นการฉลอง ขึ้นปีใหม่เปรียบได้
-            กับการฉลองในช่วงเทศกาล สงกรานต์ ของไทยและจัดเป็นวันหยุดตามประเพณีใน
-            ประเทศจีน เนื่องจากเป็นการเฉลิมฉลองการสิ้นสุดฤดูหนาวและการเริ่มต้น
-            ของฤดูใบไม้ผลิ ผู้คนนิยมสักการะเทพเจ้าและ บรรพบุรุษ เพื่อ ขอพร
-            ให้พืชผลทางการเกษตรเจริญ งอกงาม และให้ครอบครัว มีกิน มีใช้ตลอดทั้งปี
-            เทศกาลนี้เริ่มต้นในวันที่ 1 เดือน 1 ตามปฏิทินจีนทำให้ วัน ตรุษจีน
-            หรือ เทศกาลปีใหม่จีนไม่ตรงกันในแต่ละปี และไม่
-            ตรงกับวันขึ้นปีใหม่สากล โดยจะตกอยู่ใน ช่วงปลายเดือน
-            มกราคมถึงกลางเดือนกุมภาพันธ์ของทุกปี หรือช่วงสิ้น สุดฤดู
-            หนาวและเริ่มต้นฤดูใบไม้ผลิที่อากาศเริ่มมีความ อบอุ่นมากขึ้น ส่งผลให้
-            สามารถเพาะปลูกและทำการเกษตรได้
-          </p>
+          <p dangerouslySetInnerHTML={{ __html: "&amp;nbsp;" }} />
+          {cardevents?.detail}
         </Content>
         <FooterPage />
       </Layout>
