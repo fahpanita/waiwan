@@ -1,13 +1,19 @@
 import React from "react";
 import { Layout, Typography } from "antd";
 import Navbar from "../../components/Header/Navbar";
+import FooterPage from "../../components/Footer/FooterPage";
+
 const { Title } = Typography;
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 
 const Cart = () => {
   return (
     <>
-      <Layout>
+      <Layout
+        style={{
+          background: "#FFFEF6",
+        }}
+      >
         <Navbar />
 
         <Content
@@ -19,6 +25,7 @@ const Cart = () => {
             ตะกร้าสินค้า
           </Title>
         </Content>
+        <FooterPage />
       </Layout>
     </>
   );
