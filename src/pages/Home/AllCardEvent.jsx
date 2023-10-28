@@ -3,9 +3,10 @@ import Navbar from "../../components/Header/Navbar";
 import { Layout, Row, Col, Typography, Button, Input } from "antd";
 import BannerListProduct from "../../components/Slide/BannerListProduct";
 import CardEvent from "../../components/CardKnowlage/CardEvent";
+import FooterPage from "../../components/Footer/FooterPage";
 
 const { Title } = Typography;
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 
 const AllCardEvent = () => {
   const { Search } = Input;
@@ -13,7 +14,11 @@ const AllCardEvent = () => {
 
   return (
     <>
-      <Layout>
+      <Layout
+        style={{
+          background: "#FFFEF6",
+        }}
+      >
         <Navbar />
         <BannerListProduct />
         <Row justify="space-evenly" style={{ marginTop: "-20px" }}>
@@ -61,7 +66,7 @@ const AllCardEvent = () => {
             </Col>
           </Row>
         </Content>
-        <Footer></Footer>
+        <FooterPage />
       </Layout>
     </>
   );

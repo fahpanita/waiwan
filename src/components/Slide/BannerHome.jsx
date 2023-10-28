@@ -1,13 +1,6 @@
 import React from "react";
 import { Carousel } from "antd";
 import styled from "styled-components";
-const contentStyle = {
-  height: "160px",
-  color: "#fff",
-  lineHeight: "160px",
-  textAlign: "center",
-  background: "#000",
-};
 
 export const Img = styled.img`
   width: 100%;
