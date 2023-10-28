@@ -20,6 +20,7 @@ import DetailProduct from "./pages/Home/DetailProduct";
 import DetailCardEvent from "./pages/Home/DetailCardEvent";
 import AllCardEvent from "./pages/Home/AllCardEvent";
 import BuyProduct from "./pages/Home/BuyProduct";
+import Payment from "./pages/Home/Payment";
 // import Cart from "./pages/Home/Cart";
 
 // const Home = lazy(() => import("./pages/Home"));
@@ -91,6 +92,14 @@ const Routing = () => {
             element={
               <Suspense fallback={<Loading />}>
                 <DetailCardEvent />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/payment"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Payment />
               </Suspense>
             }
           />
