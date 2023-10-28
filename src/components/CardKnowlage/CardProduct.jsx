@@ -13,7 +13,7 @@ const CardProduct = (prop) => {
       <Card.Img variant="top" src={`${BASE_URL}/${data?.thumbnail}`}></Card.Img>
       <Card.Body>
         <Card.Title>{data?.name}</Card.Title>
-        <Card.Text>฿{data?.price}</Card.Text>
+        <Card.Text style={{ color: "#C54142", fontSize: "20px", fontWeight: "400" }}>฿{data?.price}</Card.Text>
         <Link to={`/detailProduct?id=${data?.id}`}>
           <Button>ดูเพิ่มเติม</Button>
         </Link>

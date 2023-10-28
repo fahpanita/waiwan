@@ -3,6 +3,7 @@ import { useAuth } from "../../Providers/AuthProvider";
 import { Image } from "antd";
 import { Input, Col, Row, Divider, Layout, Typography } from "antd";
 import Navbar from "../../components/Header/Navbar";
+import FooterPage from "../../components/Footer/FooterPage";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title } = Typography;
@@ -13,7 +14,9 @@ const Stock = () => {
 
   return (
     <>
-      <Layout>
+      <Layout style={{
+        background: "#FFFEF6",
+      }}>
         <Navbar />
         <Content
           style={{
@@ -30,7 +33,7 @@ const Stock = () => {
             </Col>
           </Row>
         </Content>
-        <Footer></Footer>
+        <FooterPage />
       </Layout>
     </>
   );

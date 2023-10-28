@@ -7,6 +7,7 @@ import Link from "../../components/Link";
 import { UserOutlined } from "@ant-design/icons";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space, Divider, theme } from "antd";
+import { BsLine } from "react-icons/bs";
 const { useToken } = theme;
 const items = [
   {
@@ -49,8 +50,8 @@ const LineLogin = () => {
 
     if (!isLoggedIn) {
       return (
-        <Button type="primary" onClick={onLogin}>
-          Login
+        <Button type="primary" onClick={onLogin} >
+          <BsLine />  Login Line
         </Button>
       );
     }

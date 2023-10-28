@@ -72,23 +72,21 @@ const Home = () => {
             <Title level={4}>การ์ดความรู้เทศกาล</Title>
           </Col>
           <Col span={8} offset={8}>
-            <a style={{ float: "right" }} href="/allCardEvent">
-              ดูทั้งหมด
+            <a style={{ float: "right", textDecoration: "none", color: "#1D1D1F" }} href="/allCardEvent">
+              {"ดูทั้งหมด>>"}
             </a>
           </Col>
         </Row>
 
         <Row
-          justify="space-evenly"
+          justify="center"
           gutter={{
             xs: 8,
             sm: 16,
             md: 24,
             lg: 32,
           }}
-        // gutter={[8, 8]}
         >
-
           {cardevents?.map(c => (
             <Col className="gutter-row" span={5}>
               <div>
@@ -96,30 +94,26 @@ const Home = () => {
               </div>
             </Col>
           ))}
-
         </Row>
         <Title level={4} style={{ marginTop: "50px" }}>
           สินค้าทั้งหมด
         </Title>
         <Row
-          justify="space-evenly"
+          justify="flex-start"
           gutter={{
             xs: 8,
             sm: 16,
             md: 24,
             lg: 32,
           }}
-        // gutter={[8, 8]}
         >
           {products?.map(p => (
             <Col className="gutter-row" span={4}>
-              <div>
+              <div style={{ marginTop: "24px", }}>
                 <CardProduct data={p} />
               </div>
             </Col>
           ))}
-
-
         </Row>
       </Content>
       <FooterPage />

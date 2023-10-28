@@ -37,17 +37,17 @@ const priceSlide = (
 const items = [
   {
     key: "1",
-    label: "หมวดหมู่สินค้า",
+    label: <Title level={5}>หมวดหมู่สินค้า</Title>,
     children: select,
   },
   {
     key: "2",
-    label: "หมวดหมู่เทศกาล",
+    label: <Title level={5}>หมวดหมู่เทศกาล</Title>,
     children: select,
   },
   {
     key: "3",
-    label: "ช่วงราคา",
+    label: <Title level={5}>ช่วงราคา</Title>,
     children: priceSlide,
   },
 ];
@@ -93,7 +93,7 @@ const ListProduct = () => {
         <Content
           style={{
             padding: "0 50px",
-            marginTop: "50px",
+            // marginTop: "50px",
           }}
         >
           <Row
@@ -106,7 +106,8 @@ const ListProduct = () => {
             }}
           // gutter={[8, 8]}
           >
-            <Col className="gutter-row" span={5}>
+            <Col className="gutter-row" span={5}
+              style={{ marginTop: "50px" }}>
               <Collapse
                 items={items}
                 bordered={false}
@@ -114,20 +115,19 @@ const ListProduct = () => {
               />
             </Col>
 
-            <Col className="gutter-row" span={15}>
+            <Col className="gutter-row" span={15} style={{ marginTop: "26px" }}>
               <Row
-                justify="space-evenly"
+                justify="flex-start"
                 gutter={{
                   xs: 8,
                   sm: 16,
                   md: 24,
                   lg: 32,
                 }}
-              // gutter={[8, 8]}
               >
                 {products?.map(p => (
-                  <Col className="gutter-row" span={4}>
-                    <div>
+                  <Col className="gutter-row" span={5}>
+                    <div style={{ marginTop: "24px" }}>
                       <CardProduct data={p} />
                     </div>
                   </Col>

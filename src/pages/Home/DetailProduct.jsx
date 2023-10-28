@@ -72,20 +72,24 @@ const DetailProduct = () => {
                   {/* <p className="legend">Legend 1</p> */}
                 </div>
                 <div>
-                  <img src="image/img/product-01.png" />
+                  <img src={`${BASE_URL}/${product?.thumbnail}`} />
+                </div>
+                <div>
+                  <img src={`${BASE_URL}/${product?.thumbnail}`} />
+                </div>
+                <div>
+                  <img src={`${BASE_URL}/${product?.thumbnail}`} />
                 </div>
               </Carousel>
             </Col>
 
             <Col className="gutter-row" span={12}>
-              <Title level={4}>{product?.name}</Title>
-              <div>
-                ประเภทสินค้า<Tag color="error">{product?.typeProduct}</Tag>
-              </div>
-              <div>ราคา {product?.price} บาท</div>
-              <div>
-                จำนวน
-                {
+              <Title level={2}>{product?.name}</Title>
+              <div style={{ fontSize: "20px" }}>ประเภทสินค้า: <Tag color="error" > {product?.typeProduct}</Tag></div>
+
+              <div style={{ fontSize: "20px", marginTop: "6px" }}>ราคา {product?.price} บาท</div>
+              <div style={{ fontSize: "20px", marginTop: "6px" }}>
+                จำนวน: {
                   <InputNumber
                     min={1}
                     max={1000}
@@ -94,14 +98,13 @@ const DetailProduct = () => {
                   />
                 }
               </div>
-
-              <Space wrap>
-                <Button danger icon={<ShoppingCartOutlined />}>
+              <Space wrap style={{ marginTop: "16px" }}>
+                <Button danger icon={<ShoppingCartOutlined />} size="large">
                   เพิ่มไปยังตะกร้า
                 </Button>
                 <div>
                   <a href="/buyProduct">
-                    <Button type="primary" danger>
+                    <Button type="primary" danger size="large">
                       ซื้อสินค้า
                     </Button>
                   </a>
@@ -138,7 +141,7 @@ const DetailProduct = () => {
                 items={[
                   {
                     key: "1",
-                    label: "รายละเอียดสินค้า",
+                    label: <Title level={5}>รายละเอียดสินค้า</Title>,
                     children: <p>{product?.detailProduct}</p>,
                   },
                 ]}
@@ -174,7 +177,7 @@ const DetailProduct = () => {
                 items={[
                   {
                     key: "2",
-                    label: "รายละเอียดการจัดส่ง",
+                    label: <Title level={5}>รายละเอียดการจัดส่ง</Title>,
                     children: <p>{product?.detailShipping}</p>,
                     Divider: "",
                   },
@@ -211,16 +214,16 @@ const DetailProduct = () => {
                 items={[
                   {
                     key: "3",
-                    label: "เงื่อนไขอื่น ๆ",
+                    label: <Title level={5}>เงื่อนไขอื่น ๆ</Title>,
                     children: <p>{product?.condition}</p>,
                   },
                 ]}
               />
             </Col>
           </Row>
-        </Content>
+        </Content >
         <FooterPage />
-      </Layout>
+      </Layout >
     </>
   );
 };
