@@ -9,38 +9,41 @@ import {
   InputNumber,
   Space,
   Collapse,
+  Input,
+  Form,
 } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import FooterPage from "../../components/Footer/FooterPage";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { getProductId } from "../../services/product";
 import { BASE_URL } from "../../constands/api";
+import IncDecCounter from "../../components/Button/IncDecCounter";
 const { Title } = Typography;
 const { Content } = Layout;
-const onChange = (value) => {
-  console.log("changed", value);
-};
 
 const DetailProduct = () => {
+
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const [product, setProduct] = useState([]);
-  // console.log(id)
 
   const handleGetProduct = async (id) => {
     const res = await getProductId(id);
     setProduct(res?.data);
-    console.log(res?.data);
   };
+
+
 
   useEffect(() => {
     if (id) {
       handleGetProduct(id);
     }
   }, [id]);
+
+
 
   return (
     <>
@@ -90,24 +93,21 @@ const DetailProduct = () => {
               <div style={{ fontSize: "20px", marginTop: "6px" }}>ราคา {product?.price} บาท</div>
               <div style={{ fontSize: "20px", marginTop: "6px" }}>
                 จำนวน: {
-                  <InputNumber
-                    min={1}
-                    max={1000}
-                    defaultValue={1}
-                    onChange={onChange}
-                  />
+                  <IncDecCounter />
                 }
               </div>
+
+
               <Space wrap style={{ marginTop: "16px" }}>
                 <Button danger icon={<ShoppingCartOutlined />} size="large">
                   เพิ่มไปยังตะกร้า
                 </Button>
                 <div>
-                  <a href="/buyProduct">
+                  <Link to={`/buyProduct?id=${product?.id}`}>
                     <Button type="primary" danger size="large">
                       ซื้อสินค้า
                     </Button>
-                  </a>
+                  </Link>
                 </div>
               </Space>
             </Col>

@@ -64,7 +64,6 @@ const ListProduct = () => {
   const handleGetProducts = async () => {
     const res = await getProducts()
     setProducts(res?.data)
-    console.log(res?.data)
   }
 
   useEffect(() => {

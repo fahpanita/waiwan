@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Row, Col, Typography, Tabs, Table, Button } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -9,8 +9,14 @@ import {
 } from "@ant-design/icons";
 import FooterPage from "../../components/Footer/FooterPage";
 import styled from "styled-components";
+import { useSearchParams } from "react-router-dom";
+import { getProductId } from "../../services/product";
+import { BASE_URL } from "../../constands/api";
 
 const columns = [
+  {
+    dataIndex: "thumbnail",
+  },
   {
     title: "ชื่อสินค้า",
     dataIndex: "name",
@@ -28,29 +34,33 @@ const columns = [
 
 const { Title } = Typography;
 const { Content } = Layout;
-const onChange = (key) => {
-  console.log(key);
-};
 
 const BuyProduct = () => {
+
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+  const [product, setProduct] = useState([]);
+
+  const handleGetProduct = async (id) => {
+    const res = await getProductId(id);
+    setProduct(res?.data);
+  };
+
+  useEffect(() => {
+    if (id) {
+      handleGetProduct(id);
+    }
+  }, [id]);
+
+
+
   const data = [
     {
       key: "1",
-      name: "John Brown",
-      amount: 32,
-      price: "654",
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      amount: 42,
-      price: "0248",
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      amount: 32,
-      price: "1345",
+      thumbnail: <img src={`${BASE_URL}/${product?.thumbnail}`} style={{ width: "70px" }} />,
+      name: product?.name,
+      amount: product?.num,
+      price: product?.price,
     },
   ];
   return (
@@ -73,7 +83,7 @@ const BuyProduct = () => {
                     fontSize: "24px",
                     marginTop: "-40px",
                   }}
-                  href="/detailProduct"
+                // href={`/detailProduct?id=${product?.id}`}
                 >
                   <ArrowLeftOutlined />
                 </a>
@@ -140,7 +150,7 @@ const BuyProduct = () => {
                         >
                           <Col className="gutter-row" span={20}>
                             <Title level={5} style={{ textAlign: "left" }}>
-                              <Table
+                              <Tables
                                 columns={columns}
                                 dataSource={data}
                                 pagination={false}
@@ -230,6 +240,12 @@ export default BuyProduct;
 export const CardBoxAddress = styled.div`
   border-radius: 6px;
   border: 1px solid #bf9f64;
+`;
+
+export const Tables = styled(Table)`
+  &.ant-table-wrapper .ant-table-thead >tr>td {
+    width: 100px;
+  }
 `;
 
 export const TabShipping = styled(Tabs)`
