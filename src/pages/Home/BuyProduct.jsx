@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import FooterPage from "../../components/Footer/FooterPage";
 import styled from "styled-components";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { getProductId } from "../../services/product";
 import { BASE_URL } from "../../constands/api";
 
@@ -35,7 +35,10 @@ const columns = [
 const { Title } = Typography;
 const { Content } = Layout;
 
-const BuyProduct = () => {
+const BuyProduct = (props) => {
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
@@ -52,15 +55,13 @@ const BuyProduct = () => {
     }
   }, [id]);
 
-
-
   const data = [
     {
       key: "1",
       thumbnail: <img src={`${BASE_URL}/${product?.thumbnail}`} style={{ width: "70px" }} />,
       name: product?.name,
-      amount: product?.num,
-      price: product?.price,
+      amount: <div>{location.state.amount}</div>,
+      price: <div>{location.state.amount * product?.price}</div>,
     },
   ];
   return (
@@ -158,6 +159,9 @@ const BuyProduct = () => {
                             </Title>
                           </Col>
                         </Row>
+
+                        {/* {location.state.amount} */}
+
                       </div>
                     ),
                   },
@@ -216,6 +220,9 @@ const BuyProduct = () => {
             </Col>
           </Row>
           <Row style={{ justifyContent: "center" }}>
+            {/* <ButtonRed type="primary" danger size="large" htmlType="submit" onClick={() => { navigate(`/payment?id=${product?.id}`, { replace: true, state: { amount } }) }}>
+              ชำระเงิน
+            </ButtonRed> */}
             <a href="/payment">
               <ButtonRed
                 style={{

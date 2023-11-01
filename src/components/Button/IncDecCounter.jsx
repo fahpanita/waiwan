@@ -7,6 +7,9 @@ function IncDecCounter() {
     const id = searchParams.get("id");
     const [product, setProduct] = useState([]);
 
+    const [createBuyProductForm] = Form.useForm();
+    const formDataBuyProduct = Form.useWatch([], createBuyProductForm);
+
     const handleGetProduct = async (id) => {
         const res = await getProductId(id);
         setProduct(res?.data);

@@ -25,11 +25,12 @@ const Navbar = () => {
   };
 
   return (
-    <Layout className="layout">
+    <Layout className="layout" >
       <Header
         style={{
           background: "#FFFEF6",
           boxShadow: "2px 2px 9px 0px rgba(0, 0, 0, 0.09)",
+          position: "sticky",
         }}
       >
         <Row justify="space-between" align="middle">
