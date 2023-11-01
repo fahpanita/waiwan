@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getProductId } from "../../services/product";
+import { Form } from "antd";
 function IncDecCounter() {
     let [amount, setNum] = useState(1);
     const [searchParams] = useSearchParams();
@@ -42,7 +43,7 @@ function IncDecCounter() {
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-primary" type="button" onClick={decNum}>-</button>
                     </div>
-                    <input type="text" class="form-control" name="amount" value={amount} onChange={handleChange} style={{ width: "60px", minWidth: "auto" }} />
+                    <input type="text" class="form-control" name="amount" value={amount} onChange={handleChange} style={{ width: "60px", minWidth: "auto", textAlign: "center" }} />
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-primary" type="button" onClick={incNum}>+</button>
                     </div>

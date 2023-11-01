@@ -96,7 +96,7 @@ const Cart = () => {
                   fontSize: "24px",
                   marginTop: "-40px",
                 }}
-                // href={`/detailProduct?id=${product?.id}`}
+              // href={`/detailProduct?id=${product?.id}`}
               >
                 <ArrowLeftOutlined />
               </a>
