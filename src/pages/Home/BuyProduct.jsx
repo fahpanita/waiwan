@@ -155,6 +155,8 @@ const BuyProduct = (props) => {
                             <Title level={5}>ที่อยู่ร้านค้า</Title>
                             <div style={boxWhite}>
                               {/* <MapShop /> */}
+                              226/105 (16C) อาคารริเวียร่า1 ถนนบอนด์สตรีท ตำบลบางพูด, อำเภอปากเกร็ด, จังหวัดนนทบุรี,
+                              11120
                             </div>
                           </Col>
                         </Row>
@@ -184,7 +186,7 @@ const BuyProduct = (props) => {
                           <Divider dashed />
                           <Col span={23} style={boxSum}>
                             <div>ยอดรวมทั้งหมด</div>
-                            <div style={{ fontSize: "24px" }}>฿ {"270.00"}</div>
+                            <div style={{ fontSize: "24px", fontWeight: "500" }}>฿ {"270.00"}</div>
                           </Col>
                         </Row>
                         <Row
@@ -206,16 +208,19 @@ const BuyProduct = (props) => {
                               display: "contents",
                             }}
                           >
-                            <Button
-                              type="primary"
-                              shape="round"
-                              size="large"
-                              style={{
-                                background: "#c54142",
-                              }}
-                            >
-                              ชำระเงิน
-                            </Button>
+                            <Link to={"/payment"} >
+                              <Button
+                                type="primary"
+                                shape="round"
+                                size="large"
+                                style={{
+                                  background: "#c54142",
+                                  padding: "0 30px 0 30px",
+                                }}
+                              >
+                                ชำระเงิน
+                              </Button>
+                            </Link>
                           </Col>
                         </Row>
                       </div>
@@ -266,7 +271,55 @@ const BuyProduct = (props) => {
                               >
                                 <Input />
                               </Form.Item>
+                              <Form.Item
+                                name="address"
+                                label="จังหวัด,เขตอำเภอ,รหัสไปรษณีย์"
+                              >
+                                <Input />
+                              </Form.Item>
                             </Form>
+                          </Col>
+                          <Col span={23}>
+                            <Title level={5}>ระบุจากแผนที่</Title>
+                            <div style={boxWhite}>
+                              {/* <MapShop /> */}
+                              เลือกระบุจากแผนที่
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row
+                          justify="space-evenly"
+                          gutter={{
+                            xs: 8,
+                            sm: 16,
+                            md: 24,
+                            lg: 32,
+                          }}
+                          span={23}
+                          style={{
+                            marginTop: "30px",
+                          }}
+                        >
+                          <Col
+                            span={23}
+                            style={{
+                              display: "contents",
+                            }}
+                          >
+                            <Link to={"/payment"} >
+                              <Button
+                                type="primary"
+                                shape="round"
+                                size="large"
+
+                                style={{
+                                  background: "#c54142",
+                                  padding: "0 30px 0 30px",
+                                }}
+                              >
+                                ชำระเงิน
+                              </Button>
+                            </Link>
                           </Col>
                         </Row>
                       </div>
@@ -277,17 +330,7 @@ const BuyProduct = (props) => {
             </Col>
           </Row>
           <Row style={{ justifyContent: "center" }}>
-            <Link to={"/payment"} >
-              <ButtonRed
-                style={{
-                  marginTop: "70px",
-                  textAlign: "center",
-                  justifyItems: "center",
-                }}
-              >
-                ชำระเงิน
-              </ButtonRed>
-            </Link>
+
           </Row>
         </Content>
         <FooterPage />

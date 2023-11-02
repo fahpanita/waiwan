@@ -64,7 +64,7 @@ const Navbar = () => {
             </Menu>
           </Col>
           <Col xs={0} sm={0} md={8} align="center">
-            <Image preview={false} width={88.61} src="image/img/Logo.png" />
+            <Image preview={false} width={100} src="image/img/Logo.png" />
           </Col>
           <Col xs={0} sm={0} md={8}>
             <Menus
@@ -105,10 +105,14 @@ const Navbar = () => {
               </Link>
             </Menu.Item>
             <Menu.Item key="9" icon={<ExperimentOutlined />}>
-              ทดลองจัดวาง
+              <Link to="/experiment" style={{ textDecoration: "none" }}>
+                ทดลองจัดวาง
+              </Link>
             </Menu.Item>
             <Menu.Item key="10" icon={<ShoppingCartOutlined />}>
-              ตะกร้าสินค้า
+              <Link to="/cart" style={{ textDecoration: "none" }}>
+                ตะกร้าสินค้า
+              </Link>
             </Menu.Item>
             <Menu.Item key="11">
               <LineLogin></LineLogin>

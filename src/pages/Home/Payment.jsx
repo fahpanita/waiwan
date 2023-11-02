@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from "../../components/Header/Navbar";
-import { Layout, Row, Col, Typography, Button, Table, Upload } from "antd";
-import { UploadOutlined } from '@ant-design/icons';
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Layout, Row, Col, Typography, Button, Table, Upload, Divider } from "antd";
+import { UploadOutlined, CameraOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import QRCode from 'qrcode.react';
 import generatePayload from 'promptpay-qr';
 import styled from 'styled-components';
@@ -11,14 +10,19 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import { getProductId } from "../../services/product";
 import { BASE_URL } from "../../constands/api";
 import { useSelector } from 'react-redux';
+import Link from '../../components/Link';
 
 // const generatePayload = require('promptpay-qr');
 
 const { Title } = Typography;
-const { Footer, Content } = Layout;
+const { Content } = Layout;
+
 const columns = [
   {
-    title: "ชื่อสินค้า",
+    dataIndex: "thumbnail",
+  },
+  {
+    title: "สินค้า",
     dataIndex: "name",
     render: (text) => <a>{text}</a>,
   },
@@ -31,6 +35,21 @@ const columns = [
     dataIndex: "price",
   },
 ];
+const boxSum = {
+  display: "flex",
+  flexWrap: "nowrap",
+  justifyContent: "space-between",
+};
+const boxGold = {
+  margin: "10px 0",
+  padding: "20px",
+  backgroundColor: "#fff",
+  border: "2px dashed #BF9F64",
+  display: "flex",
+  flexWrap: "nowrap",
+  justifyContent: "center",
+  alignItems: "center",
+};
 
 const Payment = () => {
 
@@ -100,15 +119,17 @@ const Payment = () => {
     <>
       <Layout style={{ background: "#FFFEF6" }}>
         <Navbar />
-        <Content>
+        <Content
+          style={{ padding: "0 50px" }}>
           <Title level={4} style={{ marginTop: "50px", textAlign: "center" }}>
             แจ้งชำระเงิน
           </Title>
+
           <Row
             justify="space-evenly"
             gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
           >
-            <Col className="gutter-row" span={20}>
+            <Col span={20}>
               <div>
                 <a
                   style={{
@@ -116,13 +137,13 @@ const Payment = () => {
                     fontSize: "24px",
                     marginTop: "-40px",
                   }}
-                  href="/buyProduct"
                 >
                   <ArrowLeftOutlined />
                 </a>
               </div>
             </Col>
           </Row>
+
           <Row
             justify="space-evenly"
             gutter={{
@@ -131,8 +152,11 @@ const Payment = () => {
               md: 24,
               lg: 32,
             }}
+            style={{
+              marginTop: "30px",
+            }}
           >
-            <Col className="gutter-row" span={20}>
+            <Col span={20}>
               <Row
                 justify="space-evenly"
                 gutter={{
@@ -147,42 +171,37 @@ const Payment = () => {
                   padding: "20px 0",
                 }}
               >
-                <Col className="gutter-row" span={20}>
-                  <Title
-                    level={5}
-                    style={{ textAlign: "left", margin: "20px 0" }}
-                  >
-                    สรุปรายการสั่งซื้อ
+                <Col span={23}>
+                  <Title level={5}>ที่อยู่ร้านค้า</Title>
+                </Col>
+                <Col span={23}>
+                  <Title level={5} style={{ textAlign: "left" }}>
+                    <Tables
+                      columns={columns}
+                      dataSource={data}
+                      pagination={false}
+                    />
                   </Title>
-                  <Table
-                    columns={columns}
-                    dataSource={data}
-                    pagination={false}
-                  />
+                </Col>
+                <Divider dashed />
+                <Col span={23} style={boxSum}>
+                  <div>ยอดรวมสินค้า</div>
+                  <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {"270.00"}</div>
+                </Col>
+                <Divider dashed />
+                <Col span={23} style={boxSum}>
+                  <div>ค่าจัดส่ง</div>
+                  <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {"50.00"}</div>
+                </Col>
+                <Divider dashed />
+                <Col span={23} style={boxSum}>
+                  <div>การชำระเงินทั้งหมด</div>
+                  <div style={{ fontSize: "24px", fontWeight: "500" }}>฿ {"590.00"}</div>
                 </Col>
               </Row>
-              <Row
-                justify="space-evenly"
-                gutter={{
-                  xs: 8,
-                  sm: 16,
-                  md: 24,
-                  lg: 32,
-                }}
-              >
-                <Col className="gutter-row" span={20}>
-                  <Title
-                    level={5}
-                    style={{
-                      textAlign: "left",
-                      margin: "40px 0",
-                    }}
-                  >
-                    ยอดชำระเงิน
-                  </Title>
 
-                </Col>
-              </Row>
+              <Title level={4} style={{ marginTop: "40px" }}>การสั่งซื้อ</Title>
+
               <Row
                 justify="space-evenly"
                 gutter={{
@@ -192,14 +211,12 @@ const Payment = () => {
                   lg: 32,
                 }}
                 style={{
-                  padding: "20px 0",
-                  borderRadius: "15px",
-                  border: "5px solid #BF9F64",
+                  border: "2px solid #BF9F64", borderRadius: "6px", marginTop: "20px",
                 }}
               >
-                <Col className="gutter-row" span={20}>
+                <Col span={23}>
                   <Title
-                    level={5}
+                    level={4}
                     style={{ textAlign: "left", margin: "20px 0" }}
                   >
                     <div>
@@ -211,6 +228,7 @@ const Payment = () => {
                   </Title>
                 </Col>
               </Row>
+
               <Row
                 justify="space-evenly"
                 gutter={{
@@ -221,65 +239,90 @@ const Payment = () => {
                 }}
                 style={{
                   backgroundColor: "#F2F0E6",
-                  marginTop: "24px",
+                  marginTop: "40px",
                   padding: "20px 0",
                 }}
               >
-                <Col className="gutter-row" span={20}>
-                  <Title
-                    level={5}
-                    style={{ textAlign: "left", margin: "20px 0" }}
-                  >
-                    แจ้งหลักฐานการชำระเงิน
-                  </Title>
-
-                  <Row
-                    justify="space-evenly"
-                    gutter={{
-                      xs: 8,
-                      sm: 16,
-                      md: 24,
-                      lg: 32,
-                    }}
-                    style={{
-                      padding: "20px 0",
-                      borderRadius: "15px",
-                      border: "2px dashed #BF9F64",
-                    }}
-                  >
-
-                    <Upload {...uploadPayment}>
-                      <Button icon={<UploadOutlined />}>แนบหลักฐานการชำระเงิน</Button>
-                    </Upload>
-
-                  </Row>
-
+                <Col span={23}>
+                  <Title level={5}>แจ้งหลักฐานการชำระเงิน</Title>
                 </Col>
+                <Col span={23}>
+                  <div style={boxGold}>
+                    <Button type="primary" shape="round" size="large"
+                      icon={<CameraOutlined />}
+                      style={{
+                        background: "#BF9F64", padding: "0 30px 0 30px",
+                      }}>
+                      แนบหลักฐานการชำระเงิน
+                    </Button>
+                  </div>
+                </Col>
+
+
               </Row>
-              <Row style={{ justifyContent: "center" }}>
-                <ButtonRed
+              <Row
+                justify="space-evenly"
+                gutter={{
+                  xs: 8,
+                  sm: 16,
+                  md: 24,
+                  lg: 32,
+                }}
+                span={23}
+                style={{
+                  marginTop: "30px",
+                }}
+              >
+                <Col
+                  span={23}
                   style={{
-                    marginTop: "70px",
-                    textAlign: "center",
-                    justifyItems: "center",
+                    display: "contents",
                   }}
                 >
-                  ชำระเงิน
-                </ButtonRed>
-              </Row>
+                  <Link to={""} >
+                    < Button
+                      type="primary"
+                      shape="round"
+                      size="large"
 
+                      style={{
+                        background: "#c54142",
+                        padding: "0 30px 0 30px",
+                      }}
+                    >
+                      ชำระเงิน
+                    </Button>
+                  </Link>
+                </Col>
+              </Row>
             </Col>
           </Row>
-        </Content>
-        <FooterPage>
-
-        </FooterPage>
-      </Layout>
+        </Content >
+        <FooterPage />
+      </Layout >
     </>
   );
 };
 
 export default Payment;
+
+export const Tables = styled(Table)`
+  &.ant-table-wrapper .ant-table-thead > tr > td {
+    width: 100px;
+    background-color: #f2f0e6;
+    border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  }
+  &.ant-table-wrapper .ant-table-thead > tr > th {
+    background-color: #f2f0e6;
+    border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  }
+  &.ant-table-wrapper .ant-table-tbody > tr {
+    background-color: #f2f0e6;
+  }
+  &.ant-table-wrapper .ant-table-tbody > tr > td {
+    border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  }
+`;
 
 const ButtonRed = styled(Button)`
   border-radius: 50px;

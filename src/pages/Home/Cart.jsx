@@ -242,7 +242,7 @@ const Cart = () => {
                     children: (
                       <div>
                         <div style={headFitler}>
-                          <Title level={4}>การ์ดความรู้เทศกาล</Title>
+                          <Title level={4}>การสั่งซื้อ</Title>
                           <Dropdown
                             menu={{
                               items,

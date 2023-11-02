@@ -49,17 +49,16 @@ const Home = () => {
       <Navbar />
       <BannerHome />
       <Row justify="space-evenly" style={{ marginTop: "-20px" }}>
-        <Col span={5}>
-          <Filter />
-        </Col>
-        <Col span={17}>
+        <Col span={22}>
           <Search
-            placeholder="ค้นหาสินค้าที่่ต้องการ"
+            placeholder="ค้นหาสินค้าที่ต้องการ"
             onSearch={onSearch}
             enterButton
           />
         </Col>
       </Row>
+
+
       <Content
         style={{
           padding: "0 50px",
@@ -67,35 +66,15 @@ const Home = () => {
       >
         <Row style={{ marginTop: "50px" }}>
           <Col span={8}>
-            <Title level={4}>การ์ดความรู้เทศกาล</Title>
+            <Title level={4}>สินค้า</Title>
           </Col>
           <Col span={8} offset={8}>
-            <a style={{ float: "right", textDecoration: "none", color: "#1D1D1F" }} href="/allCardEvent">
+            <a style={{ float: "right", textDecoration: "none", color: "#1D1D1F" }} href="/listProduct">
               {"ดูทั้งหมด>>"}
             </a>
           </Col>
         </Row>
 
-        <Row
-          justify="center"
-          gutter={{
-            xs: 8,
-            sm: 16,
-            md: 24,
-            lg: 32,
-          }}
-        >
-          {cardevents?.map(c => (
-            <Col className="gutter-row" span={5}>
-              <div>
-                <CardEvent datacard={c} />
-              </div>
-            </Col>
-          ))}
-        </Row>
-        <Title level={4} style={{ marginTop: "50px" }}>
-          สินค้าทั้งหมด
-        </Title>
         <Row
           justify="flex-start"
           gutter={{
@@ -109,6 +88,36 @@ const Home = () => {
             <Col className="gutter-row" span={4}>
               <div style={{ marginTop: "24px", }}>
                 <CardProduct data={p} />
+              </div>
+            </Col>
+          ))}
+        </Row>
+
+        <Divider dashed style={{ marginTop: "50px" }} />
+
+        <Row style={{ marginTop: "50px" }}>
+          <Col span={8}>
+            <Title level={4}>บทความเทศกาล</Title>
+          </Col>
+          <Col span={8} offset={8}>
+            <a style={{ float: "right", textDecoration: "none", color: "#1D1D1F" }} href="/allCardEvent">
+              {"ดูทั้งหมด>>"}
+            </a>
+          </Col>
+        </Row>
+        <Row
+          justify="center"
+          gutter={{
+            xs: 8,
+            sm: 16,
+            md: 24,
+            lg: 32,
+          }}
+        >
+          {cardevents?.map(c => (
+            <Col className="gutter-row" span={5} style={{ marginTop: "20px" }}>
+              <div>
+                <CardEvent datacard={c} />
               </div>
             </Col>
           ))}

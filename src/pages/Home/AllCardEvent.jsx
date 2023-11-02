@@ -7,6 +7,10 @@ import FooterPage from "../../components/Footer/FooterPage";
 import { getCartEvents } from "../../services/cartEvents";
 import { useState } from "react";
 import { useEffect } from "react";
+import {
+  ArrowLeftOutlined,
+
+} from "@ant-design/icons";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -29,39 +33,62 @@ const AllCardEvent = () => {
   return (
     <>
       <Layout
-        style={{
-          background: "#FFFEF6",
-        }}
+        style={{ background: "#FFFEF6" }}
       >
         <Navbar />
-        <BannerListProduct />
-        <Row justify="space-evenly" style={{ marginTop: "-20px" }}>
-          <Col span={22}>
-            <Search
-              placeholder="ค้นหาสินค้าที่่ต้องการ"
-              onSearch={onSearch}
-              enterButton
-            />
-          </Col>
-        </Row>
         <Content
           style={{
             padding: "0 50px",
-            marginTop: "50px",
           }}
         >
-          {/* <Title level={4} style={{ marginTop: "50px", textAlign: "center" }}>
-            การ์ดเทศกาล
-          </Title> */}
+          <Title level={4} style={{ marginTop: "50px", textAlign: "center" }}>
+            บทความเทศกาล
+          </Title>
+
           <Row
             justify="space-evenly"
+            gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+          >
+            <Col span={20}>
+              <div>
+                <a
+                  style={{
+                    float: "left",
+                    fontSize: "24px",
+                    marginTop: "-40px",
+                  }}
+                >
+                  <ArrowLeftOutlined />
+                </a>
+              </div>
+            </Col>
+          </Row>
+
+
+          <Row justify="space-evenly" >
+            <Col span={22} style={{
+              marginTop: "30px",
+            }}>
+              <Search
+                placeholder="ค้นหาสินค้าที่่ต้องการ"
+                onSearch={onSearch}
+                enterButton
+              />
+            </Col>
+          </Row>
+
+
+          <Row
+            justify="flex-start"
             gutter={{
               xs: 8,
               sm: 16,
               md: 24,
               lg: 32,
             }}
-          // gutter={[8, 8]}
+            style={{
+              marginTop: "30px",
+            }}
           >
             {cardevents?.map(c => (
               <Col className="gutter-row" span={5}>

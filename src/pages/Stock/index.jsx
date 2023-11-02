@@ -5,8 +5,14 @@ import { Input, Col, Row, Divider, Layout, Typography } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import FooterPage from "../../components/Footer/FooterPage";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 const { Title } = Typography;
+
+const boxSum = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+};
 
 const Stock = () => {
   const { profile } = useAuth();
@@ -23,11 +29,11 @@ const Stock = () => {
             padding: "0 50px",
           }}
         >
-          <Title level={4} style={{ marginTop: "50px" }}>
+          <Title level={4} style={{ marginTop: "50px", textAlign: "center" }}>
             บัญชีของฉัน
           </Title>
           <Row style={{ marginTop: "50px" }}>
-            <Col span={10}>
+            <Col span={10} style={boxSum}>
               <Image width={200} src={profile?.picture} />
               <div className="abc mb-3">ชื่อผู้ใช้: {profile?.name}</div>
             </Col>

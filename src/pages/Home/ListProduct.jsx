@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { getProducts } from "../../services/product";
 
 const { Title } = Typography;
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 const onChange = (value) => {
   console.log("changed", value);
 };
@@ -20,7 +20,7 @@ const select = (
       paddingLeft: 24,
     }}
   >
-    No information
+    No data
   </p>
 );
 
@@ -30,7 +30,7 @@ const priceSlide = (
       paddingLeft: 24,
     }}
   >
-    No information
+    No data
   </p>
 );
 
@@ -92,7 +92,6 @@ const ListProduct = () => {
         <Content
           style={{
             padding: "0 50px",
-            // marginTop: "50px",
           }}
         >
           <Row
@@ -103,14 +102,14 @@ const ListProduct = () => {
               md: 24,
               lg: 32,
             }}
-          // gutter={[8, 8]}
+
           >
             <Col className="gutter-row" span={5}
               style={{ marginTop: "50px" }}>
               <Collapse
                 items={items}
                 bordered={false}
-                defaultActiveKey={["1"]}
+                defaultActiveKey={[""]}
               />
             </Col>
 
@@ -125,7 +124,7 @@ const ListProduct = () => {
                 }}
               >
                 {products?.map(p => (
-                  <Col className="gutter-row" span={5}>
+                  <Col className="gutter-row" span={6}>
                     <div style={{ marginTop: "24px" }}>
                       <CardProduct data={p} />
                     </div>

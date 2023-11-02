@@ -7,18 +7,23 @@ import { BASE_URL } from "../../constands/api";
 const CardProduct = (prop) => {
   const { data } = prop
   return (
-    <Card
-    // style={{ width: "18rem" }}
-    >
-      <Card.Img variant="top" src={`${BASE_URL}/${data?.thumbnail}`}></Card.Img>
-      <Card.Body>
-        <Card.Title>{data?.name}</Card.Title>
-        <Card.Text style={{ color: "#C54142", fontSize: "20px", fontWeight: "400" }}>฿{data?.price}</Card.Text>
-        <Link to={`/detailProduct?id=${data?.id}`}>
-          <Button>ดูเพิ่มเติม</Button>
-        </Link>
-      </Card.Body>
-    </Card >
+    <>
+      <Link to={`/detailProduct?id=${data?.id}`} style={{ textDecoration: "none" }}>
+        <Card
+          hoverable
+        >
+          <Card.Img variant="top" src={`${BASE_URL}/${data?.thumbnail}`}></Card.Img>
+          <Card.Body>
+            <Card.Text style={{ fontSize: "20px", fontWeight: "400" }}>{data?.name}</Card.Text>
+            <Card.Text style={{ color: "#C54142", fontSize: "30px", fontWeight: "500" }}>฿{data?.price}</Card.Text>
+            {/* <Link to={`/detailProduct?id=${data?.id}`}>
+              <Button>ดูเพิ่มเติม</Button>
+            </Link> */}
+          </Card.Body>
+        </Card >
+      </Link>
+
+    </>
   );
 };
 

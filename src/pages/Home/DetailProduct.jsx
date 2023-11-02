@@ -63,6 +63,29 @@ const DetailProduct = (props) => {
 
   // const amountAsNumber = Number(amount);
 
+  const btnNumber = {
+    background: "#fff",
+    borderRadius: "60px",
+    border: "none",
+    fontSize: "30px",
+    width: "40px",
+    height: "40px",
+    color: "#C54142",
+    filter: "drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.09))",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }
+  const textNumber = {
+    width: "60px", minWidth: "auto", textAlign: "center",
+    background: "none",
+    border: "none",
+    fontSize: "20px",
+    fontWeight: "500",
+
+  }
+
+
   useEffect(() => {
     if (id) {
       handleGetProduct(id);
@@ -111,24 +134,32 @@ const DetailProduct = (props) => {
                 </Carousel>
               </Col>
 
-              <Col className="gutter-row" span={12}>
-                <Title level={2}>{product?.name}</Title>
-                <div style={{ fontSize: "20px" }}>ประเภทสินค้า: <Tag color="error" > {product?.typeProduct}</Tag></div>
+              <Col span={12}>
+                <span style={{ fontSize: "40px", fontWeight: "600" }}>{product?.name}</span>
 
-                <div style={{ fontSize: "20px", marginTop: "6px" }}>ราคา {product?.price} บาท</div>
-                <div style={{ fontSize: "20px", marginTop: "6px" }}>
-                  จำนวน: {
+                <div style={{ marginTop: "20px" }}>
+                  <span style={{ fontSize: "20px", marginRight: "10px" }}>ประเภทสินค้า:</span>
+                  <Tag color="error" style={{ fontSize: "20px", padding: "8px", fontWeight: "500" }} > {product?.typeProduct}</Tag>
+                </div>
+
+                <div style={{ marginTop: "20px" }}>
+                  <span style={{ fontSize: "20px", marginRight: "10px" }}>ราคา</span>
+                  <span style={{ fontSize: "30px", fontWeight: "500" }}>{product?.price} บาท</span>
+                </div>
+                <div style={{ fontSize: "20px", marginTop: "20px", display: "flex", flexWrap: "nowrap" }}>
+                  <span style={{ marginRight: "15px" }}> จำนวน: </span>
+                  {
                     //<IncDecCounter data={formDataBuyProduct?.amount} />
                     <div className="col-xl-1">
                       <div class="input-group" style={{ display: "flex", flexWrap: "nowrap" }}>
                         <div class="input-group-prepend">
-                          <button class="btn btn-outline-primary" type="button" onClick={decNum}>-</button>
+                          <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={decNum}>-</button>
                         </div>
                         {/* <Form.Item name="amount"> */}
-                        <input type="text" class="form-control" name="amount" value={amount} onChange={handleChange} style={{ width: "60px", minWidth: "auto", textAlign: "center" }} />
+                        <input type="text" class="form-control" name="amount" value={amount} onChange={handleChange} style={textNumber} />
                         {/* </Form.Item> */}
                         <div class="input-group-prepend">
-                          <button class="btn btn-outline-primary" type="button" onClick={incNum}>+</button>
+                          <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={incNum}>+</button>
                         </div>
                       </div>
                     </div>
@@ -137,9 +168,12 @@ const DetailProduct = (props) => {
 
                 {/* {amountAsNumber} */}
 
-
-                <Space wrap style={{ marginTop: "16px" }}>
-                  <Button danger icon={<ShoppingCartOutlined />} size="large">
+                <Space wrap style={{ marginTop: "20px" }}>
+                  <Button danger shape="round" size="large"
+                    icon={<ShoppingCartOutlined />}
+                    style={{
+                      fontSize: "20px", border: "1px solid #c54142", padding: "0 30px 0 30px", color: "#c54142",
+                    }}>
                     เพิ่มไปยังตะกร้า
                   </Button>
                   <div>
@@ -147,10 +181,14 @@ const DetailProduct = (props) => {
                     {/* <Button type="primary" danger size="large" htmlType="submit" onClick={() => { navigate(`/buyProduct?id=${product?.id}`, { replace: true, state: { amount } }, { handleBuyProduct }) }}>
                       ซื้อสินค้า
                     </Button> */}
-                    <Button type="primary" danger size="large" htmlType="submit" onClick={() => {
-                      handleBuyProduct()
-                      navigate(`/buyProduct`)
-                    }} >
+                    <Button type="primary" shape="round" size="large"
+                      style={{
+                        fontSize: "20px", background: "#c54142", padding: "0 30px 0 30px",
+                      }}
+                      htmlType="submit" onClick={() => {
+                        handleBuyProduct()
+                        navigate(`/buyProduct`)
+                      }} >
                       ซื้อสินค้า
                     </Button>
                     {/* </Link> */}
@@ -183,13 +221,11 @@ const DetailProduct = (props) => {
               <Collapse
                 accordion
                 ghost
-                // collapsible="header"
-                // defaultActiveKey={["1"]}
                 items={[
                   {
                     key: "1",
-                    label: <Title level={5}>รายละเอียดสินค้า</Title>,
-                    children: <p>{product?.detailProduct}</p>,
+                    label: <Title level={4}>รายละเอียดสินค้า</Title>,
+                    children: <p style={{ fontSize: "20px" }}>{product?.detailProduct}</p>,
                   },
                 ]}
               />
@@ -209,7 +245,6 @@ const DetailProduct = (props) => {
             }}
           >
             <Col
-              className="gutter-row"
               span={24}
               style={{
                 backgroundColor: "#F2F0E6",
@@ -219,13 +254,11 @@ const DetailProduct = (props) => {
               <Collapse
                 accordion
                 ghost
-                // collapsible="header"
-                // defaultActiveKey={["2"]}
                 items={[
                   {
                     key: "2",
-                    label: <Title level={5}>รายละเอียดการจัดส่ง</Title>,
-                    children: <p>{product?.detailShipping}</p>,
+                    label: <Title level={4}>รายละเอียดการจัดส่ง</Title>,
+                    children: <p style={{ fontSize: "20px" }}>{product?.detailShipping}</p>,
                     Divider: "",
                   },
                 ]}
@@ -246,7 +279,6 @@ const DetailProduct = (props) => {
             }}
           >
             <Col
-              className="gutter-row"
               span={24}
               style={{
                 backgroundColor: "#F2F0E6",
@@ -256,13 +288,11 @@ const DetailProduct = (props) => {
               <Collapse
                 accordion
                 ghost
-                // collapsible="header"
-                // defaultActiveKey={["3"]}
                 items={[
                   {
                     key: "3",
-                    label: <Title level={5}>เงื่อนไขอื่น ๆ</Title>,
-                    children: <p>{product?.condition}</p>,
+                    label: <Title level={4}>เงื่อนไขอื่น ๆ</Title>,
+                    children: <p style={{ fontSize: "20px" }}>{product?.condition}</p>,
                   },
                 ]}
               />
