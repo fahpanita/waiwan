@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Row, Col, Typography, Tabs, Table, Button } from "antd";
+import {
+  Layout,
+  Row,
+  Col,
+  Typography,
+  Tabs,
+  Table,
+  Button,
+  Divider,
+  Form,
+  Input,
+} from "antd";
 import Navbar from "../../components/Header/Navbar";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import {
@@ -9,16 +20,18 @@ import {
 } from "@ant-design/icons";
 import FooterPage from "../../components/Footer/FooterPage";
 import styled from "styled-components";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { getProductId } from "../../services/product";
 import { BASE_URL } from "../../constands/api";
+import MapShop from "../../components/maps/MapShop";
+import { useSelector } from "react-redux";
 
 const columns = [
   {
     dataIndex: "thumbnail",
   },
   {
-    title: "ชื่อสินค้า",
+    title: "สินค้า",
     dataIndex: "name",
     render: (text) => <a>{text}</a>,
   },
@@ -34,49 +47,55 @@ const columns = [
 
 const { Title } = Typography;
 const { Content } = Layout;
+const boxWhite = {
+  margin: "10px 0",
+  padding: "20px",
+  backgroundColor: "#fff",
+  border: "1px solid #BF9F64",
+  display: "flex",
+  flexWrap: "nowrap",
+  justifyContent: "space-between",
+  alignItems: "center",
+};
+const boxSum = {
+  display: "flex",
+  flexWrap: "nowrap",
+  justifyContent: "space-between",
+};
 
 const BuyProduct = (props) => {
 
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { getProduct } = useSelector((state) => ({ ...state }))
+  console.log(getProduct?.product)
 
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get("id");
-  const [product, setProduct] = useState([]);
-
-  const handleGetProduct = async (id) => {
-    const res = await getProductId(id);
-    setProduct(res?.data);
-  };
-
-  useEffect(() => {
-    if (id) {
-      handleGetProduct(id);
-    }
-  }, [id]);
-
-  const data = [
-    {
+  const data = getProduct?.product?.map(p => {
+    return {
       key: "1",
-      thumbnail: <img src={`${BASE_URL}/${product?.thumbnail}`} style={{ width: "70px" }} />,
-      name: product?.name,
-      amount: <div>{location.state.amount}</div>,
-      price: <div>{location.state.amount * product?.price}</div>,
-    },
-  ];
+      thumbnail: <img src={`${BASE_URL}/${p?.product?.thumbnail}`} style={{ width: "70px" }} />,
+      name: p?.product?.name,
+      amount: <div>{p?.amount}</div>,
+      price: <div>{p?.amount * p?.product?.price}</div>,
+    }
+  });
+
   return (
     <>
       <Layout style={{ background: "#FFFEF6" }}>
         <Navbar />
-        <Content>
+        <Content
+          style={{
+            padding: "0 50px",
+          }}
+        >
           <Title level={4} style={{ marginTop: "50px", textAlign: "center" }}>
             การจัดส่ง
           </Title>
+
           <Row
             justify="space-evenly"
             gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
           >
-            <Col className="gutter-row" span={20}>
+            <Col span={20}>
               <div>
                 <a
                   style={{
@@ -84,13 +103,13 @@ const BuyProduct = (props) => {
                     fontSize: "24px",
                     marginTop: "-40px",
                   }}
-                // href={`/detailProduct?id=${product?.id}`}
                 >
                   <ArrowLeftOutlined />
                 </a>
               </div>
             </Col>
           </Row>
+
           <Row
             justify="space-evenly"
             gutter={{
@@ -99,8 +118,11 @@ const BuyProduct = (props) => {
               md: 24,
               lg: 32,
             }}
+            style={{
+              marginTop: "30px",
+            }}
           >
-            <Col className="gutter-row" span={20}>
+            <Col span={20}>
               <TabShipping
                 centered
                 defaultActiveKey="1"
@@ -126,13 +148,14 @@ const BuyProduct = (props) => {
                           style={{
                             backgroundColor: "#F2F0E6",
                             padding: "20px 0",
+                            marginTop: "30px",
                           }}
                         >
-                          <Col className="gutter-row" span={20}>
-                            <Title level={5} style={{ textAlign: "left" }}>
-                              ที่อยู่ร้านค้า
-                            </Title>
-                            <CardBoxAddress>12345</CardBoxAddress>
+                          <Col span={23}>
+                            <Title level={5}>ที่อยู่ร้านค้า</Title>
+                            <div style={boxWhite}>
+                              {/* <MapShop /> */}
+                            </div>
                           </Col>
                         </Row>
                         <Row
@@ -149,7 +172,7 @@ const BuyProduct = (props) => {
                             padding: "20px 0",
                           }}
                         >
-                          <Col className="gutter-row" span={20}>
+                          <Col span={23}>
                             <Title level={5} style={{ textAlign: "left" }}>
                               <Tables
                                 columns={columns}
@@ -158,10 +181,43 @@ const BuyProduct = (props) => {
                               />
                             </Title>
                           </Col>
+                          <Divider dashed />
+                          <Col span={23} style={boxSum}>
+                            <div>ยอดรวมทั้งหมด</div>
+                            <div style={{ fontSize: "24px" }}>฿ {"270.00"}</div>
+                          </Col>
                         </Row>
-
-                        {/* {location.state.amount} */}
-
+                        <Row
+                          justify="space-evenly"
+                          gutter={{
+                            xs: 8,
+                            sm: 16,
+                            md: 24,
+                            lg: 32,
+                          }}
+                          span={23}
+                          style={{
+                            marginTop: "30px",
+                          }}
+                        >
+                          <Col
+                            span={23}
+                            style={{
+                              display: "contents",
+                            }}
+                          >
+                            <Button
+                              type="primary"
+                              shape="round"
+                              size="large"
+                              style={{
+                                background: "#c54142",
+                              }}
+                            >
+                              ชำระเงิน
+                            </Button>
+                          </Col>
+                        </Row>
                       </div>
                     ),
                   },
@@ -185,31 +241,32 @@ const BuyProduct = (props) => {
                           }}
                           style={{
                             backgroundColor: "#F2F0E6",
+                            padding: "20px 0",
+                            marginTop: "30px",
                           }}
                         >
-                          <Col className="gutter-row" span={20}>
-                            <Title level={5} style={{ textAlign: "left" }}>
-                              ที่อยู่ร้านค้า
+                          <Col span={23}>
+                            <Title level={5} style={{ marginBottom: "30px" }}>
+                              ที่อยู่จัดส่ง
                             </Title>
-                          </Col>
-                        </Row>
-                        <Row
-                          justify="space-evenly"
-                          gutter={{
-                            xs: 8,
-                            sm: 16,
-                            md: 24,
-                            lg: 32,
-                          }}
-                          style={{
-                            backgroundColor: "#F2F0E6",
-                            marginTop: "24px",
-                          }}
-                        >
-                          <Col className="gutter-row" span={20}>
-                            <Title level={5} style={{ textAlign: "left" }}>
-                              กรุณากรอกที่อยู่จัดส่ง
-                            </Title>
+                            <Form
+                              // form={}
+                              layout="vertical"
+                            // onFinish={}
+                            >
+                              <Form.Item name="name" label="ชื่อ-นามสกุล">
+                                <Input />
+                              </Form.Item>
+                              <Form.Item name="tal" label="เบอร์โทรศัพท์">
+                                <Input type="number" />
+                              </Form.Item>
+                              <Form.Item
+                                name="address"
+                                label="บ้านเลขที่,ซอย,หมู่,ถนน,แขวง/ตำบล"
+                              >
+                                <Input />
+                              </Form.Item>
+                            </Form>
                           </Col>
                         </Row>
                       </div>
@@ -220,10 +277,7 @@ const BuyProduct = (props) => {
             </Col>
           </Row>
           <Row style={{ justifyContent: "center" }}>
-            {/* <ButtonRed type="primary" danger size="large" htmlType="submit" onClick={() => { navigate(`/payment?id=${product?.id}`, { replace: true, state: { amount } }) }}>
-              ชำระเงิน
-            </ButtonRed> */}
-            <a href="/payment">
+            <Link to={"/payment"} >
               <ButtonRed
                 style={{
                   marginTop: "70px",
@@ -233,7 +287,7 @@ const BuyProduct = (props) => {
               >
                 ชำระเงิน
               </ButtonRed>
-            </a>
+            </Link>
           </Row>
         </Content>
         <FooterPage />
@@ -250,8 +304,20 @@ export const CardBoxAddress = styled.div`
 `;
 
 export const Tables = styled(Table)`
-  &.ant-table-wrapper .ant-table-thead >tr>td {
+  &.ant-table-wrapper .ant-table-thead > tr > td {
     width: 100px;
+    background-color: #f2f0e6;
+    border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  }
+  &.ant-table-wrapper .ant-table-thead > tr > th {
+    background-color: #f2f0e6;
+    border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+  }
+  &.ant-table-wrapper .ant-table-tbody > tr {
+    background-color: #f2f0e6;
+  }
+  &.ant-table-wrapper .ant-table-tbody > tr > td {
+    border-bottom: 1px solid rgba(5, 5, 5, 0.06);
   }
 `;
 
@@ -273,9 +339,10 @@ export const TabShipping = styled(Tabs)`
 
   &.ant-tabs .ant-tabs-tab {
     border-radius: 50px;
-    border: 2px solid #bf9f64;
+    border: 1px solid #bf9f64;
     background: #fff;
-    padding: 7px 45px;
+    padding: 6px 35px;
+    font-size: 16px;
   }
 
   &.ant-tabs .ant-tabs-ink-bar {
@@ -301,3 +368,4 @@ const ButtonRed = styled(Button)`
     border-color: #923131;
   }
 `;
+

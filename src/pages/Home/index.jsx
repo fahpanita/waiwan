@@ -25,7 +25,6 @@ const Home = () => {
   const handleGetProducts = async () => {
     const res = await getProducts()
     setProducts(res?.data)
-    console.log(res?.data)
   }
 
   const [cardevents, setCartEvents] = useState([]);
@@ -33,7 +32,6 @@ const Home = () => {
   const handleGetCartEvents = async () => {
     const res = await getCartEvents()
     setCartEvents(res?.data)
-    console.log(res?.data)
   }
 
   useEffect(() => {

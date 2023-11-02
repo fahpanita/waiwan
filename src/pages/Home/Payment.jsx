@@ -10,6 +10,7 @@ import FooterPage from '../../components/Footer/FooterPage';
 import { useLocation, useSearchParams } from "react-router-dom";
 import { getProductId } from "../../services/product";
 import { BASE_URL } from "../../constands/api";
+import { useSelector } from 'react-redux';
 
 // const generatePayload = require('promptpay-qr');
 
@@ -32,6 +33,8 @@ const columns = [
 ];
 
 const Payment = () => {
+
+  const { getProduct } = useSelector((state) => ({ ...state }))
 
   const [phoneNumber, setPhoneNumber] = useState("088-656-5433");
   const [amountQr, setAmountQr] = useState(1.00);
@@ -65,16 +68,15 @@ const Payment = () => {
     }
   }, [id]);
 
-  const data = [
-    {
+  const data = getProduct?.product?.map(p => {
+    return {
       key: "1",
-      thumbnail: <img src={`${BASE_URL}/${product?.thumbnail}`} style={{ width: "70px" }} />,
-      name: product?.name,
-      // amount: <div>{location.state.amount}</div>,
-      // price: <div>{location.state.amount * product?.price}</div>,
-    },
-
-  ];
+      thumbnail: <img src={`${BASE_URL}/${p?.product?.thumbnail}`} style={{ width: "70px" }} />,
+      name: p?.product?.name,
+      amount: <div>{p?.amount}</div>,
+      price: <div>{p?.amount * p?.product?.price}</div>,
+    }
+  });
 
   const uploadPayment = {
     name: 'file',

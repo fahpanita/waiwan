@@ -22,6 +22,8 @@ import AllCardEvent from "./pages/Home/AllCardEvent";
 import BuyProduct from "./pages/Home/BuyProduct";
 import Payment from "./pages/Home/Payment";
 import ListEvents from "./pages/Dashboard/listEvents";
+import Product from "./components/Product1";
+import Index from "./components";
 // import Cart from "./pages/Home/Cart";
 
 // const Home = lazy(() => import("./pages/Home"));
@@ -40,6 +42,14 @@ const Routing = () => {
               </Suspense>
             }
           />
+          {/* <Route
+            path="/"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Index />
+              </Suspense>
+            }
+          /> */}
           <Route
             path="/listProduct"
             element={
@@ -197,6 +207,7 @@ const Routing = () => {
               // {/* </ProtectedRoute> */}
             }
           />
+
         </Routes>
       </BrowserRouter>
     </AuthProvider>

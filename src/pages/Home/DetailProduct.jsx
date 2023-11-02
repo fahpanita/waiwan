@@ -8,8 +8,9 @@ import FooterPage from "../../components/Footer/FooterPage";
 import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { getProductId } from "../../services/product";
 import { BASE_URL } from "../../constands/api";
-import IncDecCounter from "../../components/Button/IncDecCounter";
 import { createBuyProduct } from "../../services/buyproduct";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../../store/getProductSlice";
 const { Title } = Typography;
 const { Content } = Layout;
 
@@ -20,8 +21,17 @@ const DetailProduct = (props) => {
   const id = searchParams.get("id");
   const [product, setProduct] = useState([]);
 
+  console.log(product);
+
   const [createBuyProductForm] = Form.useForm();
   const formDataBuyProduct = Form.useWatch([], createBuyProductForm);
+
+  const dispatch = useDispatch();
+
+  const handleBuyProduct = () => {
+    // console.log("1234");
+    dispatch(addProduct({ product, amount }))
+  }
 
   const handleGetProduct = async (id) => {
     const res = await getProductId(id);
@@ -58,8 +68,6 @@ const DetailProduct = (props) => {
       handleGetProduct(id);
     }
   }, [id]);
-
-
 
   return (
     <>
@@ -136,7 +144,13 @@ const DetailProduct = (props) => {
                   </Button>
                   <div>
                     {/* <Link to={`/buyProduct?id=${product?.id}`}> */}
-                    <Button type="primary" danger size="large" htmlType="submit" onClick={() => { navigate(`/buyProduct?id=${product?.id}`, { replace: true, state: { amount } }) }}>
+                    {/* <Button type="primary" danger size="large" htmlType="submit" onClick={() => { navigate(`/buyProduct?id=${product?.id}`, { replace: true, state: { amount } }, { handleBuyProduct }) }}>
+                      ซื้อสินค้า
+                    </Button> */}
+                    <Button type="primary" danger size="large" htmlType="submit" onClick={() => {
+                      handleBuyProduct()
+                      navigate(`/buyProduct`)
+                    }} >
                       ซื้อสินค้า
                     </Button>
                     {/* </Link> */}

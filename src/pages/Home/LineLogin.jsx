@@ -50,7 +50,7 @@ const LineLogin = () => {
 
     if (!isLoggedIn) {
       return (
-        <Button type="primary" onClick={onLogin} >
+        <Button type="primary" onClick={onLogin} style={{ backgroundColor: "#00b900" }}>
           <BsLine />  Login Line
         </Button>
       );
