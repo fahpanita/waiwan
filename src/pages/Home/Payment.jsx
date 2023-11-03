@@ -6,13 +6,12 @@ import QRCode from 'qrcode.react';
 import generatePayload from 'promptpay-qr';
 import styled from 'styled-components';
 import FooterPage from '../../components/Footer/FooterPage';
-import { useLocation, useSearchParams } from "react-router-dom";
-import { getProductId } from "../../services/product";
 import { BASE_URL } from "../../constands/api";
 import { useSelector } from 'react-redux';
 import Link from '../../components/Link';
+import { useNavigate } from 'react-router-dom';
 
-// const generatePayload = require('promptpay-qr');
+//const generatePayload = require('promptpay-qr');
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -51,6 +50,24 @@ const boxGold = {
   alignItems: "center",
 };
 
+const props = {
+  name: 'file',
+  action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
+  headers: {
+    authorization: 'authorization-text',
+  },
+  onChange(info) {
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+};
+
 const Payment = () => {
 
   const { getProduct } = useSelector((state) => ({ ...state }))
@@ -59,9 +76,6 @@ const Payment = () => {
   const [amountQr, setAmountQr] = useState(1.00);
   const [qrCode, setqrCode] = useState("sample");
 
-  function handlePhoneNumber(e) {
-    setPhoneNumber(e.target.value);
-  }
   function handleAmountQr(e) {
     setAmountQr(parseFloat(e.target.value));
   }
@@ -70,32 +84,32 @@ const Payment = () => {
 
   }
 
-  const location = useLocation();
-
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get("id");
-  const [product, setProduct] = useState([]);
-
-  const handleGetProduct = async (id) => {
-    const res = await getProductId(id);
-    setProduct(res?.data);
-  };
-
-  useEffect(() => {
-    if (id) {
-      handleGetProduct(id);
-    }
-  }, [id]);
+  const navigate = useNavigate();
 
   const data = getProduct?.product?.map(p => {
     return {
       key: "1",
-      thumbnail: <img src={`${BASE_URL}/${p?.product?.thumbnail}`} style={{ width: "70px" }} />,
-      name: p?.product?.name,
+      thumbnail: <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
+      name: p?.name,
       amount: <div>{p?.amount}</div>,
-      price: <div>{p?.amount * p?.product?.price}</div>,
+      price: <div>{p?.amount * p?.price}</div>,
     }
   });
+
+  const totalPrice = getProduct?.product?.reduce((accumulator, product) => {
+    return accumulator + Number(product?.price) * product?.amount;
+  }, 0);
+
+  const formattedTotalPrice = totalPrice.toFixed(2);
+
+
+  const shipping = getProduct?.product?.sort((a, b) => {
+    return Number(b.typeShipping) - Number(a.typeShipping)
+
+  })[0].typeShipping
+
+  const totalWithShipping = Number(totalPrice) + Number(shipping);
+  const formattedTotal = totalWithShipping.toFixed(2);
 
   const uploadPayment = {
     name: 'file',
@@ -129,14 +143,15 @@ const Payment = () => {
             justify="space-evenly"
             gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
           >
-            <Col span={20}>
-              <div>
+            <Col span={20} >
+              <div onClick={() => { navigate(`/buyProduct`) }}>
                 <a
                   style={{
                     float: "left",
                     fontSize: "24px",
                     marginTop: "-40px",
                   }}
+
                 >
                   <ArrowLeftOutlined />
                 </a>
@@ -186,17 +201,19 @@ const Payment = () => {
                 <Divider dashed />
                 <Col span={23} style={boxSum}>
                   <div>ยอดรวมสินค้า</div>
-                  <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {"270.00"}</div>
+                  <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+
                 </Col>
                 <Divider dashed />
                 <Col span={23} style={boxSum}>
                   <div>ค่าจัดส่ง</div>
-                  <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {"50.00"}</div>
+                  <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {shipping}</div>
                 </Col>
+
                 <Divider dashed />
                 <Col span={23} style={boxSum}>
                   <div>การชำระเงินทั้งหมด</div>
-                  <div style={{ fontSize: "24px", fontWeight: "500" }}>฿ {"590.00"}</div>
+                  <div style={{ fontSize: "24px", fontWeight: "500" }}>฿ {formattedTotal}</div>
                 </Col>
               </Row>
 
@@ -220,7 +237,7 @@ const Payment = () => {
                     style={{ textAlign: "left", margin: "20px 0" }}
                   >
                     <div>
-                      {/* <input type="text" value={phoneNumber} onChange={handlePhoneNumber} /> */}
+                      {/* <input type="text" value={phoneNumber} onChange={handlePoneNumber} /> */}
                       <input type="number" value={amountQr} onChange={handleAmountQr} />
                       <button onClick={handleQR}>Generate Promptpay QR</button>
                       <QRCode value={qrCode} />
@@ -248,13 +265,15 @@ const Payment = () => {
                 </Col>
                 <Col span={23}>
                   <div style={boxGold}>
-                    <Button type="primary" shape="round" size="large"
-                      icon={<CameraOutlined />}
-                      style={{
-                        background: "#BF9F64", padding: "0 30px 0 30px",
-                      }}>
-                      แนบหลักฐานการชำระเงิน
-                    </Button>
+                    <Upload {...props}>
+                      <Button type="primary" shape="round" size="large"
+                        icon={<CameraOutlined />}
+                        style={{
+                          background: "#BF9F64", padding: "0 30px 0 30px",
+                        }}>
+                        แนบหลักฐานการชำระเงิน
+                      </Button>
+                    </Upload>
                   </div>
                 </Col>
 

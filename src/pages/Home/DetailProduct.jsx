@@ -11,6 +11,7 @@ import { BASE_URL } from "../../constands/api";
 import { createBuyProduct } from "../../services/buyproduct";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../store/getProductSlice";
+import { addCartProduct } from "../../store/AddCartProductSlice";
 const { Title } = Typography;
 const { Content } = Layout;
 
@@ -21,17 +22,18 @@ const DetailProduct = (props) => {
   const id = searchParams.get("id");
   const [product, setProduct] = useState([]);
 
-  console.log(product);
-
   const [createBuyProductForm] = Form.useForm();
   const formDataBuyProduct = Form.useWatch([], createBuyProductForm);
 
   const dispatch = useDispatch();
 
   const handleBuyProduct = () => {
-    // console.log("1234");
-    dispatch(addProduct({ product, amount }))
+    dispatch(addProduct({ ...product, amount }))
   }
+
+  // const handleAddProduct = () => {
+  //   dispatch(addCartProduct({ ...product, amount }))
+  // }
 
   const handleGetProduct = async (id) => {
     const res = await getProductId(id);
@@ -149,15 +151,13 @@ const DetailProduct = (props) => {
                 <div style={{ fontSize: "20px", marginTop: "20px", display: "flex", flexWrap: "nowrap" }}>
                   <span style={{ marginRight: "15px" }}> จำนวน: </span>
                   {
-                    //<IncDecCounter data={formDataBuyProduct?.amount} />
                     <div className="col-xl-1">
                       <div class="input-group" style={{ display: "flex", flexWrap: "nowrap" }}>
                         <div class="input-group-prepend">
                           <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={decNum}>-</button>
                         </div>
-                        {/* <Form.Item name="amount"> */}
                         <input type="text" class="form-control" name="amount" value={amount} onChange={handleChange} style={textNumber} />
-                        {/* </Form.Item> */}
+
                         <div class="input-group-prepend">
                           <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={incNum}>+</button>
                         </div>
@@ -166,21 +166,18 @@ const DetailProduct = (props) => {
                   }
                 </div>
 
-                {/* {amountAsNumber} */}
-
                 <Space wrap style={{ marginTop: "20px" }}>
                   <Button danger shape="round" size="large"
                     icon={<ShoppingCartOutlined />}
                     style={{
                       fontSize: "20px", border: "1px solid #c54142", padding: "0 30px 0 30px", color: "#c54142",
+                    }} htmlType="submit" onClick={() => {
+                      addProduct()
+                      navigate(`/cart`)
                     }}>
                     เพิ่มไปยังตะกร้า
                   </Button>
                   <div>
-                    {/* <Link to={`/buyProduct?id=${product?.id}`}> */}
-                    {/* <Button type="primary" danger size="large" htmlType="submit" onClick={() => { navigate(`/buyProduct?id=${product?.id}`, { replace: true, state: { amount } }, { handleBuyProduct }) }}>
-                      ซื้อสินค้า
-                    </Button> */}
                     <Button type="primary" shape="round" size="large"
                       style={{
                         fontSize: "20px", background: "#c54142", padding: "0 30px 0 30px",

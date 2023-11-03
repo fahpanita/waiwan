@@ -21,6 +21,8 @@ import {
 } from "@ant-design/icons";
 import styled from "styled-components";
 import IncDecCounter from "../../components/Button/IncDecCounter";
+import { useSelector } from "react-redux";
+import { BASE_URL } from "../../constands/api";
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
@@ -68,7 +70,36 @@ const headFitler = {
   marginTop: "30px",
 };
 
+// let [amount, setNum] = useState(1);
+
+// let incNum = () => {
+//   if (amount < product?.stock) {
+//     setNum(Number(amount) + 1);
+//   }
+// };
+// let decNum = () => {
+//   if (amount > 1) {
+//     setNum(amount - 1);
+//   }
+// }
+// let handleChange = (e) => {
+//   setNum(e.target.value);
+// }
+
 const Cart = () => {
+
+  const { addProduct } = useSelector((state) => ({ ...state }))
+
+  //console.log(addProduct?.product?.[0]?.product)
+
+  const productArray = addProduct?.product?.map((item) => item?.product);
+
+  const names = productArray?.map((item) => item?.name);
+  const thumbnail = productArray?.map((item) => item?.thumbnail);
+  const price = productArray?.map((item) => item?.price);
+
+  console.log(productArray)
+
   return (
     <>
       <Layout
@@ -96,7 +127,6 @@ const Cart = () => {
                   fontSize: "24px",
                   marginTop: "-40px",
                 }}
-              // href={`/detailProduct?id=${product?.id}`}
               >
                 <ArrowLeftOutlined />
               </a>
@@ -124,7 +154,8 @@ const Cart = () => {
                     label: <span>สั่งซื้อสินค้า</span>,
                     key: "1",
                     children: (
-                      <div>
+
+                      <div >
                         <Row
                           justify="space-evenly"
                           gutter={{
@@ -150,13 +181,13 @@ const Cart = () => {
                                   height: "100px",
                                   marginRight: "10px",
                                 }}
-                                src="image/img/product-1.png"
+                                src={`${BASE_URL}/${thumbnail}`}
                               />
                               <div style={maxW200}>
-                                {"ชุดกระดาษไหว้บรรพบุรุษ (ชุดใหญ่)"}
+                                {names}
                               </div>
                             </div>
-                            <div style={{ fontSize: "24px" }}>฿ {"270.00"}</div>
+                            <div style={{ fontSize: "24px" }}>฿ {price}</div>
                             <div>{<IncDecCounter />}</div>
                             <Button
                               shape="round"
@@ -169,36 +200,7 @@ const Cart = () => {
                               ลบ
                             </Button>
                           </Col>
-                          <Col span={23} style={boxWhite}>
-                            <div
-                              style={{ display: "flex", flexWrap: "nowrap" }}
-                            >
-                              <Image
-                                preview={false}
-                                style={{
-                                  width: "100px",
-                                  height: "100px",
-                                  marginRight: "10px",
-                                }}
-                                src="image/img/product-1.png"
-                              />
-                              <div style={maxW200}>
-                                {"ชุดกระดาษไหว้บรรพบุรุษ (ชุดใหญ่)"}
-                              </div>
-                            </div>
-                            <div style={{ fontSize: "24px" }}>฿ {"270.00"}</div>
-                            <div>{<IncDecCounter />}</div>
-                            <Button
-                              shape="round"
-                              icon={<DeleteOutlined />}
-                              style={{
-                                color: "#c54142",
-                                borderColor: "#c54142",
-                              }}
-                            >
-                              ลบ
-                            </Button>
-                          </Col>
+
                         </Row>
                         <Row
                           justify="space-evenly"
@@ -285,7 +287,7 @@ const Cart = () => {
                                 src="image/img/product-1.png"
                               />
                               <div style={maxW300}>
-                                <div>{"ชุดกระดาษไหว้บรรพบุรุษ (ชุดใหญ่)"}</div>
+                                <div>{ }</div>
                                 <Text type="secondary">
                                   จัดส่ง:{" ภายในวันที่ 25 สิงหาคม 2566"}
                                 </Text>
@@ -311,7 +313,7 @@ const Cart = () => {
           </Row>
         </Content>
         <FooterPage />
-      </Layout>
+      </Layout >
     </>
   );
 };

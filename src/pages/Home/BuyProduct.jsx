@@ -10,6 +10,7 @@ import {
   Divider,
   Form,
   Input,
+  Select,
 } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -25,6 +26,9 @@ import { getProductId } from "../../services/product";
 import { BASE_URL } from "../../constands/api";
 import MapShop from "../../components/maps/MapShop";
 import { useSelector } from "react-redux";
+import TextArea from "antd/es/input/TextArea";
+import { createOrder } from "../../services/buyproduct";
+
 
 const columns = [
   {
@@ -66,17 +70,37 @@ const boxSum = {
 const BuyProduct = (props) => {
 
   const { getProduct } = useSelector((state) => ({ ...state }))
-  console.log(getProduct?.product)
 
   const data = getProduct?.product?.map(p => {
     return {
       key: "1",
-      thumbnail: <img src={`${BASE_URL}/${p?.product?.thumbnail}`} style={{ width: "70px" }} />,
-      name: p?.product?.name,
+      thumbnail: <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
+      name: p?.name,
       amount: <div>{p?.amount}</div>,
-      price: <div>{p?.amount * p?.product?.price}</div>,
+      price: <div>{p?.amount * p?.price}</div>,
     }
   });
+  const totalPrice = getProduct?.product?.reduce((accumulator, product) => {
+    return accumulator + Number(product?.price) * product?.amount;
+  }, 0);
+
+  const formattedTotalPrice = totalPrice.toFixed(2);
+
+  const shipping = getProduct?.product?.sort((a, b) => {
+    return Number(b.typeShipping) - Number(a.typeShipping)
+
+  })[0].typeShipping
+
+  const totalWithShipping = Number(totalPrice) + Number(shipping);
+  const formattedTotal = totalWithShipping.toFixed(2);
+
+  const navigate = useNavigate();
+
+  const handelOrder = async () => {
+    const res = await createOrder(getProduct)
+    navigate('/payment')
+  }
+
 
   return (
     <>
@@ -96,7 +120,7 @@ const BuyProduct = (props) => {
             gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
           >
             <Col span={20}>
-              <div>
+              <div >
                 <a
                   style={{
                     float: "left",
@@ -185,8 +209,20 @@ const BuyProduct = (props) => {
                           </Col>
                           <Divider dashed />
                           <Col span={23} style={boxSum}>
-                            <div>ยอดรวมทั้งหมด</div>
-                            <div style={{ fontSize: "24px", fontWeight: "500" }}>฿ {"270.00"}</div>
+                            <div>ยอดรวมสินค้า</div>
+                            <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+
+                          </Col>
+                          <Divider dashed />
+                          <Col span={23} style={boxSum}>
+                            <div>ค่าจัดส่ง</div>
+                            <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {shipping}</div>
+                          </Col>
+
+                          <Divider dashed />
+                          <Col span={23} style={boxSum}>
+                            <div>การชำระเงินทั้งหมด</div>
+                            <div style={{ fontSize: "24px", fontWeight: "500" }}>฿ {formattedTotal}</div>
                           </Col>
                         </Row>
                         <Row
@@ -208,19 +244,18 @@ const BuyProduct = (props) => {
                               display: "contents",
                             }}
                           >
-                            <Link to={"/payment"} >
-                              <Button
-                                type="primary"
-                                shape="round"
-                                size="large"
-                                style={{
-                                  background: "#c54142",
-                                  padding: "0 30px 0 30px",
-                                }}
-                              >
-                                ชำระเงิน
-                              </Button>
-                            </Link>
+                            <Button
+                              type="primary"
+                              shape="round"
+                              size="large"
+                              style={{
+                                background: "#c54142",
+                                padding: "0 30px 0 30px",
+                              }}
+                              onClick={handelOrder}
+                            >
+                              ชำระเงิน
+                            </Button>
                           </Col>
                         </Row>
                       </div>
@@ -252,21 +287,35 @@ const BuyProduct = (props) => {
                         >
                           <Col span={23}>
                             <Title level={5} style={{ marginBottom: "30px" }}>
-                              ที่อยู่จัดส่ง
+                              เลือกที่อยู่จัดส่ง
                             </Title>
+
+                            <Select
+                              defaultValue="นนทบุรี"
+                              style={{
+                                width: '100%',
+                              }}
+                              options={[
+                                {
+                                  value: 'นนทบุรี',
+                                  label: 'นนทบุรี',
+                                },
+                                {
+                                  value: 'เพชรบุรี',
+                                  label: 'เพชรบุรี',
+                                },
+                              ]}
+                            />
+
                             <Form
-                              // form={}
                               layout="vertical"
-                            // onFinish={}
                             >
-                              <Form.Item name="name" label="ชื่อ-นามสกุล">
-                                <Input />
+                              <Form.Item name="name" label="ชื่อ-นามสกุล" rules={[{ required: true, message: "กรุณากรอกชื่อสินค้า" }]}>
+                                <Input value="name" />
                               </Form.Item>
-                              <Form.Item name="tal" label="เบอร์โทรศัพท์">
-                                <Input type="number" />
-                              </Form.Item>
+
                               <Form.Item
-                                name="address"
+                                name="street"
                                 label="บ้านเลขที่,ซอย,หมู่,ถนน,แขวง/ตำบล"
                               >
                                 <Input />
@@ -276,6 +325,9 @@ const BuyProduct = (props) => {
                                 label="จังหวัด,เขตอำเภอ,รหัสไปรษณีย์"
                               >
                                 <Input />
+                              </Form.Item>
+                              <Form.Item name="tal" label="เบอร์โทรศัพท์">
+                                <Input type="number" />
                               </Form.Item>
                             </Form>
                           </Col>

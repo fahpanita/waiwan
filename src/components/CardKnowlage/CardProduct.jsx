@@ -16,9 +16,6 @@ const CardProduct = (prop) => {
           <Card.Body>
             <Card.Text style={{ fontSize: "20px", fontWeight: "400" }}>{data?.name}</Card.Text>
             <Card.Text style={{ color: "#C54142", fontSize: "30px", fontWeight: "500" }}>฿{data?.price}</Card.Text>
-            {/* <Link to={`/detailProduct?id=${data?.id}`}>
-              <Button>ดูเพิ่มเติม</Button>
-            </Link> */}
           </Card.Body>
         </Card >
       </Link>

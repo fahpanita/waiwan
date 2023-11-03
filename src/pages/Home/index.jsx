@@ -39,6 +39,8 @@ const Home = () => {
       handleGetCartEvents()
   }, [])
 
+
+
   return (
     // <AuthenticatedProvider>
     <Layout

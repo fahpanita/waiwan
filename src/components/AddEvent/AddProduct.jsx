@@ -303,11 +303,11 @@ const AddProduct = () => {
                                                 }}
                                                 options={[
                                                     {
-                                                        value: 'ส่งไปรษณีย์',
+                                                        value: 50,
                                                         label: 'ส่งไปรษณีย์',
                                                     },
                                                     {
-                                                        value: 'ส่งแช่แข็ง',
+                                                        value: 150,
                                                         label: 'ส่งแช่แข็ง',
                                                     },
                                                 ]}
