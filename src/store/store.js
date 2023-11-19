@@ -9,6 +9,6 @@ export const store = configureStore({
         product: productSlice,
         user: userSlice,
         getProduct: getProductSlice,
-        addProduct: AddCartProductSlice,
+        addCartProduct: AddCartProductSlice,
     }
 })

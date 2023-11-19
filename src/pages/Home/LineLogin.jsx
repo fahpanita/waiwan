@@ -13,7 +13,7 @@ const items = [
   {
     key: "1",
     label: (
-      <Link to="/stock" icon={<UserOutlined />}>
+      <Link to="/stock" icon={<UserOutlined />} >
         จัดการบัญชีผู้ใช้
       </Link>
     ),
@@ -84,7 +84,7 @@ const LineLogin = () => {
           )}
         >
           <a onClick={(e) => e.preventDefault()}>
-            <Space>
+            <Space style={{ color: "#000" }}>
               <UserOutlined />
               บัญชี
               <DownOutlined />

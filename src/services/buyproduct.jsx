@@ -16,18 +16,18 @@ export const createOrder = async (data) => {
   }
 };
 
-export const createBuyProduct = async (data) => {
-  try {
-    const res = await requestBackend({
-      url: "/buyproduct",
-      method: "POST",
-      data: data,
-    });
-    message.success("บันทึกสำเร็จ")
-    return res;
-  } catch (error) {
-    notification["error"]({ message: error?.response?.data?.message || "Something when wrong" })
-    return undefined;
-  }
-};
+// export const createBuyProduct = async (data) => {
+//   try {
+//     const res = await requestBackend({
+//       url: "/buyproduct",
+//       method: "POST",
+//       data: data,
+//     });
+//     message.success("บันทึกสำเร็จ")
+//     return res;
+//   } catch (error) {
+//     notification["error"]({ message: error?.response?.data?.message || "Something when wrong" })
+//     return undefined;
+//   }
+// };
 

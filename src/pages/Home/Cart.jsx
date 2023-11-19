@@ -21,9 +21,30 @@ import {
 } from "@ant-design/icons";
 import styled from "styled-components";
 import IncDecCounter from "../../components/Button/IncDecCounter";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../constands/api";
+import { useNavigate } from "react-router-dom";
+import { createOrder } from "../../services/buyproduct";
+import { addProduct, getProductSlice } from "../../store/getProductSlice";
 
+const columns = [
+  {
+    dataIndex: "thumbnail",
+  },
+  {
+    title: "สินค้า",
+    dataIndex: "name",
+    render: (text) => <a>{text}</a>,
+  },
+  {
+    title: "จำนวน",
+    dataIndex: "amount",
+  },
+  {
+    title: "ราคา",
+    dataIndex: "price",
+  },
+];
 const { Title, Text } = Typography;
 const { Content } = Layout;
 const items = [
@@ -40,29 +61,12 @@ const items = [
     label: "ปีนี้",
   },
 ];
-
-const boxWhite = {
-  borderRadius: "6px",
-  padding: "20px",
-  margin: "10px 20px",
-  backgroundColor: "#fff",
-  boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.15)",
-  display: "flex",
-  flexWrap: "nowrap",
-  justifyContent: "space-between",
-  alignItems: "center",
-};
 const boxSum = {
   display: "flex",
   flexWrap: "nowrap",
   justifyContent: "space-between",
 };
-const maxW200 = {
-  maxWidth: "210px",
-};
-const maxW300 = {
-  maxWidth: "300px",
-};
+
 const headFitler = {
   display: "flex",
   flexWrap: "nowrap",
@@ -70,47 +74,56 @@ const headFitler = {
   marginTop: "30px",
 };
 
-// let [amount, setNum] = useState(1);
-
-// let incNum = () => {
-//   if (amount < product?.stock) {
-//     setNum(Number(amount) + 1);
-//   }
-// };
-// let decNum = () => {
-//   if (amount > 1) {
-//     setNum(amount - 1);
-//   }
-// }
-// let handleChange = (e) => {
-//   setNum(e.target.value);
-// }
-
 const Cart = () => {
 
-  const { addProduct } = useSelector((state) => ({ ...state }))
+  const { addCartProduct } = useSelector((state) => ({ ...state }))
 
-  //console.log(addProduct?.product?.[0]?.product)
+  console.log(addCartProduct, "1234")
 
-  const productArray = addProduct?.product?.map((item) => item?.product);
+  const data = addCartProduct?.product?.map(p => {
+    return {
+      key: "1",
+      thumbnail: <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
+      name: p?.name,
+      amount: <div>{p?.amount}</div>,
+      price: <div>{p?.amount * p?.price}</div>,
+    }
+  });
+  const totalPrice = addCartProduct?.product?.reduce((accumulator, product) => {
+    return accumulator + Number(product?.price) * product?.amount;
+  }, 0);
 
-  const names = productArray?.map((item) => item?.name);
-  const thumbnail = productArray?.map((item) => item?.thumbnail);
-  const price = productArray?.map((item) => item?.price);
+  const formattedTotalPrice = totalPrice.toFixed(2);
 
-  console.log(productArray)
+  const sortedProducts = addCartProduct?.product?.slice(); // Create a shallow copy
+  sortedProducts.sort((a, b) => {
+    return Number(b.typeShipping) - Number(a.typeShipping);
+  });
 
+  const shipping = sortedProducts[0]?.typeShipping;
+
+  const totalWithShipping = Number(totalPrice) + Number(shipping);
+  const formattedTotal = totalWithShipping.toFixed(2);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const handleBuyProduct = () => {
+
+    dispatch(addProduct(addCartProduct?.product))
+  }
   return (
     <>
       <Layout
         style={{
-          background: "#FFFEF6",
+          background: "#F5F5F5",
         }}
       >
         <Navbar />
         <Content
           style={{
-            padding: "0 50px",
+            padding: "0 32px",
           }}
         >
           <Title level={4} style={{ marginTop: "50px", textAlign: "center" }}>
@@ -166,73 +179,36 @@ const Cart = () => {
                           }}
                           style={{
                             backgroundColor: "#F2F0E6",
-                            padding: "20px 0",
-                            marginTop: "30px",
-                          }}
-                        >
-                          <Col span={23} style={boxWhite}>
-                            <div
-                              style={{ display: "flex", flexWrap: "nowrap" }}
-                            >
-                              <Image
-                                preview={false}
-                                style={{
-                                  width: "100px",
-                                  height: "100px",
-                                  marginRight: "10px",
-                                }}
-                                src={`${BASE_URL}/${thumbnail}`}
-                              />
-                              <div style={maxW200}>
-                                {names}
-                              </div>
-                            </div>
-                            <div style={{ fontSize: "24px" }}>฿ {price}</div>
-                            <div>{<IncDecCounter />}</div>
-                            <Button
-                              shape="round"
-                              icon={<DeleteOutlined />}
-                              style={{
-                                color: "#c54142",
-                                borderColor: "#c54142",
-                              }}
-                            >
-                              ลบ
-                            </Button>
-                          </Col>
-
-                        </Row>
-                        <Row
-                          justify="space-evenly"
-                          gutter={{
-                            xs: 8,
-                            sm: 16,
-                            md: 24,
-                            lg: 32,
-                          }}
-                          style={{
-                            backgroundColor: "#F2F0E6",
                             marginTop: "24px",
                             padding: "20px 0",
                           }}
                         >
-                          <Col span={23} style={boxSum}>
-                            <div>ราคาสุทธิ (ราคารวมภาษีมูลค่าเพิ่ม)</div>
-                            <div style={{ fontSize: "24px" }}>฿ {"270.00"}</div>
-                          </Col>
-                          <Col span={23} style={boxSum}>
-                            <div>จำนวน (ชิ้น)</div>
-                            <div>{"2"} ชิ้น</div>
+                          <Col span={23}>
+                            <Title level={5} style={{ textAlign: "left" }}>
+                              <Tables
+                                columns={columns}
+                                dataSource={data}
+                                pagination={false}
+                              />
+                            </Title>
                           </Col>
                           <Divider dashed />
-                          <Button
-                            type="primary"
-                            shape="round"
-                            size="large"
-                            style={{ background: "#c54142" }}
-                          >
-                            ชำระเงิน
-                          </Button>
+                          <Col span={23} style={boxSum}>
+                            <div>ยอดรวมสินค้า</div>
+                            <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+
+                          </Col>
+                          <Divider dashed />
+                          <Col span={23} style={boxSum}>
+                            <div>ค่าจัดส่ง</div>
+                            <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {shipping}</div>
+                          </Col>
+
+                          <Divider dashed />
+                          <Col span={23} style={boxSum}>
+                            <div>การชำระเงินทั้งหมด</div>
+                            <div style={{ fontSize: "24px", fontWeight: "500" }}>฿ {formattedTotal}</div>
+                          </Col>
                         </Row>
                       </div>
                     ),
@@ -260,55 +236,44 @@ const Cart = () => {
                             </Typography.Link>
                           </Dropdown>
                         </div>
-                        <Row
-                          justify="space-evenly"
-                          gutter={{
-                            xs: 8,
-                            sm: 16,
-                            md: 24,
-                            lg: 32,
-                          }}
-                          style={{
-                            backgroundColor: "#F2F0E6",
-                            padding: "20px 0",
-                          }}
-                        >
-                          <Col span={23} style={boxWhite}>
-                            <div
-                              style={{ display: "flex", flexWrap: "nowrap" }}
-                            >
-                              <Image
-                                preview={false}
-                                style={{
-                                  width: "100px",
-                                  height: "100px",
-                                  marginRight: "10px",
-                                }}
-                                src="image/img/product-1.png"
-                              />
-                              <div style={maxW300}>
-                                <div>{ }</div>
-                                <Text type="secondary">
-                                  จัดส่ง:{" ภายในวันที่ 25 สิงหาคม 2566"}
-                                </Text>
-                              </div>
-                            </div>
-                            <Button
-                              shape="round"
-                              style={{
-                                color: "#c54142",
-                                borderColor: "#c54142",
-                              }}
-                            >
-                              ดูรายละเอียดเพิ่มเติม
-                            </Button>
-                          </Col>
-                        </Row>
+
                       </div>
                     ),
                   },
                 ]}
               />
+            </Col>
+          </Row>
+          <Row justify="space-evenly"
+            gutter={{
+              xs: 8,
+              sm: 16,
+              md: 24,
+              lg: 32,
+            }}
+            style={{
+              marginTop: "30px",
+            }}>
+            <Col
+              style={{
+                display: "contents",
+              }}
+            >
+              <Button
+                type="primary"
+                shape="round"
+                size="large"
+                style={{
+                  background: "#c54142",
+                  padding: "0 30px 0 30px",
+                }}
+                onClick={() => {
+                  handleBuyProduct()
+                  navigate(`/buyProduct`)
+                }}
+              >
+                ชำระเงิน
+              </Button>
             </Col>
           </Row>
         </Content>

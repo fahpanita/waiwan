@@ -32,6 +32,20 @@ const DetailCardEvent = () => {
     }
 
   }, [id])
+
+  const htmlContent = cardevents?.detail;
+
+  // Create a DOMParser instance
+  const parser = new DOMParser();
+
+  // Parse the HTML content
+  const doc = parser.parseFromString(htmlContent, 'text/html');
+
+  // Extract the text content
+  const textContent = doc.body.textContent;
+
+  console.log(textContent);
+
   return (
     <>
       <Layout style={{ background: "#FFFEF6" }}>
@@ -57,8 +71,9 @@ const DetailCardEvent = () => {
           <Title level={2} style={{ textAlign: "left" }}>
             {cardevents?.name}
           </Title>
-          <p dangerouslySetInnerHTML={{ __html: "&amp;nbsp;" }} />
-          {cardevents?.detail}
+          <p>
+            {textContent}
+          </p>
         </Content>
         <FooterPage />
       </Layout>

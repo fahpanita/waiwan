@@ -10,9 +10,11 @@ const FooterPage = () => {
       <Layout>
         <Footer
           style={{
-            background: "#FFFEF6",
+            background: "#E9E9E9",
           }}
-        ></Footer>
+        >
+          <div className="">Footer</div>
+        </Footer>
       </Layout>
     </>
   );

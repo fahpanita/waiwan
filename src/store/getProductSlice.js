@@ -11,10 +11,12 @@ export const getProductSlice = createSlice({
     reducers: {
         addProduct: (state, action) => {
             state.product = [action.payload]
-
         }
+
+
     }
 })
 
 export const { addProduct } = getProductSlice.actions
+export const { removeFirstProduct } = getProductSlice.actions
 export default getProductSlice.reducer

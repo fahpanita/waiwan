@@ -33,15 +33,15 @@ const AllCardEvent = () => {
   return (
     <>
       <Layout
-        style={{ background: "#FFFEF6" }}
+        style={{ background: "#F5F5F5" }}
       >
         <Navbar />
         <Content
           style={{
-            padding: "0 50px",
+            padding: "0 32px",
           }}
         >
-          <Title level={4} style={{ marginTop: "50px", textAlign: "center" }}>
+          <Title level={4} style={{ marginTop: "40px", textAlign: "center" }}>
             บทความเทศกาล
           </Title>
 
@@ -49,7 +49,7 @@ const AllCardEvent = () => {
             justify="space-evenly"
             gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
           >
-            <Col span={20}>
+            <Col span={24}>
               <div>
                 <a
                   style={{
@@ -65,19 +65,6 @@ const AllCardEvent = () => {
           </Row>
 
 
-          <Row justify="space-evenly" >
-            <Col span={22} style={{
-              marginTop: "30px",
-            }}>
-              <Search
-                placeholder="ค้นหาสินค้าที่่ต้องการ"
-                onSearch={onSearch}
-                enterButton
-              />
-            </Col>
-          </Row>
-
-
           <Row
             justify="flex-start"
             gutter={{
@@ -87,7 +74,7 @@ const AllCardEvent = () => {
               lg: 32,
             }}
             style={{
-              marginTop: "30px",
+              marginTop: "30px", marginBottom: "40px",
             }}
           >
             {cardevents?.map(c => (

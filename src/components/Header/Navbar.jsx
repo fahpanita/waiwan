@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Menu, Button, Drawer, Row, Col, Image } from "antd";
+import { Layout, Menu, Button, Drawer, Row, Col, Image, Input, } from "antd";
 import {
   HomeOutlined,
   MenuOutlined,
@@ -24,22 +24,50 @@ const Navbar = () => {
     setVisible(false);
   };
 
+  const { Search } = Input;
+  const onSearch = (value, _e, info) => console.log(info?.source, value);
+
   return (
-    <Layout className="layout" >
+    < >
       <Header
         style={{
-          background: "#FFFEF6",
-          boxShadow: "2px 2px 9px 0px rgba(0, 0, 0, 0.09)",
+          background: "#fff",
           position: "sticky",
+          height: "auto",
         }}
       >
+        <Row justify="space-between" align="middle" >
+          <Col xs={0} sm={20} md={2}>
+            <Image preview={false} width={100} src="image/img/Logo.png" />
+          </Col>
+          <Col xs={0} sm={0} md={17} style={{ display: "flex", flexWrap: "nowrap", textDecoration: "none" }}>
+            <Search
+              placeholder="ค้นหาสินค้าในไหว้วาน"
+              onSearch={onSearch}
+              enterButton
+            />
+          </Col>
+          <Col xs={0} sm={0} md={1}>
+            <LineLogin></LineLogin>
+          </Col>
+          <Col xs={0} sm={0} md={1}>
+            <Link to="/cart" style={{ color: "#000", fontSize: "16px" }}>{<ShoppingCartOutlined />}</Link>
+          </Col>
+
+          <Col xs={2} sm={2} md={0}>
+            <Button type="primary" onClick={showDrawer}>
+              <MenuOutlined />
+            </Button>
+          </Col>
+        </Row>
+
+
         <Row justify="space-between" align="middle">
           <Col xs={0} sm={20} md={8}>
             <Menu
               theme="light"
               mode="horizontal"
               defaultSelectedKeys={["1"]}
-              style={{ background: "#FFFEF6" }}
             >
               <Menu.Item key="1">
                 <Link to="/" style={{ textDecoration: "none" }}>
@@ -53,7 +81,7 @@ const Navbar = () => {
               </Menu.Item>
               <Menu.Item key="3">
                 <Link to="/experiment" style={{ textDecoration: "none" }}>
-                  ทดลองจัดวาง
+                  ทดลองจัดวางของไหว้เจ้า
                 </Link>
               </Menu.Item>
               <Menu.Item key="4">
@@ -63,29 +91,8 @@ const Navbar = () => {
               </Menu.Item>
             </Menu>
           </Col>
-          <Col xs={0} sm={0} md={8} align="center">
-            <Image preview={false} width={100} src="image/img/Logo.png" />
-          </Col>
-          <Col xs={0} sm={0} md={8}>
-            <Menus
-              theme="light"
-              mode="horizontal"
-              style={{ background: "#FFFEF6" }}
-            >
-              <Menu.Item key="5">
-                <LineLogin></LineLogin>
-              </Menu.Item>
-              <Menu.Item key="6" icon={<ShoppingCartOutlined />}>
-                <Link to="/cart" style={{ textDecoration: "none" }}></Link>
-              </Menu.Item>
-            </Menus>
-          </Col>
-          <Col xs={2} sm={2} md={0}>
-            <Button type="primary" onClick={showDrawer}>
-              <MenuOutlined />
-            </Button>
-          </Col>
         </Row>
+
         <Drawer
           title="Menu"
           placement="left"
@@ -120,7 +127,7 @@ const Navbar = () => {
           </Menu>
         </Drawer>
       </Header>
-    </Layout>
+    </>
   );
 };
 

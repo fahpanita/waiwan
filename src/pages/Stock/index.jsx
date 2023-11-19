@@ -21,7 +21,7 @@ const Stock = () => {
   return (
     <>
       <Layout style={{
-        background: "#FFFEF6",
+        background: "#F5F5F5",
       }}>
         <Navbar />
         <Content

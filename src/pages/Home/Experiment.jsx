@@ -11,13 +11,13 @@ const Experiment = () => {
     <>
       <Layout
         style={{
-          background: "#FFFEF6",
+          background: "#F5F5F5",
         }}
       >
         <Navbar />
         <Content>
           <Title level={4} style={{ marginTop: "50px", textAlign: "center" }}>
-            ทดลองจัดวาง
+            ทดลองจัดวางของไหว้เจ้า
           </Title>
         </Content>
         <FooterPage />

@@ -74,24 +74,13 @@ const ListProduct = () => {
     <>
       <Layout
         style={{
-          background: "#FFFEF6",
+          background: "#F5F5F5",
         }}
       >
         <Navbar />
-        <BannerListProduct />
-        <Row justify="space-evenly" style={{ marginTop: "-20px" }}>
-          <Col span={22}>
-            <Search
-              placeholder="ค้นหาสินค้าที่่ต้องการ"
-              onSearch={onSearch}
-              enterButton
-            />
-          </Col>
-        </Row>
-
         <Content
           style={{
-            padding: "0 50px",
+            padding: "0 32px",
           }}
         >
           <Row
@@ -102,18 +91,19 @@ const ListProduct = () => {
               md: 24,
               lg: 32,
             }}
-
+            style={{ marginBottom: "40px" }}
           >
-            <Col className="gutter-row" span={5}
-              style={{ marginTop: "50px" }}>
+            <Col className="gutter-row" span={6}
+              style={{ marginTop: "40px" }}>
               <Collapse
                 items={items}
                 bordered={false}
                 defaultActiveKey={[""]}
+                style={{ backgroundColor: "#fff" }}
               />
             </Col>
 
-            <Col className="gutter-row" span={15} style={{ marginTop: "26px" }}>
+            <Col className="gutter-row" span={18} style={{ marginTop: "24px" }}>
               <Row
                 justify="flex-start"
                 gutter={{
@@ -124,8 +114,8 @@ const ListProduct = () => {
                 }}
               >
                 {products?.map(p => (
-                  <Col className="gutter-row" span={6}>
-                    <div style={{ marginTop: "24px" }}>
+                  <Col className="gutter-row" span={4}>
+                    <div style={{ marginTop: "16px" }}>
                       <CardProduct data={p} />
                     </div>
                   </Col>

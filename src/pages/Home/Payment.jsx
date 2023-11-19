@@ -131,7 +131,7 @@ const Payment = () => {
 
   return (
     <>
-      <Layout style={{ background: "#FFFEF6" }}>
+      <Layout style={{ background: "#F5F5F5" }}>
         <Navbar />
         <Content
           style={{ padding: "0 50px" }}>

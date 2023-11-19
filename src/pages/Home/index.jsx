@@ -9,6 +9,7 @@ import BannerHome from "../../components/Slide/BannerHome";
 import FooterPage from "../../components/Footer/FooterPage";
 import { getProducts } from "../../services/product";
 import { getCartEvents } from "../../services/cartEvents";
+import { RightCircleOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -39,40 +40,43 @@ const Home = () => {
       handleGetCartEvents()
   }, [])
 
-
-
   return (
     // <AuthenticatedProvider>
     <Layout
       style={{
-        background: "#FFFEF6",
+        background: "#F5F5F5",
       }}
     >
       <Navbar />
-      <BannerHome />
-      <Row justify="space-evenly" style={{ marginTop: "-20px" }}>
-        <Col span={22}>
-          <Search
-            placeholder="ค้นหาสินค้าที่ต้องการ"
-            onSearch={onSearch}
-            enterButton
-          />
-        </Col>
-      </Row>
-
-
       <Content
         style={{
-          padding: "0 50px",
+          padding: "0 32px",
         }}
       >
-        <Row style={{ marginTop: "50px" }}>
+        <Row style={{
+          marginTop: "32px"
+        }}>
+          <Col span={24}>
+            <BannerHome />
+          </Col>
+        </Row>
+
+        <Row style={{ marginTop: "40px" }}>
+          <Col span={24}>
+            <Title level={3}>หมวดหมู่</Title>
+          </Col>
+          <Col span={24} offset={0} >
+            <div style={{ backgroundColor: "#fff", height: "168px" }}>sdfghj</div>
+          </Col>
+        </Row>
+
+        <Row style={{ marginTop: "40px" }}>
           <Col span={8}>
-            <Title level={4}>สินค้า</Title>
+            <Title level={3}>สินค้าเพื่อคุณโดยเฉพาะ</Title>
           </Col>
           <Col span={8} offset={8}>
             <a style={{ float: "right", textDecoration: "none", color: "#1D1D1F" }} href="/listProduct">
-              {"ดูทั้งหมด>>"}
+              ดูทั้งหมด {<RightCircleOutlined />}
             </a>
           </Col>
         </Row>
@@ -88,7 +92,7 @@ const Home = () => {
         >
           {products?.map(p => (
             <Col className="gutter-row" span={4}>
-              <div style={{ marginTop: "24px", }}>
+              <div style={{ marginTop: "10px", }}>
                 <CardProduct data={p} />
               </div>
             </Col>
@@ -97,13 +101,13 @@ const Home = () => {
 
         <Divider dashed style={{ marginTop: "50px" }} />
 
-        <Row style={{ marginTop: "50px" }}>
+        <Row style={{ marginTop: "40px" }}>
           <Col span={8}>
             <Title level={4}>บทความเทศกาล</Title>
           </Col>
           <Col span={8} offset={8}>
             <a style={{ float: "right", textDecoration: "none", color: "#1D1D1F" }} href="/allCardEvent">
-              {"ดูทั้งหมด>>"}
+              ดูทั้งหมด {<RightCircleOutlined />}
             </a>
           </Col>
         </Row>
@@ -115,6 +119,7 @@ const Home = () => {
             md: 24,
             lg: 32,
           }}
+          style={{ marginBottom: "40px" }}
         >
           {cardevents?.map(c => (
             <Col className="gutter-row" span={5} style={{ marginTop: "20px" }}>
