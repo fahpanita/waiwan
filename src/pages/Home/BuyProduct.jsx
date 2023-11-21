@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Row, Col, Typography, Tabs, Table, Button, Divider, Radio, } from "antd";
+import { Layout, Row, Col, Typography, Tabs, Table, Button, Divider, Radio, Modal, Form } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import FooterPage from "../../components/Footer/FooterPage";
@@ -8,6 +8,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constands/api";
 import { useSelector } from "react-redux";
 import { createOrder } from "../../services/buyproduct";
+import { LongdoMap, longdo, map } from "../../components/LongdoMap";
+import { Input } from "antd/es";
+import { getAddress } from "../../services/map";
 
 const columns = [
   {
@@ -46,13 +49,11 @@ const boxSum = {
   justifyContent: "space-between",
 };
 
-
-
 const BuyProduct = (props) => {
 
+  const [form] = Form.useForm();
 
   const { getProduct } = useSelector((state) => ({ ...state }))
-  console.log(getProduct)
 
   const data = getProduct?.product?.map(p => {
     return {
@@ -85,385 +86,190 @@ const BuyProduct = (props) => {
     navigate('/payment')
   }
 
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState("จัดส่งตามที่อยู่");
   const [visible, setVisible] = useState(false);
 
   const onChange = (e) => {
     setValue(e.target.value);
-    setVisible(e.target.value === 2);
+    setVisible(e.target.value === "รับหน้าร้าน");
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const [location, setLocation] = useState({ lat: undefined, lon: undefined });
+
+  const handleSetLocation = () => {
+    setLocation(map.location())
+
+  }
+
+  console.log(location)
+  const mapKey = import.meta.env.VITE_LONGDOMAP_API_KEY;
+
+  const initMap = () => {
+    map?.Layers?.setBase(longdo?.Layers?.GRAY);
+    map?.location(longdo?.LocationMode?.Geolocation);
+    handleSetLocation()
+
+    map.Event.bind('drop', function () {
+      handleSetLocation()
+
+    });
+
+  }
+
+  useEffect(() => {
+    const handleGetAddress = async () => {
+      const res = await getAddress(location)
+      form.setFieldsValue(
+        {
+          street: res?.data?.road,
+          district: res?.data?.district,
+          subdistrict: res?.data?.subdistrict,
+          province: res?.data?.province,
+          zip_code: res?.data?.postcode
+          ,
+        }
+      )
+      console.log(res)
+    }
+    if (location && location.lat && location.lon) {
+      handleGetAddress()
+    }
+
+
+  }, [location])
+
 
   return (
     <>
       <Layout style={{ background: "#F5F5F5" }}>
         <Navbar />
-        <Content style={{ margin: '24px 24px 0', }}>
-          <Row>
-            <Col span={16}>
-              <CardBoxRadius>
-                <Title level={5}>ที่อยู่การจัดส่ง</Title>
+        <Form form={form}>
+          <Content style={{ margin: '24px 24px 0', }}>
+            <Row>
+              <Col span={16}>
+                <CardBoxRadius>
+                  <Title level={5}>ที่อยู่การจัดส่ง</Title>
 
-                <Dividers />
+                  <Dividers />
 
-                {/* <div style={boxWhite}>
-                  226/105 (16C) อาคารริเวียร่า1 ถนนบอนด์สตรีท ตำบลบางพูด, อำเภอปากเกร็ด, จังหวัดนนทบุรี,
-                  11120
-                </div> */}
-              </CardBoxRadius>
-              <CardBoxRadius>
-                <Title level={5} style={{ textAlign: "left" }}>
-                  <Tables
-                    columns={columns}
-                    dataSource={data}
-                    pagination={false}
-                  />
-                </Title>
-              </CardBoxRadius>
-            </Col>
-            <Col span={8}>
-              <CardBoxRadius>
-                <Title level={5}>ตัวเลือกการจัดส่ง</Title>
+                  <Button type="primary" onClick={showModal}>
+                    Open Modal
+                  </Button>
+                  <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
+                    <LongdoMapStyle>
+                      <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />
+                    </LongdoMapStyle>
+                    <Title level={5}>ข้อมูลการจัดส่ง</Title>
+                    <Form.Item name="name" label="ชื่อ" rules={[{ required: true, message: "กรุณากรอกชื่อ" }]} >
+                      <Input />
+                    </Form.Item>
+                    <Form.Item name="street" label="บ้านเลขที่ หมู่บ้าน" >
+                      <Input disabled />
+                    </Form.Item>
+                    <Form.Item name="subdistrict" label="ตำบล" >
+                      <Input disabled />
+                    </Form.Item>
+                    <Form.Item name="district" label="อำเภอ" >
+                      <Input disabled />
+                    </Form.Item>
+                    <Form.Item name="province" label="จังหวัด" >
+                      <Input disabled />
+                    </Form.Item>
+                    <Form.Item name="zip_code" label="รหัสไปรษณีย์" >
+                      <Input disabled />
+                    </Form.Item>
+                  </Modal>
 
-                <Radio.Group onChange={onChange} value={value}>
-                  <Radio value={1} onClick={() => setVisible(false)}>จัดส่งตามที่อยู่</Radio><br />
-                  <Radio value={2} onClick={() => setVisible(true)}>รับหน้าร้าน</Radio>
-                </Radio.Group>
-                {visible && <div>My element</div>}
 
-              </CardBoxRadius>
-              <CardBoxRadius>
-                <Title level={5}>สรุปรายการสั่งซื้อ</Title>
-                <Dividers />
-                <Row style={{ display: "flex", alignItems: "center" }}>
-                  <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
-                  </Col>
-                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
-                  </Col>
-                </Row>
-                <Row style={{ display: "flex", alignItems: "center" }}>
-                  <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
-                  </Col>
-                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {shipping}</div>
-                  </Col>
-                </Row>
-                <Dividers />
-                <Row style={{ display: "flex", alignItems: "center" }}>
-                  <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมทั้งสิ้น</div>
-                  </Col>
-                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "24px", fontWeight: "400", color: "#C54142" }}>฿ {formattedTotal}</div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span={24}>
-                    <Link to={"/payment"} >
-                      <Button
-                        type="primary"
-                        shape="round"
-                        size="large"
+                </CardBoxRadius>
+                <CardBoxRadius>
+                  <Title level={5} style={{ textAlign: "left" }}>
+                    <Tables
+                      columns={columns}
+                      dataSource={data}
+                      pagination={false}
+                    />
+                  </Title>
+                </CardBoxRadius>
+              </Col>
+              <Col span={8}>
+                <CardBoxRadius>
+                  <Title level={5}>ตัวเลือกการจัดส่ง</Title>
 
-                        style={{
-                          background: "#c54142",
-                          width: "100%",
-                          marginTop: "20px",
-                        }}
-                        onClick={handelOrder}
-                      >
-                        สั่งซื้อสินค้า
-                      </Button>
-                    </Link>
-                  </Col>
-                </Row>
+                  <Radio.Group onChange={onChange} value={value}>
+                    <Radio value="จัดส่งตามที่อยู่" onClick={() => setVisible(false)}>จัดส่งตามที่อยู่</Radio><br />
+                    <Radio value="รับหน้าร้าน" onClick={() => setVisible(true)}>รับหน้าร้าน</Radio>
+                  </Radio.Group>
+                  {visible && <div>My element</div>}
 
-              </CardBoxRadius>
-            </Col>
-          </Row>
+                </CardBoxRadius>
+                <CardBoxRadius>
+                  <Title level={5}>สรุปรายการสั่งซื้อ</Title>
+                  <Dividers />
+                  <Row style={{ display: "flex", alignItems: "center" }}>
+                    <Col span={12}>
+                      <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
+                    </Col>
+                    <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                      <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+                    </Col>
+                  </Row>
+                  <Row style={{ display: "flex", alignItems: "center" }}>
+                    <Col span={12}>
+                      <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
+                    </Col>
+                    <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                      <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {shipping}</div>
+                    </Col>
+                  </Row>
+                  <Dividers />
+                  <Row style={{ display: "flex", alignItems: "center" }}>
+                    <Col span={12}>
+                      <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมทั้งสิ้น</div>
+                    </Col>
+                    <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                      <div style={{ fontSize: "24px", fontWeight: "400", color: "#C54142" }}>฿ {formattedTotal}</div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>
+                      <Link to={"/payment"} >
+                        <Button
+                          type="primary"
+                          shape="round"
+                          size="large"
 
-        </Content>
-        {/* <Content
-          style={{
-            padding: "0 50px",
-          }}
-        >
-          <Title level={4} style={{ marginTop: "50px", textAlign: "center" }}>
-            การจัดส่ง
-          </Title>
-
-          <Row
-            justify="space-evenly"
-            gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
-          >
-            <Col span={20}>
-              <div >
-                <a
-                  style={{
-                    float: "left",
-                    fontSize: "24px",
-                    marginTop: "-40px",
-                  }}
-                >
-                  <ArrowLeftOutlined />
-                </a>
-              </div>
-            </Col>
-          </Row>
-
-          <Row
-            justify="space-evenly"
-            gutter={{
-              xs: 8,
-              sm: 16,
-              md: 24,
-              lg: 32,
-            }}
-            style={{
-              marginTop: "30px",
-            }}
-          >
-            <Col span={20}>
-              <TabShipping
-                centered
-                defaultActiveKey="1"
-                items={[
-                  {
-                    label: (
-                      <span>
-                        <ShopOutlined />
-                        รับที่หน้าร้าน
-                      </span>
-                    ),
-                    key: "1",
-                    children: (
-                      <div>
-                        <Row
-                          justify="space-evenly"
-                          gutter={{
-                            xs: 8,
-                            sm: 16,
-                            md: 24,
-                            lg: 32,
-                          }}
                           style={{
-                            backgroundColor: "#F2F0E6",
-                            padding: "20px 0",
-                            marginTop: "30px",
+                            background: "#c54142",
+                            width: "100%",
+                            marginTop: "20px",
                           }}
+                          onClick={handelOrder}
                         >
-                          <Col span={23}>
-                            <Title level={5}>ที่อยู่ร้านค้า</Title>
-                            <div style={boxWhite}>
+                          สั่งซื้อสินค้า
+                        </Button>
+                      </Link>
+                    </Col>
+                  </Row>
 
-                              226/105 (16C) อาคารริเวียร่า1 ถนนบอนด์สตรีท ตำบลบางพูด, อำเภอปากเกร็ด, จังหวัดนนทบุรี,
-                              11120
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row
-                          justify="space-evenly"
-                          gutter={{
-                            xs: 8,
-                            sm: 16,
-                            md: 24,
-                            lg: 32,
-                          }}
-                          style={{
-                            backgroundColor: "#F2F0E6",
-                            marginTop: "24px",
-                            padding: "20px 0",
-                          }}
-                        >
-                          <Col span={23}>
-                            <Title level={5} style={{ textAlign: "left" }}>
-                              <Table
-                                columns={columns}
-                                dataSource={data}
-                                pagination={false}
-                              />
-                            </Title>
-                          </Col>
-                          <Divider dashed />
-                          <Col span={23} style={boxSum}>
-                            <div>ยอดรวมสินค้า</div>
-                            <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+                </CardBoxRadius>
+              </Col>
+            </Row>
 
-                          </Col>
-                          <Divider dashed />
-                          <Col span={23} style={boxSum}>
-                            <div>ค่าจัดส่ง</div>
-                            <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {shipping}</div>
-                          </Col>
+          </Content>
+        </Form>
 
-                          <Divider dashed />
-                          <Col span={23} style={boxSum}>
-                            <div>การชำระเงินทั้งหมด</div>
-                            <div style={{ fontSize: "24px", fontWeight: "500" }}>฿ {formattedTotal}</div>
-                          </Col>
-                        </Row>
-                        <Row
-                          justify="space-evenly"
-                          gutter={{
-                            xs: 8,
-                            sm: 16,
-                            md: 24,
-                            lg: 32,
-                          }}
-                          span={23}
-                          style={{
-                            marginTop: "30px",
-                          }}
-                        >
-                          <Col
-                            span={23}
-                            style={{
-                              display: "contents",
-                            }}
-                          >
-                            <Button
-                              type="primary"
-                              shape="round"
-                              size="large"
-                              style={{
-                                background: "#c54142",
-                                padding: "0 30px 0 30px",
-                              }}
-                              onClick={handelOrder}
-                            >
-                              ชำระเงิน
-                            </Button>
-                          </Col>
-                        </Row>
-                      </div>
-                    ),
-                  },
-                  {
-                    label: (
-                      <span>
-                        <HomeOutlined />
-                        จัดส่งตามที่อยู่
-                      </span>
-                    ),
-                    key: "2",
-                    children: (
-                      <div>
-                        <Row
-                          justify="space-evenly"
-                          gutter={{
-                            xs: 8,
-                            sm: 16,
-                            md: 24,
-                            lg: 32,
-                          }}
-                          style={{
-                            backgroundColor: "#F2F0E6",
-                            padding: "20px 0",
-                            marginTop: "30px",
-                          }}
-                        >
-                          <Col span={23}>
-                            <Title level={5} style={{ marginBottom: "30px" }}>
-                              เลือกที่อยู่จัดส่ง
-                            </Title>
-
-                            <Select
-                              defaultValue="นนทบุรี"
-                              style={{
-                                width: '100%',
-                              }}
-                              options={[
-                                {
-                                  value: 'นนทบุรี',
-                                  label: 'นนทบุรี',
-                                },
-                                {
-                                  value: 'เพชรบุรี',
-                                  label: 'เพชรบุรี',
-                                },
-                              ]}
-                            />
-
-                            <Form
-                              layout="vertical"
-                            >
-                              <Form.Item name="name" label="ชื่อ-นามสกุล" rules={[{ required: true, message: "กรุณากรอกชื่อสินค้า" }]}>
-                                <Input value="name" />
-                              </Form.Item>
-
-                              <Form.Item
-                                name="street"
-                                label="บ้านเลขที่,ซอย,หมู่,ถนน,แขวง/ตำบล"
-                              >
-                                <Input />
-                              </Form.Item>
-                              <Form.Item
-                                name="address"
-                                label="จังหวัด,เขตอำเภอ,รหัสไปรษณีย์"
-                              >
-                                <Input />
-                              </Form.Item>
-                              <Form.Item name="tal" label="เบอร์โทรศัพท์">
-                                <Input type="number" />
-                              </Form.Item>
-                            </Form>
-                          </Col>
-                          <Col span={23}>
-                            <Title level={5}>ระบุจากแผนที่</Title>
-                            <div style={boxWhite}>
-
-                              เลือกระบุจากแผนที่
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row
-                          justify="space-evenly"
-                          gutter={{
-                            xs: 8,
-                            sm: 16,
-                            md: 24,
-                            lg: 32,
-                          }}
-                          span={23}
-                          style={{
-                            marginTop: "30px",
-                          }}
-                        >
-                          <Col
-                            span={23}
-                            style={{
-                              display: "contents",
-                            }}
-                          >
-                            <Link to={"/payment"} >
-                              <Button
-                                type="primary"
-                                shape="round"
-                                size="large"
-
-                                style={{
-                                  background: "#c54142",
-                                  padding: "0 30px 0 30px",
-                                }}
-                              >
-                                ชำระเงิน
-                              </Button>
-                            </Link>
-                          </Col>
-                        </Row>
-                      </div>
-                    ),
-                  },
-                ]}
-              />
-            </Col>
-          </Row>
-          <Row style={{ justifyContent: "center" }}>
-
-          </Row>
-        </Content> */}
 
         <FooterPage />
       </Layout>
@@ -558,4 +364,8 @@ background: #FFF;
 box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
 margin: 10px;
 padding: 16px;
+`;
+
+export const LongdoMapStyle = styled.div`
+height: 300px;
 `;

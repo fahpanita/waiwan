@@ -8,7 +8,6 @@ import { BASE_URL } from "../../constands/api";
 import { useSelector } from 'react-redux';
 import Link from '../../components/Link';
 import { uploadImages } from '../../services/upload';
-import { QRCode } from 'antd/es';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -47,11 +46,11 @@ const beforeUpload = async (file) => {
 };
 
 
-const Payment = () => {
+const PaymentCart = () => {
 
-  const { getProduct } = useSelector((state) => ({ ...state }))
+  const { addCartProduct } = useSelector((state) => ({ ...state }))
 
-  const data = getProduct?.product?.map(p => {
+  const data = addCartProduct?.product?.map(p => {
     return {
       key: "1",
       thumbnail: <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
@@ -61,18 +60,13 @@ const Payment = () => {
     }
   });
 
-  const totalPrice = getProduct?.product?.reduce((accumulator, product) => {
+  const totalPrice = addCartProduct?.product?.reduce((accumulator, product) => {
     return accumulator + Number(product?.price) * product?.amount;
   }, 0);
 
   const formattedTotalPrice = totalPrice.toFixed(2);
 
-  // const shipping = getProduct?.product?.sort((a, b) => {
-  //   return Number(b.typeShipping) - Number(a.typeShipping)
-
-  // })[0].typeShipping
-
-  const products = getProduct?.product || [];
+  const products = addCartProduct?.product || [];
   const sortedProducts = [...products].sort((a, b) => {
     return Number(b.typeShipping) - Number(a.typeShipping);
   });
@@ -139,7 +133,6 @@ const Payment = () => {
                   </Col>
                 </Row>
                 <Dividers />
-                <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406420.006304976A" || '-'} />
 
               </CardBoxRadius>
 
@@ -185,7 +178,7 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default PaymentCart;
 
 export const Tables = styled(Table)`
   &.ant-table-wrapper .ant-table-thead > tr > td {

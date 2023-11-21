@@ -23,28 +23,13 @@ import styled from "styled-components";
 import IncDecCounter from "../../components/Button/IncDecCounter";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../constands/api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createOrder } from "../../services/buyproduct";
 import { addProduct, getProductSlice } from "../../store/getProductSlice";
+import { deleteCartProduct } from "../../store/AddCartProductSlice";
 
-const columns = [
-  {
-    dataIndex: "thumbnail",
-  },
-  {
-    title: "สินค้า",
-    dataIndex: "name",
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "จำนวน",
-    dataIndex: "amount",
-  },
-  {
-    title: "ราคา",
-    dataIndex: "price",
-  },
-];
+
+
 const { Title, Text } = Typography;
 const { Content } = Layout;
 const items = [
@@ -76,9 +61,33 @@ const headFitler = {
 
 const Cart = () => {
 
-  const { addCartProduct } = useSelector((state) => ({ ...state }))
+  const columns = [
+    {
+      dataIndex: "thumbnail",
+    },
+    {
+      title: "สินค้า",
+      dataIndex: "name",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "จำนวน",
+      dataIndex: "amount",
+    },
+    {
+      title: "ราคา",
+      dataIndex: "price",
+    },
+    {
+      title: "Action",
+      render: () => (
+        <Space size="middle">
+          <Button danger onClick={() => removeItem(productId)}>Delete</Button>
+        </Space>),
+    },
+  ];
 
-  console.log(addCartProduct, "1234")
+  const { addCartProduct } = useSelector((state) => ({ ...state }))
 
   const data = addCartProduct?.product?.map(p => {
     return {
@@ -106,13 +115,14 @@ const Cart = () => {
   const formattedTotal = totalWithShipping.toFixed(2);
 
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
-  const handleBuyProduct = () => {
+  const removeItem = (productId) => {
 
-    dispatch(addProduct(addCartProduct?.product))
+    dispatch(deleteCartProduct(productId))
   }
+
+
   return (
     <>
       <Layout
@@ -121,161 +131,75 @@ const Cart = () => {
         }}
       >
         <Navbar />
-        <Content
-          style={{
-            padding: "0 32px",
-          }}
-        >
-          <Title level={4} style={{ marginTop: "50px", textAlign: "center" }}>
-            ตะกร้าสินค้า
-          </Title>
-          <Row
-            justify="space-evenly"
-            gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
-          >
-            <Col span={20}>
-              <a
-                style={{
-                  float: "left",
-                  fontSize: "24px",
-                  marginTop: "-40px",
-                }}
-              >
-                <ArrowLeftOutlined />
-              </a>
+
+        <Content style={{ margin: '24px 24px 0', }}>
+          <Row>
+            <Col span={16}>
+
+              <CardBoxRadius>
+                <Title level={5} style={{ textAlign: "left" }}>
+                  <Tables
+                    columns={columns}
+                    dataSource={data}
+                    pagination={false}
+                  />
+                </Title>
+              </CardBoxRadius>
+            </Col>
+            <Col span={8}>
+
+              <CardBoxRadius>
+                <Title level={5}>สรุปรายการสั่งซื้อ</Title>
+                <Dividers />
+                <Row style={{ display: "flex", alignItems: "center" }}>
+                  <Col span={12}>
+                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
+                  </Col>
+                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+                  </Col>
+                </Row>
+                <Row style={{ display: "flex", alignItems: "center" }}>
+                  <Col span={12}>
+                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
+                  </Col>
+                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {shipping}</div>
+                  </Col>
+                </Row>
+                <Dividers />
+                <Row style={{ display: "flex", alignItems: "center" }}>
+                  <Col span={12}>
+                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมทั้งสิ้น</div>
+                  </Col>
+                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <div style={{ fontSize: "24px", fontWeight: "400", color: "#C54142" }}>฿ {formattedTotal}</div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={24}>
+                    <Link to={"/buyProductCart"} >
+                      <Button
+                        type="primary"
+                        shape="round"
+                        size="large"
+
+                        style={{
+                          background: "#c54142",
+                          width: "100%",
+                          marginTop: "20px",
+                        }}
+                      >
+                        สั่งซื้อสินค้า
+                      </Button>
+                    </Link>
+                  </Col>
+                </Row>
+
+              </CardBoxRadius>
             </Col>
           </Row>
 
-          <Row
-            justify="space-evenly"
-            gutter={{
-              xs: 8,
-              sm: 16,
-              md: 24,
-              lg: 32,
-            }}
-            style={{
-              marginTop: "30px",
-            }}
-          >
-            <Col span={20}>
-              <TabShipping
-                centered
-                defaultActiveKey="1"
-                items={[
-                  {
-                    label: <span>สั่งซื้อสินค้า</span>,
-                    key: "1",
-                    children: (
-
-                      <div >
-                        <Row
-                          justify="space-evenly"
-                          gutter={{
-                            xs: 8,
-                            sm: 16,
-                            md: 24,
-                            lg: 32,
-                          }}
-                          style={{
-                            backgroundColor: "#F2F0E6",
-                            marginTop: "24px",
-                            padding: "20px 0",
-                          }}
-                        >
-                          <Col span={23}>
-                            <Title level={5} style={{ textAlign: "left" }}>
-                              <Tables
-                                columns={columns}
-                                dataSource={data}
-                                pagination={false}
-                              />
-                            </Title>
-                          </Col>
-                          <Divider dashed />
-                          <Col span={23} style={boxSum}>
-                            <div>ยอดรวมสินค้า</div>
-                            <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
-
-                          </Col>
-                          <Divider dashed />
-                          <Col span={23} style={boxSum}>
-                            <div>ค่าจัดส่ง</div>
-                            <div style={{ fontSize: "20px", fontWeight: "400" }}>฿ {shipping}</div>
-                          </Col>
-
-                          <Divider dashed />
-                          <Col span={23} style={boxSum}>
-                            <div>การชำระเงินทั้งหมด</div>
-                            <div style={{ fontSize: "24px", fontWeight: "500" }}>฿ {formattedTotal}</div>
-                          </Col>
-                        </Row>
-                      </div>
-                    ),
-                  },
-
-                  {
-                    label: <span>รายการสินค้าพรีออเดอร์</span>,
-                    key: "2",
-                    children: (
-                      <div>
-                        <div style={headFitler}>
-                          <Title level={4}>การสั่งซื้อ</Title>
-                          <Dropdown
-                            menu={{
-                              items,
-                              selectable: true,
-                              defaultSelectedKeys: ["3"],
-                            }}
-                          >
-                            <Typography.Link>
-                              <Space>
-                                ตัวเลือก
-                                <DownOutlined />
-                              </Space>
-                            </Typography.Link>
-                          </Dropdown>
-                        </div>
-
-                      </div>
-                    ),
-                  },
-                ]}
-              />
-            </Col>
-          </Row>
-          <Row justify="space-evenly"
-            gutter={{
-              xs: 8,
-              sm: 16,
-              md: 24,
-              lg: 32,
-            }}
-            style={{
-              marginTop: "30px",
-            }}>
-            <Col
-              style={{
-                display: "contents",
-              }}
-            >
-              <Button
-                type="primary"
-                shape="round"
-                size="large"
-                style={{
-                  background: "#c54142",
-                  padding: "0 30px 0 30px",
-                }}
-                onClick={() => {
-                  handleBuyProduct()
-                  navigate(`/buyProduct`)
-                }}
-              >
-                ชำระเงิน
-              </Button>
-            </Col>
-          </Row>
         </Content>
         <FooterPage />
       </Layout >
@@ -288,6 +212,14 @@ export default Cart;
 export const CardBoxAddress = styled.div`
   border-radius: 6px;
   border: 1px solid #bf9f64;
+`;
+
+export const CardBoxRadius = styled.div`
+border-radius: 13px;
+background: #FFF;
+box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
+margin: 10px;
+padding: 16px;
 `;
 
 export const Tables = styled(Table)`
@@ -323,6 +255,12 @@ export const TabShipping = styled(Tabs)`
   &.ant-tabs .ant-tabs-ink-bar {
     background: none;
   }
+`;
+
+export const Dividers = styled(Divider)`
+&.ant-divider-horizontal {
+  margin: 10px 0;
+}
 `;
 
 // const ButtonRed = styled(Button)`

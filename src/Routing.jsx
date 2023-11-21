@@ -24,6 +24,8 @@ import Payment from "./pages/Home/Payment";
 import ListEvents from "./pages/Dashboard/listEvents";
 import Product from "./components/Product1";
 import Index from "./components";
+import BuyProductCart from "./pages/Home/BuyProductCart";
+import PaymentCart from "./pages/Home/PaymentCart";
 // import Cart from "./pages/Home/Cart";
 
 // const Home = lazy(() => import("./pages/Home"));
@@ -91,6 +93,14 @@ const Routing = () => {
             }
           />
           <Route
+            path="/buyProductCart"
+            element={
+              <Suspense fallback={<Loading />}>
+                <BuyProductCart />
+              </Suspense>
+            }
+          />
+          <Route
             path="/allCardEvent"
             element={
               <Suspense fallback={<Loading />}>
@@ -111,6 +121,14 @@ const Routing = () => {
             element={
               <Suspense fallback={<Loading />}>
                 <Payment />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/paymentcart"
+            element={
+              <Suspense fallback={<Loading />}>
+                <PaymentCart />
               </Suspense>
             }
           />

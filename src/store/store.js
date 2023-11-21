@@ -10,5 +10,6 @@ export const store = configureStore({
         user: userSlice,
         getProduct: getProductSlice,
         addCartProduct: AddCartProductSlice,
+        deleteCartProduct: AddCartProductSlice,
     }
 })

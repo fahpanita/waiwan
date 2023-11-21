@@ -5,11 +5,6 @@ import { Content, Footer, Header } from 'antd/es/layout/layout';
 import { deleteProduts, getProducts } from '../../services/product';
 import { BASE_URL } from '../../constands/api';
 
-const onDeleteProduct = async (id) => {
-    await deleteProduts(id);
-    handleGetProducts();
-};
-
 const columns = [
     {
         title: 'รหัสสินค้า',
