@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Input, Col, Row, Layout, Typography, Divider } from "antd";
+import { Input, Col, Row, Layout, Typography, Divider, Card, Statistic, Image } from "antd";
 import Filter from "../../components/Tree/Filter";
 import CardEvent from "../../components/CardKnowlage/CardEvent";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
@@ -66,7 +66,42 @@ const Home = () => {
             <Title level={3}>หมวดหมู่</Title>
           </Col>
           <Col span={24} offset={0} >
-            <div style={{ backgroundColor: "#fff", height: "168px" }}>sdfghj</div>
+            <div style={{ backgroundColor: "#fff", height: "auto", padding: "20px 0" }}>
+              <Row gutter={24} style={{ display: 'flex', justifyContent: 'center' }}>
+                <Col span={5}>
+                  <Cards bordered={false}>
+                    <Cardcatagory>
+                      <Image src="image/img/image 136.png" preview={false} />
+                    </Cardcatagory>
+                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>อาหารสด</div>
+                  </Cards>
+                </Col>
+                <Col span={5}>
+                  <Cards bordered={false}>
+                    <Cardcatagory>
+                      <Image src="image/img/image 135.png" preview={false} />
+                    </Cardcatagory>
+                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>ขนมหวาน</div>
+                  </Cards>
+                </Col>
+                <Col span={5}>
+                  <Cards bordered={false}>
+                    <Cardcatagory>
+                      <Image src="image/img/image 134.png" preview={false} />
+                    </Cardcatagory>
+                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>ผลไม้</div>
+                  </Cards>
+                </Col>
+                <Col span={5}>
+                  <Cards bordered={false}>
+                    <Cardcatagory>
+                      <Image src="image/img/image 133.png" preview={false} height={90} />
+                    </Cardcatagory>
+                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>อุปกรณ์ไหว้เจ้า</div>
+                  </Cards>
+                </Col>
+              </Row>
+            </div>
           </Col>
         </Row>
 
@@ -136,35 +171,21 @@ const Home = () => {
   );
 };
 
-export const Container = styled.div`
-  max-width: 1440px;
-  margin: 0 auto;
-  .font-36 {
-    font-family: "Athiti", sans-serif;
-    font-size: 36px;
-  }
+export const Cardcatagory = styled.div`
+  width: 100px;
+  height: 100px;
+  border-radius: 4px;
+  border: 1px solid #A08155;
+  background: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-// export const Img = styled.img`
-//   width: 100%;
-// `;
-
-// export const Card = styled.img`
-//   width: 32%;
-//   float: left;
-// `;
-
-// export const Icon = styled.img`
-//   width: 36px;
-//   float: left;
-// `;
-
-// export const Imgrounder = styled(Image)`
-//   border-radius: 100px;
-
-//   &.ant-image .ant-image-mask {
-//     color: aqua !important;
-//   }
-// `;
+export const Cards = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
 
 export default Home;

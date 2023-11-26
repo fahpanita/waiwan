@@ -2,22 +2,6 @@ import React, { useState } from "react";
 import { TreeSelect } from "antd";
 const { SHOW_PARENT } = TreeSelect;
 
-// const treeData = [
-//   {
-//     title: "ประเพณีไทย",
-//     value: "0-0",
-//     key: "0-0",
-//     children: [
-//       {
-//         title: "ไหว้ศาลตายาย",
-//         value: "0-0-0",
-//         key: "0-0-0",
-//       },
-//     ],
-//   },
-
-// ];
-
 const Filter = (props) => {
   const [value, setValue] = useState();
   const onChange = (newValue) => {

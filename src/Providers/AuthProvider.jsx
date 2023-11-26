@@ -21,7 +21,6 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = React.useState(null);
   const [idToken, setIdToken] = React.useState(null);
   const { error, isLoggedIn, isReady } = useLiff();
-  // const navigate = useNavigate();
   const [profile, setProfile] = React.useState(null);
 
   const handleLogin = async () => {
@@ -36,12 +35,8 @@ const AuthProvider = ({ children }) => {
     (async () => {
       const token = await liff.getAccessToken();
       const idToken = await liff.getIDToken();
-      // console.log(token, '123');
-      // console.log(idToken, '678');
-      // const profile = await liff.getProfile();
       setToken(token);
       setIdToken(idToken);
-      // setProfile(profile);
     })();
   }, [isLoggedIn]);
 

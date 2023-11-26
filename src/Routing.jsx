@@ -26,6 +26,10 @@ import Product from "./components/Product1";
 import Index from "./components";
 import BuyProductCart from "./pages/Home/BuyProductCart";
 import PaymentCart from "./pages/Home/PaymentCart";
+import Seller from "./pages/Dashboard/seller";
+import Sellercheck from "./pages/Dashboard/sellerCheck";
+import Sellershipping from "./pages/Dashboard/sellerShipping";
+import Sellersucceed from "./pages/Dashboard/sellersucceed";
 // import Cart from "./pages/Home/Cart";
 
 // const Home = lazy(() => import("./pages/Home"));
@@ -152,7 +156,46 @@ const Routing = () => {
               </ProtectedRouteAdmin>
             }
           />
-
+          <Route
+            path="/seller"
+            element={
+              <ProtectedRouteAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Seller />
+                </Suspense>
+              </ProtectedRouteAdmin>
+            }
+          />
+          <Route
+            path="/sellercheck"
+            element={
+              <ProtectedRouteAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Sellercheck />
+                </Suspense>
+              </ProtectedRouteAdmin>
+            }
+          />
+          <Route
+            path="/sellershipping"
+            element={
+              <ProtectedRouteAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Sellershipping />
+                </Suspense>
+              </ProtectedRouteAdmin>
+            }
+          />
+          <Route
+            path="/sellersucceed"
+            element={
+              <ProtectedRouteAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Sellersucceed />
+                </Suspense>
+              </ProtectedRouteAdmin>
+            }
+          />
           <Route
             path="/addProduct"
             element={

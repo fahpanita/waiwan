@@ -11,6 +11,8 @@ import { createOrder } from "../../services/buyproduct";
 import { LongdoMap, longdo, map } from "../../components/LongdoMap";
 import { Input } from "antd/es";
 import { getAddress } from "../../services/map";
+import { useAuth } from "../../Providers/AuthProvider";
+import { notifyLine } from "../../services/notifyline";
 
 const columns = [
   {
@@ -33,25 +35,16 @@ const columns = [
 
 const { Title } = Typography;
 const { Content } = Layout;
-const boxWhite = {
-  margin: "10px 0",
-  padding: "20px",
-  backgroundColor: "#fff",
-  border: "1px solid #BF9F64",
-  display: "flex",
-  flexWrap: "nowrap",
-  justifyContent: "space-between",
-  alignItems: "center",
-};
-const boxSum = {
-  display: "flex",
-  flexWrap: "nowrap",
-  justifyContent: "space-between",
-};
 
 const BuyProduct = (props) => {
 
-  const [form] = Form.useForm();
+  const [createformOrder] = Form.useForm();
+  const formDataOrder = Form.useWatch([], createformOrder);
+
+  const { profile } = useAuth();
+  console.log(profile)
+
+  const tokenLine = '31WxKVT4yZKzzn6NY9n77bl30SS7WRwxgR8mG1Wj6ET'
 
   const { getProduct } = useSelector((state) => ({ ...state }))
 
@@ -81,11 +74,6 @@ const BuyProduct = (props) => {
 
   const navigate = useNavigate();
 
-  const handelOrder = async () => {
-    const res = await createOrder(getProduct)
-    navigate('/payment')
-  }
-
   const [value, setValue] = useState("จัดส่งตามที่อยู่");
   const [visible, setVisible] = useState(false);
 
@@ -93,6 +81,13 @@ const BuyProduct = (props) => {
     setValue(e.target.value);
     setVisible(e.target.value === "รับหน้าร้าน");
   };
+
+  const handelOrder = async () => {
+    const res = await createOrder(getProduct)
+    const text = 'User สั่งซื้อสำเร็จ'
+    await notifyLine(tokenLine, text)
+    navigate('/payment')
+  }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -112,7 +107,6 @@ const BuyProduct = (props) => {
 
   }
 
-  console.log(location)
   const mapKey = import.meta.env.VITE_LONGDOMAP_API_KEY;
 
   const initMap = () => {
@@ -124,13 +118,12 @@ const BuyProduct = (props) => {
       handleSetLocation()
 
     });
-
   }
 
   useEffect(() => {
     const handleGetAddress = async () => {
       const res = await getAddress(location)
-      form.setFieldsValue(
+      createformOrder.setFieldsValue(
         {
           street: res?.data?.road,
           district: res?.data?.district,
@@ -140,7 +133,6 @@ const BuyProduct = (props) => {
           ,
         }
       )
-      console.log(res)
     }
     if (location && location.lat && location.lon) {
       handleGetAddress()
@@ -154,7 +146,7 @@ const BuyProduct = (props) => {
     <>
       <Layout style={{ background: "#F5F5F5" }}>
         <Navbar />
-        <Form form={form}>
+        <Form form={createformOrder}>
           <Content style={{ margin: '24px 24px 0', }}>
             <Row>
               <Col span={16}>
@@ -164,18 +156,15 @@ const BuyProduct = (props) => {
                   <Dividers />
 
                   <Button type="primary" onClick={showModal}>
-                    Open Modal
+                    เลือกที่อยู่จัดส่ง
                   </Button>
                   <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
                     <LongdoMapStyle>
                       <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />
                     </LongdoMapStyle>
                     <Title level={5}>ข้อมูลการจัดส่ง</Title>
-                    <Form.Item name="name" label="ชื่อ" rules={[{ required: true, message: "กรุณากรอกชื่อ" }]} >
-                      <Input />
-                    </Form.Item>
-                    <Form.Item name="street" label="บ้านเลขที่ หมู่บ้าน" >
-                      <Input disabled />
+                    <Form.Item name="street" label="บ้านเลขที่ หมู่บ้าน"  >
+                      <Input placeholder="บ้านเลขที่ หมู่บ้าน ถนน ซอย อื่น ๆ" />
                     </Form.Item>
                     <Form.Item name="subdistrict" label="ตำบล" >
                       <Input disabled />
@@ -189,8 +178,15 @@ const BuyProduct = (props) => {
                     <Form.Item name="zip_code" label="รหัสไปรษณีย์" >
                       <Input disabled />
                     </Form.Item>
+                    <div>เลื่อนตำแหน่งบนแผนที่ เพื่อแก้ไข แขวง เขต จังหวัด และรหัสไปรษณีย์</div>
+                    <Title level={5}>ข้อมูลดิดต่อ</Title>
+                    <Form.Item name="name" label="ชื่อ" rules={[{ required: true, message: "กรุณากรอกชื่อ" }]} >
+                      <Input placeholder="ชื่อ นามสกุล" />
+                    </Form.Item>
+                    <Form.Item name="phone" label="เบอร์โทร" rules={[{ required: true, message: "กรุณากรอกเบอร์โทร" }]} >
+                      <Input placeholder="เบอร์โทร" />
+                    </Form.Item>
                   </Modal>
-
 
                 </CardBoxRadius>
                 <CardBoxRadius>
@@ -206,13 +202,13 @@ const BuyProduct = (props) => {
               <Col span={8}>
                 <CardBoxRadius>
                   <Title level={5}>ตัวเลือกการจัดส่ง</Title>
-
-                  <Radio.Group onChange={onChange} value={value}>
+                  {/* <Form.Item name="type_shipping"> */}
+                  <Radio.Group onChange={onChange} value={formDataOrder?.value}>
                     <Radio value="จัดส่งตามที่อยู่" onClick={() => setVisible(false)}>จัดส่งตามที่อยู่</Radio><br />
                     <Radio value="รับหน้าร้าน" onClick={() => setVisible(true)}>รับหน้าร้าน</Radio>
                   </Radio.Group>
-                  {visible && <div>My element</div>}
-
+                  {/* </Form.Item> */}
+                  {visible && <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3256.382828255343!2d100.5328142693865!3d13.927994994616947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e28386458758dd%3A0x13cb0fa54fa60b64!2zNDc3IOC4luC4meC4mSDguJrguK3guJnguJTguYzguKrguJXguKPguLXguJcg4LiV4Liz4Lia4Lil4Lia4LmJ4Liy4LiZ4LmD4Lir4Lih4LmIIOC4reC4s-C5gOC4oOC4reC4m-C4suC4geC5gOC4geC4o-C5h-C4lCDguJnguJnguJfguJrguLjguKPguLUgMTExMjA!5e0!3m2!1sth!2sth!4v1700765573255!5m2!1sth!2sth" style={{ width: "100%" }}></iframe></div>}
                 </CardBoxRadius>
                 <CardBoxRadius>
                   <Title level={5}>สรุปรายการสั่งซื้อ</Title>

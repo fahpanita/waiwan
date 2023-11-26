@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Row, Col, Typography, Tabs, Table, Button, Divider, Radio, } from "antd";
+import { Layout, Row, Col, Typography, Tabs, Table, Button, Divider, Radio, Modal, Form, Input, } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import FooterPage from "../../components/Footer/FooterPage";
@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constands/api";
 import { useSelector } from "react-redux";
 import { createOrder } from "../../services/buyproduct";
+import { LongdoMap, longdo, map } from "../../components/LongdoMap";
+import { getAddress } from "../../services/map";
 
 const columns = [
   {
@@ -30,26 +32,10 @@ const columns = [
 
 const { Title } = Typography;
 const { Content } = Layout;
-const boxWhite = {
-  margin: "10px 0",
-  padding: "20px",
-  backgroundColor: "#fff",
-  border: "1px solid #BF9F64",
-  display: "flex",
-  flexWrap: "nowrap",
-  justifyContent: "space-between",
-  alignItems: "center",
-};
-const boxSum = {
-  display: "flex",
-  flexWrap: "nowrap",
-  justifyContent: "space-between",
-};
-
-
 
 const BuyProductCart = (props) => {
 
+  const [form] = Form.useForm();
 
   const { addCartProduct } = useSelector((state) => ({ ...state }))
   console.log(addCartProduct)
@@ -67,20 +53,12 @@ const BuyProductCart = (props) => {
   const totalPrice = addCartProduct?.product?.reduce((accumulator, product) => {
     return accumulator + Number(product?.price) * product?.amount;
   }, 0);
-
   const formattedTotalPrice = totalPrice.toFixed(2);
 
-  // const shipping = addCartProduct?.product?.sort((a, b) => {
-  //   return Number(b.typeShipping) - Number(a.typeShipping)
-
-  // })[0].typeShipping
-
   const cartProducts = addCartProduct?.product || [];
-
   const sortedProducts = cartProducts.slice().sort((a, b) => {
     return Number(b.typeShipping) - Number(a.typeShipping);
   });
-
   const shipping = sortedProducts[0]?.typeShipping;
 
   const totalWithShipping = Number(totalPrice) + Number(shipping);
@@ -101,6 +79,59 @@ const BuyProductCart = (props) => {
     setVisible(e.target.value === "รับหน้าร้าน");
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const [location, setLocation] = useState({ lat: undefined, lon: undefined });
+
+  const handleSetLocation = () => {
+    setLocation(map.location())
+
+  }
+
+  const mapKey = import.meta.env.VITE_LONGDOMAP_API_KEY;
+
+  const initMap = () => {
+    map?.Layers?.setBase(longdo?.Layers?.GRAY);
+    map?.location(longdo?.LocationMode?.Geolocation);
+    handleSetLocation()
+
+    map.Event.bind('drop', function () {
+      handleSetLocation()
+
+    });
+
+  }
+
+  useEffect(() => {
+    const handleGetAddress = async () => {
+      const res = await getAddress(location)
+      form.setFieldsValue(
+        {
+          street: res?.data?.road,
+          district: res?.data?.district,
+          subdistrict: res?.data?.subdistrict,
+          province: res?.data?.province,
+          zip_code: res?.data?.postcode
+          ,
+        }
+      )
+    }
+    if (location && location.lat && location.lon) {
+      handleGetAddress()
+    }
+
+
+  }, [location])
+
   return (
     <>
       <Layout style={{ background: "#F5F5F5" }}>
@@ -113,10 +144,42 @@ const BuyProductCart = (props) => {
 
                 <Dividers />
 
-                {/* <div style={boxWhite}>
-                  226/105 (16C) อาคารริเวียร่า1 ถนนบอนด์สตรีท ตำบลบางพูด, อำเภอปากเกร็ด, จังหวัดนนทบุรี,
-                  11120
-                </div> */}
+
+                <Button type="primary" onClick={showModal}>
+                  เลือกที่อยู่จัดส่ง
+                </Button>
+                <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
+                  <LongdoMapStyle>
+                    <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />
+                  </LongdoMapStyle>
+                  <Title level={5}>ข้อมูลการจัดส่ง</Title>
+                  <Form.Item name="name" label="ชื่อ" rules={[{ required: true, message: "กรุณากรอกชื่อ" }]} >
+                    <Input placeholder="ชื่อ นามสกุล" />
+                  </Form.Item>
+                  <Form.Item name="street" label="บ้านเลขที่ หมู่บ้าน"  >
+                    <Input placeholder="บ้านเลขที่ หมู่บ้าน ถนน ซอย อื่น ๆ" />
+                  </Form.Item>
+                  <Form.Item name="subdistrict" label="ตำบล" >
+                    <Input disabled />
+                  </Form.Item>
+                  <Form.Item name="district" label="อำเภอ" >
+                    <Input disabled />
+                  </Form.Item>
+                  <Form.Item name="province" label="จังหวัด" >
+                    <Input disabled />
+                  </Form.Item>
+                  <Form.Item name="zip_code" label="รหัสไปรษณีย์" >
+                    <Input disabled />
+                  </Form.Item>
+                  <div>เลื่อนตำแหน่งบนแผนที่ เพื่อแก้ไข แขวง เขต จังหวัด และรหัสไปรษณีย์</div>
+                  <Title level={5}>ข้อมูลดิดต่อ</Title>
+                  <Form.Item name="name" label="ชื่อ" rules={[{ required: true, message: "กรุณากรอกชื่อ" }]} >
+                    <Input placeholder="ชื่อ นามสกุล" />
+                  </Form.Item>
+                  <Form.Item name="phone" label="เบอร์โทร" rules={[{ required: true, message: "กรุณากรอกเบอร์โทร" }]} >
+                    <Input placeholder="เบอร์โทร" />
+                  </Form.Item>
+                </Modal>
               </CardBoxRadius>
               <CardBoxRadius>
                 <Title level={5} style={{ textAlign: "left" }}>
@@ -281,4 +344,8 @@ background: #FFF;
 box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
 margin: 10px;
 padding: 16px;
+`;
+
+export const LongdoMapStyle = styled.div`
+height: 300px;
 `;

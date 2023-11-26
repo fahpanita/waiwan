@@ -1,28 +1,17 @@
 import React from "react";
 import { Layout, Row, Col, Collapse, Input, Typography } from "antd";
 import Navbar from "../../components/Header/Navbar";
-import BannerListProduct from "../../components/Slide/BannerListProduct";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
 import FooterPage from "../../components/Footer/FooterPage";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getProducts } from "../../services/product";
+import Filter from "../../components/Tree/Filter";
+import { getCatagory } from "../../services/catagory";
+import { getEvent } from "../../services/event";
 
 const { Title } = Typography;
 const { Content } = Layout;
-const onChange = (value) => {
-  console.log("changed", value);
-};
-
-const select = (
-  <p
-    style={{
-      paddingLeft: 24,
-    }}
-  >
-    No data
-  </p>
-);
 
 const priceSlide = (
   <p
@@ -34,30 +23,83 @@ const priceSlide = (
   </p>
 );
 
-const items = [
-  {
-    key: "1",
-    label: <Title level={5}>หมวดหมู่สินค้า</Title>,
-    children: select,
-  },
-  {
-    key: "2",
-    label: <Title level={5}>หมวดหมู่เทศกาล</Title>,
-    children: select,
-  },
-  {
-    key: "3",
-    label: <Title level={5}>ช่วงราคา</Title>,
-    children: priceSlide,
-  },
-];
-
 const ListProduct = () => {
-  const { Search } = Input;
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
-  };
+
+  const [catagories, setCatagory] = useState([]);
+  const [events, setEvent] = useState([]);
+
+
+  const handleGetCatagory = async () => {
+    const res = await getCatagory()
+
+    const data = res?.data?.map(c => {
+      return {
+        title: c.name,
+        value: c.id,
+        key: c.id,
+        children: c.sub.map(s => {
+          return {
+            title: s.name,
+            value: s.id,
+            key: s.id,
+          }
+        }),
+      }
+    })
+
+    setCatagory(data)
+  }
+
+  const handleGetEvent = async () => {
+    const res = await getEvent()
+
+    const data = res?.data?.map(e => {
+      return {
+        title: e.name,
+        value: e.id,
+        key: e.id,
+        children: e.sub.map(t => {
+          return {
+            title: t.name,
+            value: t.id,
+            key: t.id,
+          }
+        }),
+      }
+    })
+
+    setEvent(data)
+  }
+
+  const items = [
+    {
+      key: "1",
+      label: <Title level={5}>หมวดหมู่สินค้า</Title>,
+      children: <Filter filterData={catagories} />,
+    },
+    {
+      key: "2",
+      label: <Title level={5}>หมวดหมู่เทศกาล</Title>,
+      children: <Filter filterData={events} />,
+    },
+    {
+      key: "3",
+      label: <Title level={5}>ช่วงราคา</Title>,
+      children: <div class="card-body">
+        <input type="range" class="form-range" min="0" max="100" />
+        <div class="row mb-3">
+          <div class="col-6">
+            <label for="min" class="form-label">Min</label>
+            <input class="form-control" id="min" placeholder="$0" type="number" />
+          </div>
+
+          <div class="col-6">
+            <label for="max" class="form-label">Max</label>
+            <input class="form-control" id="max" placeholder="$1,0000" type="number" />
+          </div>
+        </div> </div>,
+    },
+  ];
 
   const [products, setProducts] = useState([]);
 
@@ -67,7 +109,9 @@ const ListProduct = () => {
   }
 
   useEffect(() => {
-    handleGetProducts()
+    handleGetProducts(),
+      handleGetCatagory(),
+      handleGetEvent()
   }, [])
 
   return (

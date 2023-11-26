@@ -15,7 +15,8 @@ function getItem(label, key, icon, children) {
 }
 const items = [
     getItem(<Link to="/dashboard" style={{ textDecoration: 'none' }}>Dashboard</Link>, 'Dashboard', <AppstoreOutlined />),
-    getItem('การขาย', 'seller', <ShoppingCartOutlined />),
+    getItem(<Link to="/seller" style={{ textDecoration: 'none' }}>การขาย</Link>, 'seller', <ShoppingCartOutlined />),
+    // getItem('การขาย', 'seller', <ShoppingCartOutlined />),
     getItem('สินค้า', 'sub1', <ShoppingOutlined />, [
         getItem(<Link to="/listStock" style={{ textDecoration: 'none' }}>รายการสินค้า</Link>, 'product'),
         getItem(<Link to="/addProduct" style={{ textDecoration: 'none' }}>เพิ่มสินค้า</Link>, 'addItem'),

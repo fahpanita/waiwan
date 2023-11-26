@@ -1,63 +1,14 @@
 import React, { useState } from "react";
-import {
-  Layout,
-  Typography,
-  Row,
-  Col,
-  Table,
-  Tabs,
-  Button,
-  Image,
-  Divider,
-  Space,
-  Dropdown,
-} from "antd";
+import { Layout, Typography, Row, Col, Table, Tabs, Button, Image, Divider, Space, Dropdown, } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import FooterPage from "../../components/Footer/FooterPage";
-import {
-  ArrowLeftOutlined,
-  DeleteOutlined,
-  DownOutlined,
-} from "@ant-design/icons";
 import styled from "styled-components";
-import IncDecCounter from "../../components/Button/IncDecCounter";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../constands/api";
 import { Link, useNavigate } from "react-router-dom";
-import { createOrder } from "../../services/buyproduct";
-import { addProduct, getProductSlice } from "../../store/getProductSlice";
-import { deleteCartProduct } from "../../store/AddCartProductSlice";
-
-
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
-const items = [
-  {
-    key: "3",
-    label: "สัปดาห์นี้",
-  },
-  {
-    key: "4",
-    label: "เดือนนี้",
-  },
-  {
-    key: "5",
-    label: "ปีนี้",
-  },
-];
-const boxSum = {
-  display: "flex",
-  flexWrap: "nowrap",
-  justifyContent: "space-between",
-};
-
-const headFitler = {
-  display: "flex",
-  flexWrap: "nowrap",
-  justifyContent: "space-between",
-  marginTop: "30px",
-};
 
 const Cart = () => {
 
@@ -87,6 +38,46 @@ const Cart = () => {
     },
   ];
 
+  const [product, setProduct] = useState([]);
+
+  let [amount, setNum] = useState(1);
+
+  let incNum = () => {
+    if (amount < product?.stock) {
+      setNum(Number(amount) + 1);
+    }
+  };
+  let decNum = () => {
+    if (amount > 1) {
+      setNum(amount - 1);
+    }
+  }
+  let handleChange = (e) => {
+    setNum(e.target.value);
+  }
+
+  const btnNumber = {
+    background: "#fff",
+    borderRadius: "60px",
+    border: "none",
+    fontSize: "30px",
+    width: "40px",
+    height: "40px",
+    color: "#C54142",
+    filter: "drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.09))",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }
+  const textNumber = {
+    width: "60px", minWidth: "auto", textAlign: "center",
+    background: "none",
+    border: "none",
+    fontSize: "20px",
+    fontWeight: "500",
+
+  }
+
   const { addCartProduct } = useSelector((state) => ({ ...state }))
 
   const data = addCartProduct?.product?.map(p => {
@@ -94,7 +85,16 @@ const Cart = () => {
       key: "1",
       thumbnail: <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
       name: p?.name,
-      amount: <div>{p?.amount}</div>,
+      amount: <div class="input-group" style={{ display: "flex", flexWrap: "nowrap" }}>
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={decNum}>-</button>
+        </div>
+        <input type="text" class="form-control" name="amount" value={p?.amount} onChange={handleChange} style={textNumber} />
+
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={incNum}>+</button>
+        </div>
+      </div>,
       price: <div>{p?.amount * p?.price}</div>,
     }
   });
@@ -262,16 +262,3 @@ export const Dividers = styled(Divider)`
   margin: 10px 0;
 }
 `;
-
-// const ButtonRed = styled(Button)`
-//   border-radius: 50px;
-//   border: 1px solid #bf9f64;
-//   background: #c54142;
-//   padding: 6px 64px;
-//   color: white;
-
-//   &.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-//     color: white;
-//     border-color: #923131;
-//   }
-// `;

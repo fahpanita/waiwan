@@ -70,7 +70,7 @@ const Navbar = () => {
               defaultSelectedKeys={["1"]}
             >
               <Menu.Item key="1">
-                <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to="/" style={{ textDecoration: "none", fontFamily: 'Chakra Petch, sans- serif' }}>
                   หน้าแรก
                 </Link>
               </Menu.Item>
@@ -84,11 +84,7 @@ const Navbar = () => {
                   ทดลองจัดวางของไหว้เจ้า
                 </Link>
               </Menu.Item>
-              <Menu.Item key="4">
-                <Link to="/dashboard" style={{ textDecoration: "none" }}>
-                  เข้าหลังบ้าน
-                </Link>
-              </Menu.Item>
+
             </Menu>
           </Col>
         </Row>
@@ -126,7 +122,7 @@ const Navbar = () => {
             </Menu.Item>
           </Menu>
         </Drawer>
-      </Header>
+      </Header >
     </>
   );
 };

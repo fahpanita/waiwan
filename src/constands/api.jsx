@@ -7,6 +7,7 @@ export const requestBackend = axios.create({
   headers: {
     "Content-Type": "application/json",
     "ngrok-skip-browser-warning": "69420",
+
     timeout: 10000,
   },
 });

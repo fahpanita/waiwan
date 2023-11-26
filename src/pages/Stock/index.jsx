@@ -4,6 +4,7 @@ import { Image } from "antd";
 import { Input, Col, Row, Divider, Layout, Typography } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import FooterPage from "../../components/Footer/FooterPage";
+import { Link } from "react-router-dom";
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -38,6 +39,12 @@ const Stock = () => {
               <div className="abc mb-3">ชื่อผู้ใช้: {profile?.name}</div>
             </Col>
           </Row>
+
+          {profile?.role === 'admin' && (
+            <Link to="/dashboard" style={{ textDecoration: "none" }}>
+              เข้าหลังบ้าน
+            </Link>
+          )}
         </Content>
         <FooterPage />
       </Layout>
