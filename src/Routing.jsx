@@ -30,6 +30,7 @@ import Seller from "./pages/Dashboard/seller";
 import Sellercheck from "./pages/Dashboard/sellerCheck";
 import Sellershipping from "./pages/Dashboard/sellerShipping";
 import Sellersucceed from "./pages/Dashboard/sellersucceed";
+import StockList from "./pages/Stock/stochlist";
 // import Cart from "./pages/Home/Cart";
 
 // const Home = lazy(() => import("./pages/Home"));
@@ -142,6 +143,16 @@ const Routing = () => {
               <ProtectedRoute>
                 <Suspense fallback={<Loading />}>
                   <Stock />
+                </Suspense>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/stocklist"
+            element={
+              <ProtectedRoute>
+                <Suspense fallback={<Loading />}>
+                  <StockList />
                 </Suspense>
               </ProtectedRoute>
             }

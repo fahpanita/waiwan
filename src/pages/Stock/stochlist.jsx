@@ -15,7 +15,7 @@ const boxSum = {
   alignItems: "center",
 };
 
-const Stock = () => {
+const StockList = () => {
   const { profile } = useAuth();
   console.log(profile);
 
@@ -58,4 +58,4 @@ const Stock = () => {
   );
 };
 
-export default Stock;
+export default StockList;
