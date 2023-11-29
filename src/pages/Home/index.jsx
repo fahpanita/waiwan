@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Input, Col, Row, Layout, Typography, Divider, Card, Statistic, Image } from "antd";
+import {
+  Input,
+  Col,
+  Row,
+  Layout,
+  Typography,
+  Divider,
+  Card,
+  Statistic,
+  Image,
+} from "antd";
 import Filter from "../../components/Tree/Filter";
 import CardEvent from "../../components/CardKnowlage/CardEvent";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
@@ -13,6 +23,10 @@ import { RightCircleOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 const { Content } = Layout;
+export const Img = styled.img`
+  width: 100%;
+  border-radius: 6px;
+`;
 
 const Home = () => {
   const { Search } = Input;
@@ -24,21 +38,20 @@ const Home = () => {
   const [products, setProducts] = useState([]);
 
   const handleGetProducts = async () => {
-    const res = await getProducts()
-    setProducts(res?.data)
-  }
+    const res = await getProducts();
+    setProducts(res?.data);
+  };
 
   const [cardevents, setCartEvents] = useState([]);
 
   const handleGetCartEvents = async () => {
-    const res = await getCartEvents()
-    setCartEvents(res?.data)
-  }
+    const res = await getCartEvents();
+    setCartEvents(res?.data);
+  };
 
   useEffect(() => {
-    handleGetProducts(),
-      handleGetCartEvents()
-  }, [])
+    handleGetProducts(), handleGetCartEvents();
+  }, []);
 
   return (
     // <AuthenticatedProvider>
@@ -53,11 +66,24 @@ const Home = () => {
           padding: "0 32px",
         }}
       >
-        <Row style={{
-          marginTop: "32px"
-        }}>
-          <Col span={24}>
+        <Row
+          justify="space-evenly"
+          style={{
+            marginTop: "32px",
+          }}
+        >
+          <Col span={14}>
             <BannerHome />
+          </Col>
+          <Col span={9}>
+            <Row justify="space-between">
+              <Col span={24}>
+                <Img src="image/img/frame-1.png" />
+              </Col>
+              <Col span={24}>
+                <Img src="image/img/frame-2.png" />
+              </Col>
+            </Row>
           </Col>
         </Row>
 
@@ -65,15 +91,26 @@ const Home = () => {
           <Col span={24}>
             <Title level={3}>หมวดหมู่</Title>
           </Col>
-          <Col span={24} offset={0} >
-            <div style={{ backgroundColor: "#fff", height: "auto", padding: "20px 0" }}>
-              <Row gutter={24} style={{ display: 'flex', justifyContent: 'center' }}>
+          <Col span={24} offset={0}>
+            <div
+              style={{
+                backgroundColor: "#fff",
+                height: "auto",
+                padding: "20px 0",
+              }}
+            >
+              <Row
+                gutter={24}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
                 <Col span={5}>
                   <Cards bordered={false}>
                     <Cardcatagory>
                       <Image src="image/img/image 136.png" preview={false} />
                     </Cardcatagory>
-                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>อาหารสด</div>
+                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                      อาหารสด
+                    </div>
                   </Cards>
                 </Col>
                 <Col span={5}>
@@ -81,7 +118,9 @@ const Home = () => {
                     <Cardcatagory>
                       <Image src="image/img/image 135.png" preview={false} />
                     </Cardcatagory>
-                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>ขนมหวาน</div>
+                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                      ขนมหวาน
+                    </div>
                   </Cards>
                 </Col>
                 <Col span={5}>
@@ -89,15 +128,23 @@ const Home = () => {
                     <Cardcatagory>
                       <Image src="image/img/image 134.png" preview={false} />
                     </Cardcatagory>
-                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>ผลไม้</div>
+                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                      ผลไม้
+                    </div>
                   </Cards>
                 </Col>
                 <Col span={5}>
                   <Cards bordered={false}>
                     <Cardcatagory>
-                      <Image src="image/img/image 133.png" preview={false} height={90} />
+                      <Image
+                        src="image/img/image 133.png"
+                        preview={false}
+                        height={90}
+                      />
                     </Cardcatagory>
-                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>อุปกรณ์ไหว้เจ้า</div>
+                    <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                      อุปกรณ์ไหว้เจ้า
+                    </div>
                   </Cards>
                 </Col>
               </Row>
@@ -110,7 +157,14 @@ const Home = () => {
             <Title level={3}>สินค้าเพื่อคุณโดยเฉพาะ</Title>
           </Col>
           <Col span={8} offset={8}>
-            <a style={{ float: "right", textDecoration: "none", color: "#1D1D1F" }} href="/listProduct">
+            <a
+              style={{
+                float: "right",
+                textDecoration: "none",
+                color: "#1D1D1F",
+              }}
+              href="/listProduct"
+            >
               ดูทั้งหมด {<RightCircleOutlined />}
             </a>
           </Col>
@@ -125,9 +179,9 @@ const Home = () => {
             lg: 32,
           }}
         >
-          {products?.map(p => (
+          {products?.map((p) => (
             <Col className="gutter-row" span={4}>
-              <div style={{ marginTop: "10px", }}>
+              <div style={{ marginTop: "10px" }}>
                 <CardProduct data={p} />
               </div>
             </Col>
@@ -141,7 +195,14 @@ const Home = () => {
             <Title level={4}>บทความเทศกาล</Title>
           </Col>
           <Col span={8} offset={8}>
-            <a style={{ float: "right", textDecoration: "none", color: "#1D1D1F" }} href="/allCardEvent">
+            <a
+              style={{
+                float: "right",
+                textDecoration: "none",
+                color: "#1D1D1F",
+              }}
+              href="/allCardEvent"
+            >
               ดูทั้งหมด {<RightCircleOutlined />}
             </a>
           </Col>
@@ -156,7 +217,7 @@ const Home = () => {
           }}
           style={{ marginBottom: "40px" }}
         >
-          {cardevents?.map(c => (
+          {cardevents?.map((c) => (
             <Col className="gutter-row" span={5} style={{ marginTop: "20px" }}>
               <div>
                 <CardEvent datacard={c} />
@@ -175,8 +236,8 @@ export const Cardcatagory = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 4px;
-  border: 1px solid #A08155;
-  background: #FFF;
+  border: 1px solid #a08155;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
