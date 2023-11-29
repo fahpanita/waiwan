@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Menu, Button, Drawer, Row, Col, Image, Input, } from "antd";
+import { Layout, Menu, Button, Drawer, Row, Col, Image, Input } from "antd";
 import {
   HomeOutlined,
   MenuOutlined,
@@ -40,7 +40,7 @@ const Navbar = () => {
   };
 
   return (
-    < >
+    <>
       <Header
         style={{
           background: "#fff",
@@ -48,11 +48,20 @@ const Navbar = () => {
           height: "auto",
         }}
       >
-        <Row justify="space-between" align="middle" >
-          <Col xs={0} sm={20} md={2}>
+        <Row justify="space-between" align="middle">
+          <Col xs={0} sm={0} md={2}>
             <Image preview={false} width={100} src="image/img/Logo.png" />
           </Col>
-          <Col xs={0} sm={0} md={17} style={{ display: "flex", flexWrap: "nowrap", textDecoration: "none" }}>
+          <Col
+            xs={0}
+            sm={0}
+            md={17}
+            style={{
+              display: "flex",
+              flexWrap: "nowrap",
+              textDecoration: "none",
+            }}
+          >
             <Search
               placeholder="ค้นหาสินค้าในไหว้วาน"
               onSearch={onSearch}
@@ -63,7 +72,9 @@ const Navbar = () => {
             <LineLogin></LineLogin>
           </Col>
           <Col xs={0} sm={0} md={1}>
-            <Link to="/cart" style={{ color: "#000", fontSize: "16px" }}>{<ShoppingCartOutlined />}</Link>
+            <Link to="/cart" style={{ color: "#000", fontSize: "16px" }}>
+              {<ShoppingCartOutlined />}
+            </Link>
           </Col>
 
           <Col xs={2} sm={2} md={0}>
@@ -73,16 +84,17 @@ const Navbar = () => {
           </Col>
         </Row>
 
-
         <Row justify="space-between" align="middle">
           <Col xs={0} sm={20} md={8}>
-            <Menu
-              theme="light"
-              mode="horizontal"
-              defaultSelectedKeys={["1"]}
-            >
+            <Menu theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
               <Menu.Item key="1">
-                <Link to="/" style={{ textDecoration: "none", fontFamily: 'Chakra Petch, sans- serif' }}>
+                <Link
+                  to="/"
+                  style={{
+                    textDecoration: "none",
+                    fontFamily: "Chakra Petch, sans- serif",
+                  }}
+                >
                   หน้าแรก
                 </Link>
               </Menu.Item>
@@ -96,7 +108,6 @@ const Navbar = () => {
                   ทดลองจัดวางของไหว้เจ้า
                 </Link>
               </Menu.Item>
-
             </Menu>
           </Col>
         </Row>
@@ -134,7 +145,7 @@ const Navbar = () => {
             </Menu.Item>
           </Menu>
         </Drawer>
-      </Header >
+      </Header>
     </>
   );
 };

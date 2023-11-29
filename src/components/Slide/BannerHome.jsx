@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 export const Img = styled.img`
   width: 100%;
+  border-radius: 6px;
 `;
 
 const BannerHome = () => {
@@ -14,9 +15,6 @@ const BannerHome = () => {
       </div>
       <div>
         <Img src="image/img/banner-02.png" />
-      </div>
-      <div>
-        <Img src="image/img/banner-01.png" />
       </div>
     </Carousel>
   );
