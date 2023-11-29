@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Row, Col, Collapse, Input, Typography } from "antd";
+import { Layout, Row, Col, Collapse, Input, Typography, } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
 import FooterPage from "../../components/Footer/FooterPage";
@@ -9,6 +9,9 @@ import { getProducts } from "../../services/product";
 import Filter from "../../components/Tree/Filter";
 import { getCatagory } from "../../services/catagory";
 import { getEvent } from "../../services/event";
+import { Link, useLocation } from "react-router-dom";
+import { BASE_URL } from "../../constands/api";
+import Card from "react-bootstrap/Card";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -108,6 +111,12 @@ const ListProduct = () => {
     setProducts(res?.data)
   }
 
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredProducts = products?.filter((product) =>
+    product.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+  );
+
   useEffect(() => {
     handleGetProducts(),
       handleGetCatagory(),
@@ -148,6 +157,12 @@ const ListProduct = () => {
             </Col>
 
             <Col className="gutter-row" span={18} style={{ marginTop: "24px" }}>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
               <Row
                 justify="flex-start"
                 gutter={{
@@ -157,13 +172,30 @@ const ListProduct = () => {
                   lg: 32,
                 }}
               >
-                {products?.map(p => (
-                  <Col className="gutter-row" span={4}>
-                    <div style={{ marginTop: "16px" }}>
-                      <CardProduct data={p} />
+                {filteredProducts?.map((p) => (
+                  <Col className="gutter-row" span={4} key={p.id}>
+                    <div style={{ marginTop: '16px' }}>
+                      <Link to={`/detailProduct?id=${p?.id}`} style={{ textDecoration: 'none' }}>
+                        <Card hoverable style={{ border: 'none' }}>
+                          <Card.Img variant="top" src={`${BASE_URL}/${p?.thumbnail}`} />
+                          <Card.Body>
+                            <Card.Text style={{ fontSize: '18px', fontWeight: '400', height: '40px' }}>{p?.name}</Card.Text>
+                            <Card.Text style={{ color: '#C54142', fontSize: '24px', fontWeight: '500' }}>฿ {p?.price}</Card.Text>
+                          </Card.Body>
+                        </Card>
+                      </Link>
                     </div>
                   </Col>
                 ))}
+
+                {!searchQuery &&
+                  products?.map((p) => (
+                    <Col className="gutter-row" span={4} key={p.id}>
+                      <div style={{ marginTop: '16px' }}>
+                        <CardProduct data={p} />
+                      </div>
+                    </Col>
+                  ))}
               </Row>
             </Col>
           </Row>

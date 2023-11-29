@@ -9,12 +9,13 @@ import {
 } from "@ant-design/icons";
 import LineLogin from "../../pages/Home/LineLogin";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const { Header } = Layout;
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
+  const [products, setProducts] = useState([]);
 
   const showDrawer = () => {
     setVisible(true);
@@ -24,8 +25,19 @@ const Navbar = () => {
     setVisible(false);
   };
 
+  const navigate = useNavigate();
+
   const { Search } = Input;
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const onSearch = (value, _e, info) => {
+    console.log(info?.source, value);
+
+    const filteredProducts = products.filter(product =>
+      product.name.toLowerCase().includes(value.toLowerCase())
+    );
+    setProducts(filteredProducts);
+
+    navigate('/listProduct')
+  };
 
   return (
     < >

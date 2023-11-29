@@ -81,15 +81,14 @@ const BuyProduct = (props) => {
     setValue(e.target.value);
     setVisible(e.target.value === "รับหน้าร้าน");
 
-    formDataOrder?.setFieldsValue("type_shipping", e.target.value)
   };
 
-  console.log(value)
+  // console.log(value)
 
   const handelOrder = async () => {
     const res = await createOrder(getProduct)
-    const text = 'User สั่งซื้อสำเร็จ'
-    await notifyLine(tokenLine, text)
+    // const text = 'User สั่งซื้อสำเร็จ'
+    // await notifyLine(tokenLine, text)
     navigate('/payment')
   }
 
@@ -150,7 +149,7 @@ const BuyProduct = (props) => {
     <>
       <Layout style={{ background: "#F5F5F5" }}>
         <Navbar />
-        <Form form={createformOrder}>
+        <Form form={createformOrder} >
           <Content style={{ margin: '24px 24px 0', }}>
             <Row>
               <Col span={16}>
@@ -207,7 +206,7 @@ const BuyProduct = (props) => {
                 <CardBoxRadius>
                   <Title level={5}>ตัวเลือกการจัดส่ง</Title>
                   <Form.Item name="type_shipping">
-                    <Radio.Group onChange={onChange} value={formDataOrder?.value}>
+                    <Radio.Group onChange={onChange} value={value}>
                       <Radio value="จัดส่งตามที่อยู่" onClick={() => setVisible(false)}>จัดส่งตามที่อยู่</Radio><br />
                       <Radio value="รับหน้าร้าน" onClick={() => setVisible(true)}>รับหน้าร้าน</Radio>
                     </Radio.Group>
@@ -249,6 +248,7 @@ const BuyProduct = (props) => {
                           type="primary"
                           shape="round"
                           size="large"
+                          htmlType="submit"
 
                           style={{
                             background: "#c54142",

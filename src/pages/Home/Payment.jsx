@@ -67,11 +67,6 @@ const Payment = () => {
 
   const formattedTotalPrice = totalPrice.toFixed(2);
 
-  // const shipping = getProduct?.product?.sort((a, b) => {
-  //   return Number(b.typeShipping) - Number(a.typeShipping)
-
-  // })[0].typeShipping
-
   const products = getProduct?.product || [];
   const sortedProducts = [...products].sort((a, b) => {
     return Number(b.typeShipping) - Number(a.typeShipping);
@@ -90,6 +85,8 @@ const Payment = () => {
     }
 
   }
+
+
 
   return (
     <>

@@ -18,17 +18,16 @@ const AddCatagories = () => {
     const handleGetCatagory = async () => {
         const res = await getCatagory()
         setCatagory(res?.data)
-        console.log(typeof res?.data);
     }
     const onCreateCatagoryFinish = async (value) => {
-        console.log(value);
+
         await createCatagory(value);
         handleGetCatagory();
         createCatagoryForm.setFieldValue("name", "")
     };
 
     const onFinish = async (value) => {
-        console.log(value);
+
         await createSubCatagory(value);
         handleGetCatagory();
         createSubCatagoryForm.setFieldValue("name", "")
