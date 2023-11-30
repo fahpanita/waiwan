@@ -67,18 +67,13 @@ const AllCardEvent = () => {
 
           <Row
             justify="flex-start"
-            gutter={{
-              xs: 8,
-              sm: 16,
-              md: 24,
-              lg: 32,
-            }}
+            gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
             style={{
-              marginTop: "30px", marginBottom: "40px",
+              marginTop: "30px"
             }}
           >
             {cardevents?.map(c => (
-              <Col className="gutter-row" span={5}>
+              <Col className="gutter-row" span={6} style={{ marginBottom: "20px" }}>
                 <div>
                   <CardEvent datacard={c} />
                 </div>

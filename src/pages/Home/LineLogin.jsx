@@ -76,7 +76,7 @@ const LineLogin = () => {
                   padding: 8,
                 }}
               >
-                <Button type="primary" onClick={onLogout}>
+                <Button type="primary" onClick={onLogout} style={{ color: "#fff", backgroundColor: "#A08155" }}>
                   Logout
                 </Button>
               </Space>

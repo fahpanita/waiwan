@@ -10,6 +10,7 @@ import {
 import LineLogin from "../../pages/Home/LineLogin";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import Search from "antd/es/input/Search";
 
 const { Header } = Layout;
 
@@ -27,7 +28,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  const { Search } = Input;
+  const { SearchStyle } = Input;
   const onSearch = (value, _e, info) => {
     console.log(info?.source, value);
 
@@ -71,7 +72,7 @@ const Navbar = () => {
           <Col xs={0} sm={0} md={1}>
             <LineLogin></LineLogin>
           </Col>
-          <Col xs={0} sm={0} md={1}>
+          <Col xs={0} sm={0} md={1} style={{ display: "flex", justifyContent: "space-evenly" }}>
             <Link to="/cart" style={{ color: "#000", fontSize: "16px" }}>
               {<ShoppingCartOutlined />}
             </Link>
@@ -152,6 +153,14 @@ const Navbar = () => {
 
 const Menus = styled(Menu)`
   justify-content: right;
+`;
+const SearchStyle = styled(Search)`
+  text-decoration: none;
+
+  &.css-dev-only-do-not-override-qgg3xn.ant-btn-primary  {
+    color: white;
+    background-color: #A08155;
+  }
 `;
 
 export default Navbar;

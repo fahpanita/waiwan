@@ -131,7 +131,7 @@ const DetailProduct = (props) => {
                   <span style={{ fontSize: "36px", fontWeight: "600" }}>{product?.name}</span>
                   <div style={{ marginTop: "14px" }}>
                     <span style={{ fontSize: "18px", marginRight: "10px" }}>ประเภทสินค้า:</span>
-                    {product?.typeProduct === 'สินค้าPreorder' && (
+                    {product?.typeProduct === 'สินค้าพรีออเดอร์' && (
                       <Tag color="error" style={{ fontSize: "18px", padding: "8px", fontWeight: "500" }} > {product?.typeProduct}</Tag>
                     )}
                     {product?.typeProduct === 'สินค้าพร้อมส่ง' && (
