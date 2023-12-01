@@ -16,9 +16,12 @@ export const AddCartProductSlice = createSlice({
 
         deleteCartProduct: (state, action) => {
             const productIdToDelete = action.payload;
-            state.product = state.product.filter(product => product.id !== productIdToDelete);
-        },
+            const nextCartItems = state.product.filter(
+                (product) => product.id !== productIdToDelete
+            );
 
+            return { ...state, product: nextCartItems };
+        },
         // addCartProduct: (state, action) => {
 
         //     const newData = { id: action.payload.product.id, ...action.payload }

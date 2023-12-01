@@ -6,11 +6,21 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../constands/api";
 import { Link, useNavigate } from "react-router-dom";
+import { deleteCartProduct } from "../../store/AddCartProductSlice";
+import { useEffect } from "react";
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
 
 const Cart = () => {
+
+
+  const dispatch = useDispatch();
+
+  const removeItem = (product) => {
+    console.log('Removing product:', product);
+    dispatch(deleteCartProduct(product));
+  };
 
   const columns = [
     {
@@ -31,29 +41,37 @@ const Cart = () => {
     },
     {
       title: "Action",
-      render: () => (
+      render: (text, record) => (
         <Space size="middle">
-          <Button danger onClick={() => removeItem(productId)}>Delete</Button>
-        </Space>),
+          <Button danger onClick={() => removeItem(record)}>Delete</Button>
+        </Space>
+      ),
     },
   ];
 
-  const [product, setProduct] = useState([]);
+  // const [product, setProduct] = useState([]);
 
-  let [amount, setNum] = useState(1);
+  const [amount, setNum] = useState(1);
 
   let incNum = () => {
     if (amount < product?.stock) {
-      setNum(Number(amount) + 1);
+      setNum(prevAmount => prevAmount + 1);
     }
   };
+
   let decNum = () => {
     if (amount > 1) {
-      setNum(amount - 1);
+      setNum(prevAmount => prevAmount - 1);
     }
-  }
+  };
+
   let handleChange = (e) => {
-    setNum(e.target.value);
+    const inputValue = e.target.value;
+    const numericValue = Number(inputValue);
+
+    if (!isNaN(numericValue)) {
+      setNum(numericValue);
+    }
   }
 
   const btnNumber = {
@@ -80,9 +98,10 @@ const Cart = () => {
 
   const { addCartProduct } = useSelector((state) => ({ ...state }))
 
+
   const data = addCartProduct?.product?.map(p => {
     return {
-      key: "1",
+      key: p?.id,
       thumbnail: <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
       name: p?.name,
       amount: <div class="input-group" style={{ display: "flex", flexWrap: "nowrap" }}>
@@ -90,7 +109,6 @@ const Cart = () => {
           <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={decNum}>-</button>
         </div>
         <input type="text" class="form-control" name="amount" value={p?.amount} onChange={handleChange} style={textNumber} />
-
         <div class="input-group-prepend">
           <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={incNum}>+</button>
         </div>
@@ -114,13 +132,6 @@ const Cart = () => {
   const totalWithShipping = Number(totalPrice) + Number(shipping);
   const formattedTotal = totalWithShipping.toFixed(2);
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const removeItem = (productId) => {
-
-    dispatch(deleteCartProduct(productId))
-  }
 
 
   return (

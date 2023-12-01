@@ -280,8 +280,8 @@ const AddProduct = () => {
                                                 }}
                                                 options={[
                                                     {
-                                                        value: 'สินค้าPreorder',
-                                                        label: 'สินค้าPreorder',
+                                                        value: 'สินค้าพรีออเดอร์',
+                                                        label: 'สินค้าพรีออเดอร์',
                                                     },
                                                     {
                                                         value: 'สินค้าพร้อมส่ง',

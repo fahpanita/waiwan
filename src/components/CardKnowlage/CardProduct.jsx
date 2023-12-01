@@ -1,13 +1,22 @@
 import React from "react";
 // import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constands/api";
 import { Tag, Button } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
+import { useDispatch } from "react-redux";
+import { addCartProduct } from "../../store/AddCartProductSlice";
 
 const CardProduct = (prop) => {
   const { data } = prop
+
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
+
+  // const handleAddProduct = () => {
+  //   dispatch(addCartProduct({ ...product, amount }))
+  // }
   return (
     <>
       <Link to={`/detailProduct?id=${data?.id}`} style={{ textDecoration: "none" }}>
@@ -33,7 +42,12 @@ const CardProduct = (prop) => {
               icon={<ShoppingCartOutlined />}
               style={{
                 color: "#fff", backgroundColor: "#A08155", textDecoration: "none", border: "none"
-              }}>
+              }}
+            // onClick={() => {
+            //   handleAddProduct()
+            //   navigate(`/cart`)
+            // }}
+            >
             </Button>
           </Card.Body>
         </Card >
