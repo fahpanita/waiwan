@@ -10,6 +10,7 @@ import {
   Card,
   Statistic,
   Image,
+  List,
 } from "antd";
 import Filter from "../../components/Tree/Filter";
 import CardEvent from "../../components/CardKnowlage/CardEvent";
@@ -67,7 +68,7 @@ const Home = () => {
         }}
       >
         <Row
-          gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
+          gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
           justify="space-evenly"
           style={{ marginTop: "32px" }}
         >
@@ -76,10 +77,10 @@ const Home = () => {
           </Col>
           <Col className="gutter-row" span={9} style={{ display: "flex" }}>
             <Row justify="space-between">
-              <Col >
+              <Col style={{ display: "flex", paddingBottom: "5px" }}>
                 <Img src="image/img/frame-1.png" />
               </Col>
-              <Col style={{ display: "flex" }}>
+              <Col style={{ display: "flex", paddingTop: "5px" }}>
                 <Img src="image/img/frame-2.png" />
               </Col>
             </Row>
@@ -99,59 +100,115 @@ const Home = () => {
               }}
             >
               <Row
-                gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
+                gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
                 style={{ display: "flex", justifyContent: "center" }}
               >
-                <Col span={24} className="gutter-row" style={{ display: "flex", justifyContent: "space-evenly", alignItems: "flex-start" }}>
-                  <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px" }}>
-                    <Col >
-                      <Cards bordered={false}>
-                        <Cardcatagory>
-                          <Image src="image/img/image 136.png" preview={false} />
-                        </Cardcatagory>
-                      </Cards>
-                    </Col>
-                    <Col style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>อาหารสด</div>
-                    </Col>
-                  </Row>
-
-                  <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px" }}>
-                    <Col >
-                      <Cards bordered={false}>
-                        <Cardcatagory>
-                          <Image src="image/img/image 135.png" preview={false} />
-                        </Cardcatagory>
-                      </Cards>
-                    </Col>
-                    <Col style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>ขนมหวาน</div>
-                    </Col>
-                  </Row>
-
-                  <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px" }}>
-                    <Col >
-                      <Cards bordered={false}>
-                        <Cardcatagory>
-                          <Image src="image/img/image 134.png" preview={false} />
-                        </Cardcatagory>
-                      </Cards>
-                    </Col>
-                    <Col style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>ผลไม้</div>
-                    </Col>
-                  </Row>
-
-                  <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px" }}>
+                <Col
+                  span={24}
+                  className="gutter-row"
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <Row
+                    span={6}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      margin: "0 10px",
+                    }}
+                  >
                     <Col>
                       <Cards bordered={false}>
                         <Cardcatagory>
-                          <Image src="image/img/image 133.png" preview={false} />
+                          <Image
+                            src="image/img/image 136.png"
+                            preview={false}
+                          />
                         </Cardcatagory>
                       </Cards>
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>อื่น ๆ</div>
+                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                        อาหารสด
+                      </div>
+                    </Col>
+                  </Row>
+
+                  <Row
+                    span={6}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      margin: "0 10px",
+                    }}
+                  >
+                    <Col>
+                      <Cards bordered={false}>
+                        <Cardcatagory>
+                          <Image
+                            src="image/img/image 135.png"
+                            preview={false}
+                          />
+                        </Cardcatagory>
+                      </Cards>
+                    </Col>
+                    <Col style={{ textAlign: "center" }}>
+                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                        ขนมหวาน
+                      </div>
+                    </Col>
+                  </Row>
+
+                  <Row
+                    span={6}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      margin: "0 10px",
+                    }}
+                  >
+                    <Col>
+                      <Cards bordered={false}>
+                        <Cardcatagory>
+                          <Image
+                            src="image/img/image 134.png"
+                            preview={false}
+                          />
+                        </Cardcatagory>
+                      </Cards>
+                    </Col>
+                    <Col style={{ textAlign: "center" }}>
+                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                        ผลไม้
+                      </div>
+                    </Col>
+                  </Row>
+
+                  <Row
+                    span={6}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      margin: "0 10px",
+                    }}
+                  >
+                    <Col>
+                      <Cards bordered={false}>
+                        <Cardcatagory>
+                          <Image
+                            src="image/img/image 133.png"
+                            preview={false}
+                          />
+                        </Cardcatagory>
+                      </Cards>
+                    </Col>
+                    <Col style={{ textAlign: "center" }}>
+                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                        อื่น ๆ
+                      </div>
                     </Col>
                   </Row>
                 </Col>
@@ -178,12 +235,13 @@ const Home = () => {
           </Col>
         </Row>
 
-        <Row
-          justify="flex-start"
-          gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
-        >
+        <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           {products?.map((p) => (
-            <Col className="gutter-row" span={4} style={{ marginBottom: "20px" }}>
+            <Col
+              className="gutter-row"
+              span={4}
+              style={{ marginBottom: "20px" }}
+            >
               <CardProduct data={p} />
             </Col>
           ))}
@@ -211,11 +269,15 @@ const Home = () => {
 
         <Row
           justify="flex-start"
-          gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
-        // style={{ marginBottom: "40px" }}
+          gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+          // style={{ marginBottom: "40px" }}
         >
           {cardevents?.map((c) => (
-            <Col className="gutter-row" span={6} style={{ marginBottom: "20px" }}>
+            <Col
+              className="gutter-row"
+              span={6}
+              style={{ marginBottom: "20px" }}
+            >
               <div>
                 <CardEvent datacard={c} />
               </div>
