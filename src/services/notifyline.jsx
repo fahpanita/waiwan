@@ -4,14 +4,10 @@ import axios from "axios";
 
 export const notifyLine = async (token, message) => {
   try {
-    const res = await axios({
+    const res = await requestBackend({
       method: "POST",
-      url: 'https://notify-api.line.me/api/notify',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: 'Bearer ' + token,
-      },
-      data: 'message=' + message,
+      url: 'notify',
+      data: message,
     });
     console.log('notify res', res)
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Row, Col, Collapse, Input, Typography, } from "antd";
+import { Layout, Row, Col, Collapse, Input, Typography, Slider, } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
 import FooterPage from "../../components/Footer/FooterPage";
@@ -9,25 +9,15 @@ import { getProducts } from "../../services/product";
 import Filter from "../../components/Tree/Filter";
 import { getCatagory } from "../../services/catagory";
 import { getEvent } from "../../services/event";
-import { Link, useLocation } from "react-router-dom";
-import { BASE_URL } from "../../constands/api";
-import Card from "react-bootstrap/Card";
+import { useLocation } from "react-router-dom";
 
 const { Title } = Typography;
 const { Content } = Layout;
 
-const priceSlide = (
-  <p
-    style={{
-      paddingLeft: 24,
-    }}
-  >
-    No data
-  </p>
-);
-
 const ListProduct = () => {
 
+
+  const [products, setProducts] = useState([]);
   const [catagories, setCatagory] = useState([]);
   const [events, setEvent] = useState([]);
 
@@ -74,6 +64,29 @@ const ListProduct = () => {
     setEvent(data)
   }
 
+  const [rangeValues, setRangeValues] = useState([0, 0]);
+  const location = useLocation();
+  const searchQuery = location.state?.searchQuery || '';
+
+  const [filteredPrice, setFilteredPrice] = useState([]);
+
+  const filteredSearch = products?.filter((product) =>
+    product.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+  );
+
+  const handlePriceChange = (values) => {
+    setRangeValues(values);
+
+    const newFilteredPrice = products?.filter(product => {
+      const productPrice = product?.price || 0;
+      return productPrice >= values[0] && productPrice <= values[1];
+    });
+
+    setFilteredPrice(newFilteredPrice);
+
+    console.log(newFilteredPrice)
+  };
+
   const items = [
     {
       key: "1",
@@ -88,34 +101,28 @@ const ListProduct = () => {
     {
       key: "3",
       label: <Title level={5}>ช่วงราคา</Title>,
-      children: <div class="card-body">
-        <input type="range" class="form-range" min="0" max="100" />
-        <div class="row mb-3">
-          <div class="col-6">
-            <label for="min" class="form-label">Min</label>
-            <input class="form-control" id="min" placeholder="$0" type="number" />
+      children:
+        <div className="card-body">
+          <Slider range defaultValue={rangeValues} onChange={handlePriceChange} max={1000} />
+          <div className="row mb-3">
+            <div className="col-6">
+              <label htmlFor="min" className="form-label">Min</label>
+              <input className="form-control" id="min" placeholder="฿0" type="number" value={rangeValues[0]} />
+            </div>
+            <div className="col-6">
+              <label htmlFor="max" className="form-label">Max</label>
+              <input className="form-control" id="max" placeholder="฿10,000" type="number" value={rangeValues[1]} />
+            </div>
           </div>
-
-          <div class="col-6">
-            <label for="max" class="form-label">Max</label>
-            <input class="form-control" id="max" placeholder="$1,0000" type="number" />
-          </div>
-        </div> </div>,
+        </div>
+      ,
     },
   ];
-
-  const [products, setProducts] = useState([]);
 
   const handleGetProducts = async () => {
     const res = await getProducts()
     setProducts(res?.data)
   }
-
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const filteredProducts = products?.filter((product) =>
-    product.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
-  );
 
   useEffect(() => {
     handleGetProducts(),
@@ -157,29 +164,39 @@ const ListProduct = () => {
                   xs: 8, sm: 16, md: 24, lg: 32,
                 }}
               >
-                <Col className="gutter-row" style={{ marginTop: '16px' }}>
+                {/* <Col className="gutter-row" style={{ marginTop: '16px' }}>
                   <input
                     type="text"
                     placeholder="Search..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
-                </Col>
+                </Col> */}
               </Row>
 
-              <Row
-                justify="flex-start"
-                gutter={{
-                  xs: 8, sm: 16, md: 24, lg: 32,
-                }}
-              >
-                {filteredProducts?.map((p) => (
-                  <Col className="gutter-row" span={5} key={p.id}>
-                    <div style={{ marginTop: '16px' }}>
-                      <CardProduct data={p} />
-                    </div>
-                  </Col>
-                ))}
+              <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} >
+
+                {(filteredPrice?.length > 0 || filteredSearch?.length > 0) ? (
+                  <>
+                    {filteredPrice?.map((p) => (
+                      <Col className="gutter-row" span={5} key={p.id} style={{ paddingRight: "0px" }}>
+                        <div style={{ marginTop: '16px' }}>
+                          <CardProduct data={p} />
+                        </div>
+                      </Col>
+                    ))}
+
+                    {filteredSearch?.map((p) => (
+                      <Col className="gutter-row" span={5} key={p.id} style={{ paddingRight: "0px" }}>
+                        <div style={{ marginTop: '16px' }}>
+                          <CardProduct data={p} />
+                        </div>
+                      </Col>
+                    ))}
+                  </>
+                ) : (
+                  <div>No products found.</div>
+                )}
               </Row>
             </Col>
           </Row>

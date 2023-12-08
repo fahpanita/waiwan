@@ -12,7 +12,7 @@ import { LongdoMap, longdo, map } from "../../components/LongdoMap";
 import { Input } from "antd/es";
 import { getAddress } from "../../services/map";
 import { useAuth } from "../../Providers/AuthProvider";
-import { notifyLine } from "../../services/notifyline";
+// import { notifyLine } from "../../services/notifyline";
 
 const columns = [
   {

@@ -12,6 +12,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import Search from "antd/es/input/Search";
 
+
 const { Header } = Layout;
 
 const Navbar = () => {
@@ -26,18 +27,26 @@ const Navbar = () => {
     setVisible(false);
   };
 
-  const navigate = useNavigate();
-
   const { SearchStyle } = Input;
-  const onSearch = (value, _e, info) => {
-    console.log(info?.source, value);
+  // const onSearch = (value, _e, info) => {
+  //   console.log(info?.source, value);
 
-    const filteredProducts = products.filter(product =>
-      product.name.toLowerCase().includes(value.toLowerCase())
-    );
-    setProducts(filteredProducts);
+  //   const filteredProducts = products.filter(product =>
+  //     product.name.toLowerCase().includes(value.toLowerCase())
+  //   );
+  //   setProducts(filteredProducts);
 
-    navigate('/listProduct')
+  //   navigate('/listProduct')
+  // };
+
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const onSearch = (value) => {
+    // Set the search query in state before filtering
+    setSearchQuery(value);
+
+    navigate('/listProduct', { state: { searchQuery: value } });
   };
 
   return (
@@ -66,8 +75,11 @@ const Navbar = () => {
             <Search
               placeholder="ค้นหาสินค้าในไหว้วาน"
               onSearch={onSearch}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               enterButton
             />
+
           </Col>
           <Col xs={0} sm={0} md={1}>
             <LineLogin></LineLogin>

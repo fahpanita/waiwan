@@ -3,7 +3,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constands/api";
-import { Tag, Button } from 'antd';
+import { Tag, Button, Col, Row } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { useDispatch } from "react-redux";
 import { addCartProduct } from "../../store/AddCartProductSlice";
@@ -37,18 +37,27 @@ const CardProduct = (prop) => {
           )}
           <Card.Body>
             <Card.Text style={{ fontSize: "18px", fontWeight: "400", height: "40px" }}>{data?.name}</Card.Text>
-            <Card.Text style={{ fontSize: "24px", fontWeight: "500", color: "#C54142" }}>฿{data?.price}</Card.Text>
-            <Button shape="circle" size="large"
-              icon={<ShoppingCartOutlined />}
-              style={{
-                color: "#fff", backgroundColor: "#A08155", textDecoration: "none", border: "none"
-              }}
-            // onClick={() => {
-            //   handleAddProduct()
-            //   navigate(`/cart`)
-            // }}
-            >
-            </Button>
+
+            <Row>
+              <Col span={12}>
+                <Card.Text style={{ fontSize: "24px", fontWeight: "500", color: "#C54142" }}>฿{data?.price}</Card.Text>
+              </Col>
+              <Col span={12} style={{ justifyContent: "right", display: "flex" }}>
+                <Button shape="circle" size="large"
+                  icon={<ShoppingCartOutlined />}
+                  style={{
+                    color: "#fff", backgroundColor: "#A08155", textDecoration: "none", border: "none"
+                  }}
+                // onClick={() => {
+                //   handleAddProduct()
+                //   navigate(`/cart`)
+                // }}
+                >
+                </Button>
+              </Col>
+            </Row>
+
+
           </Card.Body>
         </Card >
       </Link>

@@ -95,8 +95,8 @@ const Stock = () => {
                     </Form.Item>
                   </Col>
                   <Col className="gutter-row" span={12}>
-                    <Form.Item name="email" label="Email">
-                      <Input type="email" />
+                    <Form.Item name="email" label="Email" >
+                      <Input type="email" defaultValue={profile?.email} />
                     </Form.Item>
                   </Col>
                 </Row>
