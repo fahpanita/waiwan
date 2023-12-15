@@ -11,6 +11,7 @@ import {
   Statistic,
   Image,
   List,
+  Pagination,
 } from "antd";
 import Filter from "../../components/Tree/Filter";
 import CardEvent from "../../components/CardKnowlage/CardEvent";
@@ -50,12 +51,32 @@ const Home = () => {
     setCartEvents(res?.data);
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const [currentPageEvents, setCurrentPageEvents] = useState(1);
+  const itemsPerPageEvents = 4;
+
+  const indexOfLastItemEvents = currentPageEvents * itemsPerPageEvents;
+  const indexOfFirstItemEvents = indexOfLastItemEvents - itemsPerPageEvents;
+  const currentEvents = cardevents.slice(indexOfFirstItemEvents, indexOfLastItemEvents);
+
+  const handlePageChangeEvents = (page) => {
+    setCurrentPageEvents(page);
+  };
+
   useEffect(() => {
     handleGetProducts(), handleGetCartEvents();
   }, []);
 
   return (
-    // <AuthenticatedProvider>
     <Layout
       style={{
         background: "#F5F5F5",
@@ -72,15 +93,27 @@ const Home = () => {
           justify="space-evenly"
           style={{ marginTop: "32px" }}
         >
-          <Col className="gutter-row" span={15}>
+          <Col className="gutter-row"
+            xs={24} sm={9} md={9} lg={15}>
             <BannerHome />
           </Col>
-          <Col className="gutter-row" span={9} style={{ display: "flex" }}>
-            <Row justify="space-between">
-              <Col style={{ display: "flex", paddingBottom: "5px" }}>
+
+          <Col className="gutter-row"
+            xs={24} sm={9} md={9} lg={9}
+            style={{ display: "flex" }}
+          >
+            <Row
+              gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+              <Col
+                xs={12} sm={9} md={9} lg={24}
+                style={{ display: "flex", marginTop: "2px" }}
+              >
                 <Img src="image/img/frame-1.png" />
               </Col>
-              <Col style={{ display: "flex", paddingTop: "5px" }}>
+              <Col
+                xs={12} sm={9} md={9} lg={24}
+                style={{ display: "flex", marginTop: "2px" }}
+              >
                 <Img src="image/img/frame-2.png" />
               </Col>
             </Row>
@@ -218,10 +251,10 @@ const Home = () => {
         </Row>
 
         <Row style={{ marginTop: "40px", marginBottom: "10px" }}>
-          <Col span={8}>
+          <Col span={10}>
             <Title level={3}>สินค้าสำหรับคุณ</Title>
           </Col>
-          <Col span={8} offset={8}>
+          <Col span={6} offset={8}>
             <a
               style={{
                 float: "right",
@@ -235,25 +268,39 @@ const Home = () => {
           </Col>
         </Row>
 
+
         <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-          {products?.map((p) => (
+          {currentProducts.map((p) => (
             <Col
+              key={p.id}
               className="gutter-row"
-              span={4}
-              style={{ marginBottom: "20px" }}
+              xs={12}
+              sm={9}
+              md={9}
+              lg={4}
+              style={{ marginBottom: '20px' }}
             >
               <CardProduct data={p} />
             </Col>
           ))}
         </Row>
 
+        <Pagination
+          current={currentPage}
+          pageSize={itemsPerPage}
+          total={products.length}
+          onChange={handlePageChange}
+          showSizeChanger={false}
+          style={{ marginTop: '20px', textAlign: 'center' }}
+        />
+
         <Divider dashed style={{ marginTop: "40px" }} />
 
         <Row style={{ marginTop: "40px", marginBottom: "10px" }}>
-          <Col span={8}>
+          <Col span={10}>
             <Title level={3}>บทความเทศกาล</Title>
           </Col>
-          <Col span={8} offset={8}>
+          <Col span={6} offset={8}>
             <a
               style={{
                 float: "right",
@@ -267,27 +314,33 @@ const Home = () => {
           </Col>
         </Row>
 
-        <Row
-          justify="flex-start"
-          gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
-          // style={{ marginBottom: "40px" }}
-        >
-          {cardevents?.map((c) => (
+        <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+          {currentEvents.map((c) => (
             <Col
+              key={c.id}
               className="gutter-row"
-              span={6}
-              style={{ marginBottom: "20px" }}
+              xs={24}
+              sm={9}
+              md={9}
+              lg={6}
+              style={{ marginBottom: '20px' }}
             >
-              <div>
-                <CardEvent datacard={c} />
-              </div>
+              <CardEvent datacard={c} />
             </Col>
           ))}
         </Row>
+
+        <Pagination
+          current={currentPageEvents}
+          pageSize={itemsPerPageEvents}
+          total={cardevents.length}
+          onChange={handlePageChangeEvents}
+          showSizeChanger={false}
+          style={{ marginTop: '20px', textAlign: 'center' }}
+        />
       </Content>
       <FooterPage />
     </Layout>
-    // </AuthenticatedProvider>
   );
 };
 

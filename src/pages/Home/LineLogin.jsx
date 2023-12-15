@@ -61,6 +61,7 @@ const LineLogin = () => {
           menu={{
             items,
           }}
+          trigger={['click']}
           dropdownRender={(menu) => (
             <div style={contentStyle}>
               {React.cloneElement(menu, {

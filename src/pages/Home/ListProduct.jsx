@@ -1,26 +1,23 @@
-import React from "react";
-import { Layout, Row, Col, Collapse, Input, Typography, Slider, } from "antd";
+import React, { useState, useEffect } from "react";
+import { Layout, Row, Col, Collapse, Input, Typography, Slider, Drawer, Button, Space, Divider, Card, Pagination, } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
 import FooterPage from "../../components/Footer/FooterPage";
-import { useState } from "react";
-import { useEffect } from "react";
 import { getProducts } from "../../services/product";
 import Filter from "../../components/Tree/Filter";
 import { getCatagory } from "../../services/catagory";
 import { getEvent } from "../../services/event";
 import { useLocation } from "react-router-dom";
+import { FilterOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 const { Content } = Layout;
 
 const ListProduct = () => {
 
-
   const [products, setProducts] = useState([]);
   const [catagories, setCatagory] = useState([]);
   const [events, setEvent] = useState([]);
-
 
   const handleGetCatagory = async () => {
     const res = await getCatagory()
@@ -130,65 +127,124 @@ const ListProduct = () => {
       handleGetEvent()
   }, [])
 
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
+
+
   return (
     <>
       <Layout
-        style={{
-          background: "#F5F5F5",
-        }}
-      >
+        style={{ background: "#F5F5F5", }}>
+
         <Navbar />
-        <Content
-          style={{
-            padding: "0 32px",
-          }}
-        >
-          <Row
-            justify="space-evenly"
-            gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
-          >
-            <Col className="gutter-row" span={5}
-              style={{ marginTop: "40px" }}>
-              <Collapse
-                items={items}
-                bordered={false}
-                defaultActiveKey={['1', '2', '3']}
-                style={{ backgroundColor: "#fff" }}
-              />
+        <Content style={{ padding: "0 32px", }}>
+
+          <Row style={{ marginTop: "20px" }}>
+            <Col xs={2} sm={2} md={0} >
+              <Button onClick={showDrawer} size="large">
+                <FilterOutlined /> ค้นหาแบบละเอียด
+              </Button>
             </Col>
+            <Col xs={24} sm={2} md={0} lg={0} >
+              <Divider />
+            </Col>
+          </Row>
+          <Drawer
+            title="ค้นหาแบบละเอียด"
+            placement="left"
+            onClose={onClose}
+            open={open}
+            extra={
+              <Space>
+                <Button onClick={onClose}>ยกเลิก</Button>
+                <Button onClick={onClose} type="primary">ยืนยัน</Button>
+              </Space>
+            }
+          >
+            <Card>
+              <Title level={5}>หมวดหมู่สินค้า</Title>
+              <Filter filterData={catagories} />
+              <Divider />
+              <Title level={5}>หมวดหมู่เทศกาล</Title>
+              <Filter filterData={events} />
+              <Divider />
+              <Title level={5}>ช่วงราคา</Title>
+              <div className="card-body">
+                <Slider range defaultValue={rangeValues} onChange={handlePriceChange} max={1000} />
+                <div className="row mb-3">
+                  <div className="col-6">
+                    <label htmlFor="min" className="form-label">ราคาต่ำ:</label>
+                    <input className="form-control" id="min" placeholder="฿0" type="number" value={rangeValues[0]} />
+                  </div>
+                  <div className="col-6">
+                    <label htmlFor="max" className="form-label">ราคาสูง:</label>
+                    <input className="form-control" id="max" placeholder="฿10,000" type="number" value={rangeValues[1]} />
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </Drawer>
 
-            <Col className="gutter-row" span={19} style={{ marginTop: "24px" }}>
-              <Row
-                justify="flex-start"
-                gutter={{
-                  xs: 8, sm: 16, md: 24, lg: 32,
-                }}
-              >
-                {/* <Col className="gutter-row" style={{ marginTop: '16px' }}>
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                </Col> */}
-              </Row>
+          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center">
+            <Col xs={0} sm={9} md={9} lg={6} style={{ marginTop: '10px' }}>
+              <Card title="ค้นหาแบบละเอียด" bordered={false}>
+                <Title level={5}>หมวดหมู่สินค้า</Title>
+                <Filter filterData={catagories} />
+                <Divider />
+                <Title level={5}>หมวดหมู่เทศกาล</Title>
+                <Filter filterData={events} />
+                <Divider />
+                <Title level={5}>ช่วงราคา</Title>
 
-              <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} >
-
+                <div className="card-body">
+                  <Slider range defaultValue={rangeValues} onChange={handlePriceChange} max={1000} />
+                  <div className="row mb-3">
+                    <div className="col-6">
+                      <label htmlFor="min" className="form-label">ราคาต่ำ:</label>
+                      <input className="form-control" id="min" placeholder="฿0" type="number" value={rangeValues[0]} />
+                    </div>
+                    <div className="col-6">
+                      <label htmlFor="max" className="form-label">ราคาสูง:</label>
+                      <input className="form-control" id="max" placeholder="฿10,000" type="number" value={rangeValues[1]} />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Col>
+            <Col lg={16}>
+              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
                 {(filteredPrice?.length > 0 || filteredSearch?.length > 0) ? (
                   <>
                     {filteredPrice?.map((p) => (
-                      <Col className="gutter-row" span={5} key={p.id} style={{ paddingRight: "0px" }}>
-                        <div style={{ marginTop: '16px' }}>
+                      <Col
+                        key={p.id}
+                        className="gutter-row"
+                        xs={12}
+                        sm={9}
+                        md={9}
+                        lg={6}
+                      >
+                        <div style={{ marginTop: '10px' }}>
                           <CardProduct data={p} />
                         </div>
                       </Col>
                     ))}
 
                     {filteredSearch?.map((p) => (
-                      <Col className="gutter-row" span={5} key={p.id} style={{ paddingRight: "0px" }}>
-                        <div style={{ marginTop: '16px' }}>
+                      <Col
+                        key={p.id}
+                        className="gutter-row"
+                        xs={12}
+                        sm={9}
+                        md={9}
+                        lg={6}
+                      >
+                        <div style={{ marginTop: '10px' }}>
                           <CardProduct data={p} />
                         </div>
                       </Col>
@@ -199,7 +255,48 @@ const ListProduct = () => {
                 )}
               </Row>
             </Col>
+
+
+
           </Row>
+
+          {/* <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} >
+            {(filteredPrice?.length > 0 || filteredSearch?.length > 0) ? (
+              <>
+                {filteredPrice?.map((p) => (
+                  <Col
+                    key={p.id}
+                    className="gutter-row"
+                    xs={12}
+                    sm={9}
+                    md={9}
+                    lg={4}
+                  >
+                    <div style={{ marginTop: '10px' }}>
+                      <CardProduct data={p} />
+                    </div>
+                  </Col>
+                ))}
+
+                {filteredSearch?.map((p) => (
+                  <Col
+                    key={p.id}
+                    className="gutter-row"
+                    xs={12}
+                    sm={9}
+                    md={9}
+                    lg={4}
+                  >
+                    <div style={{ marginTop: '16px' }}>
+                      <CardProduct data={p} />
+                    </div>
+                  </Col>
+                ))}
+              </>
+            ) : (
+              <div>No products found.</div>
+            )}
+          </Row> */}
         </Content>
         <FooterPage />
       </Layout>

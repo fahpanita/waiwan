@@ -6,6 +6,7 @@ import {
   ShoppingCartOutlined,
   UnorderedListOutlined,
   ExperimentOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import LineLogin from "../../pages/Home/LineLogin";
 import styled from "styled-components";
@@ -126,7 +127,7 @@ const Navbar = () => {
         </Row>
 
         <Drawer
-          title="Menu"
+          title="เมนู"
           placement="left"
           onClick={onClose}
           onClose={onClose}
@@ -148,9 +149,9 @@ const Navbar = () => {
                 ทดลองจัดวาง
               </Link>
             </Menu.Item>
-            <Menu.Item key="10" icon={<ShoppingCartOutlined />}>
-              <Link to="/cart" style={{ textDecoration: "none" }}>
-                ตะกร้าสินค้า
+            <Menu.Item key="10" icon={<UserOutlined />} >
+              <Link to="/stock" style={{ textDecoration: "none" }} >
+                จัดการบัญชีผู้ใช้
               </Link>
             </Menu.Item>
             <Menu.Item key="11">
@@ -158,7 +159,7 @@ const Navbar = () => {
             </Menu.Item>
           </Menu>
         </Drawer>
-      </Header>
+      </Header >
     </>
   );
 };
