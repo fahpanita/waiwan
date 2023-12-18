@@ -268,20 +268,9 @@ const Home = () => {
           </Col>
         </Row>
 
-
         <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           {currentProducts.map((p) => (
-            <Col
-              key={p.id}
-              className="gutter-row"
-              xs={12}
-              sm={9}
-              md={9}
-              lg={4}
-              style={{ marginBottom: '20px' }}
-            >
-              <CardProduct data={p} />
-            </Col>
+            <Col key={p.id} className="gutter-row" xs={12} sm={9} md={9} lg={4} style={{ marginBottom: '20px' }}><CardProduct data={p} /></Col>
           ))}
         </Row>
 

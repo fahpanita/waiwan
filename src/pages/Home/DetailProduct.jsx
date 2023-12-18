@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Row, Col, Typography, Button, Tag, Space, Collapse, Form, Divider } from "antd";
 import Navbar from "../../components/Header/Navbar";
-import { ShoppingCartOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import FooterPage from "../../components/Footer/FooterPage";
@@ -15,6 +14,11 @@ import { addCartProduct } from "../../store/AddCartProductSlice";
 const { Title } = Typography;
 const { Content } = Layout;
 import Card from "react-bootstrap/Card";
+import styled from "styled-components";
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/js/bootstrap.min.js"
+import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+
 
 const DetailProduct = (props) => {
 
@@ -57,28 +61,33 @@ const DetailProduct = (props) => {
     setNum(e.target.value);
   }
 
-  const btnNumber = {
+  const btnNumberL = {
+    width: "50px",
+    height: "50px",
+    borderRadius: "6px 0 0 6px",
     background: "#fff",
-    borderRadius: "60px",
-    border: "none",
-    fontSize: "30px",
-    width: "40px",
-    height: "40px",
-    color: "#C54142",
-    filter: "drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.09))",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    border: "1px solid rgb(232, 232, 232)",
+    color: "#000",
+  }
+  const btnNumberR = {
+    width: "50px",
+    height: "50px",
+    borderRadius: "0 6px 6px 0",
+    background: "#fff",
+    border: "1px solid rgb(232, 232, 232)",
+    color: "#000",
   }
   const textNumber = {
-    width: "60px", minWidth: "auto", textAlign: "center",
-    background: "none",
-    border: "none",
-    fontSize: "20px",
+    width: "80px",
+    height: "50px",
+    minWidth: "auto",
+    textAlign: "center",
+    border: "1px solid rgb(232, 232, 232)",
+    color: "#c54142",
+    // border: "none",
+    fontSize: "18px",
     fontWeight: "500",
-
   }
-
 
   useEffect(() => {
     if (id) {
@@ -98,37 +107,27 @@ const DetailProduct = (props) => {
           <Form >
             <Row
               justify="space-evenly"
-              gutter={{
-                xs: 8,
-                sm: 16,
-                md: 24,
-                lg: 32,
-              }}
-              style={{
-                marginTop: " 40px",
-              }}
+              gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
+              style={{ marginTop: " 30px", }}
             >
-              <Col className="gutter-row" span={10}>
-                <Carousel axis="horizontal">
-                  <div>
-                    <img src={`${BASE_URL}/${product?.thumbnail}`} />
-                    {/* <p className="legend">Legend 1</p> */}
+              <Col xs={24} sm={12} md={12} lg={10}>
+                <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" align="left">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active"> <img src={`${BASE_URL}/${product?.thumbnail}`} class="rounded" /> </div>
+                    <div class="carousel-item"> <img src={`${BASE_URL}/${product?.thumbnail}`} class="rounded" /> </div>
+                    <div class="carousel-item"> <img src={`${BASE_URL}/${product?.thumbnail}`} class="rounded" /> </div>
                   </div>
-                  <div>
-                    <img src={`${BASE_URL}/${product?.thumbnail}`} />
-                  </div>
-                  <div>
-                    <img src={`${BASE_URL}/${product?.thumbnail}`} />
-                  </div>
-                  <div>
-                    <img src={`${BASE_URL}/${product?.thumbnail}`} />
-                  </div>
-                </Carousel>
+                  <ol class="carousel-indicators list-inline" style={{ position: "static", marginTop: "5px" }}>
+                    <li class="list-inline-item active"> <a id="carousel-selector-0" class="selected" data-bs-slide-to="0" data-bs-target="#myCarousel"> <Img src={`${BASE_URL}/${product?.thumbnail}`} class="img-fluid rounded" /> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-1" data-bs-slide-to="1" data-bs-target="#myCarousel"> <Img src={`${BASE_URL}/${product?.thumbnail}`} class="img-fluid rounded" /> </a> </li>
+                    <li class="list-inline-item"> <a id="carousel-selector-2" data-bs-slide-to="2" data-bs-target="#myCarousel"> <Img src={`${BASE_URL}/${product?.thumbnail}`} class="img-fluid rounded" /> </a> </li>
+                  </ol>
+                </div>
               </Col>
 
-              <Col span={14}>
+              <Col xs={24} sm={12} md={12} lg={14}>
                 <Card style={{ border: "none", padding: "20px" }}>
-                  <span style={{ fontSize: "36px", fontWeight: "600" }}>{product?.name}</span>
+                  <span style={{ fontSize: "24px", fontWeight: "600" }}>{product?.name}</span>
                   <div style={{ marginTop: "14px" }}>
                     <span style={{ fontSize: "18px", marginRight: "10px" }}>ประเภทสินค้า:</span>
                     {product?.typeProduct === 'สินค้าพรีออเดอร์' && (
@@ -141,21 +140,21 @@ const DetailProduct = (props) => {
                   </div>
                   <div style={{ marginTop: "14px" }}>
                     <span style={{ fontSize: "18px", marginRight: "10px" }}>ราคา</span>
-                    <span style={{ fontSize: "24px", fontWeight: "500", color: "#c54142", }}>฿ {product?.price}</span>
+                    <span style={{ fontSize: "24px", fontWeight: "500", color: "#c54142", }}>฿{product?.price}</span>
                   </div>
                   <Divider />
                   <div style={{ fontSize: "20px", display: "flex", flexWrap: "nowrap" }}>
                     <span style={{ fontSize: "18px", marginRight: "15px", }}> จำนวน: </span>
                     {
-                      <div className="col-xl-1">
+                      <div >
                         <div class="input-group" style={{ display: "flex", flexWrap: "nowrap" }}>
                           <div class="input-group-prepend">
-                            <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={decNum}>-</button>
+                            <button class="btn btn-outline-primary" style={btnNumberL} type="button" shape="circle" onClick={decNum}><MinusOutlined /></button>
                           </div>
                           <input type="text" class="form-control" name="amount" value={amount} onChange={handleChange} style={textNumber} />
 
                           <div class="input-group-prepend">
-                            <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={incNum}>+</button>
+                            <button class="btn btn-outline-primary" style={btnNumberR} type="button" shape="circle" onClick={incNum}><PlusOutlined /></button>
                           </div>
                         </div>
                       </div>
@@ -166,7 +165,7 @@ const DetailProduct = (props) => {
                     <Button danger shape="round" size="large"
                       icon={<ShoppingCartOutlined />}
                       style={{
-                        fontSize: "20px", padding: "0 30px 0 30px", border: "1px solid #c54142", color: "#c54142", width: "220px"
+                        fontSize: "20px", padding: "0 30px 0 30px", border: "1px solid #A08155", color: "#A08155", width: "220px",
                       }} htmlType="submit" onClick={() => {
                         handleAddProduct()
                         navigate(`/cart`)
@@ -176,7 +175,7 @@ const DetailProduct = (props) => {
                     <div>
                       <Button type="primary" shape="round" size="large"
                         style={{
-                          fontSize: "20px", background: "#c54142", padding: "0 30px 0 30px", width: "220px"
+                          fontSize: "20px", background: "#A08155", padding: "0 30px 0 30px", width: "220px"
                         }}
                         htmlType="submit" onClick={() => {
                           handleBuyProduct()
@@ -194,27 +193,15 @@ const DetailProduct = (props) => {
 
           <Row
             justify="space-evenly"
-            gutter={{
-              xs: 8,
-              sm: 16,
-              md: 24,
-              lg: 32,
-            }}
-            style={{
-              marginTop: " 16px",
-            }}
+            gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
+            style={{ marginTop: " 16px", }}
           >
             <Col
               className="gutter-row"
               span={24}
-              style={{
-                backgroundColor: "#fff",
-                padding: "30px",
-              }}
+              style={{ backgroundColor: "#fff", padding: "30px", }}
             >
-              <Collapse
-                accordion
-                ghost
+              <Collapse accordion ghost
                 items={[
                   {
                     key: "1",
@@ -228,26 +215,14 @@ const DetailProduct = (props) => {
 
           <Row
             justify="space-evenly"
-            gutter={{
-              xs: 8,
-              sm: 16,
-              md: 24,
-              lg: 32,
-            }}
-            style={{
-              marginTop: " 16px",
-            }}
+            gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
+            style={{ marginTop: " 16px", }}
           >
             <Col
               span={24}
-              style={{
-                backgroundColor: "#fff",
-                padding: "30px",
-              }}
+              style={{ backgroundColor: "#fff", padding: "30px", }}
             >
-              <Collapse
-                accordion
-                ghost
+              <Collapse accordion ghost
                 items={[
                   {
                     key: "2",
@@ -262,22 +237,12 @@ const DetailProduct = (props) => {
 
           <Row
             justify="space-evenly"
-            gutter={{
-              xs: 8,
-              sm: 16,
-              md: 24,
-              lg: 32,
-            }}
-            style={{
-              marginTop: "16px", marginBottom: "40px"
-            }}
+            gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
+            style={{ marginTop: "16px", }}
           >
             <Col
               span={24}
-              style={{
-                backgroundColor: "#fff",
-                padding: "30px",
-              }}
+              style={{ backgroundColor: "#fff", padding: "30px", }}
             >
               <Collapse
                 accordion
@@ -301,3 +266,9 @@ const DetailProduct = (props) => {
 };
 
 export default DetailProduct;
+
+export const Img = styled.img`
+  
+  /* height: 100px; */
+  
+`;

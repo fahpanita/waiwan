@@ -8,6 +8,7 @@ import { BASE_URL } from "../../constands/api";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteCartProduct, updateAmountproduct } from "../../store/AddCartProductSlice";
 import { useEffect } from "react";
+import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
@@ -29,78 +30,81 @@ const Cart = () => {
     dispatch(updateAmountproduct({ id, type }));
   };
 
-
   const columns = [
     {
+      title: "สินค้า",
       dataIndex: "thumbnail",
     },
+    // {
+    //   dataIndex: "name",
+    //   render: (text) => <a>{text}</a>,
+    // },
     {
-      title: "สินค้า",
-      dataIndex: "name",
-      render: (text) => <a>{text}</a>,
-    },
-    {
-      title: "จำนวน",
-      dataIndex: "amount",
-    },
-    {
-      title: "ราคา",
-      dataIndex: "price",
-    },
-    {
-      title: "Action",
+      title: "แก้ไข",
       render: (text, record) => (
         <Space size="middle">
-          <Button danger onClick={() => removeItem(record)}>Delete</Button>
+          <Button style={{ color: "#c54142", border: "1px solid #c54142" }} onClick={() => removeItem(record)}>ลบ</Button>
         </Space>
       ),
     },
   ];
 
-  const btnNumber = {
-    background: "#fff",
-    borderRadius: "60px",
-    border: "none",
-    fontSize: "30px",
+  const btnNumberL = {
     width: "40px",
     height: "40px",
-    color: "#C54142",
-    filter: "drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.09))",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    borderRadius: "6px 0 0 6px",
+    background: "#fff",
+    border: "1px solid rgb(232, 232, 232)",
+    color: "#000",
+  }
+  const btnNumberR = {
+    width: "40px",
+    height: "40px",
+    borderRadius: "0 6px 6px 0",
+    background: "#fff",
+    border: "1px solid rgb(232, 232, 232)",
+    color: "#000",
   }
   const textNumber = {
-    width: "60px", minWidth: "auto", textAlign: "center",
-    background: "none",
-    border: "none",
-    fontSize: "20px",
+    height: "40px",
+    minWidth: "auto",
+    textAlign: "center",
+    border: "1px solid rgb(232, 232, 232)",
+    color: "#c54142",
+    fontSize: "18px",
     fontWeight: "500",
-
   }
-
-
   const data = addCartProduct?.product?.map(p => {
     return {
       key: p?.id,
-      thumbnail: <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
-      name: p?.name,
-      amount: <div class="input-group" style={{ display: "flex", flexWrap: "nowrap" }}>
-        <div class="input-group-prepend">
-          <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={() => handleClick(p?.id, 'down')}>-</button>
-        </div>
-        <input
-          type="text"
-          className="form-control"
-          name="amount"
-          value={p?.amount}
-          style={textNumber}
-        />
-        <div class="input-group-prepend">
-          <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={() => handleClick(p?.id, 'up')}>+</button>
-        </div>
-      </div>,
-      price: <div>{p?.amount * p?.price}</div>,
+      thumbnail:
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
+          <Col xs={24} sm={16} md={16} lg={6}>
+            <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
+          </Col>
+          <Col xs={24} sm={16} md={16} lg={8}>
+            <div style={{ fontSize: "18px", }}>{p?.name}</div>
+            <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
+          </Col>
+          <Col xs={24} sm={16} md={16} lg={6}>
+            <div class="input-group" style={{ display: "flex", flexWrap: "nowrap" }}>
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary" style={btnNumberL} type="button" shape="circle" onClick={() => handleClick(p?.id, 'down')}><MinusOutlined /></button>
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                name="amount"
+                value={p?.amount}
+                style={textNumber}
+              />
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary" style={btnNumberR} type="button" shape="circle" onClick={() => handleClick(p?.id, 'up')}><PlusOutlined /></button>
+              </div>
+            </div>
+          </Col>
+        </Row>,
+      // name: <div></div>,
     }
   });
   const totalPrice = addCartProduct?.product?.reduce((accumulator, product) => {
@@ -119,8 +123,6 @@ const Cart = () => {
   const totalWithShipping = Number(totalPrice) + Number(shipping);
   const formattedTotal = totalWithShipping.toFixed(2);
 
-
-
   return (
     <>
       <Layout
@@ -129,11 +131,9 @@ const Cart = () => {
         }}
       >
         <Navbar />
-
-        <Content style={{ margin: '24px 24px 0', }}>
-          <Row>
-            <Col span={16}>
-
+        <Content style={{ margin: '24px 24px 0', }} >
+          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center" style={{ display: "flex", alignItems: "flex-start" }}>
+            <Col xs={24} sm={16} md={16} lg={16}>
               <CardBoxRadius>
                 <Title level={5} style={{ textAlign: "left" }}>
                   <Tables
@@ -144,9 +144,9 @@ const Cart = () => {
                 </Title>
               </CardBoxRadius>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={8} md={8} lg={8} style={{ position: 'sticky', bottom: 0 }}>
 
-              <CardBoxRadius>
+              <CardBoxRadius >
                 <Title level={5}>สรุปรายการสั่งซื้อ</Title>
                 <Dividers />
                 <Row style={{ display: "flex", alignItems: "center" }}>
@@ -171,7 +171,7 @@ const Cart = () => {
                     <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมทั้งสิ้น</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "24px", fontWeight: "400", color: "#C54142" }}>฿ {formattedTotal}</div>
+                    <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿ {formattedTotal}</div>
                   </Col>
                 </Row>
                 <Row>
@@ -181,11 +181,12 @@ const Cart = () => {
                         type="primary"
                         shape="round"
                         size="large"
-
                         style={{
                           background: "#c54142",
                           width: "100%",
                           marginTop: "20px",
+                          fontSize: "20px",
+                          padding: "0 30px 0 30px"
                         }}
                       >
                         สั่งซื้อสินค้า
@@ -193,8 +194,8 @@ const Cart = () => {
                     </Link>
                   </Col>
                 </Row>
-
               </CardBoxRadius>
+
             </Col>
           </Row>
 
@@ -215,14 +216,14 @@ export const CardBoxAddress = styled.div`
 export const CardBoxRadius = styled.div`
 border-radius: 13px;
 background: #FFF;
-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
+/* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09); */
 margin: 10px;
 padding: 16px;
 `;
 
 export const Tables = styled(Table)`
   &.ant-table-wrapper .ant-table-thead > tr > td {
-    width: 100px;
+    /* width: 100px; */
   }
 `;
 
