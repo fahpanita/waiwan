@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../../constands/api";
 import { Link, useNavigate } from "react-router-dom";
-import { deleteCartProduct } from "../../store/AddCartProductSlice";
+import { deleteCartProduct, updateAmountproduct } from "../../store/AddCartProductSlice";
 import { useEffect } from "react";
 
 const { Title, Text } = Typography;
@@ -14,13 +14,21 @@ const { Content } = Layout;
 
 const Cart = () => {
 
+  const { addCartProduct } = useSelector((state) => ({ ...state }))
+
 
   const dispatch = useDispatch();
 
   const removeItem = (product) => {
-    console.log('Removing product:', product);
-    dispatch(deleteCartProduct(product));
+    dispatch(deleteCartProduct(product.key));
   };
+
+  const [amount, setAmount] = useState('');
+
+  const handleClick = (id, type) => {
+    dispatch(updateAmountproduct({ id, type }));
+  };
+
 
   const columns = [
     {
@@ -49,31 +57,6 @@ const Cart = () => {
     },
   ];
 
-  // const [product, setProduct] = useState([]);
-
-  const [amount, setNum] = useState(1);
-
-  let incNum = () => {
-    if (amount < product?.stock) {
-      setNum(prevAmount => prevAmount + 1);
-    }
-  };
-
-  let decNum = () => {
-    if (amount > 1) {
-      setNum(prevAmount => prevAmount - 1);
-    }
-  };
-
-  let handleChange = (e) => {
-    const inputValue = e.target.value;
-    const numericValue = Number(inputValue);
-
-    if (!isNaN(numericValue)) {
-      setNum(numericValue);
-    }
-  }
-
   const btnNumber = {
     background: "#fff",
     borderRadius: "60px",
@@ -96,8 +79,6 @@ const Cart = () => {
 
   }
 
-  const { addCartProduct } = useSelector((state) => ({ ...state }))
-
 
   const data = addCartProduct?.product?.map(p => {
     return {
@@ -106,11 +87,17 @@ const Cart = () => {
       name: p?.name,
       amount: <div class="input-group" style={{ display: "flex", flexWrap: "nowrap" }}>
         <div class="input-group-prepend">
-          <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={decNum}>-</button>
+          <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={() => handleClick(p?.id, 'down')}>-</button>
         </div>
-        <input type="text" class="form-control" name="amount" value={p?.amount} onChange={handleChange} style={textNumber} />
+        <input
+          type="text"
+          className="form-control"
+          name="amount"
+          value={p?.amount}
+          style={textNumber}
+        />
         <div class="input-group-prepend">
-          <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={incNum}>+</button>
+          <button class="btn btn-outline-primary" style={btnNumber} type="button" shape="circle" onClick={() => handleClick(p?.id, 'up')}>+</button>
         </div>
       </div>,
       price: <div>{p?.amount * p?.price}</div>,
