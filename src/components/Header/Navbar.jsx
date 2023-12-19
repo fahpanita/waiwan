@@ -80,7 +80,6 @@ const Navbar = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               enterButton
             />
-
           </Col>
           <Col xs={0} sm={0} md={1}>
             <LineLogin></LineLogin>
@@ -164,16 +163,17 @@ const Navbar = () => {
   );
 };
 
-const Menus = styled(Menu)`
+export const Menus = styled(Menu)`
   justify-content: right;
 `;
-const SearchStyle = styled(Search)`
+export const SearchStyle = styled(Search)`
   text-decoration: none;
 
-  &.css-dev-only-do-not-override-qgg3xn.ant-btn-primary  {
+  &.ant-input-search >.ant-input-group >.ant-input-group-addon:last-child .ant-input-search-button {
     color: white;
     background-color: #A08155;
   }
 `;
 
 export default Navbar;
+

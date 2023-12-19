@@ -16,6 +16,7 @@ import { useAuth } from "../../Providers/AuthProvider";
 
 const columns = [
   {
+
     dataIndex: "thumbnail",
   },
   {
@@ -51,10 +52,21 @@ const BuyProduct = (props) => {
   const data = getProduct?.product?.map(p => {
     return {
       key: "1",
-      thumbnail: <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
-      name: p?.name,
+      thumbnail:
+        <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
+      name: <div>{p?.name}</div>,
       amount: <div>{p?.amount}</div>,
       price: <div>{p?.amount * p?.price}</div>,
+      // <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
+      //     <Col xs={24} sm={16} md={16} lg={6}>
+      //       <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
+      //     </Col >
+      //     <Col xs={24} sm={16} md={16} lg={8}>
+      //       <div>{p?.name}</div>
+      //       <div>{p?.amount}</div>
+      //       <div>{p?.amount * p?.price}</div>
+      //     </Col>
+      //   </Row>
     }
   });
 
@@ -151,8 +163,9 @@ const BuyProduct = (props) => {
         <Navbar />
         <Form form={createformOrder} >
           <Content style={{ margin: '24px 24px 0', }}>
-            <Row>
-              <Col span={16}>
+            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
+              <Col className="gutter-row"
+                xs={24} sm={9} md={9} lg={15}>
                 <CardBoxRadius>
                   <Title level={5}>ที่อยู่การจัดส่ง</Title>
 

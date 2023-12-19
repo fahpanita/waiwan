@@ -43,7 +43,7 @@ const CardProduct = (prop) => {
 
             <Row>
               <Col span={22}>
-                <Card.Text style={{ fontSize: "20px", fontWeight: "600", color: "#C54142" }}>฿{data?.price}</Card.Text>
+                <Card.Text style={{ fontSize: "20px", fontWeight: "600", }}>฿{data?.price}</Card.Text>
               </Col>
               <Col span={2} style={{ justifyContent: "right", display: "flex" }}>
                 <Button shape="circle" size="large"
