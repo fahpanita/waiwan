@@ -109,6 +109,7 @@ const DetailProduct = (props) => {
               justify="space-evenly"
               gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
               style={{ marginTop: " 30px", }}
+
             >
               <Col xs={24} sm={12} md={12} lg={10}>
                 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" align="left">
@@ -125,8 +126,8 @@ const DetailProduct = (props) => {
                 </div>
               </Col>
 
-              <Col xs={24} sm={12} md={12} lg={14}>
-                <Card style={{ border: "none", padding: "20px" }}>
+              <Col xs={24} sm={12} md={12} lg={14} >
+                <Card style={{ border: "none", padding: "20px", position: "sticky", top: "16px", boxShadow: "0 0 2px rgba(0,0,0,.15)" }}>
                   <span style={{ fontSize: "24px", fontWeight: "600" }}>{product?.name}</span>
                   <div style={{ marginTop: "14px" }}>
                     <span style={{ fontSize: "18px", marginRight: "10px" }}>ประเภทสินค้า:</span>

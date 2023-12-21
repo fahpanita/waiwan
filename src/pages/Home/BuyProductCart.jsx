@@ -13,21 +13,19 @@ import { getAddress } from "../../services/map";
 
 const columns = [
   {
+    title: "สินค้า",
     dataIndex: "thumbnail",
   },
+  // {
+
+  //   dataIndex: "name",
+  //   render: (text) => <a>{text}</a>,
+  // },
   {
-    title: "สินค้า",
-    dataIndex: "name",
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "จำนวน",
+    title: <div style={{ display: "flex", justifyContent: "center" }}>จำนวน</div>,
     dataIndex: "amount",
   },
-  {
-    title: "ราคา",
-    dataIndex: "price",
-  },
+
 ];
 
 const { Title } = Typography;
@@ -43,10 +41,19 @@ const BuyProductCart = (props) => {
   const data = addCartProduct?.product?.map(p => {
     return {
       key: "1",
-      thumbnail: <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
-      name: p?.name,
-      amount: <div>{p?.amount}</div>,
-      price: <div>{p?.amount * p?.price}</div>,
+      thumbnail:
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
+          <Col xs={24} sm={4} md={4} lg={4}>
+            <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
+          </Col>
+          <Col xs={24} sm={5} md={5} lg={5}>
+            <div style={{ fontSize: "18px", }}>{p?.name}</div>
+            <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
+          </Col>
+        </Row>,
+      amount:
+        <div style={{ display: "flex", justifyContent: "center" }}>{p?.amount}</div>
+      ,
     }
   });
 
@@ -136,129 +143,130 @@ const BuyProductCart = (props) => {
     <>
       <Layout style={{ background: "#F5F5F5" }}>
         <Navbar />
-        <Content style={{ margin: '24px 24px 0', }}>
-          <Row>
-            <Col span={16}>
-              <CardBoxRadius>
-                <Title level={5}>ที่อยู่การจัดส่ง</Title>
-
-                <Dividers />
-
-
-                <Button type="primary" onClick={showModal}>
-                  เลือกที่อยู่จัดส่ง
-                </Button>
-                <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
-                  <LongdoMapStyle>
-                    <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />
-                  </LongdoMapStyle>
-                  <Title level={5}>ข้อมูลการจัดส่ง</Title>
-                  <Form.Item name="name" label="ชื่อ" rules={[{ required: true, message: "กรุณากรอกชื่อ" }]} >
-                    <Input placeholder="ชื่อ นามสกุล" />
-                  </Form.Item>
-                  <Form.Item name="street" label="บ้านเลขที่ หมู่บ้าน"  >
-                    <Input placeholder="บ้านเลขที่ หมู่บ้าน ถนน ซอย อื่น ๆ" />
-                  </Form.Item>
-                  <Form.Item name="subdistrict" label="ตำบล" >
-                    <Input disabled />
-                  </Form.Item>
-                  <Form.Item name="district" label="อำเภอ" >
-                    <Input disabled />
-                  </Form.Item>
-                  <Form.Item name="province" label="จังหวัด" >
-                    <Input disabled />
-                  </Form.Item>
-                  <Form.Item name="zip_code" label="รหัสไปรษณีย์" >
-                    <Input disabled />
-                  </Form.Item>
-                  <div>เลื่อนตำแหน่งบนแผนที่ เพื่อแก้ไข แขวง เขต จังหวัด และรหัสไปรษณีย์</div>
-                  <Title level={5}>ข้อมูลดิดต่อ</Title>
-                  <Form.Item name="name" label="ชื่อ" rules={[{ required: true, message: "กรุณากรอกชื่อ" }]} >
-                    <Input placeholder="ชื่อ นามสกุล" />
-                  </Form.Item>
-                  <Form.Item name="phone" label="เบอร์โทร" rules={[{ required: true, message: "กรุณากรอกเบอร์โทร" }]} >
-                    <Input placeholder="เบอร์โทร" />
-                  </Form.Item>
-                </Modal>
-              </CardBoxRadius>
-              <CardBoxRadius>
-                <Title level={5} style={{ textAlign: "left" }}>
-                  <Tables
-                    columns={columns}
-                    dataSource={data}
-                    pagination={false}
-                  />
-                </Title>
-              </CardBoxRadius>
+        <Content style={{ margin: '16px 16px 0', }}>
+          <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+            <Col xs={24} sm={16} md={16} lg={16}>
+              <Row>
+                <Col xs={24} sm={24} md={24} lg={24} >
+                  <CardBoxRadius>
+                    <Title level={5}>ที่อยู่การจัดส่ง</Title>
+                    <Dividers />
+                    <Button type="primary" onClick={showModal}>
+                      เลือกที่อยู่จัดส่ง
+                    </Button>
+                    <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
+                      <LongdoMapStyle>
+                        <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />
+                      </LongdoMapStyle>
+                      <Title level={5}>ข้อมูลการจัดส่ง</Title>
+                      <Form.Item name="name" label="ชื่อ" rules={[{ required: true, message: "กรุณากรอกชื่อ" }]} >
+                        <Input placeholder="ชื่อ นามสกุล" />
+                      </Form.Item>
+                      <Form.Item name="street" label="บ้านเลขที่ หมู่บ้าน"  >
+                        <Input placeholder="บ้านเลขที่ หมู่บ้าน ถนน ซอย อื่น ๆ" />
+                      </Form.Item>
+                      <Form.Item name="subdistrict" label="ตำบล" >
+                        <Input disabled />
+                      </Form.Item>
+                      <Form.Item name="district" label="อำเภอ" >
+                        <Input disabled />
+                      </Form.Item>
+                      <Form.Item name="province" label="จังหวัด" >
+                        <Input disabled />
+                      </Form.Item>
+                      <Form.Item name="zip_code" label="รหัสไปรษณีย์" >
+                        <Input disabled />
+                      </Form.Item>
+                      <div>เลื่อนตำแหน่งบนแผนที่ เพื่อแก้ไข แขวง เขต จังหวัด และรหัสไปรษณีย์</div>
+                      <Title level={5}>ข้อมูลดิดต่อ</Title>
+                      <Form.Item name="name" label="ชื่อ" rules={[{ required: true, message: "กรุณากรอกชื่อ" }]} >
+                        <Input placeholder="ชื่อ นามสกุล" />
+                      </Form.Item>
+                      <Form.Item name="phone" label="เบอร์โทร" rules={[{ required: true, message: "กรุณากรอกเบอร์โทร" }]} >
+                        <Input placeholder="เบอร์โทร" />
+                      </Form.Item>
+                    </Modal>
+                  </CardBoxRadius>
+                </Col>
+                <Col xs={24} sm={24} md={24} lg={24} >
+                  <CardBoxRadius>
+                    <Title level={5} style={{ textAlign: "left" }}>
+                      <Tables
+                        columns={columns}
+                        dataSource={data}
+                        pagination={false}
+                      />
+                    </Title>
+                  </CardBoxRadius>
+                </Col>
+              </Row>
             </Col>
-            <Col span={8}>
-              <CardBoxRadius>
-                <Title level={5}>ตัวเลือกการจัดส่ง</Title>
 
-                <Radio.Group onChange={onChange} value={value}>
-                  <Radio value="จัดส่งตามที่อยู่" onClick={() => setVisible(false)}>จัดส่งตามที่อยู่</Radio><br />
-                  <Radio value="รับหน้าร้าน" onClick={() => setVisible(true)}>รับหน้าร้าน</Radio>
-                </Radio.Group>
-                {visible && <div>My element</div>}
-
-              </CardBoxRadius>
-              <CardBoxRadius>
-                <Title level={5}>สรุปรายการสั่งซื้อ</Title>
-                <Dividers />
-                <Row style={{ display: "flex", alignItems: "center" }}>
-                  <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
-                  </Col>
-                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
-                  </Col>
-                </Row>
-                <Row style={{ display: "flex", alignItems: "center" }}>
-                  <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
-                  </Col>
-                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {shipping}</div>
-                  </Col>
-                </Row>
-                <Dividers />
-                <Row style={{ display: "flex", alignItems: "center" }}>
-                  <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมทั้งสิ้น</div>
-                  </Col>
-                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "24px", fontWeight: "400", color: "#C54142" }}>฿ {formattedTotal}</div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span={24}>
-                    <Link to={"/paymentcart"} >
-                      <Button
-                        type="primary"
-                        shape="round"
-                        size="large"
-
-                        style={{
-                          background: "#c54142",
-                          width: "100%",
-                          marginTop: "20px",
-                        }}
-                        onClick={handelOrder}
-                      >
-                        สั่งซื้อสินค้า
-                      </Button>
-                    </Link>
-                  </Col>
-                </Row>
-
-              </CardBoxRadius>
+            <Col xs={24} sm={8} md={8} lg={8}>
+              <Row >
+                <Col xs={24} sm={24} md={24} lg={24} >
+                  <CardBoxRadius>
+                    <Title level={5}>ตัวเลือกการจัดส่ง</Title>
+                    <Radio.Group onChange={onChange} value={value}>
+                      <Radio value="จัดส่งตามที่อยู่" onClick={() => setVisible(false)} style={{ fontSize: "18px", }}>จัดส่งตามที่อยู่</Radio><br />
+                      <Radio value="รับหน้าร้าน" onClick={() => setVisible(true)} style={{ fontSize: "18px", }}>รับหน้าร้าน</Radio>
+                    </Radio.Group>
+                    {visible && <div>My element</div>}
+                  </CardBoxRadius>
+                </Col>
+                <Col xs={24} sm={24} md={24} lg={24}
+                // style={{ position: "sticky", bottom: "0" }}
+                >
+                  <CardBoxRadius >
+                    <Title level={5}>สรุปรายการสั่งซื้อ</Title>
+                    <Dividers />
+                    <Row style={{ display: "flex", alignItems: "center" }}>
+                      <Col span={12}>
+                        <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
+                      </Col>
+                      <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+                      </Col>
+                    </Row>
+                    <Row style={{ display: "flex", alignItems: "center" }}>
+                      <Col span={12}>
+                        <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
+                      </Col>
+                      <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {shipping}</div>
+                      </Col>
+                    </Row>
+                    <Dividers />
+                    <Row style={{ display: "flex", alignItems: "center" }}>
+                      <Col span={12}>
+                        <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมทั้งสิ้น</div>
+                      </Col>
+                      <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <div style={{ fontSize: "24px", fontWeight: "400", color: "#C54142" }}>฿ {formattedTotal}</div>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col span={24}>
+                        <Link to={"/paymentcart"} >
+                          <Button type="primary" shape="round" size="large"
+                            style={{ background: "#c54142", width: "100%", marginTop: "20px", }}
+                            onClick={handelOrder}
+                          >
+                            สั่งซื้อสินค้า
+                          </Button>
+                        </Link>
+                      </Col>
+                    </Row>
+                  </CardBoxRadius>
+                </Col>
+              </Row>
             </Col>
           </Row>
 
         </Content>
 
         <FooterPage />
-      </Layout>
+      </Layout >
     </>
   );
 };
@@ -341,7 +349,8 @@ border-color: #923131;
 export const CardBoxRadius = styled.div`
 border-radius: 13px;
 background: #FFF;
-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
+/* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09); */
+box-shadow: 0 0 2px rgba(0,0,0,.15);
 margin: 10px;
 padding: 16px;
 `;

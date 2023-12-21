@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from "../../components/Header/Navbar";
-import { Layout, Row, Col, Typography, Button, Table, Upload, Divider } from "antd";
+import { Layout, Row, Col, Typography, Button, Table, Upload, Divider, QRCode } from "antd";
 import { UploadOutlined, CameraOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import FooterPage from '../../components/Footer/FooterPage';
@@ -8,27 +8,28 @@ import { BASE_URL } from "../../constands/api";
 import { useSelector } from 'react-redux';
 import Link from '../../components/Link';
 import { uploadImages } from '../../services/upload';
+import { payment } from '../../services/payment';
 
 const { Title } = Typography;
 const { Content } = Layout;
 
 const columns = [
   {
+    title: "สินค้า",
     dataIndex: "thumbnail",
   },
-  {
-    title: "สินค้า",
-    dataIndex: "name",
-    render: (text) => <a>{text}</a>,
-  },
+  // {
+  //   dataIndex: "name",
+  //   render: (text) => <a>{text}</a>,
+  // },
   {
     title: "จำนวน",
     dataIndex: "amount",
   },
-  {
-    title: "ราคา",
-    dataIndex: "price",
-  },
+  // {
+  //   title: "ราคา",
+  //   dataIndex: "price",
+  // },
 ];
 
 const beforeUpload = async (file) => {
@@ -53,10 +54,19 @@ const PaymentCart = () => {
   const data = addCartProduct?.product?.map(p => {
     return {
       key: "1",
-      thumbnail: <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
-      name: p?.name,
-      amount: <div>{p?.amount}</div>,
-      price: <div>{p?.amount * p?.price}</div>,
+      thumbnail:
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
+          <Col xs={24} sm={4} md={4} lg={4}>
+            <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
+          </Col>
+          <Col xs={24} sm={5} md={5} lg={5}>
+            <div style={{ fontSize: "18px", }}>{p?.name}</div>
+            <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
+          </Col>
+        </Row>
+      ,
+      amount: <div style={{ display: "flex", justifyContent: "center" }}>{p?.amount}</div>,
+
     }
   });
 
@@ -85,14 +95,39 @@ const PaymentCart = () => {
 
   }
 
+  const [payload, setPayload] = useState('');
+  const [amount, setAmount] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await payment({ totalWithShipping });
+        console.log('Full server response:', res);
+
+        const receivedPayload = res?.data?.payload || null;
+        const receivedAmount = res?.data?.amount || null;
+
+        console.log('Received payload from server:', receivedPayload);
+        console.log('Received amount from server:', receivedAmount);
+
+        setAmount(receivedAmount);
+        setPayload(receivedPayload);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, [totalWithShipping]);
+
+  console.log('Current amount state:', amount);
+
   return (
     <>
       <Layout style={{ background: "#F5F5F5" }}>
         <Navbar />
         <Content style={{ margin: '24px 24px 0', }}>
-          <Row>
-            <Col span={16}>
-
+          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center">
+            <Col xs={24} sm={16} md={16} lg={16}>
               <CardBoxRadius>
                 <Title level={5} style={{ textAlign: "left" }}>
                   <Tables
@@ -103,7 +138,7 @@ const PaymentCart = () => {
                 </Title>
               </CardBoxRadius>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={8} md={8} lg={8}>
               <CardBoxRadius>
                 <Title level={5}>สรุปรายการสั่งซื้อ</Title>
                 <Dividers />
@@ -133,6 +168,8 @@ const PaymentCart = () => {
                   </Col>
                 </Row>
                 <Dividers />
+                <QRCode value={payload || ''} />
+                {/* <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406420.006304976A" || '-'} /> */}
 
               </CardBoxRadius>
 
@@ -145,9 +182,10 @@ const PaymentCart = () => {
                   beforeUpload={beforeUpload}
                   customRequest={uploadImageFromAnd}
                 >
-                  <ButtonUpload icon={<UploadOutlined />}>แนบหลักฐานการชำระเงิน</ButtonUpload>
+                  <ButtonUpload icon={<UploadOutlined />} style={{ fontSize: "18px", }}>แนบหลักฐานการชำระเงิน</ButtonUpload>
                 </Upload>
               </CardBoxRadius>
+
               <Row style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
                 <Col >
                   <Link to={"/payment"} >
@@ -213,7 +251,8 @@ const ButtonRed = styled(Button)`
 export const CardBoxRadius = styled.div`
 border-radius: 13px;
 background: #FFF;
-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
+/* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09); */
+box-shadow: 0 0 2px rgba(0,0,0,.15);
 margin: 10px;
 padding: 16px;
 `;

@@ -192,7 +192,7 @@ const ListProduct = () => {
 
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center">
             <Col xs={0} sm={9} md={9} lg={6} style={{ marginTop: '10px' }}>
-              <Card title="ค้นหาแบบละเอียด" bordered={false}>
+              <Card title="ค้นหาแบบละเอียด" bordered={false} style={{ position: "sticky", top: "16px", }}>
                 <Title level={5}>หมวดหมู่สินค้า</Title>
                 <Filter filterData={catagories} />
                 <Divider />

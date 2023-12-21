@@ -15,21 +15,21 @@ const { Content } = Layout;
 
 const columns = [
   {
+    title: "สินค้า",
     dataIndex: "thumbnail",
   },
-  {
-    title: "สินค้า",
-    dataIndex: "name",
-    render: (text) => <a>{text}</a>,
-  },
+  // {
+  //   dataIndex: "name",
+  //   render: (text) => <a>{text}</a>,
+  // },
   {
     title: "จำนวน",
     dataIndex: "amount",
   },
-  {
-    title: "ราคา",
-    dataIndex: "price",
-  },
+  // {
+  //   title: "ราคา",
+  //   dataIndex: "price",
+  // },
 ];
 
 const beforeUpload = async (file) => {
@@ -54,10 +54,18 @@ const Payment = () => {
   const data = getProduct?.product?.map(p => {
     return {
       key: "1",
-      thumbnail: <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
-      name: p?.name,
-      amount: <div>{p?.amount}</div>,
-      price: <div>{p?.amount * p?.price}</div>,
+      thumbnail:
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
+          <Col xs={24} sm={4} md={4} lg={4}>
+            <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
+          </Col>
+          <Col xs={24} sm={5} md={5} lg={5}>
+            <div style={{ fontSize: "18px", }}>{p?.name}</div>
+            <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
+          </Col>
+        </Row>
+      ,
+      amount: <div style={{ display: "flex", justifyContent: "center" }}>{p?.amount}</div>,
     }
   });
 
@@ -86,16 +94,13 @@ const Payment = () => {
 
   }
 
-
-
   return (
     <>
       <Layout style={{ background: "#F5F5F5" }}>
         <Navbar />
         <Content style={{ margin: '24px 24px 0', }}>
-          <Row>
-            <Col span={16}>
-
+          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center" >
+            <Col xs={24} sm={16} md={16} lg={16}>
               <CardBoxRadius>
                 <Title level={5} style={{ textAlign: "left" }}>
                   <Tables
@@ -106,7 +111,7 @@ const Payment = () => {
                 </Title>
               </CardBoxRadius>
             </Col>
-            <Col span={8}>
+            <Col xs={24} sm={8} md={8} lg={8}>
               <CardBoxRadius>
                 <Title level={5}>สรุปรายการสั่งซื้อ</Title>
                 <Dividers />
@@ -149,7 +154,7 @@ const Payment = () => {
                   beforeUpload={beforeUpload}
                   customRequest={uploadImageFromAnd}
                 >
-                  <ButtonUpload icon={<UploadOutlined />}>แนบหลักฐานการชำระเงิน</ButtonUpload>
+                  <ButtonUpload icon={<UploadOutlined />} style={{ fontSize: "18px", }}>แนบหลักฐานการชำระเงิน</ButtonUpload>
                 </Upload>
               </CardBoxRadius>
               <Row style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>

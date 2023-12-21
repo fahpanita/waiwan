@@ -56,6 +56,7 @@ const Cart = () => {
     background: "#fff",
     border: "1px solid rgb(232, 232, 232)",
     color: "#000",
+    position: "static",
   }
   const btnNumberR = {
     width: "40px",
@@ -64,6 +65,7 @@ const Cart = () => {
     background: "#fff",
     border: "1px solid rgb(232, 232, 232)",
     color: "#000",
+    position: "static",
   }
   const textNumber = {
     height: "40px",
@@ -87,7 +89,7 @@ const Cart = () => {
             <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
           </Col>
           <Col xs={24} sm={16} md={16} lg={6}>
-            <div class="input-group" style={{ display: "flex", flexWrap: "nowrap" }}>
+            <div class="input-group" style={{ display: "flex", flexWrap: "nowrap " }}>
               <div class="input-group-prepend">
                 <button class="btn btn-outline-primary" style={btnNumberL} type="button" shape="circle" onClick={() => handleClick(p?.id, 'down')}><MinusOutlined /></button>
               </div>
@@ -144,8 +146,8 @@ const Cart = () => {
                 </Title>
               </CardBoxRadius>
             </Col>
-            <Col xs={24} sm={8} md={8} lg={8} style={{ position: 'sticky', bottom: 0 }}>
 
+            <Col xs={24} sm={8} md={8} lg={8} style={{ position: "sticky", bottom: "16px" }}>
               <CardBoxRadius >
                 <Title level={5}>สรุปรายการสั่งซื้อ</Title>
                 <Dividers />
@@ -217,6 +219,7 @@ export const CardBoxRadius = styled.div`
 border-radius: 13px;
 background: #FFF;
 /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09); */
+box-shadow: 0 0 2px rgba(0,0,0,.15);
 margin: 10px;
 padding: 16px;
 `;
