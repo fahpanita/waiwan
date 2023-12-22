@@ -13,24 +13,20 @@ import { Input } from "antd/es";
 import { getAddress } from "../../services/map";
 import { useAuth } from "../../Providers/AuthProvider";
 // import { notifyLine } from "../../services/notifyline";
+import { PushpinOutlined, } from "@ant-design/icons";
 
 const columns = [
   {
-
+    title: "สินค้า",
     dataIndex: "thumbnail",
   },
+  // {
+  //   dataIndex: "name",
+  //   render: (text) => <a>{text}</a>,
+  // },
   {
-    title: "สินค้า",
-    dataIndex: "name",
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "จำนวน",
+    title: <div style={{ display: "flex", justifyContent: "center" }}>จำนวน</div>,
     dataIndex: "amount",
-  },
-  {
-    title: "ราคา",
-    dataIndex: "price",
   },
 ];
 
@@ -53,10 +49,17 @@ const BuyProduct = (props) => {
     return {
       key: "1",
       thumbnail:
-        <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />,
-      name: <div>{p?.name}</div>,
-      amount: <div>{p?.amount}</div>,
-      price: <div>{p?.amount * p?.price}</div>,
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
+          <Col xs={24} sm={4} md={4} lg={4}>
+            <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
+          </Col>
+          <Col xs={24} sm={5} md={5} lg={5}>
+            <div style={{ fontSize: "18px", fontWeight: "400" }}>{p?.name}</div>
+            <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
+          </Col>
+        </Row>,
+      amount:
+        <div style={{ display: "flex", justifyContent: "center" }}>{p?.amount}</div>,
       // <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
       //     <Col xs={24} sm={16} md={16} lg={6}>
       //       <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
@@ -171,7 +174,7 @@ const BuyProduct = (props) => {
                     <CardBoxRadius>
                       <Title level={5}>ที่อยู่การจัดส่ง</Title>
                       <Dividers />
-                      <Button type="primary" onClick={showModal}>
+                      <Button type="primary" onClick={showModal} icon={<PushpinOutlined />} style={{ background: "#bf9f64" }}>
                         เลือกที่อยู่จัดส่ง
                       </Button>
                       <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
@@ -244,7 +247,7 @@ const BuyProduct = (props) => {
                           <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
                         </Col>
                         <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+                          <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{formattedTotalPrice}</div>
                         </Col>
                       </Row>
                       <Row style={{ display: "flex", alignItems: "center" }}>
@@ -252,7 +255,7 @@ const BuyProduct = (props) => {
                           <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
                         </Col>
                         <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {shipping}</div>
+                          <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{shipping}</div>
                         </Col>
                       </Row>
                       <Dividers />
@@ -261,7 +264,7 @@ const BuyProduct = (props) => {
                           <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมทั้งสิ้น</div>
                         </Col>
                         <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <div style={{ fontSize: "24px", fontWeight: "400", color: "#C54142" }}>฿ {formattedTotal}</div>
+                          <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿{formattedTotal}</div>
                         </Col>
                       </Row>
                       <Row>
@@ -274,7 +277,7 @@ const BuyProduct = (props) => {
                               htmlType="submit"
 
                               style={{
-                                background: "#c54142",
+                                background: "#bf9f64",
                                 width: "100%",
                                 marginTop: "20px",
                               }}
@@ -389,7 +392,8 @@ border-color: #923131;
 export const CardBoxRadius = styled.div`
 border-radius: 13px;
 background: #FFF;
-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
+/* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09); */
+box-shadow: 0 0 2px rgba(0,0,0,.15);
 margin: 10px;
 padding: 16px;
 `;

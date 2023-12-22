@@ -274,7 +274,7 @@ const Home = () => {
           ))}
         </Row>
 
-        <Pagination
+        <PaginationBtn
           current={currentPage}
           pageSize={itemsPerPage}
           total={products.length}
@@ -284,7 +284,6 @@ const Home = () => {
         />
 
         <Divider dashed style={{ marginTop: "40px" }} />
-
         <Row style={{ marginTop: "40px", marginBottom: "10px" }}>
           <Col span={10}>
             <Title level={3}>บทความเทศกาล</Title>
@@ -319,7 +318,7 @@ const Home = () => {
           ))}
         </Row>
 
-        <Pagination
+        <PaginationBtn
           current={currentPageEvents}
           pageSize={itemsPerPageEvents}
           total={cardevents.length}
@@ -348,6 +347,19 @@ export const Cards = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+`;
+
+export const PaginationBtn = styled(Pagination)`
+
+
+  &.ant-pagination .ant-pagination-item-active {
+   
+    border-color: #a08155;
+  }
+  &.ant-pagination .ant-pagination-item-active>a {
+    color: #a08155;
+    
+  }
 `;
 
 export default Home;

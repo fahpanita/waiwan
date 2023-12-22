@@ -73,7 +73,10 @@ const AllCardEvent = () => {
             }}
           >
             {cardevents?.map(c => (
-              <Col className="gutter-row" span={6} style={{ marginBottom: "20px" }}>
+              <Col xs={24}
+                sm={12}
+                md={12}
+                lg={6} style={{ marginBottom: "20px" }}>
                 <div>
                   <CardEvent datacard={c} />
                 </div>

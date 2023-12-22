@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 import { createOrder } from "../../services/buyproduct";
 import { LongdoMap, longdo, map } from "../../components/LongdoMap";
 import { getAddress } from "../../services/map";
+import { PushpinOutlined, } from "@ant-design/icons";
+
 
 const columns = [
   {
@@ -17,7 +19,6 @@ const columns = [
     dataIndex: "thumbnail",
   },
   // {
-
   //   dataIndex: "name",
   //   render: (text) => <a>{text}</a>,
   // },
@@ -25,7 +26,6 @@ const columns = [
     title: <div style={{ display: "flex", justifyContent: "center" }}>จำนวน</div>,
     dataIndex: "amount",
   },
-
 ];
 
 const { Title } = Typography;
@@ -47,7 +47,7 @@ const BuyProductCart = (props) => {
             <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
           </Col>
           <Col xs={24} sm={5} md={5} lg={5}>
-            <div style={{ fontSize: "18px", }}>{p?.name}</div>
+            <div style={{ fontSize: "18px", fontWeight: "400" }}>{p?.name}</div>
             <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
           </Col>
         </Row>,
@@ -151,7 +151,7 @@ const BuyProductCart = (props) => {
                   <CardBoxRadius>
                     <Title level={5}>ที่อยู่การจัดส่ง</Title>
                     <Dividers />
-                    <Button type="primary" onClick={showModal}>
+                    <Button type="primary" onClick={showModal} icon={<PushpinOutlined />} style={{ background: "#bf9f64" }}>
                       เลือกที่อยู่จัดส่ง
                     </Button>
                     <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
@@ -225,7 +225,7 @@ const BuyProductCart = (props) => {
                         <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
                       </Col>
                       <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                        <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+                        <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{formattedTotalPrice}</div>
                       </Col>
                     </Row>
                     <Row style={{ display: "flex", alignItems: "center" }}>
@@ -233,7 +233,7 @@ const BuyProductCart = (props) => {
                         <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
                       </Col>
                       <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                        <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {shipping}</div>
+                        <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{shipping}</div>
                       </Col>
                     </Row>
                     <Dividers />
@@ -242,14 +242,14 @@ const BuyProductCart = (props) => {
                         <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมทั้งสิ้น</div>
                       </Col>
                       <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                        <div style={{ fontSize: "24px", fontWeight: "400", color: "#C54142" }}>฿ {formattedTotal}</div>
+                        <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿{formattedTotal}</div>
                       </Col>
                     </Row>
                     <Row>
                       <Col span={24}>
                         <Link to={"/paymentcart"} >
                           <Button type="primary" shape="round" size="large"
-                            style={{ background: "#c54142", width: "100%", marginTop: "20px", }}
+                            style={{ background: "#bf9f64", width: "100%", marginTop: "20px", }}
                             onClick={handelOrder}
                           >
                             สั่งซื้อสินค้า

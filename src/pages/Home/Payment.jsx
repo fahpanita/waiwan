@@ -120,7 +120,7 @@ const Payment = () => {
                     <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{formattedTotalPrice}</div>
                   </Col>
                 </Row>
                 <Row style={{ display: "flex", alignItems: "center" }}>
@@ -128,7 +128,7 @@ const Payment = () => {
                     <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {shipping}</div>
+                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{shipping}</div>
                   </Col>
                 </Row>
                 <Dividers />
@@ -137,7 +137,7 @@ const Payment = () => {
                     <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมชำระเงินทั้งหมด</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "24px", fontWeight: "400", color: "#C54142" }}>฿ {formattedTotal}</div>
+                    <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿{formattedTotal}</div>
                   </Col>
                 </Row>
                 <Dividers />
@@ -154,7 +154,7 @@ const Payment = () => {
                   beforeUpload={beforeUpload}
                   customRequest={uploadImageFromAnd}
                 >
-                  <ButtonUpload icon={<UploadOutlined />} style={{ fontSize: "18px", }}>แนบหลักฐานการชำระเงิน</ButtonUpload>
+                  <ButtonUpload icon={<UploadOutlined />} size="large" style={{ fontSize: "18px", }}>แนบหลักฐานการชำระเงิน</ButtonUpload>
                 </Upload>
               </CardBoxRadius>
               <Row style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
@@ -166,7 +166,7 @@ const Payment = () => {
                       size="large"
 
                       style={{
-                        background: "#c54142",
+                        background: "#bf9f64",
                         width: "100%",
                         marginTop: "20px",
                       }}
@@ -222,7 +222,8 @@ const ButtonRed = styled(Button)`
 export const CardBoxRadius = styled.div`
 border-radius: 13px;
 background: #FFF;
-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
+/* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09); */
+box-shadow: 0 0 2px rgba(0,0,0,.15);
 margin: 10px;
 padding: 16px;
 `;
@@ -236,11 +237,11 @@ export const Dividers = styled(Divider)`
 export const ButtonUpload = styled(Button)`
   &.ant-btn-default{
     border-radius: 6px;
-    border: 1px dashed #C54142;
+    border: 1px dashed #a08155;
     background: #FFF;
     width: 100%;
     padding: 2px 30px;
-    color: #C54142;
+    color: #a08155;
   }
 
   &.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {

@@ -73,7 +73,7 @@ const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            <Search
+            <SearchInput
               placeholder="ค้นหาสินค้าในไหว้วาน"
               onSearch={onSearch}
               value={searchQuery}
@@ -91,7 +91,7 @@ const Navbar = () => {
           </Col>
 
           <Col xs={2} sm={2} md={0}>
-            <Button type="primary" onClick={showDrawer}>
+            <Button type="primary" onClick={showDrawer} style={{ background: "#bf9f64" }}>
               <MenuOutlined />
             </Button>
           </Col>
@@ -99,7 +99,7 @@ const Navbar = () => {
 
         <Row justify="space-between" align="middle">
           <Col xs={0} sm={20} md={8}>
-            <Menu theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
+            <Menus theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
               <Menu.Item key="1">
                 <Link
                   to="/"
@@ -121,7 +121,7 @@ const Navbar = () => {
                   ทดลองจัดวางของไหว้เจ้า
                 </Link>
               </Menu.Item>
-            </Menu>
+            </Menus>
           </Col>
         </Row>
 
@@ -165,15 +165,26 @@ const Navbar = () => {
 
 export const Menus = styled(Menu)`
   justify-content: right;
+  &.ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected {
+    color: #a08155;
+    /* background: #bf9f64; */
+    text-decoration: none;
+  }
+
+  &.ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected::after {
+    border-bottom-color: #bf9f64;
+  }
 `;
-export const SearchStyle = styled(Search)`
+
+export const SearchInput = styled(Search)`
   text-decoration: none;
 
   &.ant-input-search >.ant-input-group >.ant-input-group-addon:last-child .ant-input-search-button {
     color: white;
-    background-color: #A08155;
+    background: #bf9f64;
   }
 `;
+
 
 export default Navbar;
 

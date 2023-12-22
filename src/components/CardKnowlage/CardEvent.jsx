@@ -21,7 +21,7 @@ const CardEvent = (prop) => {
   return (
     <>
       <Link to={`/detailCardEvent?id=${datacard?.id}`} style={{ textDecoration: "none", boxShadow: "0 0 2px rgba(0,0,0,.15)" }}>
-        <Image preview={false} src={`${BASE_URL}/${datacard?.thumbnail}`} style={{ width: "100%", borderRadius: "6px", }} />
+        <Image preview={false} src={`${BASE_URL}/${datacard?.thumbnail}`} style={{ width: "100%", borderRadius: "10px", }} />
         <Text style={centered}>{datacard?.name}</Text>
       </Link>
     </>

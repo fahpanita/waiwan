@@ -60,7 +60,7 @@ const PaymentCart = () => {
             <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
           </Col>
           <Col xs={24} sm={5} md={5} lg={5}>
-            <div style={{ fontSize: "18px", }}>{p?.name}</div>
+            <div style={{ fontSize: "18px", fontWeight: "400" }}>{p?.name}</div>
             <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
           </Col>
         </Row>
@@ -147,7 +147,7 @@ const PaymentCart = () => {
                     <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{formattedTotalPrice}</div>
                   </Col>
                 </Row>
                 <Row style={{ display: "flex", alignItems: "center" }}>
@@ -155,7 +155,7 @@ const PaymentCart = () => {
                     <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {shipping}</div>
+                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{shipping}</div>
                   </Col>
                 </Row>
                 <Dividers />
@@ -164,7 +164,7 @@ const PaymentCart = () => {
                     <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมชำระเงินทั้งหมด</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "24px", fontWeight: "400", color: "#C54142" }}>฿ {formattedTotal}</div>
+                    <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿{formattedTotal}</div>
                   </Col>
                 </Row>
                 <Dividers />
@@ -182,7 +182,7 @@ const PaymentCart = () => {
                   beforeUpload={beforeUpload}
                   customRequest={uploadImageFromAnd}
                 >
-                  <ButtonUpload icon={<UploadOutlined />} style={{ fontSize: "18px", }}>แนบหลักฐานการชำระเงิน</ButtonUpload>
+                  <ButtonUpload icon={<UploadOutlined />} size="large" style={{ fontSize: "18px", }}>แนบหลักฐานการชำระเงิน</ButtonUpload>
                 </Upload>
               </CardBoxRadius>
 
@@ -195,7 +195,7 @@ const PaymentCart = () => {
                       size="large"
 
                       style={{
-                        background: "#c54142",
+                        background: "#bf9f64",
                         width: "100%",
                         marginTop: "20px",
                       }}
@@ -266,16 +266,16 @@ export const Dividers = styled(Divider)`
 export const ButtonUpload = styled(Button)`
   &.ant-btn-default{
     border-radius: 6px;
-    border: 1px dashed #C54142;
+    border: 1px dashed #a08155;
     background: #FFF;
     width: 100%;
     padding: 2px 30px;
-    color: #C54142;
+    color: #a08155;
   }
 
   &.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-    color: #C54142;
-    border: 1px dashed #C54142;
+    color: #a08155;
+    border: 1px dashed #a08155;
   }
 
   &.ant-upload-wrapper .ant-upload-select {

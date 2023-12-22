@@ -10,6 +10,7 @@ import { getEvent } from "../../services/event";
 import { useLocation } from "react-router-dom";
 import { FilterOutlined } from "@ant-design/icons";
 
+
 const { Title } = Typography;
 const { Content } = Layout;
 
@@ -136,6 +137,7 @@ const ListProduct = () => {
   };
 
 
+
   return (
     <>
       <Layout
@@ -214,6 +216,10 @@ const ListProduct = () => {
                     </div>
                   </div>
                 </div>
+
+
+
+
               </Card>
             </Col>
             <Col lg={16}>

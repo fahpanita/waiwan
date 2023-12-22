@@ -67,7 +67,7 @@ const DetailProduct = (props) => {
     borderRadius: "6px 0 0 6px",
     background: "#fff",
     border: "1px solid rgb(232, 232, 232)",
-    color: "#000",
+    color: "#a08155",
   }
   const btnNumberR = {
     width: "50px",
@@ -75,7 +75,7 @@ const DetailProduct = (props) => {
     borderRadius: "0 6px 6px 0",
     background: "#fff",
     border: "1px solid rgb(232, 232, 232)",
-    color: "#000",
+    color: "#a08155",
   }
   const textNumber = {
     width: "80px",
@@ -83,10 +83,10 @@ const DetailProduct = (props) => {
     minWidth: "auto",
     textAlign: "center",
     border: "1px solid rgb(232, 232, 232)",
-    color: "#c54142",
+    color: "#000",
     // border: "none",
     fontSize: "18px",
-    fontWeight: "500",
+    // fontWeight: "500",
   }
 
   useEffect(() => {
@@ -131,20 +131,21 @@ const DetailProduct = (props) => {
                   <span style={{ fontSize: "24px", fontWeight: "600" }}>{product?.name}</span>
                   <div style={{ marginTop: "14px" }}>
                     <span style={{ fontSize: "18px", marginRight: "10px" }}>ประเภทสินค้า:</span>
-                    {product?.typeProduct === 'สินค้าพรีออเดอร์' && (
-                      <Tag color="error" style={{ fontSize: "18px", padding: "8px", fontWeight: "500" }} > {product?.typeProduct}</Tag>
+                    {product?.typeProduct === 'พรีออเดอร์' && (
+                      <Tag color="error" style={{ fontSize: "18px", padding: "8px", fontWeight: "500" }}
+                      > {product?.typeProduct}</Tag>
                     )}
-                    {product?.typeProduct === 'สินค้าพร้อมส่ง' && (
+                    {product?.typeProduct === 'พร้อมส่ง' && (
                       <Tag color="green" style={{ fontSize: "18px", padding: "8px", fontWeight: "500" }} > {product?.typeProduct}</Tag>
                     )}
 
                   </div>
                   <div style={{ marginTop: "14px" }}>
-                    <span style={{ fontSize: "18px", marginRight: "10px" }}>ราคา</span>
-                    <span style={{ fontSize: "24px", fontWeight: "500", color: "#c54142", }}>฿{product?.price}</span>
+                    <span style={{ fontSize: "18px", marginRight: "10px" }}>ราคา:</span>
+                    <span style={{ fontSize: "24px", fontWeight: "500", }}>฿{product?.price}</span>
                   </div>
                   <Divider />
-                  <div style={{ fontSize: "20px", display: "flex", flexWrap: "nowrap" }}>
+                  <div style={{ fontSize: "20px", display: "flex", flexWrap: "nowrap", alignItems: "center" }}>
                     <span style={{ fontSize: "18px", marginRight: "15px", }}> จำนวน: </span>
                     {
                       <div >
@@ -163,10 +164,10 @@ const DetailProduct = (props) => {
                   </div>
                   <Divider />
                   <Space wrap >
-                    <Button danger shape="round" size="large"
+                    <Button size="large" shape="round"
                       icon={<ShoppingCartOutlined />}
                       style={{
-                        fontSize: "20px", padding: "0 30px 0 30px", border: "1px solid #A08155", color: "#A08155", width: "220px",
+                        fontSize: "18px", padding: "0 30px 0 30px", color: "#444", border: "1px solid #444", width: "200px", textDecoration: "none"
                       }} htmlType="submit" onClick={() => {
                         handleAddProduct()
                         navigate(`/cart`)
@@ -176,7 +177,7 @@ const DetailProduct = (props) => {
                     <div>
                       <Button type="primary" shape="round" size="large"
                         style={{
-                          fontSize: "20px", background: "#A08155", padding: "0 30px 0 30px", width: "220px"
+                          fontSize: "18px", background: "#bf9f64", padding: "0 30px 0 30px", width: "200px"
                         }}
                         htmlType="submit" onClick={() => {
                           handleBuyProduct()

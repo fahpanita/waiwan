@@ -23,17 +23,17 @@ const CardProduct = (prop) => {
       <Link to={`/detailProduct?id=${data?.id}`} style={{ textDecoration: "none" }}>
         <Card
           hoverable
-          style={{ border: "none" }}
+          style={{ border: "none", borderRadius: "10px" }}
         >
 
-          <Card.Img variant="top" src={`${BASE_URL}/${data?.thumbnail}`}></Card.Img>
-          {data?.typeProduct === 'สินค้าพรีออเดอร์' && (
-            <Tag color="#C54142" style={{ position: "absolute", marginTop: "14px", borderRadius: "0px 50px 50px 0px" }}>
+          <Card.Img variant="top" style={{ borderRadius: "10px 10px 0 0" }} src={`${BASE_URL}/${data?.thumbnail}`}></Card.Img>
+          {data?.typeProduct === 'พรีออเดอร์' && (
+            <Tag color="#c9c9c9" style={{ position: "absolute", margin: "14px 0 0 14px", borderRadius: "50px" }}>
               {data?.typeProduct}
             </Tag>
           )}
-          {data?.typeProduct === 'สินค้าพร้อมส่ง' && (
-            <Tag color="#389E0D" style={{ position: "absolute", marginTop: "14px", borderRadius: "0px 50px 50px 0px" }}>
+          {data?.typeProduct === 'พร้อมส่ง' && (
+            <Tag color="#7eca72" style={{ position: "absolute", margin: "14px 0 0 14px", borderRadius: "50px" }}>
               {data?.typeProduct}
             </Tag>
           )}
@@ -49,7 +49,9 @@ const CardProduct = (prop) => {
                 <Button shape="circle" size="large"
                   icon={<ShoppingCartOutlined />}
                   style={{
-                    color: "#fff", backgroundColor: "#A08155", textDecoration: "none", border: "none", boxShadow: " 0px 2px 4px 0px rgba(0, 0, 0, 0.15)"
+                    color: "#fff",
+                    // background: "linear-gradient(0deg, rgba(223,155,21,1) 0%, rgba(235,194,57,1) 100%)", 
+                    background: "#bf9f64", textDecoration: "none", border: "none", boxShadow: " 0px 2px 4px 0px rgba(0, 0, 0, 0.15)"
                   }}
                 // onClick={() => {
                 //   handleAddProduct()

@@ -55,7 +55,7 @@ const Cart = () => {
     borderRadius: "6px 0 0 6px",
     background: "#fff",
     border: "1px solid rgb(232, 232, 232)",
-    color: "#000",
+    color: "#a08155",
     position: "static",
   }
   const btnNumberR = {
@@ -64,7 +64,7 @@ const Cart = () => {
     borderRadius: "0 6px 6px 0",
     background: "#fff",
     border: "1px solid rgb(232, 232, 232)",
-    color: "#000",
+    color: "#a08155",
     position: "static",
   }
   const textNumber = {
@@ -72,9 +72,9 @@ const Cart = () => {
     minWidth: "auto",
     textAlign: "center",
     border: "1px solid rgb(232, 232, 232)",
-    color: "#c54142",
+    color: "#000",
     fontSize: "18px",
-    fontWeight: "500",
+    // fontWeight: "500",
   }
   const data = addCartProduct?.product?.map(p => {
     return {
@@ -85,7 +85,7 @@ const Cart = () => {
             <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
           </Col>
           <Col xs={24} sm={16} md={16} lg={8}>
-            <div style={{ fontSize: "18px", }}>{p?.name}</div>
+            <div style={{ fontSize: "18px", fontWeight: "400" }}>{p?.name}</div>
             <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
           </Col>
           <Col xs={24} sm={16} md={16} lg={6}>
@@ -156,7 +156,7 @@ const Cart = () => {
                     <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {formattedTotalPrice}</div>
+                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{formattedTotalPrice}</div>
                   </Col>
                 </Row>
                 <Row style={{ display: "flex", alignItems: "center" }}>
@@ -164,7 +164,7 @@ const Cart = () => {
                     <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿ {shipping}</div>
+                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{shipping}</div>
                   </Col>
                 </Row>
                 <Dividers />
@@ -173,7 +173,7 @@ const Cart = () => {
                     <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมทั้งสิ้น</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿ {formattedTotal}</div>
+                    <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿{formattedTotal}</div>
                   </Col>
                 </Row>
                 <Row>
@@ -184,7 +184,7 @@ const Cart = () => {
                         shape="round"
                         size="large"
                         style={{
-                          background: "#c54142",
+                          background: "#bf9f64",
                           width: "100%",
                           marginTop: "20px",
                           fontSize: "20px",
