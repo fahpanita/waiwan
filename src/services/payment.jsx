@@ -21,6 +21,21 @@ export const payment = async (data) => {
   }
 };
 
+export const createPayment = async (data) => {
+  try {
+    const res = await requestBackend({
+      url: "/payment",
+      method: "POST",
+      data: data,
+    });
+    message.success("บันทึกสำเร็จ")
+    return res;
+  } catch (error) {
+    notification["error"]({ message: error?.response?.data?.message || "Something when wrong" })
+    return undefined;
+  }
+};
+
 export const notifications = styled(notification)`
   &.ant-notification {
     right: 474px  !important;

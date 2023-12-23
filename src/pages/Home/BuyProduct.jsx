@@ -6,7 +6,7 @@ import FooterPage from "../../components/Footer/FooterPage";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constands/api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../services/buyproduct";
 import { LongdoMap, longdo, map } from "../../components/LongdoMap";
 import { Input } from "antd/es";
@@ -14,6 +14,7 @@ import { getAddress } from "../../services/map";
 import { useAuth } from "../../Providers/AuthProvider";
 // import { notifyLine } from "../../services/notifyline";
 import { PushpinOutlined, } from "@ant-design/icons";
+import { addProduct } from "../../store/getProductSlice";
 
 const columns = [
   {
@@ -38,10 +39,7 @@ const BuyProduct = (props) => {
   const [createformOrder] = Form.useForm();
   const formDataOrder = Form.useWatch([], createformOrder);
 
-  const { profile } = useAuth();
-  console.log(profile)
 
-  const tokenLine = '31WxKVT4yZKzzn6NY9n77bl30SS7WRwxgR8mG1Wj6ET'
 
   const { getProduct } = useSelector((state) => ({ ...state }))
 
@@ -60,16 +58,7 @@ const BuyProduct = (props) => {
         </Row>,
       amount:
         <div style={{ display: "flex", justifyContent: "center" }}>{p?.amount}</div>,
-      // <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
-      //     <Col xs={24} sm={16} md={16} lg={6}>
-      //       <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
-      //     </Col >
-      //     <Col xs={24} sm={16} md={16} lg={8}>
-      //       <div>{p?.name}</div>
-      //       <div>{p?.amount}</div>
-      //       <div>{p?.amount * p?.price}</div>
-      //     </Col>
-      //   </Row>
+
     }
   });
 
@@ -88,6 +77,7 @@ const BuyProduct = (props) => {
   const formattedTotal = totalWithShipping.toFixed(2);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [value, setValue] = useState("จัดส่งตามที่อยู่");
   const [visible, setVisible] = useState(false);
@@ -98,32 +88,31 @@ const BuyProduct = (props) => {
 
   };
 
-  // console.log(value)
-
   const handelOrder = async () => {
     const res = await createOrder(getProduct)
-    // const text = 'User สั่งซื้อสำเร็จ'
-    // await notifyLine(tokenLine, text)
+
     navigate('/payment')
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [location, setLocation] = useState({ lat: undefined, lon: undefined });
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   const handleOk = () => {
     setIsModalOpen(false);
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
-  const [location, setLocation] = useState({ lat: undefined, lon: undefined });
-
   const handleSetLocation = () => {
-    setLocation(map.location())
-
-  }
+    setLocation(map.location());
+  };
 
   const mapKey = import.meta.env.VITE_LONGDOMAP_API_KEY;
 
@@ -151,12 +140,11 @@ const BuyProduct = (props) => {
           ,
         }
       )
+      setSelectedLocation(res?.data || null);
     }
     if (location && location.lat && location.lon) {
       handleGetAddress()
     }
-
-
   }, [location])
 
 
@@ -174,8 +162,16 @@ const BuyProduct = (props) => {
                     <CardBoxRadius>
                       <Title level={5}>ที่อยู่การจัดส่ง</Title>
                       <Dividers />
-                      <Button type="primary" onClick={showModal} icon={<PushpinOutlined />} style={{ background: "#bf9f64" }}>
-                        เลือกที่อยู่จัดส่ง
+                      <Button
+                        type="primary"
+                        onClick={showModal}
+                        icon={<PushpinOutlined />}
+                        style={{ background: "#bf9f64" }}
+                      >
+                        {selectedLocation
+                          ? `เลือกที่อยู่จัดส่ง : ${selectedLocation.road}, ${selectedLocation.subdistrict}, ${selectedLocation.district}, ${selectedLocation.province}, ${selectedLocation.postcode}`
+                          : 'เลือกที่อยู่จัดส่ง'}
+
                       </Button>
                       <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
                         <LongdoMapStyle>
@@ -228,12 +224,12 @@ const BuyProduct = (props) => {
                   <Col xs={24} sm={24} md={24} lg={24}>
                     <CardBoxRadius>
                       <Title level={5}>ตัวเลือกการจัดส่ง</Title>
-                      {/* <Form.Item name="type_shipping"> */}
-                      <Radio.Group onChange={onChange} value={value}>
-                        <Radio value="จัดส่งตามที่อยู่" onClick={() => setVisible(false)} style={{ fontSize: "18px", }}>จัดส่งตามที่อยู่</Radio><br />
-                        <Radio value="รับหน้าร้าน" onClick={() => setVisible(true)} style={{ fontSize: "18px", }}>รับหน้าร้าน</Radio>
-                      </Radio.Group>
-                      {/* </Form.Item> */}
+                      <Form.Item name="type_shipping">
+                        <Radio.Group onChange={onChange} value={value}>
+                          <Radio value="จัดส่งตามที่อยู่" onClick={() => setVisible(false)} style={{ fontSize: "18px", }}>จัดส่งตามที่อยู่</Radio><br />
+                          <Radio value="รับหน้าร้าน" onClick={() => setVisible(true)} style={{ fontSize: "18px", }}>รับหน้าร้าน</Radio>
+                        </Radio.Group>
+                      </Form.Item>
                       {visible && <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3256.382828255343!2d100.5328142693865!3d13.927994994616947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e28386458758dd%3A0x13cb0fa54fa60b64!2zNDc3IOC4luC4meC4mSDguJrguK3guJnguJTguYzguKrguJXguKPguLXguJcg4LiV4Liz4Lia4Lil4Lia4LmJ4Liy4LiZ4LmD4Lir4Lih4LmIIOC4reC4s-C5gOC4oOC4reC4m-C4suC4geC5gOC4geC4o-C5h-C4lCDguJnguJnguJfguJrguLjguKPguLUgMTExMjA!5e0!3m2!1sth!2sth!4v1700765573255!5m2!1sth!2sth" style={{ width: "100%" }}></iframe></div>}
                     </CardBoxRadius>
                   </Col>
@@ -269,23 +265,22 @@ const BuyProduct = (props) => {
                       </Row>
                       <Row>
                         <Col span={24}>
-                          <Link to={"/payment"} >
-                            <Button
-                              type="primary"
-                              shape="round"
-                              size="large"
-                              htmlType="submit"
+                          <Button
+                            type="primary"
+                            shape="round"
+                            size="large"
+                            htmlType="submit"
 
-                              style={{
-                                background: "#bf9f64",
-                                width: "100%",
-                                marginTop: "20px",
-                              }}
-                              onClick={handelOrder}
-                            >
-                              สั่งซื้อสินค้า
-                            </Button>
-                          </Link>
+                            style={{
+                              background: "#bf9f64",
+                              width: "100%",
+                              marginTop: "20px",
+                            }}
+                            onClick={handelOrder}
+
+                          >
+                            สั่งซื้อสินค้า
+                          </Button>
                         </Col>
                       </Row>
 

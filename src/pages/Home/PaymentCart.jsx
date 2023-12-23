@@ -102,13 +102,8 @@ const PaymentCart = () => {
     const fetchData = async () => {
       try {
         const res = await payment({ totalWithShipping });
-        console.log('Full server response:', res);
-
         const receivedPayload = res?.data?.payload || null;
         const receivedAmount = res?.data?.amount || null;
-
-        console.log('Received payload from server:', receivedPayload);
-        console.log('Received amount from server:', receivedAmount);
 
         setAmount(receivedAmount);
         setPayload(receivedPayload);
@@ -116,10 +111,9 @@ const PaymentCart = () => {
         console.error('Error fetching data:', error);
       }
     };
+
     fetchData();
   }, [totalWithShipping]);
-
-  console.log('Current amount state:', amount);
 
   return (
     <>

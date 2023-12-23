@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     address: "",
+    type_shipping: "",
     product: [],
 };
 
@@ -10,9 +11,10 @@ export const getProductSlice = createSlice({
     initialState: initialState,
     reducers: {
         addProduct: (state, action) => {
-            state.product = [action.payload]
+            state.product = [action.payload];
+            // state.address = action.payload.address;
+            // state.type_shipping = action.payload.type_shipping;
         }
-
 
     }
 })
