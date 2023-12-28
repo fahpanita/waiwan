@@ -108,13 +108,13 @@ const Home = () => {
                 xs={12} sm={9} md={9} lg={24}
                 style={{ display: "flex", marginTop: "2px" }}
               >
-                <Img src="image/img/frame-1.png" />
+                <Img src="image/img/frame-3.png" />
               </Col>
               <Col
                 xs={12} sm={9} md={9} lg={24}
                 style={{ display: "flex", marginTop: "2px" }}
               >
-                <Img src="image/img/frame-2.png" />
+                <Img src="image/img/frame-4.png" />
               </Col>
             </Row>
           </Col>
@@ -157,7 +157,7 @@ const Home = () => {
                       <Cards bordered={false}>
                         <Cardcatagory>
                           <Image
-                            src="image/img/image 136.png"
+                            src="image/img/ตรุษจีน.jpg"
                             preview={false}
                           />
                         </Cardcatagory>
@@ -165,7 +165,7 @@ const Home = () => {
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <div style={{ fontSize: "18px", marginLeft: "10px" }}>
-                        อาหารสด
+                        เทศกาลจีน
                       </div>
                     </Col>
                   </Row>
@@ -182,7 +182,7 @@ const Home = () => {
                       <Cards bordered={false}>
                         <Cardcatagory>
                           <Image
-                            src="image/img/image 135.png"
+                            src="image/img/ไทย.jpg"
                             preview={false}
                           />
                         </Cardcatagory>
@@ -190,7 +190,7 @@ const Home = () => {
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <div style={{ fontSize: "18px", marginLeft: "10px" }}>
-                        ขนมหวาน
+                        เทศกาลไทย
                       </div>
                     </Col>
                   </Row>
@@ -215,7 +215,7 @@ const Home = () => {
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <div style={{ fontSize: "18px", marginLeft: "10px" }}>
-                        ผลไม้
+                        เทพเจ้าจีน
                       </div>
                     </Col>
                   </Row>
@@ -240,7 +240,7 @@ const Home = () => {
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <div style={{ fontSize: "18px", marginLeft: "10px" }}>
-                        อื่น ๆ
+                        เทพเจ้าไทย
                       </div>
                     </Col>
                   </Row>

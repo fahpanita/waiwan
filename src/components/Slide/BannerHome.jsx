@@ -11,10 +11,10 @@ const BannerHome = () => {
   return (
     <Carousel autoplay>
       <div>
-        <Img src="image/img/banner-1.png" />
+        <Img src="image/img/Banner-3.png" />
       </div>
       <div>
-        <Img src="image/img/banner-2.png" />
+        <Img src="image/img/Banner-4.png" />
       </div>
     </Carousel>
   );

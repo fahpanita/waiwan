@@ -9,7 +9,7 @@ export const payment = async (data) => {
       method: "GET",
       data: data,
     });
-    notifications["success"]({
+    notification["success"]({
       message: "คิวอาร์สำเร็จ",
       // duration: 0,
     });
@@ -35,38 +35,3 @@ export const createPayment = async (data) => {
     return undefined;
   }
 };
-
-export const notifications = styled(notification)`
-  &.ant-notification {
-    right: 474px  !important;
-      top: 153px !important;
-    
-  }
-
-  &.ant-notification .ant-notification-notice-wrapper {
-    width: 600px !important;
-    height: 300px !important;
-  }
-
-  &.ant-notification-notice-content {
-    display: flex;
-      justify-content: center;
-  }
-
-  &.ant-notification .ant-notification-notice-wrapper .ant-notification-notice-icon {
-    margin-top: 50px !important;
-    font-size: 80px;
-    position: absolute;
-  }
-
-  &.ant-notification .ant-notification-notice-wrapper .ant-notification-notice-with-icon .ant-notification-notice-message {
-    font-size: 30px !important;
-    margin-top: 150px;
-    position: absolute;
-  }
-
-  &.ant-notification .ant-notification-notice-wrapper .ant-notification-notice-with-icon .ant-notification-notice-description {
-    margin-top: 200px;
-    position: absolute;
-  }
-`;
