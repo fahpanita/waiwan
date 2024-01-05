@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from "../../components/Header/Navbar";
-import { Layout, Row, Col, Typography, Button, Table, Upload, Divider } from "antd";
+import { Layout, Row, Col, Typography, Button, Table, Upload, Divider, Form, Modal } from "antd";
 import { UploadOutlined, CameraOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import FooterPage from '../../components/Footer/FooterPage';
@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import Link from '../../components/Link';
 import { uploadImages } from '../../services/upload';
 import { QRCode } from 'antd/es';
+import { createPayment } from '../../services/payment';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -94,76 +95,108 @@ const Payment = () => {
 
   }
 
+  const [createPaymentForm] = Form.useForm();
+
+  // const onCreatePaymentFinish = async (value) => {
+  //   const res = await createPayment(value);
+  //   if (res) {
+  //     // navigate("/listStock")
+  //     Modal.success({
+  //       title: "ยืนยันการชำระเงิน",
+  //       content: 'สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official',
+  //     });
+  //   }
+
+  // };
+
+  const onCreatePaymentFinish = async (value) => {
+    const res = await createPayment(value);
+
+    if (res) {
+      // navigate("/listStock")
+      Modal.success({
+        title: "ยืนยันการชำระเงิน",
+        content: 'สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official',
+      });
+    }
+
+  };
+
   return (
     <>
       <Layout style={{ background: "#F5F5F5" }}>
-        <Navbar />
-        <Content style={{ margin: '24px 24px 0', }}>
-          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center" >
-            <Col xs={24} sm={16} md={16} lg={16}>
-              <CardBoxRadius>
-                <Title level={5} style={{ textAlign: "left" }}>
-                  <Tables
-                    columns={columns}
-                    dataSource={data}
-                    pagination={false}
-                  />
-                </Title>
-              </CardBoxRadius>
-            </Col>
-            <Col xs={24} sm={8} md={8} lg={8}>
-              <CardBoxRadius>
-                <Title level={5}>สรุปรายการสั่งซื้อ</Title>
-                <Dividers />
-                <Row style={{ display: "flex", alignItems: "center" }}>
-                  <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
-                  </Col>
-                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{formattedTotalPrice}</div>
-                  </Col>
-                </Row>
-                <Row style={{ display: "flex", alignItems: "center" }}>
-                  <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
-                  </Col>
-                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{shipping}</div>
-                  </Col>
-                </Row>
-                <Dividers />
-                <Row style={{ display: "flex", alignItems: "center" }}>
-                  <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมชำระเงินทั้งหมด</div>
-                  </Col>
-                  <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿{formattedTotal}</div>
-                  </Col>
-                </Row>
-                <Dividers />
-                <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406420.006304976A" || '-'} />
+        <Form form={createPaymentForm} layout="vertical" onFinish={onCreatePaymentFinish} onValuesChange={e => console.log(e)}>
+          <Navbar />
+          <Content style={{ margin: '24px 24px 0', }}>
+            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center" >
+              <Col xs={24} sm={16} md={16} lg={16}>
+                <CardBoxRadius>
+                  <Title level={5} style={{ textAlign: "left" }}>
+                    <Tables
+                      columns={columns}
+                      dataSource={data}
+                      pagination={false}
+                    />
+                  </Title>
+                </CardBoxRadius>
+              </Col>
+              <Col xs={24} sm={8} md={8} lg={8}>
+                <CardBoxRadius>
+                  <Title level={5}>สรุปรายการสั่งซื้อ</Title>
+                  <Dividers />
+                  <Row style={{ display: "flex", alignItems: "center" }}>
+                    <Col span={12}>
+                      <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
+                    </Col>
+                    <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                      <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{formattedTotalPrice}</div>
+                    </Col>
+                  </Row>
+                  <Row style={{ display: "flex", alignItems: "center" }}>
+                    <Col span={12}>
+                      <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
+                    </Col>
+                    <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                      <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{shipping}</div>
+                    </Col>
+                  </Row>
+                  <Dividers />
+                  <Row style={{ display: "flex", alignItems: "center" }}>
+                    <Col span={12}>
+                      <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมชำระเงินทั้งหมด</div>
+                    </Col>
+                    <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
+                      <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿{formattedTotal}</div>
+                    </Col>
+                  </Row>
+                  <Dividers />
+                  <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406420.006304976A" || '-'} />
 
-              </CardBoxRadius>
+                </CardBoxRadius>
 
-              <CardBoxRadius>
-                <Title level={5}>แจ้งหลักฐานการชำระเงิน</Title>
-                <Upload
-                  action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-                  listType="picture"
-                  maxCount={1}
-                  beforeUpload={beforeUpload}
-                  customRequest={uploadImageFromAnd}
-                >
-                  <ButtonUpload icon={<UploadOutlined />} size="large" style={{ fontSize: "18px", }}>แนบหลักฐานการชำระเงิน</ButtonUpload>
-                </Upload>
-              </CardBoxRadius>
-              <Row style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
-                <Col >
-                  <Link to={"/payment"} >
+                <CardBoxRadius>
+                  <Title level={5}>แจ้งหลักฐานการชำระเงิน</Title>
+                  <Form.Item name="slip_img" rules={[{ required: true, message: "กรุณาใส่รูป" }]}>
+                    <Upload
+                      action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+                      listType="picture"
+                      maxCount={1}
+                      beforeUpload={beforeUpload}
+                      customRequest={uploadImageFromAnd}
+                    >
+                      <ButtonUpload icon={<UploadOutlined />} size="large" style={{ fontSize: "18px", }}>แนบหลักฐานการชำระเงิน</ButtonUpload>
+                    </Upload>
+                  </Form.Item>
+
+                </CardBoxRadius>
+                <Row style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
+                  <Col >
+                    {/* <Link to={"/payment"} > */}
                     <Button
                       type="primary"
                       shape="round"
                       size="large"
+                      htmlType="submit"
 
                       style={{
                         background: "#bf9f64",
@@ -173,15 +206,18 @@ const Payment = () => {
                     >
                       แจ้งการชำระเงิน
                     </Button>
-                  </Link>
-                </Col>
-              </Row>
-            </Col>
+                    {/* </Link> */}
+                  </Col>
+                </Row>
+              </Col>
 
-          </Row>
+            </Row>
 
-        </Content >
-        <FooterPage />
+          </Content >
+          <FooterPage />
+        </Form>
+
+
       </Layout >
     </>
   );

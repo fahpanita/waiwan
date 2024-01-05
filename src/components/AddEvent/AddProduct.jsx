@@ -274,17 +274,17 @@ const AddProduct = () => {
                                         </div>
                                         <Form.Item name="typeProduct" layout="vertical" rules={[{ required: true, message: "กรุณาเลือกประเภทสินค้า" }]}>
                                             <Select
-                                                defaultValue="สินค้าพร้อมส่ง"
+                                                defaultValue="พร้อมส่ง"
                                                 style={{
                                                     width: '100%',
                                                 }}
                                                 options={[
                                                     {
-                                                        value: 'สินค้าพรีออเดอร์',
+                                                        value: 'พรีออเดอร์',
                                                         label: 'สินค้าพรีออเดอร์',
                                                     },
                                                     {
-                                                        value: 'สินค้าพร้อมส่ง',
+                                                        value: 'พร้อมส่ง',
                                                         label: 'สินค้าพร้อมส่ง',
                                                     },
                                                 ]}

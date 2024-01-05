@@ -9,6 +9,7 @@ import { getCatagory } from "../../services/catagory";
 import { getEvent } from "../../services/event";
 import { useLocation } from "react-router-dom";
 import { FilterOutlined } from "@ant-design/icons";
+import FilterProductCatagory from "../../components/Tree/FilterProductCatagory";
 
 
 const { Title } = Typography;
@@ -85,38 +86,6 @@ const ListProduct = () => {
     console.log(newFilteredPrice)
   };
 
-  const items = [
-    {
-      key: "1",
-      label: <Title level={5}>หมวดหมู่สินค้า</Title>,
-      children: <Filter filterData={catagories} />,
-    },
-    {
-      key: "2",
-      label: <Title level={5}>หมวดหมู่เทศกาล</Title>,
-      children: <Filter filterData={events} />,
-    },
-    {
-      key: "3",
-      label: <Title level={5}>ช่วงราคา</Title>,
-      children:
-        <div className="card-body">
-          <Slider range defaultValue={rangeValues} onChange={handlePriceChange} max={1000} />
-          <div className="row mb-3">
-            <div className="col-6">
-              <label htmlFor="min" className="form-label">Min</label>
-              <input className="form-control" id="min" placeholder="฿0" type="number" value={rangeValues[0]} />
-            </div>
-            <div className="col-6">
-              <label htmlFor="max" className="form-label">Max</label>
-              <input className="form-control" id="max" placeholder="฿10,000" type="number" value={rangeValues[1]} />
-            </div>
-          </div>
-        </div>
-      ,
-    },
-  ];
-
   const handleGetProducts = async () => {
     const res = await getProducts()
     setProducts(res?.data)
@@ -170,7 +139,7 @@ const ListProduct = () => {
           >
             <Card>
               <Title level={5}>หมวดหมู่สินค้า</Title>
-              <Filter filterData={catagories} />
+              <FilterProductCatagory filterData={catagories} />
               <Divider />
               <Title level={5}>หมวดหมู่เทศกาล</Title>
               <Filter filterData={events} />
@@ -196,7 +165,7 @@ const ListProduct = () => {
             <Col xs={0} sm={9} md={9} lg={6} style={{ marginTop: '10px' }}>
               <Card title="ค้นหาแบบละเอียด" bordered={false} style={{ position: "sticky", top: "16px", }}>
                 <Title level={5}>หมวดหมู่สินค้า</Title>
-                <Filter filterData={catagories} />
+                <FilterProductCatagory filterData={catagories} />
                 <Divider />
                 <Title level={5}>หมวดหมู่เทศกาล</Title>
                 <Filter filterData={events} />
@@ -265,44 +234,6 @@ const ListProduct = () => {
 
 
           </Row>
-
-          {/* <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} >
-            {(filteredPrice?.length > 0 || filteredSearch?.length > 0) ? (
-              <>
-                {filteredPrice?.map((p) => (
-                  <Col
-                    key={p.id}
-                    className="gutter-row"
-                    xs={12}
-                    sm={9}
-                    md={9}
-                    lg={4}
-                  >
-                    <div style={{ marginTop: '10px' }}>
-                      <CardProduct data={p} />
-                    </div>
-                  </Col>
-                ))}
-
-                {filteredSearch?.map((p) => (
-                  <Col
-                    key={p.id}
-                    className="gutter-row"
-                    xs={12}
-                    sm={9}
-                    md={9}
-                    lg={4}
-                  >
-                    <div style={{ marginTop: '16px' }}>
-                      <CardProduct data={p} />
-                    </div>
-                  </Col>
-                ))}
-              </>
-            ) : (
-              <div>No products found.</div>
-            )}
-          </Row> */}
         </Content>
         <FooterPage />
       </Layout>

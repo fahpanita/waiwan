@@ -10,16 +10,16 @@ const MenuAccount = () => {
 
   return (
     <>
-      <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
-        <Menu.Item key={1} icon={<UserOutlined />}>
-          <Link to="/stock" style={{ textDecoration: "none" }}>
-            บัญชีของฉัน
+      <Menu theme="light" mode="inline" defaultSelectedKeys={[""]}>
+        <Menu.Item key={1} icon={<ContainerOutlined />}>
+          <Link to="/stocklist" style={{ textDecoration: "none" }}>
+            รายการที่ต้องชำระ
           </Link>
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item icon={<ContainerOutlined />}>
-          <Link to="/stocklist" style={{ textDecoration: "none" }}>
-            รายการที่ต้องชำระ
+        <Menu.Item icon={<UserOutlined />}>
+          <Link to="/stock" style={{ textDecoration: "none" }}>
+            บัญชีของฉัน
           </Link>
         </Menu.Item>
         <Menu.Divider />

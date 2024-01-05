@@ -108,13 +108,13 @@ const Home = () => {
                 xs={12} sm={9} md={9} lg={24}
                 style={{ display: "flex", marginTop: "2px" }}
               >
-                <Img src="image/img/frame-3.png" />
+                <Img src="image/img/frame-1.png" />
               </Col>
               <Col
                 xs={12} sm={9} md={9} lg={24}
                 style={{ display: "flex", marginTop: "2px" }}
               >
-                <Img src="image/img/frame-4.png" />
+                <Img src="image/img/frame-2.png" />
               </Col>
             </Row>
           </Col>
@@ -157,32 +157,8 @@ const Home = () => {
                       <Cards bordered={false}>
                         <Cardcatagory>
                           <Image
-                            src="image/img/ตรุษจีน.jpg"
-                            preview={false}
-                          />
-                        </Cardcatagory>
-                      </Cards>
-                    </Col>
-                    <Col style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>
-                        เทศกาลจีน
-                      </div>
-                    </Col>
-                  </Row>
-
-                  <Row
-                    span={6}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      margin: "0 10px",
-                    }}
-                  >
-                    <Col>
-                      <Cards bordered={false}>
-                        <Cardcatagory>
-                          <Image
-                            src="image/img/ไทย.jpg"
+                            style={{ borderRadius: "4px" }}
+                            src="image/img/eventCata-1.png"
                             preview={false}
                           />
                         </Cardcatagory>
@@ -207,7 +183,8 @@ const Home = () => {
                       <Cards bordered={false}>
                         <Cardcatagory>
                           <Image
-                            src="image/img/image 134.png"
+                            style={{ borderRadius: "4px" }}
+                            src="image/img/eventCata-2.png"
                             preview={false}
                           />
                         </Cardcatagory>
@@ -215,7 +192,7 @@ const Home = () => {
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <div style={{ fontSize: "18px", marginLeft: "10px" }}>
-                        เทพเจ้าจีน
+                        เทศกาลจีน
                       </div>
                     </Col>
                   </Row>
@@ -232,7 +209,8 @@ const Home = () => {
                       <Cards bordered={false}>
                         <Cardcatagory>
                           <Image
-                            src="image/img/image 133.png"
+                            style={{ borderRadius: "4px" }}
+                            src="image/img/eventCata-3.png"
                             preview={false}
                           />
                         </Cardcatagory>
@@ -240,7 +218,33 @@ const Home = () => {
                     </Col>
                     <Col style={{ textAlign: "center" }}>
                       <div style={{ fontSize: "18px", marginLeft: "10px" }}>
-                        เทพเจ้าไทย
+                        เทพเจ้าฮินดู
+                      </div>
+                    </Col>
+                  </Row>
+
+                  <Row
+                    span={6}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      margin: "0 10px",
+                    }}
+                  >
+                    <Col>
+                      <Cards bordered={false}>
+                        <Cardcatagory>
+                          <Image
+                            style={{ borderRadius: "4px" }}
+                            src="image/img/eventCata-4.png"
+                            preview={false}
+                          />
+                        </Cardcatagory>
+                      </Cards>
+                    </Col>
+                    <Col style={{ textAlign: "center" }}>
+                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                        เทพเจ้าจีน
                       </div>
                     </Col>
                   </Row>

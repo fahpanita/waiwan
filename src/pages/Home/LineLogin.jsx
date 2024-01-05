@@ -4,8 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useLiff } from "react-liff";
 import { useAuth } from "../../Providers/AuthProvider";
 import Link from "../../components/Link";
-import { UserOutlined } from "@ant-design/icons";
-import { DownOutlined } from "@ant-design/icons";
+import { UserOutlined, ContainerOutlined, DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space, Divider, theme } from "antd";
 import { BsLine } from "react-icons/bs";
 const { useToken } = theme;
@@ -15,6 +14,14 @@ const items = [
     label: (
       <Link to="/stock" icon={<UserOutlined />} >
         จัดการบัญชีผู้ใช้
+      </Link>
+    ),
+  },
+  {
+    key: "2",
+    label: (
+      <Link to="/stocklist" icon={<ContainerOutlined />} >
+        รายการที่ต้องชำระ
       </Link>
     ),
   },
