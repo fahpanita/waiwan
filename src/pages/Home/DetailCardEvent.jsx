@@ -33,18 +33,6 @@ const DetailCardEvent = () => {
 
   }, [id])
 
-  const htmlContent = cardevents?.detail;
-
-  // Create a DOMParser instance
-  const parser = new DOMParser();
-
-  // Parse the HTML content
-  const doc = parser.parseFromString(htmlContent, 'text/html');
-
-  // Extract the text content
-  const textContent = doc.body.textContent;
-
-  console.log(textContent);
 
   return (
     <>
@@ -60,7 +48,7 @@ const DetailCardEvent = () => {
             flexShrink: "0",
             borderRadius: "none",
             background:
-              "linear-gradient(0deg, #FFFEF6 0%, rgba(255, 254, 246, 0.00) 100%)",
+              "linear-gradient(0deg, #F5F5F5 0%, rgba(255, 254, 246, 0.00) 100%)",
           }}
         />
         <Content
@@ -71,9 +59,12 @@ const DetailCardEvent = () => {
           <Title level={2} style={{ textAlign: "left" }}>
             {cardevents?.name}
           </Title>
-          <p>
-            {textContent}
-          </p>
+
+          <div
+            dangerouslySetInnerHTML={{
+              __html: cardevents?.detail,
+            }}
+          />
         </Content>
         <FooterPage />
       </Layout>

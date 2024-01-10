@@ -5,6 +5,13 @@ import { Content, Footer, Header } from 'antd/es/layout/layout';
 import { deleteProduts, getProducts } from '../../services/product';
 import { BASE_URL } from '../../constands/api';
 
+
+
+const onDeleteProduct = async (id) => {
+    await deleteProduts(id);
+    handleGetProduct();
+};
+
 const columns = [
     {
         title: 'รหัสสินค้า',
@@ -68,6 +75,12 @@ const ListStocks = () => {
         // console.log(typeof res?.data);
     }
 
+    const handleGetProduct = async () => {
+        const res = await getProducts()
+        setProducts(res?.data)
+    }
+
+
     useEffect(() => {
         handleGetProducts()
     }, [])
@@ -94,6 +107,9 @@ const ListStocks = () => {
                                 }}
                                 columns={columns}
                                 dataSource={products}
+                                pagination={{
+                                    pageSize: 5,
+                                }}
                             />
                         </Col>
                     </div>

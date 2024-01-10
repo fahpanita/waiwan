@@ -12,7 +12,7 @@ const items = [
   {
     key: "1",
     label: (
-      <Link to="/stock" icon={<UserOutlined />} >
+      <Link to="/stock" icon={<UserOutlined />} style={{ fontFamily: "Chakra Petch, sans- serif", }} >
         จัดการบัญชีผู้ใช้
       </Link>
     ),
@@ -20,7 +20,7 @@ const items = [
   {
     key: "2",
     label: (
-      <Link to="/stocklist" icon={<ContainerOutlined />} >
+      <Link to="/stocklist" icon={<ContainerOutlined />} style={{ fontFamily: "Chakra Petch, sans- serif", }} >
         รายการที่ต้องชำระ
       </Link>
     ),
@@ -84,7 +84,7 @@ const LineLogin = () => {
                   padding: 8,
                 }}
               >
-                <Button type="primary" onClick={onLogout} style={{ color: "#fff", backgroundColor: "rgb(68 68 68)" }}>
+                <Button type="primary" onClick={onLogout} style={{ color: "#fff", backgroundColor: "rgb(68 68 68)", fontFamily: "Chakra Petch, sans- serif", }}>
                   Logout
                 </Button>
               </Space>
@@ -92,7 +92,7 @@ const LineLogin = () => {
           )}
         >
           <a onClick={(e) => e.preventDefault()}>
-            <Space style={{ color: "#000" }}>
+            <Space style={{ color: "#000", fontFamily: "Chakra Petch, sans- serif", }}>
               <UserOutlined />
               บัญชี
               <DownOutlined />

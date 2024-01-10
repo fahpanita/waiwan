@@ -22,6 +22,7 @@ import FooterPage from "../../components/Footer/FooterPage";
 import { getProducts } from "../../services/product";
 import { getCartEvents } from "../../services/cartEvents";
 import { RightCircleOutlined } from "@ant-design/icons";
+import "./src/App.css";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -29,6 +30,10 @@ export const Img = styled.img`
   width: 100%;
   border-radius: 6px;
 `;
+
+// const font = {
+//   fontFamily: 'Chakra Petch, sans-serif',
+// };
 
 const Home = () => {
   const { Search } = Input;
@@ -122,7 +127,7 @@ const Home = () => {
 
         <Row style={{ marginTop: "40px" }}>
           <Col span={24}>
-            <Title level={3}>หมวดหมู่</Title>
+            <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "36px", fontWeight: "500", }}>หมวดหมู่</Title>
           </Col>
           <Col span={24} offset={0}>
             <div
@@ -130,6 +135,7 @@ const Home = () => {
                 backgroundColor: "#fff",
                 height: "auto",
                 padding: "20px 0",
+
               }}
             >
               <Row
@@ -158,14 +164,14 @@ const Home = () => {
                         <Cardcatagory>
                           <Image
                             style={{ borderRadius: "4px" }}
-                            src="image/img/eventCata-1.png"
+                            src="image/img/เทศกาลไทย.png"
                             preview={false}
                           />
                         </Cardcatagory>
                       </Cards>
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "400", }}>
                         เทศกาลไทย
                       </div>
                     </Col>
@@ -184,14 +190,14 @@ const Home = () => {
                         <Cardcatagory>
                           <Image
                             style={{ borderRadius: "4px" }}
-                            src="image/img/eventCata-2.png"
+                            src="image/img/เทศกาลจีน.png"
                             preview={false}
                           />
                         </Cardcatagory>
                       </Cards>
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "400", }}>
                         เทศกาลจีน
                       </div>
                     </Col>
@@ -210,14 +216,14 @@ const Home = () => {
                         <Cardcatagory>
                           <Image
                             style={{ borderRadius: "4px" }}
-                            src="image/img/eventCata-3.png"
+                            src="image/img/เทพฮินดู.png"
                             preview={false}
                           />
                         </Cardcatagory>
                       </Cards>
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "400", }}>
                         เทพเจ้าฮินดู
                       </div>
                     </Col>
@@ -236,14 +242,14 @@ const Home = () => {
                         <Cardcatagory>
                           <Image
                             style={{ borderRadius: "4px" }}
-                            src="image/img/eventCata-4.png"
+                            src="image/img/เทพจีน.png"
                             preview={false}
                           />
                         </Cardcatagory>
                       </Cards>
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "18px", marginLeft: "10px" }}>
+                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "400", }}>
                         เทพเจ้าจีน
                       </div>
                     </Col>
@@ -253,10 +259,12 @@ const Home = () => {
             </div>
           </Col>
         </Row>
+        {/* style={{ fontFamily: "'Chakra Petch', sans-serif" }} */}
 
-        <Row style={{ marginTop: "40px", marginBottom: "10px" }}>
+        <Row style={{ marginTop: "40px", marginBottom: "10px", display: "flex", alignItems: "center" }}>
           <Col span={10}>
-            <Title level={3}>สินค้าสำหรับคุณ</Title>
+
+            <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "36px", fontWeight: "500", }} >สินค้าสำหรับคุณ</Title>
           </Col>
           <Col span={6} offset={8}>
             <a
@@ -264,6 +272,7 @@ const Home = () => {
                 float: "right",
                 textDecoration: "none",
                 color: "#1D1D1F",
+                fontFamily: "'Athiti', sans-serif", fontSize: "20px", fontWeight: "400",
               }}
               href="/listProduct"
             >
@@ -272,7 +281,7 @@ const Home = () => {
           </Col>
         </Row>
 
-        <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+        <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
           {currentProducts.map((p) => (
             <Col key={p.id} className="gutter-row" xs={12} sm={9} md={9} lg={4} style={{ marginBottom: '20px' }}><CardProduct data={p} /></Col>
           ))}
@@ -288,9 +297,9 @@ const Home = () => {
         />
 
         <Divider dashed style={{ marginTop: "40px" }} />
-        <Row style={{ marginTop: "40px", marginBottom: "10px" }}>
+        <Row style={{ marginTop: "40px", marginBottom: "10px", display: "flex", alignItems: "center" }}>
           <Col span={10}>
-            <Title level={3}>บทความเทศกาล</Title>
+            <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "36px", fontWeight: "500", }}>บทความเทศกาล</Title>
           </Col>
           <Col span={6} offset={8}>
             <a
@@ -298,6 +307,7 @@ const Home = () => {
                 float: "right",
                 textDecoration: "none",
                 color: "#1D1D1F",
+                fontFamily: "'Athiti', sans-serif", fontSize: "20px", fontWeight: "400",
               }}
               href="/allCardEvent"
             >

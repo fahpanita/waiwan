@@ -79,6 +79,7 @@ const Navbar = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               enterButton
+              style={{ fontFamily: "Chakra Petch, sans- serif", }}
             />
           </Col>
           <Col xs={0} sm={0} md={1}>
@@ -106,18 +107,19 @@ const Navbar = () => {
                   style={{
                     textDecoration: "none",
                     fontFamily: "Chakra Petch, sans- serif",
+                    fontSize: "18px"
                   }}
                 >
                   หน้าแรก
                 </Link>
               </Menu.Item>
               <Menu.Item key="2">
-                <Link to="/listProduct" style={{ textDecoration: "none" }}>
+                <Link to="/listProduct" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "18px" }}>
                   รายการสินค้า
                 </Link>
               </Menu.Item>
               <Menu.Item key="3">
-                <Link to="/experiment" style={{ textDecoration: "none" }}>
+                <Link to="/experiment" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "18px" }}>
                   ทดลองจัดวางของไหว้เจ้า
                 </Link>
               </Menu.Item>
@@ -134,22 +136,22 @@ const Navbar = () => {
         >
           <Menu mode="vertical">
             <Menu.Item key="7" icon={<HomeOutlined />}>
-              <Link to="/" style={{ textDecoration: "none" }}>
+              <Link to="/" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", }}>
                 หน้าแรก
               </Link>
             </Menu.Item>
             <Menu.Item key="8" icon={<UnorderedListOutlined />}>
-              <Link to="/listProduct" style={{ textDecoration: "none" }}>
+              <Link to="/listProduct" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", }}>
                 รายการสินค้า
               </Link>
             </Menu.Item>
             <Menu.Item key="9" icon={<ExperimentOutlined />}>
-              <Link to="/experiment" style={{ textDecoration: "none" }}>
+              <Link to="/experiment" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", }}>
                 ทดลองจัดวาง
               </Link>
             </Menu.Item>
             <Menu.Item key="10" icon={<UserOutlined />} >
-              <Link to="/stock" style={{ textDecoration: "none" }} >
+              <Link to="/stock" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", }} >
                 จัดการบัญชีผู้ใช้
               </Link>
             </Menu.Item>

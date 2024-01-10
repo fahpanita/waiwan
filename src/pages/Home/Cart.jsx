@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Typography, Row, Col, Table, Tabs, Button, Image, Divider, Space, Dropdown, } from "antd";
+import { Layout, Typography, Row, Col, Table, Tabs, Button, Image, Divider, Space, Dropdown, Breadcrumb, } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import FooterPage from "../../components/Footer/FooterPage";
 import styled from "styled-components";
@@ -109,6 +109,7 @@ const Cart = () => {
       // name: <div></div>,
     }
   });
+
   const totalPrice = addCartProduct?.product?.reduce((accumulator, product) => {
     return accumulator + Number(product?.price) * product?.amount;
   }, 0);
@@ -134,6 +135,14 @@ const Cart = () => {
       >
         <Navbar />
         <Content style={{ margin: '24px 24px 0', }} >
+          <Breadcrumb
+            style={{
+              margin: '16px 0',
+            }}
+          >
+            <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
+            <Breadcrumb.Item>ตะกร้าสินค้า</Breadcrumb.Item>
+          </Breadcrumb>
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center" style={{ display: "flex", alignItems: "flex-start" }}>
             <Col xs={24} sm={16} md={16} lg={16}>
               <CardBoxRadius>

@@ -32,6 +32,7 @@ import Sellershipping from "./pages/Dashboard/sellerShipping";
 import Sellersucceed from "./pages/Dashboard/sellersucceed";
 import StockList from "./pages/Stock/stochlist";
 import SetAncestor from "./pages/Home/SetAncestor";
+
 // import Cart from "./pages/Home/Cart";
 
 // const Home = lazy(() => import("./pages/Home"));

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Row, Col, Typography, Button, Tag, Space, Collapse, Form, Divider } from "antd";
+import { Layout, Row, Col, Typography, Button, Tag, Space, Collapse, Form, Divider, Breadcrumb } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
@@ -26,6 +26,7 @@ const DetailProduct = (props) => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const [product, setProduct] = useState([]);
+  // console.log(product)
 
   const [createBuyProductForm] = Form.useForm();
   const formDataBuyProduct = Form.useWatch([], createBuyProductForm);
@@ -104,6 +105,16 @@ const DetailProduct = (props) => {
             padding: "0 32px",
           }}
         >
+
+          <Breadcrumb
+            style={{
+              margin: '16px 0',
+            }}
+          >
+            <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
+            <Breadcrumb.Item>รายการสินค้า</Breadcrumb.Item>
+            <Breadcrumb.Item>สินค้า</Breadcrumb.Item>
+          </Breadcrumb>
           <Form >
             <Row
               justify="space-evenly"

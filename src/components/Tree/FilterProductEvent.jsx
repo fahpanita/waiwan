@@ -3,26 +3,26 @@ import { Tree, Checkbox } from "antd";
 
 const { TreeNode } = Tree;
 
-const FilterProductCategory = (props) => {
+const FilterProductEvent = (props) => {
   const [checkedKeys, setCheckedKeys] = useState([]);
 
   const onCheck = (checkedKeys, info) => {
-    console.log("onCheck ", checkedKeys, info);
+    console.log("onCheckEvent ", checkedKeys, info);
     setCheckedKeys(checkedKeys);
-    props?.onCategoryChange(checkedKeys);
+    props?.onEventChange(checkedKeys);
   };
 
   const renderTreeNodes = (data) => {
-    return data.map((category) => (
+    return data.map((event) => (
       <TreeNode
-        key={category.value}
+        key={event.value}
         title={
           <div>
-            {category.title}
+            {event.title}
           </div>
         }
       >
-        {category.children && renderTreeNodes(category.children)}
+        {event.children && renderTreeNodes(event.children)}
       </TreeNode>
     ));
   };
@@ -39,4 +39,4 @@ const FilterProductCategory = (props) => {
   );
 };
 
-export default FilterProductCategory;
+export default FilterProductEvent;

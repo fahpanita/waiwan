@@ -93,37 +93,115 @@ const ImageDropZone = () => {
                 <div style={{ display: 'flex', justifyContent: 'space-between' }} onDrop={drop} onDragOver={allowDrop}>
 
                     <img
-                        id="cat"
-                        src="https://www.veterinarypracticenews.com/wp-content/uploads/2019/10/bigstock-Four-Kittens-On-A-White-Backgr-2730282.jpg"
+                        id="dish1"
+                        src="image/img/dish1.png"
                         draggable="true"
                         onDragStart={drag}
-                        width="150"
+                        width="100"
                     />
 
                     <img
-                        id="dog"
-                        src="https://www.wallpaperflare.com/static/800/62/574/puppies-white-background-paws-yellow-wallpaper-preview.jpg"
+                        id="dish10"
+                        src="image/img/dish10.png"
                         draggable="true"
                         onDragStart={drag}
-                        width="150"
+                        width="100"
                     />
                     <img
-                        id="mouse"
-                        src="https://www.dherb.co.th/wp-content/uploads/2019/10/blog-5-1-600x405.jpg"
+                        id="dish12"
+                        src="image/img/dish12.png"
                         draggable="true"
                         onDragStart={drag}
-                        width="150"
+                        width="100"
                     />
 
                     <img
-                        id="fish"
-                        src="https://cdn.mos.cms.futurecdn.net/uhLVL2jTdtQ7ScXCeoeAU6-650-80.jpg.webp"
+                        id="dish13"
+                        src="image/img/dish13.png"
                         draggable="true"
                         onDragStart={drag}
-                        width="150"
+                        width="100"
                     />
 
+                    <img
+                        id="dish4"
+                        src="image/img/dish4.png"
+                        draggable="true"
+                        onDragStart={drag}
+                        width="100"
+                    />
 
+                    <img
+                        id="dish11"
+                        src="image/img/dish11.png"
+                        draggable="true"
+                        onDragStart={drag}
+                        width="100"
+                    />
+
+                    <img
+                        id="dish8"
+                        src="image/img/dish8.png"
+                        draggable="true"
+                        onDragStart={drag}
+                        width="100"
+                    />
+
+                    <img
+                        id="dish5"
+                        src="image/img/dish5.png"
+                        draggable="true"
+                        onDragStart={drag}
+                        width="100"
+                    />
+
+                    <img
+                        id="dish3"
+                        src="image/img/dish3.png"
+                        draggable="true"
+                        onDragStart={drag}
+                        width="100"
+                    />
+
+                    <img
+                        id="dish7"
+                        src="image/img/dish7.png"
+                        draggable="true"
+                        onDragStart={drag}
+                        width="100"
+                    />
+
+                    <img
+                        id="dish2"
+                        src="image/img/dish2.png"
+                        draggable="true"
+                        onDragStart={drag}
+                        width="100"
+                    />
+
+                    <img
+                        id="dish14"
+                        src="image/img/dish14.png"
+                        draggable="true"
+                        onDragStart={drag}
+                        width="100"
+                    />
+
+                    <img
+                        id="dish9"
+                        src="image/img/dish9.png"
+                        draggable="true"
+                        onDragStart={drag}
+                        width="100"
+                    />
+
+                    <img
+                        id="dish6"
+                        src="image/img/dish6.png"
+                        draggable="true"
+                        onDragStart={drag}
+                        width="100"
+                    />
 
                 </div>
             </BoxStyle>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Row, Col, Collapse, Input, Typography, Slider, Drawer, Button, Space, Divider, Card, Pagination, } from "antd";
+import { Layout, Row, Col, Collapse, Input, Typography, Slider, Drawer, Button, Space, Divider, Card, Pagination, Breadcrumb, } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import CardProduct from "../../components/CardKnowlage/CardProduct";
 import FooterPage from "../../components/Footer/FooterPage";
@@ -10,6 +10,9 @@ import { getEvent } from "../../services/event";
 import { useLocation } from "react-router-dom";
 import { FilterOutlined } from "@ant-design/icons";
 import FilterProductCatagory from "../../components/Tree/FilterProductCatagory";
+import FilterProductCategory from "../../components/Tree/FilterProductCatagory";
+import FilterProductEvent from "../../components/Tree/FilterProductEvent";
+import styled from "styled-components";
 
 
 const { Title } = Typography;
@@ -20,27 +23,32 @@ const ListProduct = () => {
   const [products, setProducts] = useState([]);
   const [catagories, setCatagory] = useState([]);
   const [events, setEvent] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [rangeValues, setRangeValues] = useState([0, 0]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
-  const handleGetCatagory = async () => {
-    const res = await getCatagory()
+  const handleGetCategories = async () => {
+    const res = await getCatagory();
 
-    const data = res?.data?.map(c => {
+    const data = res?.data?.map((c) => {
       return {
         title: c.name,
         value: c.id,
         key: c.id,
-        children: c.sub.map(s => {
+        children: c.sub.map((s) => {
           return {
             title: s.name,
             value: s.id,
             key: s.id,
-          }
+          };
         }),
-      }
-    })
+      };
+    });
 
-    setCatagory(data)
-  }
+    setCatagory(data);
+  };
+
+
 
   const handleGetEvent = async () => {
     const res = await getEvent()
@@ -63,7 +71,6 @@ const ListProduct = () => {
     setEvent(data)
   }
 
-  const [rangeValues, setRangeValues] = useState([0, 0]);
   const location = useLocation();
   const searchQuery = location.state?.searchQuery || '';
 
@@ -86,16 +93,13 @@ const ListProduct = () => {
     console.log(newFilteredPrice)
   };
 
-  const handleGetProducts = async () => {
-    const res = await getProducts()
-    setProducts(res?.data)
-  }
 
   useEffect(() => {
     handleGetProducts(),
-      handleGetCatagory(),
+      handleGetCategories(),
       handleGetEvent()
   }, [])
+
 
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -105,7 +109,37 @@ const ListProduct = () => {
     setOpen(false);
   };
 
+  const filterProductsByCategories = (selectedCategories, allProducts) => {
+    if (selectedCategories?.length === 0) {
+      return allProducts; // No categories selected, return all products
+    }
 
+    // Filter products that belong to at least one selected category
+    return allProducts?.filter((product) =>
+      product?.categories?.some((category) => selectedCategories?.includes(category.id))
+    );
+  };
+
+  const handleGetProducts = async () => {
+    const res = await getProducts();
+    const fetchedProducts = res?.data || [];
+
+    // Update both products and filteredProducts states
+    setProducts(fetchedProducts);
+    setFilteredProducts(fetchedProducts);
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+
+  const combinedProducts = [...filteredPrice, ...filteredSearch];
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = combinedProducts.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handleChangePage = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
@@ -114,6 +148,15 @@ const ListProduct = () => {
 
         <Navbar />
         <Content style={{ padding: "0 32px", }}>
+
+          <Breadcrumb
+            style={{
+              margin: '16px 0',
+            }}
+          >
+            <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
+            <Breadcrumb.Item>รายการสินค้า</Breadcrumb.Item>
+          </Breadcrumb>
 
           <Row style={{ marginTop: "20px" }}>
             <Col xs={2} sm={2} md={0} >
@@ -139,10 +182,11 @@ const ListProduct = () => {
           >
             <Card>
               <Title level={5}>หมวดหมู่สินค้า</Title>
-              <FilterProductCatagory filterData={catagories} />
+              <FilterProductCategory filterData={catagories} onCategoryChange={setSelectedCategories} />
+
               <Divider />
               <Title level={5}>หมวดหมู่เทศกาล</Title>
-              <Filter filterData={events} />
+              <FilterProductEvent filterData={events} />
               <Divider />
               <Title level={5}>ช่วงราคา</Title>
               <div className="card-body">
@@ -165,10 +209,11 @@ const ListProduct = () => {
             <Col xs={0} sm={9} md={9} lg={6} style={{ marginTop: '10px' }}>
               <Card title="ค้นหาแบบละเอียด" bordered={false} style={{ position: "sticky", top: "16px", }}>
                 <Title level={5}>หมวดหมู่สินค้า</Title>
-                <FilterProductCatagory filterData={catagories} />
+                <FilterProductCategory filterData={catagories} onCategoryChange={setSelectedCategories} />
+
                 <Divider />
                 <Title level={5}>หมวดหมู่เทศกาล</Title>
-                <Filter filterData={events} />
+                <FilterProductEvent filterData={events} />
                 <Divider />
                 <Title level={5}>ช่วงราคา</Title>
 
@@ -186,52 +231,32 @@ const ListProduct = () => {
                   </div>
                 </div>
 
-
-
-
               </Card>
             </Col>
             <Col lg={16}>
-              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
-                {(filteredPrice?.length > 0 || filteredSearch?.length > 0) ? (
-                  <>
-                    {filteredPrice?.map((p) => (
-                      <Col
-                        key={p.id}
-                        className="gutter-row"
-                        xs={12}
-                        sm={9}
-                        md={9}
-                        lg={6}
-                      >
-                        <div style={{ marginTop: '10px' }}>
-                          <CardProduct data={p} />
-                        </div>
-                      </Col>
-                    ))}
-
-                    {filteredSearch?.map((p) => (
-                      <Col
-                        key={p.id}
-                        className="gutter-row"
-                        xs={12}
-                        sm={9}
-                        md={9}
-                        lg={6}
-                      >
-                        <div style={{ marginTop: '10px' }}>
-                          <CardProduct data={p} />
-                        </div>
-                      </Col>
-                    ))}
-                  </>
+              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                {currentProducts.length > 0 ? (
+                  currentProducts.map((p) => (
+                    <Col key={p.id} className="gutter-row" xs={12} sm={9} md={9} lg={6}>
+                      <div style={{ marginTop: '10px' }}>
+                        <CardProduct data={p} />
+                      </div>
+                    </Col>
+                  ))
                 ) : (
                   <div>No products found.</div>
                 )}
               </Row>
+              {combinedProducts.length > itemsPerPage && (
+                <PaginationBtn
+                  current={currentPage}
+                  onChange={handleChangePage}
+                  pageSize={itemsPerPage}
+                  total={combinedProducts.length}
+                  style={{ marginTop: '20px', textAlign: 'center' }}
+                />
+              )}
             </Col>
-
-
 
           </Row>
         </Content>
@@ -242,3 +267,17 @@ const ListProduct = () => {
 };
 
 export default ListProduct;
+
+export const PaginationBtn = styled(Pagination)`
+
+
+  &.ant-pagination .ant-pagination-item-active {
+   
+    border-color: #a08155;
+  }
+  &.ant-pagination .ant-pagination-item-active>a {
+    color: #a08155;
+    
+  }
+`;
+

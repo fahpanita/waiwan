@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Row, Col, Typography, Tabs, Table, Button, Divider, Radio, Modal, Form } from "antd";
+import { Layout, Row, Col, Typography, Tabs, Table, Button, Divider, Radio, Modal, Form, Breadcrumb } from "antd";
 import Navbar from "../../components/Header/Navbar";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import FooterPage from "../../components/Footer/FooterPage";
@@ -154,6 +154,17 @@ const BuyProduct = (props) => {
         <Navbar />
         <Form form={createformOrder} >
           <Content style={{ margin: '24px 24px 0', }}>
+
+            <Breadcrumb
+              style={{
+                margin: '16px 0',
+              }}
+            >
+              <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
+              <Breadcrumb.Item>รายการสินค้า</Breadcrumb.Item>
+              <Breadcrumb.Item>สั่งซื้อสินค้า</Breadcrumb.Item>
+            </Breadcrumb>
+
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
 
               <Col xs={24} sm={16} md={16} >

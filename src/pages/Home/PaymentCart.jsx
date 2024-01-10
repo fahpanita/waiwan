@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from "../../components/Header/Navbar";
-import { Layout, Row, Col, Typography, Button, Table, Upload, Divider, QRCode } from "antd";
+import { Layout, Row, Col, Typography, Button, Table, Upload, Divider, QRCode, Breadcrumb, Modal } from "antd";
 import { UploadOutlined, CameraOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import FooterPage from '../../components/Footer/FooterPage';
@@ -46,8 +46,27 @@ const beforeUpload = async (file) => {
   return isJpgOrPng && isLt2M;
 };
 
+const downloadQRCode = () => {
+  const canvas = document.getElementById('myqrcode')?.querySelector('canvas');
+  if (canvas) {
+    const url = canvas.toDataURL();
+    const a = document.createElement('a');
+    a.download = 'QRCode.png';
+    a.href = url;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+};
 
 const PaymentCart = () => {
+
+  const handleOk = () => {
+    Modal.success({
+      title: 'ชำระเงินสำเร็จ',
+      content: 'สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official',
+    });
+  };
 
   const { addCartProduct } = useSelector((state) => ({ ...state }))
 
@@ -95,31 +114,22 @@ const PaymentCart = () => {
 
   }
 
-  const [payload, setPayload] = useState('');
-  const [amount, setAmount] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await payment({ totalWithShipping });
-        const receivedPayload = res?.data?.payload || null;
-        const receivedAmount = res?.data?.amount || null;
-
-        setAmount(receivedAmount);
-        setPayload(receivedPayload);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, [totalWithShipping]);
 
   return (
     <>
       <Layout style={{ background: "#F5F5F5" }}>
         <Navbar />
         <Content style={{ margin: '24px 24px 0', }}>
+          <Breadcrumb
+            style={{
+              margin: '16px 0',
+            }}
+          >
+            <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
+            <Breadcrumb.Item>ตะกร้าสินค้า</Breadcrumb.Item>
+            <Breadcrumb.Item>สั่งซื้อสินค้า</Breadcrumb.Item>
+            <Breadcrumb.Item>แจ้งหลักฐานการชำระเงิน</Breadcrumb.Item>
+          </Breadcrumb>
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center">
             <Col xs={24} sm={16} md={16} lg={16}>
               <CardBoxRadius>
@@ -162,9 +172,27 @@ const PaymentCart = () => {
                   </Col>
                 </Row>
                 <Dividers />
-                <QRCode value={payload || ''} />
-                {/* <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406420.006304976A" || '-'} /> */}
+                <Col style={{ justifyContent: "center", display: "flex", flexDirection: "column", alignItems: "center" }} id="myqrcode">
+                  <img src="image/img/thai_qr_payment 1.png" width={250} />
+                  <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406420.006304976A" || '-'} />
+                  <Button
+                    type="primary"
+                    shape="round"
+                    size="large"
 
+                    style={{
+                      background: "#FFF",
+                      width: "100%",
+                      marginTop: "20px",
+                      color: "#A08155",
+                      border: "1px solid #A08155",
+                    }}
+
+                    onClick={downloadQRCode}
+                  >
+                    บันทึก QR Code
+                  </Button>
+                </Col>
               </CardBoxRadius>
 
               <CardBoxRadius>
@@ -181,22 +209,23 @@ const PaymentCart = () => {
               </CardBoxRadius>
 
               <Row style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
-                <Col >
-                  <Link to={"/payment"} >
-                    <Button
-                      type="primary"
-                      shape="round"
-                      size="large"
+                <Col>
+                  <Button
+                    type="primary"
+                    shape="round"
+                    size="large"
+                    htmlType="submit"
+                    style={{
+                      background: "#bf9f64",
+                      width: "100%",
+                      marginTop: "20px",
+                    }}
+                    onClick={handleOk}
+                  >
+                    แจ้งการชำระเงิน
+                  </Button>
 
-                      style={{
-                        background: "#bf9f64",
-                        width: "100%",
-                        marginTop: "20px",
-                      }}
-                    >
-                      แจ้งการชำระเงิน
-                    </Button>
-                  </Link>
+
                 </Col>
               </Row>
             </Col>
@@ -230,18 +259,6 @@ export const Tables = styled(Table)`
   }
           `;
 
-const ButtonRed = styled(Button)`
-  border-radius: 50px;
-  border: 1px solid #bf9f64;
-  background: #c54142;
-  padding: 6px 64px;
-  color: white;
-
-  &.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-    color: white;
-    border-color: #923131;
-  }
-`;
 export const CardBoxRadius = styled.div`
 border-radius: 13px;
 background: #FFF;
