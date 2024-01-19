@@ -137,7 +137,7 @@ const Cart = () => {
         <Content style={{ margin: '24px 24px 0', }} >
           <Breadcrumb
             style={{
-              margin: '16px 0',
+              margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px",
             }}
           >
             <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>

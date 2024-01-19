@@ -17,3 +17,18 @@ export const uploadImages = async (file) => {
         return undefined;
     }
 };
+
+export const uploadImagesGallery = async (formData) => {
+
+    try {
+        const res = await axios.post(BASE_URL + "/image", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        return res;
+    } catch (error) {
+        return undefined;
+    }
+};
+

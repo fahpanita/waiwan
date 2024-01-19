@@ -12,7 +12,7 @@ import { createProduts } from '../../services/product';
 import { useNavigate } from 'react-router-dom';
 import { getEvent } from '../../services/event';
 import { BASE_URL } from '../../constands/api';
-import { uploadImages } from '../../services/upload';
+import { uploadImages, uploadImagesGallery } from '../../services/upload';
 
 const { Header, Content } = Layout;
 
@@ -56,6 +56,22 @@ const AddProduct = () => {
 
     }
 
+    const uploadImageFromAntd = async ({ file, onSuccess, onError }) => {
+        try {
+            const formData = new FormData();
+            formData.append('gallery', file.originFileObj);
+
+            // Log FormData for debugging
+            console.log(formData, '12345');
+
+            const res = await uploadImages(formData);
+            onSuccess(res?.data?.path);
+        } catch (error) {
+            onError("Error uploading image");
+        }
+    };
+
+
     const handleGetCatagory = async () => {
         const res = await getCatagory()
 
@@ -96,7 +112,7 @@ const AddProduct = () => {
         })
 
         setEvent(data)
-        console.log(res?.data);
+
     }
 
     const onCreateProductFinish = async (value) => {
@@ -109,6 +125,7 @@ const AddProduct = () => {
 
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
+
     const handleChangeImg = (info) => {
         if (info.file.status === 'uploading') {
             setLoading(true);
@@ -123,6 +140,7 @@ const AddProduct = () => {
         }
         createProductForm.setFieldValue("thumbnail", info.file.response)
     };
+
     const uploadButton = (
         <div>
             {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -134,10 +152,7 @@ const AddProduct = () => {
 
     const [fileList, setFileList] = useState([
     ]);
-    const onChange = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
-        createProductForm.setFieldValue("gallery", newFileList?.map(f => f.response))
-    };
+
     const onPreview = async (file) => {
         let src = file.url;
         if (!src) {
@@ -152,6 +167,30 @@ const AddProduct = () => {
         const imgWindow = window.open(src);
         imgWindow?.document.write(image.outerHTML);
     };
+
+    const onChange = async ({ fileList: newFileList }) => {
+        const updatedFileList = await Promise.all(newFileList.map(async (file) => {
+            if (file.response && file.response.path) {
+                return {
+                    ...file,
+                    url: file.response.path,
+                };
+            }
+            return file;
+        }));
+
+        setFileList(updatedFileList);
+
+        // Extract paths only if 'response' is defined
+        const galleryPaths = updatedFileList
+            .filter((file) => file.response && file.response.path)
+            .map((file) => file.response.path);
+
+        createProductForm.setFieldValue("gallery", galleryPaths);
+    };
+
+
+
 
     useEffect(() => {
         handleGetCatagory(),
@@ -219,7 +258,7 @@ const AddProduct = () => {
                                             <ImgCrop rotationSlider cropperProps={{ restrictPosition: false }} aspect={1 / 1}>
                                                 <Upload
                                                     name="gallery"
-                                                    customRequest={uploadImageFromAnd}
+                                                    customRequest={uploadImageFromAntd}
                                                     beforeUpload={beforeUpload}
                                                     listType="picture-card"
                                                     fileList={fileList}
@@ -228,6 +267,7 @@ const AddProduct = () => {
                                                 >
                                                     {fileList.length < 5 && '+ Upload'}
                                                 </Upload>
+
                                             </ImgCrop>
                                         </Form.Item>
                                     </CardBoxRadius>

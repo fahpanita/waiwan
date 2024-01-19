@@ -28,22 +28,22 @@ const CardProduct = (prop) => {
 
           <Card.Img variant="top" style={{ borderRadius: "10px 10px 0 0" }} src={`${BASE_URL}/${data?.thumbnail}`}></Card.Img>
           {data?.typeProduct === 'พรีออเดอร์' && (
-            <Tag color="#c9c9c9" style={{ position: "absolute", margin: "14px 0 0 14px", borderRadius: "50px" }}>
+            <Tag color="#c9c9c9" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "14px", position: "absolute", margin: "14px 0 0 14px", borderRadius: "50px" }}>
               {data?.typeProduct}
             </Tag>
           )}
           {data?.typeProduct === 'พร้อมส่ง' && (
-            <Tag color="#7eca72" style={{ position: "absolute", margin: "14px 0 0 14px", borderRadius: "50px" }}>
+            <Tag color="#7eca72" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "14px", position: "absolute", margin: "14px 0 0 14px", borderRadius: "50px" }}>
               {data?.typeProduct}
             </Tag>
           )}
 
           <Card.Body>
-            <Card.Text style={{ fontSize: "18px", fontWeight: "400", height: "40px" }}>{data?.name}</Card.Text>
+            <Card.Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "400", height: "40px" }}>{data?.name}</Card.Text>
 
             <Row>
               <Col span={22}>
-                <Card.Text style={{ fontSize: "20px", fontWeight: "600", }}>฿{data?.price}</Card.Text>
+                <Card.Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "32px", fontWeight: "500", }}>฿{data?.price}</Card.Text>
               </Col>
               <Col span={2} style={{ justifyContent: "right", display: "flex" }}>
                 <Button shape="circle" size="large"

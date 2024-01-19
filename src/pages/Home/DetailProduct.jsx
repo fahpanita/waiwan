@@ -46,6 +46,8 @@ const DetailProduct = (props) => {
     setProduct(res?.data);
   };
 
+
+
   let [amount, setNum] = useState(1);
 
   let incNum = () => {
@@ -108,7 +110,7 @@ const DetailProduct = (props) => {
 
           <Breadcrumb
             style={{
-              margin: '16px 0',
+              margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px",
             }}
           >
             <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
@@ -139,25 +141,31 @@ const DetailProduct = (props) => {
 
               <Col xs={24} sm={12} md={12} lg={14} >
                 <Card style={{ border: "none", padding: "20px", position: "sticky", top: "16px", boxShadow: "0 0 2px rgba(0,0,0,.15)" }}>
-                  <span style={{ fontSize: "24px", fontWeight: "600" }}>{product?.name}</span>
+                  <span style={{ fontFamily: "'Athiti', sans-serif", fontSize: "36px", fontWeight: "600" }}>{product?.name}</span>
                   <div style={{ marginTop: "14px" }}>
-                    <span style={{ fontSize: "18px", marginRight: "10px" }}>ประเภทสินค้า:</span>
+                    <span style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", marginRight: "10px" }}>ประเภทสินค้า:</span>
                     {product?.typeProduct === 'พรีออเดอร์' && (
                       <Tag color="error" style={{ fontSize: "18px", padding: "8px", fontWeight: "500" }}
                       > {product?.typeProduct}</Tag>
                     )}
                     {product?.typeProduct === 'พร้อมส่ง' && (
-                      <Tag color="green" style={{ fontSize: "18px", padding: "8px", fontWeight: "500" }} > {product?.typeProduct}</Tag>
+                      <Tag color="green" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", padding: "8px", fontWeight: "500" }} > {product?.typeProduct}</Tag>
                     )}
 
                   </div>
+                  <div>
+                    {product.categories && product.categories.map(category => (
+                      <Tag key={category.id} color="default">{category.name}</Tag>
+                    ))}
+                  </div>
+
                   <div style={{ marginTop: "14px" }}>
-                    <span style={{ fontSize: "18px", marginRight: "10px" }}>ราคา:</span>
-                    <span style={{ fontSize: "24px", fontWeight: "500", }}>฿{product?.price}</span>
+                    <span style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", marginRight: "10px" }}>ราคา:</span>
+                    <span style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "24px", fontWeight: "500", }}>฿{product?.price}</span>
                   </div>
                   <Divider />
-                  <div style={{ fontSize: "20px", display: "flex", flexWrap: "nowrap", alignItems: "center" }}>
-                    <span style={{ fontSize: "18px", marginRight: "15px", }}> จำนวน: </span>
+                  <div style={{ display: "flex", flexWrap: "nowrap", alignItems: "center" }}>
+                    <span style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", marginRight: "15px", }}> จำนวน: </span>
                     {
                       <div >
                         <div class="input-group" style={{ display: "flex", flexWrap: "nowrap" }}>
@@ -178,7 +186,7 @@ const DetailProduct = (props) => {
                     <Button size="large" shape="round"
                       icon={<ShoppingCartOutlined />}
                       style={{
-                        fontSize: "18px", padding: "0 30px 0 30px", color: "#444", border: "1px solid #444", width: "200px", textDecoration: "none"
+                        fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", color: "#444", border: "1px solid #444", width: "200px", textDecoration: "none"
                       }} htmlType="submit" onClick={() => {
                         handleAddProduct()
                         navigate(`/cart`)
@@ -188,7 +196,7 @@ const DetailProduct = (props) => {
                     <div>
                       <Button type="primary" shape="round" size="large"
                         style={{
-                          fontSize: "18px", background: "#bf9f64", padding: "0 30px 0 30px", width: "200px"
+                          fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", background: "#bf9f64", width: "200px"
                         }}
                         htmlType="submit" onClick={() => {
                           handleBuyProduct()
@@ -218,8 +226,8 @@ const DetailProduct = (props) => {
                 items={[
                   {
                     key: "1",
-                    label: <Title level={4}>รายละเอียดสินค้า</Title>,
-                    children: <p style={{ fontSize: "18px" }}>{product?.detailProduct}</p>,
+                    label: <Title level={4} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", }}>รายละเอียดสินค้า</Title>,
+                    children: <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>{product?.detailProduct}</p>,
                   },
                 ]}
               />
@@ -239,8 +247,8 @@ const DetailProduct = (props) => {
                 items={[
                   {
                     key: "2",
-                    label: <Title level={4}>รายละเอียดการจัดส่ง</Title>,
-                    children: <p style={{ fontSize: "18px" }}>{product?.detailShipping}</p>,
+                    label: <Title level={4} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", }}>รายละเอียดการจัดส่ง</Title>,
+                    children: <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>{product?.detailShipping}</p>,
                     Divider: "",
                   },
                 ]}
@@ -263,8 +271,8 @@ const DetailProduct = (props) => {
                 items={[
                   {
                     key: "3",
-                    label: <Title level={4}>เงื่อนไขอื่น ๆ</Title>,
-                    children: <p style={{ fontSize: "18px" }}>{product?.condition}</p>,
+                    label: <Title level={4} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", }}>เงื่อนไขอื่น ๆ</Title>,
+                    children: <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>{product?.condition}</p>,
                   },
                 ]}
               />

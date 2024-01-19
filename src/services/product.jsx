@@ -40,6 +40,7 @@ export const createProduts = async (data) => {
   }
 };
 
+
 export const deleteProduts = async (id) => {
   try {
     const res = await requestBackend({

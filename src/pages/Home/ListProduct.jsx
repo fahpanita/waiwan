@@ -151,7 +151,7 @@ const ListProduct = () => {
 
           <Breadcrumb
             style={{
-              margin: '16px 0',
+              margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px",
             }}
           >
             <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
@@ -207,15 +207,15 @@ const ListProduct = () => {
 
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center">
             <Col xs={0} sm={9} md={9} lg={6} style={{ marginTop: '10px' }}>
-              <Card title="ค้นหาแบบละเอียด" bordered={false} style={{ position: "sticky", top: "16px", }}>
-                <Title level={5}>หมวดหมู่สินค้า</Title>
+              <Card title="ค้นหาแบบละเอียด" bordered={false} style={{ position: "sticky", top: "16px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>
+                <Title level={5} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>หมวดหมู่สินค้า</Title>
                 <FilterProductCategory filterData={catagories} onCategoryChange={setSelectedCategories} />
 
                 <Divider />
-                <Title level={5}>หมวดหมู่เทศกาล</Title>
+                <Title level={5} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>หมวดหมู่เทศกาล</Title>
                 <FilterProductEvent filterData={events} />
                 <Divider />
-                <Title level={5}>ช่วงราคา</Title>
+                <Title level={5} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>ช่วงราคา</Title>
 
                 <div className="card-body">
                   <Slider range defaultValue={rangeValues} onChange={handlePriceChange} max={1000} />
