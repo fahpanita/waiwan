@@ -19,9 +19,26 @@ export const createOrder = async (data) => {
   } catch (error) {
     Modal.error({
       title: "Error",
-      content: error?.response?.data?.message || "ยังไม่ล๊อคอิน",
+      content: error?.response?.data?.message || "กรุณาทำการ logIn ก่อนสั่งซื้อสินค้า",
     });
     return undefined;
   }
 };
 
+export const createAddress = async (data) => {
+  try {
+    const res = await requestBackend({
+      url: "/address",
+      method: "POST",
+      data: data,
+    });
+
+    return res;
+  } catch (error) {
+    Modal.error({
+      title: "Error",
+      content: error?.response?.data?.message || "ที่อยู่ไม่ถูกต้อง",
+    });
+    return undefined;
+  }
+};

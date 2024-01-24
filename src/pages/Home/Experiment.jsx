@@ -56,7 +56,33 @@ const Experiment = () => {
                 </Card >
               </Link>
             </Col>
+
+            <Col xs={12} sm={9} md={9} lg={4}>
+              <Link to="/setChengMeng" style={{ textDecoration: "none" }}>
+                <Card
+                  hoverable
+                  style={{ border: "none", borderRadius: "10px" }}
+                >
+                  <Button
+                    type="primary"
+                    shape="round"
+                    size="large"
+                    href="/setChengMeng"
+                    style={{
+                      background: "#bf9f64", width: "100%",
+                      position: "absolute", bottom: "16px",
+                      // padding:""
+                    }}
+                  >
+                    ทดลองจัดไหว้
+                  </Button>
+                  <Card.Img variant="top" style={{ borderRadius: "10px 10px 0 0" }} src="image/img/ชุดไหว้เช้งเม้ง.png"></Card.Img>
+                </Card >
+              </Link>
+            </Col>
           </Row>
+
+
 
         </Content>
         <FooterPage />

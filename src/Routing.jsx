@@ -32,6 +32,7 @@ import Sellershipping from "./pages/Dashboard/sellerShipping";
 import Sellersucceed from "./pages/Dashboard/sellersucceed";
 import StockList from "./pages/Stock/stochlist";
 import SetAncestor from "./pages/Home/SetAncestor";
+import SetChengMeng from "./pages/Home/SetChengMeng";
 
 // import Cart from "./pages/Home/Cart";
 
@@ -84,6 +85,14 @@ const Routing = () => {
             }
           />
           <Route
+            path="/setChengMeng"
+            element={
+              <Suspense fallback={<Loading />}>
+                <SetChengMeng />
+              </Suspense>
+            }
+          />
+          <Route
             path="/cart"
             element={
               <Suspense fallback={<Loading />}>
@@ -132,7 +141,7 @@ const Routing = () => {
             }
           />
           <Route
-            path="/payment"
+            path="/payment/:orderId"
             element={
               <Suspense fallback={<Loading />}>
                 <Payment />

@@ -36,6 +36,8 @@ export const Img = styled.img`
 // };
 
 const Home = () => {
+
+  const [loading, setLoading] = useState(true);
   const { Search } = Input;
   const onSearch = (value, _e, info) => console.log(info?.source, value);
   const handleChange = (value) => {
@@ -45,8 +47,10 @@ const Home = () => {
   const [products, setProducts] = useState([]);
 
   const handleGetProducts = async () => {
+    setLoading(true)
     const res = await getProducts();
     setProducts(res?.data);
+    setLoading(false)
   };
 
   const [cardevents, setCartEvents] = useState([]);
@@ -282,7 +286,7 @@ const Home = () => {
         </Row>
 
         <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
-          {currentProducts.map((p) => (
+          {loading ? Array.from({ length: 12 }).map((_, idx) => <Col key={idx} className="gutter-row" xs={12} sm={9} md={9} lg={4} style={{ marginBottom: '20px' }}><CardProduct data={undefined} loading={true} /></Col>) : currentProducts.map((p) => (
             <Col key={p.id} className="gutter-row" xs={12} sm={9} md={9} lg={4} style={{ marginBottom: '20px' }}><CardProduct data={p} /></Col>
           ))}
         </Row>

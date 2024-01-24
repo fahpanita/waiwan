@@ -22,7 +22,7 @@ const FooterPage = () => {
                     <Image
                       preview={false}
                       width={100}
-                      src="image/img/Logo.png"
+                      src="/image/img/Logo.png"
                     />
                     <p class="mt-3">
                       {" "}
@@ -74,7 +74,7 @@ const FooterPage = () => {
                         preview={false}
                         width={40}
                         height={40}
-                        src="image/img/nim-express.png"
+                        src="/image/img/nim-express.png"
                       />
                     </li>
                     <li style={{ marginTop: "5px" }}>
@@ -83,7 +83,7 @@ const FooterPage = () => {
                         preview={false}
                         width={40}
                         height={40}
-                        src="image/img/flash-express.png"
+                        src="/image/img/flash-express.png"
                       />
                     </li>
                   </ul>
@@ -97,7 +97,7 @@ const FooterPage = () => {
                         preview={false}
                         width={120}
                         height={40}
-                        src="image/img/promtpay.png"
+                        src="/image/img/promtpay.png"
                       />
                     </li>
                   </ul>
@@ -111,7 +111,7 @@ const FooterPage = () => {
                         preview={false}
                         width={40}
                         height={40}
-                        src="image/img/line.png"
+                        src="/image/img/line.png"
                       />
                       <a>Line</a>
                     </li>
@@ -121,7 +121,7 @@ const FooterPage = () => {
                         preview={false}
                         width={40}
                         height={40}
-                        src="image/img/facebook.png"
+                        src="/image/img/facebook.png"
                       />
                       <a>Facebook</a>
                     </li>
