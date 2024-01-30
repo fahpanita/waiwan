@@ -11,10 +11,7 @@ import { createAddress, createOrder } from "../../services/buyproduct";
 import { LongdoMap, longdo, map } from "../../components/LongdoMap";
 import { Input } from "antd/es";
 import { getAddress } from "../../services/map";
-import { useAuth } from "../../Providers/AuthProvider";
-// import { notifyLine } from "../../services/notifyline";
 import { PushpinOutlined, } from "@ant-design/icons";
-import { addProduct } from "../../store/getProductSlice";
 
 const columns = [
   {
@@ -38,8 +35,6 @@ const BuyProduct = (props) => {
 
   const [createformOrder] = Form.useForm();
   const formDataOrder = Form.useWatch([], createformOrder);
-
-  console.log(formDataOrder)
 
   const { getProduct } = useSelector((state) => ({ ...state }))
 
@@ -77,14 +72,12 @@ const BuyProduct = (props) => {
   const formattedTotal = totalWithShipping.toFixed(2);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [value, setValue] = useState("จัดส่งตามที่อยู่");
   const [visible, setVisible] = useState(false);
 
   const onChange = (e) => {
     setValue(e.target.value);
-    // setVisible(e.target.value === "รับหน้าร้าน");
 
   };
 
@@ -104,7 +97,6 @@ const BuyProduct = (props) => {
       }
 
     }
-    console.log(res)
 
   }
 
@@ -162,7 +154,6 @@ const BuyProduct = (props) => {
     }
   }, [location])
 
-  console.log(location)
   return (
     <>
       <Layout style={{ background: "#F5F5F5" }}>
@@ -199,7 +190,7 @@ const BuyProduct = (props) => {
                           : 'เลือกที่อยู่จัดส่ง'}
 
                       </Button>
-                      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
+                      <Modal title="เลือกที่อยู่การจัดส่ง" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
                         <LongdoMapStyle>
                           <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />
                         </LongdoMapStyle>

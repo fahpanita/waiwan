@@ -11,7 +11,8 @@ const FooterPage = () => {
         <Footer
           style={{
             background: "#E9E9E9",
-            marginTop: "120px",
+            // marginTop: "120px",
+            fontFamily: "Chakra Petch, sans-serif", fontSize: "16px"
           }}
         >
           <div class="container">

@@ -43,7 +43,7 @@ const Cart = () => {
       title: "แก้ไข",
       render: (text, record) => (
         <Space size="middle">
-          <Button style={{ color: "#c54142", border: "1px solid #c54142" }} onClick={() => removeItem(record)}>ลบ</Button>
+          <Button style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", color: "#c54142", border: "1px solid #c54142", }} onClick={() => removeItem(record)}>ลบ</Button>
         </Space>
       ),
     },
@@ -74,7 +74,8 @@ const Cart = () => {
     border: "1px solid rgb(232, 232, 232)",
     color: "#000",
     fontSize: "18px",
-    // fontWeight: "500",
+    fontWeight: "500",
+    fontFamily: "'Chakra Petch', sans-serif",
   }
   const data = addCartProduct?.product?.map(p => {
     return {
@@ -85,8 +86,8 @@ const Cart = () => {
             <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
           </Col>
           <Col xs={24} sm={16} md={16} lg={8}>
-            <div style={{ fontSize: "18px", fontWeight: "400" }}>{p?.name}</div>
-            <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
+            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400" }}>{p?.name}</div>
+            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", }}>฿{p?.amount * p?.price}</div>
           </Col>
           <Col xs={24} sm={16} md={16} lg={6}>
             <div class="input-group" style={{ display: "flex", flexWrap: "nowrap " }}>
@@ -128,26 +129,22 @@ const Cart = () => {
 
   return (
     <>
-      <Layout
-        style={{
-          background: "#F5F5F5",
-        }}
-      >
+      <Layout style={{ background: "#F5F5F5", }}>
         <Navbar />
         <Content style={{ margin: '24px 24px 0', }} >
           <Breadcrumb
             style={{
-              margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px",
+              margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px",
             }}
           >
             <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
             <Breadcrumb.Item>ตะกร้าสินค้า</Breadcrumb.Item>
           </Breadcrumb>
-          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center" style={{ display: "flex", alignItems: "flex-start" }}>
+          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center" style={{ display: "flex", alignItems: "flex-start", marginBottom: "70px" }}>
             <Col xs={24} sm={16} md={16} lg={16}>
               <CardBoxRadius>
                 <Title level={5} style={{ textAlign: "left" }}>
-                  <Tables
+                  <TableCart
                     columns={columns}
                     dataSource={data}
                     pagination={false}
@@ -158,47 +155,38 @@ const Cart = () => {
 
             <Col xs={24} sm={8} md={8} lg={8} style={{ position: "sticky", bottom: "16px" }}>
               <CardBoxRadius >
-                <Title level={5}>สรุปรายการสั่งซื้อ</Title>
+                <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>สรุปรายการสั่งซื้อ</Text>
                 <Dividers />
                 <Row style={{ display: "flex", alignItems: "center" }}>
                   <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
+                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>ยอดรวม</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{formattedTotalPrice}</div>
+                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>฿{formattedTotalPrice}</div>
                   </Col>
                 </Row>
                 <Row style={{ display: "flex", alignItems: "center" }}>
                   <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
+                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>ค่าจัดส่ง</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{shipping}</div>
+                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>฿{shipping}</div>
                   </Col>
                 </Row>
                 <Dividers />
                 <Row style={{ display: "flex", alignItems: "center" }}>
                   <Col span={12}>
-                    <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมทั้งสิ้น</div>
+                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>ยอดรวมทั้งสิ้น</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿{formattedTotal}</div>
+                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", color: "#C54142" }}>฿{formattedTotal}</div>
                   </Col>
                 </Row>
                 <Row>
                   <Col span={24}>
                     <Link to={"/buyProductCart"} >
-                      <Button
-                        type="primary"
-                        shape="round"
-                        size="large"
-                        style={{
-                          background: "#bf9f64",
-                          width: "100%",
-                          marginTop: "20px",
-                          fontSize: "20px",
-                          padding: "0 30px 0 30px"
-                        }}
+                      <Button type="primary" shape="round" size="large"
+                        style={{ background: "#bf9f64", width: "100%", marginTop: "16px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}
                       >
                         สั่งซื้อสินค้า
                       </Button>
@@ -233,9 +221,12 @@ margin: 10px;
 padding: 16px;
 `;
 
-export const Tables = styled(Table)`
-  &.ant-table-wrapper .ant-table-thead > tr > td {
-    /* width: 100px; */
+export const TableCart = styled(Table)`
+
+  &.ant-table-tbody > tr > td, .ant-table-thead > tr > th{
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
   }
 `;
 

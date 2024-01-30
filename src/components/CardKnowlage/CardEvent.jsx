@@ -11,8 +11,13 @@ const centered = {
   transform: "translate(-50%, -50%)",
   marginTop: "-30px",
   color: "#FFEE53",
-  fontSize: "27px",
+  fontSize: "24px",
   textShadow: "1px 2px 5px #000",
+  fontFamily: "'Athiti', sans-serif",
+  fontWeight: "500",
+  width: "200px",
+  display: "flex",
+  justifyContent: "center",
 };
 
 const CardEvent = (prop) => {

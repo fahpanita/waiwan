@@ -149,7 +149,7 @@ const Routing = () => {
             }
           />
           <Route
-            path="/paymentcart"
+            path="/paymentcart/:orderId"
             element={
               <Suspense fallback={<Loading />}>
                 <PaymentCart />

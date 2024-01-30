@@ -16,7 +16,7 @@ import FooterPage from "../../components/Footer/FooterPage";
 import MenuAccount from "../../components/Menu/MenuAccount";
 
 const { Content } = Layout;
-const { Title, Paragraph } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 const boxSum = {
   display: "flex",
@@ -48,7 +48,7 @@ const Stock = () => {
           <Row
             gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
             justify="space-evenly"
-            style={{ marginTop: "32px" }}
+            style={{ marginTop: "32px", marginBottom: "70px" }}
           >
             <Col className="gutter-row" span={5}>
               <MenuAccount />
@@ -58,9 +58,12 @@ const Stock = () => {
               span={19}
               style={{ backgroundColor: "white", borderRadius: "10px" }}
             >
-              <Title level={5} style={{ marginTop: "10px" }}>
-                ข้อมูลของฉัน
-              </Title>
+              <div style={{ marginTop: "16px" }}>
+                <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>
+                  ข้อมูลของฉัน
+                </Text>
+              </div>
+
               <div
                 style={{
                   display: "flex",
@@ -69,15 +72,15 @@ const Stock = () => {
                 }}
               >
                 <Image width={100} height={100} src={profile?.picture} />
-                <Paragraph style={{ marginTop: "10px" }}>
+                <Paragraph style={{ marginTop: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>
                   ชื่อผู้ใช้: {profile?.name}
                 </Paragraph>
               </div>
               <Divider />
               <Form layout="vertical" onFinish={onFinish}>
                 <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                  <Col className="gutter-row" span={12}>
-                    <Form.Item label="ชื่อ" name="name">
+                  <Col className="gutter-row" span={12} >
+                    <Form.Item label="ชื่อ" name="name" >
                       <Input placholder="name" />
                     </Form.Item>
                   </Col>
@@ -110,7 +113,7 @@ const Stock = () => {
                     type="primary"
                     htmlType="submit"
                     style={{
-                      backgroundColor: "#A08155",
+                      backgroundColor: "#A08155", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px",
                     }}
                   >
                     บันทึก

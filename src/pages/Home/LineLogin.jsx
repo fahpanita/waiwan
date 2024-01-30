@@ -12,16 +12,16 @@ const items = [
   {
     key: "1",
     label: (
-      <Link to="/stock" icon={<UserOutlined />} style={{ fontFamily: "Chakra Petch, sans- serif", }} >
-        จัดการบัญชีผู้ใช้
+      <Link to="/stocklist" icon={<ContainerOutlined />} style={{ fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }} >
+        รายการที่ต้องชำระ
       </Link>
     ),
   },
   {
     key: "2",
     label: (
-      <Link to="/stocklist" icon={<ContainerOutlined />} style={{ fontFamily: "Chakra Petch, sans- serif", }} >
-        รายการที่ต้องชำระ
+      <Link to="/stock" icon={<UserOutlined />} style={{ fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }} >
+        บัญชีผู้ใช้
       </Link>
     ),
   },
@@ -52,12 +52,12 @@ const LineLogin = () => {
   }, [liff, isLoggedIn]);
 
   const showDisplayName = () => {
-    if (error) return <p>Something is wrong.</p>;
-    if (!isReady) return <p>Loading...</p>;
+    if (error) return <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>Something is wrong.</p>;
+    if (!isReady) return <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>Loading...</p>;
 
     if (!isLoggedIn) {
       return (
-        <Button type="primary" onClick={onLogin} style={{ backgroundColor: "#00b900" }}>
+        <Button type="primary" onClick={onLogin} style={{ backgroundColor: "#00b900", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>
           <BsLine />  Login Line
         </Button>
       );
@@ -84,7 +84,7 @@ const LineLogin = () => {
                   padding: 8,
                 }}
               >
-                <Button type="primary" onClick={onLogout} style={{ color: "#fff", backgroundColor: "rgb(68 68 68)", fontFamily: "Chakra Petch, sans- serif", }}>
+                <Button type="primary" onClick={onLogout} style={{ color: "#fff", backgroundColor: "rgb(68 68 68)", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
                   Logout
                 </Button>
               </Space>
@@ -92,7 +92,7 @@ const LineLogin = () => {
           )}
         >
           <a onClick={(e) => e.preventDefault()}>
-            <Space style={{ color: "#000", fontFamily: "Chakra Petch, sans- serif", }}>
+            <Space style={{ color: "#000", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
               <UserOutlined />
               บัญชี
               <DownOutlined />

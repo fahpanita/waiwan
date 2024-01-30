@@ -17,7 +17,7 @@ const FilterProductCategory = (props) => {
       <TreeNode
         key={category.value}
         title={
-          <div>
+          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>
             {category.title}
           </div>
         }

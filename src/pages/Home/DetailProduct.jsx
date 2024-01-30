@@ -11,7 +11,7 @@ import { BASE_URL } from "../../constands/api";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../store/getProductSlice";
 import { addCartProduct } from "../../store/AddCartProductSlice";
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const { Content } = Layout;
 import Card from "react-bootstrap/Card";
 import styled from "styled-components";
@@ -89,7 +89,9 @@ const DetailProduct = (props) => {
     color: "#000",
     // border: "none",
     fontSize: "18px",
-    // fontWeight: "500",
+    fontWeight: "500",
+    fontFamily: "'Chakra Petch', sans-serif",
+
   }
 
   useEffect(() => {
@@ -108,11 +110,7 @@ const DetailProduct = (props) => {
           }}
         >
 
-          <Breadcrumb
-            style={{
-              margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px",
-            }}
-          >
+          <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
             <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
             <Breadcrumb.Item>รายการสินค้า</Breadcrumb.Item>
             <Breadcrumb.Item>สินค้า</Breadcrumb.Item>
@@ -141,15 +139,15 @@ const DetailProduct = (props) => {
 
               <Col xs={24} sm={12} md={12} lg={14} >
                 <Card style={{ border: "none", padding: "20px", position: "sticky", top: "16px", boxShadow: "0 0 2px rgba(0,0,0,.15)" }}>
-                  <span style={{ fontFamily: "'Athiti', sans-serif", fontSize: "36px", fontWeight: "600" }}>{product?.name}</span>
+                  <span style={{ fontFamily: "'Athiti', sans-serif", fontSize: "34px", fontWeight: "500" }}>{product?.name}</span>
                   <div style={{ marginTop: "14px" }}>
                     <span style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", marginRight: "10px" }}>ประเภทสินค้า:</span>
                     {product?.typeProduct === 'พรีออเดอร์' && (
-                      <Tag color="error" style={{ fontSize: "18px", padding: "8px", fontWeight: "500" }}
+                      <Tag color="error" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", padding: "8px", }}
                       > {product?.typeProduct}</Tag>
                     )}
                     {product?.typeProduct === 'พร้อมส่ง' && (
-                      <Tag color="green" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", padding: "8px", fontWeight: "500" }} > {product?.typeProduct}</Tag>
+                      <Tag color="green" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", padding: "8px", }} > {product?.typeProduct}</Tag>
                     )}
 
                   </div>
@@ -186,8 +184,9 @@ const DetailProduct = (props) => {
                     <Button size="large" shape="round"
                       icon={<ShoppingCartOutlined />}
                       style={{
-                        fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", color: "#444", border: "1px solid #444", width: "200px", textDecoration: "none"
-                      }} htmlType="submit" onClick={() => {
+                        fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", color: "#444", border: "1px solid #444", width: "200px", textDecoration: "none",
+                      }}
+                      htmlType="submit" onClick={() => {
                         handleAddProduct()
                         navigate(`/cart`)
                       }}>
@@ -196,7 +195,7 @@ const DetailProduct = (props) => {
                     <div>
                       <Button type="primary" shape="round" size="large"
                         style={{
-                          fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", background: "#bf9f64", width: "200px"
+                          fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", background: "#bf9f64", width: "200px",
                         }}
                         htmlType="submit" onClick={() => {
                           handleBuyProduct()
@@ -226,7 +225,7 @@ const DetailProduct = (props) => {
                 items={[
                   {
                     key: "1",
-                    label: <Title level={4} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", }}>รายละเอียดสินค้า</Title>,
+                    label: <Text style={{ fontFamily: "'Athiti', sans-serif", fontSize: "24px", fontWeight: "500" }}>รายละเอียดสินค้า</Text>,
                     children: <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>{product?.detailProduct}</p>,
                   },
                 ]}
@@ -247,7 +246,7 @@ const DetailProduct = (props) => {
                 items={[
                   {
                     key: "2",
-                    label: <Title level={4} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", }}>รายละเอียดการจัดส่ง</Title>,
+                    label: <Text style={{ fontFamily: "'Athiti', sans-serif", fontSize: "24px", fontWeight: "500" }}>รายละเอียดการจัดส่ง</Text>,
                     children: <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>{product?.detailShipping}</p>,
                     Divider: "",
                   },
@@ -259,7 +258,7 @@ const DetailProduct = (props) => {
           <Row
             justify="space-evenly"
             gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
-            style={{ marginTop: "16px", }}
+            style={{ marginTop: "16px", marginBottom: "70px" }}
           >
             <Col
               span={24}
@@ -271,7 +270,7 @@ const DetailProduct = (props) => {
                 items={[
                   {
                     key: "3",
-                    label: <Title level={4} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", }}>เงื่อนไขอื่น ๆ</Title>,
+                    label: <Text style={{ fontFamily: "'Athiti', sans-serif", fontSize: "24px", fontWeight: "500" }}>เงื่อนไขอื่น ๆ</Text>,
                     children: <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>{product?.condition}</p>,
                   },
                 ]}

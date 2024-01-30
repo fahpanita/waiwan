@@ -117,13 +117,13 @@ const Home = () => {
                 xs={12} sm={9} md={9} lg={24}
                 style={{ display: "flex", marginTop: "2px" }}
               >
-                <Img src="image/img/frame-1.png" />
+                <Img src="/image/img/frame-1.png" />
               </Col>
               <Col
                 xs={12} sm={9} md={9} lg={24}
                 style={{ display: "flex", marginTop: "2px" }}
               >
-                <Img src="image/img/frame-2.png" />
+                <Img src="/image/img/frame-2.png" />
               </Col>
             </Row>
           </Col>
@@ -131,7 +131,7 @@ const Home = () => {
 
         <Row style={{ marginTop: "40px" }}>
           <Col span={24}>
-            <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "36px", fontWeight: "500", }}>หมวดหมู่</Title>
+            <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "32px", fontWeight: "500", }}>หมวดหมู่</Title>
           </Col>
           <Col span={24} offset={0}>
             <div
@@ -175,7 +175,7 @@ const Home = () => {
                       </Cards>
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "400", }}>
+                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
                         เทศกาลไทย
                       </div>
                     </Col>
@@ -201,7 +201,7 @@ const Home = () => {
                       </Cards>
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "400", }}>
+                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
                         เทศกาลจีน
                       </div>
                     </Col>
@@ -227,7 +227,7 @@ const Home = () => {
                       </Cards>
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "400", }}>
+                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
                         เทพเจ้าฮินดู
                       </div>
                     </Col>
@@ -253,7 +253,7 @@ const Home = () => {
                       </Cards>
                     </Col>
                     <Col style={{ textAlign: "center" }}>
-                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "400", }}>
+                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
                         เทพเจ้าจีน
                       </div>
                     </Col>
@@ -268,7 +268,7 @@ const Home = () => {
         <Row style={{ marginTop: "40px", marginBottom: "10px", display: "flex", alignItems: "center" }}>
           <Col span={10}>
 
-            <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "36px", fontWeight: "500", }} >สินค้าสำหรับคุณ</Title>
+            <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "32px", fontWeight: "500", }} >สินค้าสำหรับคุณ</Title>
           </Col>
           <Col span={6} offset={8}>
             <a
@@ -276,7 +276,7 @@ const Home = () => {
                 float: "right",
                 textDecoration: "none",
                 color: "#1D1D1F",
-                fontFamily: "'Athiti', sans-serif", fontSize: "20px", fontWeight: "400",
+                fontFamily: "'Athiti', sans-serif", fontSize: "18px", fontWeight: "500",
               }}
               href="/listProduct"
             >
@@ -297,7 +297,7 @@ const Home = () => {
           total={products.length}
           onChange={handlePageChange}
           showSizeChanger={false}
-          style={{ marginTop: '20px', textAlign: 'center' }}
+          style={{ marginTop: '20px', textAlign: 'center', }}
         />
 
         <Divider dashed style={{ marginTop: "40px" }} />
@@ -311,7 +311,7 @@ const Home = () => {
                 float: "right",
                 textDecoration: "none",
                 color: "#1D1D1F",
-                fontFamily: "'Athiti', sans-serif", fontSize: "20px", fontWeight: "400",
+                fontFamily: "'Athiti', sans-serif", fontSize: "18px", fontWeight: "500",
               }}
               href="/allCardEvent"
             >
@@ -342,7 +342,7 @@ const Home = () => {
           total={cardevents.length}
           onChange={handlePageChangeEvents}
           showSizeChanger={false}
-          style={{ marginTop: '20px', textAlign: 'center' }}
+          style={{ marginTop: '20px', textAlign: 'center', fontFamily: "'Chakra Petch', sans-serif", marginBottom: "70px" }}
         />
       </Content>
       <FooterPage />
@@ -368,15 +368,15 @@ export const Cards = styled.div`
 `;
 
 export const PaginationBtn = styled(Pagination)`
-
-
+  
   &.ant-pagination .ant-pagination-item-active {
-   
     border-color: #a08155;
   }
   &.ant-pagination .ant-pagination-item-active>a {
     color: #a08155;
-    
+  }
+  &.ant-pagination .ant-pagination-item{
+    font-family: 'Chakra Petch', sans-serif;
   }
 `;
 

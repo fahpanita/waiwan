@@ -6,12 +6,10 @@ import styled from 'styled-components';
 import FooterPage from '../../components/Footer/FooterPage';
 import { BASE_URL } from "../../constands/api";
 import { useSelector } from 'react-redux';
-import Link from '../../components/Link';
 import { uploadImages } from '../../services/upload';
 import { QRCode } from 'antd/es';
 import { createPayment } from '../../services/payment';
-import { useParams } from 'react-router-dom';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -62,14 +60,13 @@ const downloadQRCode = () => {
   }
 };
 
-
-
 const Payment = () => {
 
   const [createPaymentForm] = Form.useForm();
   const formDataPayment = Form.useWatch([], createPaymentForm);
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
+  const navigate = useNavigate();
 
   const { orderId } = useParams();
 
@@ -85,10 +82,22 @@ const Payment = () => {
       Modal.success({
         title: 'ชำระเงินสำเร็จ',
         content: 'สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official',
+        footer: (_, { OkBtn }) => (
+          <>
+            <Button onClick={handleBack}>กลับไปหน้าแรก
+            </Button>
+            <OkBtn />
+          </>
+        )
       });
     }
 
   };
+
+  const handleBack = async () => {
+    navigate(`/`),
+      Modal.destroyAll();
+  }
 
 
   const { getProduct } = useSelector((state) => ({ ...state }))

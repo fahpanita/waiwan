@@ -36,30 +36,21 @@ const AllCardEvent = () => {
         style={{ background: "#F5F5F5" }}
       >
         <Navbar />
-        <Content
-          style={{
-            padding: "0 32px",
-          }}
-        >
-
-          <Breadcrumb
-            style={{
-              margin: '16px 0',
-            }}
-          >
+        <Content style={{ padding: "0 32px", }}>
+          <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
             <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
             <Breadcrumb.Item>บทความเทศกาล</Breadcrumb.Item>
           </Breadcrumb>
-          <Title level={4} style={{ marginTop: "40px", textAlign: "center" }}>
+
+          <Title level={4} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "28px", fontWeight: "500", marginTop: "40px", textAlign: "center" }}>
             บทความเทศกาล
           </Title>
-
 
           <Row
             justify="flex-start"
             gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}
             style={{
-              marginTop: "30px"
+              marginTop: "30px", marginBottom: "100px"
             }}
           >
             {cardevents?.map(c => (

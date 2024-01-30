@@ -8,6 +8,7 @@ import { Footer, Header, Content } from 'antd/es/layout/layout';
 import { Editor } from '@tinymce/tinymce-react';
 import { createCartEvents } from '../../services/cartEvents';
 import { uploadImages } from '../../services/upload';
+import { useNavigate } from 'react-router-dom';
 
 
 const getBase64 = (img, callback) => {
@@ -45,6 +46,8 @@ const AddCardEvent = () => {
     const [createCartEventsForm] = Form.useForm();
     const formDataCartEvents = Form.useWatch([], createCartEventsForm);
 
+    const navigate = useNavigate();
+
     const editorRef = useRef(null);
     const log = () => {
         if (editorRef.current) {
@@ -54,7 +57,7 @@ const AddCardEvent = () => {
 
     const handleChangeDetail = () => {
         //createCartEventsForm.setFieldValue('detail', log())
-        console.log(log())
+
     };
 
     const onCreateCartEventsFinish = async (value) => {
@@ -65,7 +68,7 @@ const AddCardEvent = () => {
             const res = await createCartEvents(newValue);
             console.log(res)
             if (res) {
-                navigate("/addInfoEvent")
+                navigate("/listEvents")
             }
 
         } catch (error) {

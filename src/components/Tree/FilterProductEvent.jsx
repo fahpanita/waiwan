@@ -17,7 +17,7 @@ const FilterProductEvent = (props) => {
       <TreeNode
         key={event.value}
         title={
-          <div>
+          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>
             {event.title}
           </div>
         }

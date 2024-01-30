@@ -61,7 +61,7 @@ const Navbar = () => {
       >
         <Row justify="space-between" align="middle">
           <Col xs={0} sm={0} md={2}>
-            <Image preview={false} width={100} src="image/img/Logo.png" />
+            <Image preview={false} width={100} src="/image/img/Logo.png" />
           </Col>
           <Col
             xs={0}
@@ -79,14 +79,13 @@ const Navbar = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               enterButton
-              style={{ fontFamily: "Chakra Petch, sans- serif", }}
             />
           </Col>
           <Col xs={0} sm={0} md={1}>
             <LineLogin></LineLogin>
           </Col>
           <Col xs={0} sm={0} md={1} style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <Link to="/cart" style={{ color: "#000", fontSize: "16px" }}>
+            <Link to="/cart" style={{ color: "#000", fontSize: "20px" }}>
               {<ShoppingCartOutlined />}
             </Link>
           </Col>
@@ -104,22 +103,18 @@ const Navbar = () => {
               <Menu.Item key="1">
                 <Link
                   to="/"
-                  style={{
-                    textDecoration: "none",
-                    fontFamily: "Chakra Petch, sans- serif",
-                    fontSize: "18px"
-                  }}
+                  style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}
                 >
                   หน้าแรก
                 </Link>
               </Menu.Item>
               <Menu.Item key="2">
-                <Link to="/listProduct" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "18px" }}>
+                <Link to="/listProduct" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
                   รายการสินค้า
                 </Link>
               </Menu.Item>
               <Menu.Item key="3">
-                <Link to="/experiment" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "18px" }}>
+                <Link to="/experiment" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
                   ทดลองจัดวางของไหว้เจ้า
                 </Link>
               </Menu.Item>
@@ -136,22 +131,22 @@ const Navbar = () => {
         >
           <Menu mode="vertical">
             <Menu.Item key="7" icon={<HomeOutlined />}>
-              <Link to="/" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", }}>
+              <Link to="/" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
                 หน้าแรก
               </Link>
             </Menu.Item>
             <Menu.Item key="8" icon={<UnorderedListOutlined />}>
-              <Link to="/listProduct" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", }}>
+              <Link to="/listProduct" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
                 รายการสินค้า
               </Link>
             </Menu.Item>
             <Menu.Item key="9" icon={<ExperimentOutlined />}>
-              <Link to="/experiment" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", }}>
+              <Link to="/experiment" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
                 ทดลองจัดวาง
               </Link>
             </Menu.Item>
             <Menu.Item key="10" icon={<UserOutlined />} >
-              <Link to="/stock" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", }} >
+              <Link to="/stock" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }} >
                 จัดการบัญชีผู้ใช้
               </Link>
             </Menu.Item>
@@ -172,7 +167,11 @@ export const Menus = styled(Menu)`
     /* background: #bf9f64; */
     text-decoration: none;
   }
-
+  &.ant-menu-overflow-item .ant-menu-item .ant-menu-item-selected .ant-menu-item-only-child {
+    color: #a08155;
+    /* background: #bf9f64; */
+    text-decoration: none;
+  }
   &.ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected::after {
     border-bottom-color: #bf9f64;
   }
@@ -180,11 +179,17 @@ export const Menus = styled(Menu)`
 
 export const SearchInput = styled(Search)`
   text-decoration: none;
-
+  
   &.ant-input-search >.ant-input-group >.ant-input-group-addon:last-child .ant-input-search-button {
     color: white;
     background: #bf9f64;
+    height: 34.74px;
+    font-size: 18px;
   }
+  &.css-dev-only-do-not-override-qgg3xn .ant-input-group >.ant-input:first-child{
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 16px;
+}
 `;
 
 

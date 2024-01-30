@@ -13,9 +13,10 @@ import FilterProductCatagory from "../../components/Tree/FilterProductCatagory";
 import FilterProductCategory from "../../components/Tree/FilterProductCatagory";
 import FilterProductEvent from "../../components/Tree/FilterProductEvent";
 import styled from "styled-components";
+import { MehOutlined } from '@ant-design/icons';
 
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const { Content } = Layout;
 
 const ListProduct = () => {
@@ -47,7 +48,6 @@ const ListProduct = () => {
 
     setCatagory(data);
   };
-
 
 
   const handleGetEvent = async () => {
@@ -149,11 +149,7 @@ const ListProduct = () => {
         <Navbar />
         <Content style={{ padding: "0 32px", }}>
 
-          <Breadcrumb
-            style={{
-              margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px",
-            }}
-          >
+          <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
             <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
             <Breadcrumb.Item>รายการสินค้า</Breadcrumb.Item>
           </Breadcrumb>
@@ -207,25 +203,30 @@ const ListProduct = () => {
 
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center">
             <Col xs={0} sm={9} md={9} lg={6} style={{ marginTop: '10px' }}>
-              <Card title="ค้นหาแบบละเอียด" bordered={false} style={{ position: "sticky", top: "16px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>
-                <Title level={5} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>หมวดหมู่สินค้า</Title>
-                <FilterProductCategory filterData={catagories} onCategoryChange={setSelectedCategories} />
-
+              <Card
+                // title="ค้นหาแบบละเอียด" 
+                bordered={false} style={{ position: "sticky", top: "16px", fontFamily: "'Chakra Petch', sans-serif" }}>
+                <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>หมวดหมู่สินค้า</Text>
+                <div style={{ marginTop: "10px" }}>
+                  <FilterProductCategory filterData={catagories} onCategoryChange={setSelectedCategories} />
+                </div>
                 <Divider />
-                <Title level={5} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>หมวดหมู่เทศกาล</Title>
-                <FilterProductEvent filterData={events} />
+                <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>หมวดหมู่เทศกาล</Text>
+                <div style={{ marginTop: "10px" }}>
+                  <FilterProductEvent filterData={events} />
+                </div>
                 <Divider />
-                <Title level={5} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>ช่วงราคา</Title>
+                <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ช่วงราคา</Text>
 
                 <div className="card-body">
                   <Slider range defaultValue={rangeValues} onChange={handlePriceChange} max={1000} />
                   <div className="row mb-3">
                     <div className="col-6">
-                      <label htmlFor="min" className="form-label">ราคาต่ำ:</label>
+                      <label htmlFor="min" className="form-label" style={{ fontSize: "16px" }}>ราคาต่ำ:</label>
                       <input className="form-control" id="min" placeholder="฿0" type="number" value={rangeValues[0]} />
                     </div>
                     <div className="col-6">
-                      <label htmlFor="max" className="form-label">ราคาสูง:</label>
+                      <label htmlFor="max" className="form-label" style={{ fontSize: "16px" }}>ราคาสูง:</label>
                       <input className="form-control" id="max" placeholder="฿10,000" type="number" value={rangeValues[1]} />
                     </div>
                   </div>
@@ -244,7 +245,26 @@ const ListProduct = () => {
                     </Col>
                   ))
                 ) : (
-                  <div>No products found.</div>
+                  <Col style={{ width: "80%", display: "flex", justifyContent: "center" }}>
+                    <div >
+                      <div id="notfound" style={{ backgroundColor: "#F4E5C8", width: "250px", height: "250px", borderRadius: "50%", display: "flex", flexDirection: "column" }}>
+                        <div class="notfound" style={{ width: "400px", marginTop: "80px", marginLeft: "60px", display: "flex" }}>
+                          <Col span={1}>
+                            <MehOutlined style={{ fontSize: "100px", }} />
+                          </Col>
+                          <Col span={23} style={{ marginLeft: "80px" }}>
+                            <div class="notfound-404">
+                              <h1>No products found</h1>
+                              <p>Your search did not match any products.<br></br>
+                                Please try again.</p>
+                            </div>
+                          </Col>
+                        </div >
+                      </div>
+                    </div>
+                  </Col>
+
+
                 )}
               </Row>
               {combinedProducts.length > itemsPerPage && (
@@ -253,15 +273,15 @@ const ListProduct = () => {
                   onChange={handleChangePage}
                   pageSize={itemsPerPage}
                   total={combinedProducts.length}
-                  style={{ marginTop: '20px', textAlign: 'center' }}
+                  style={{ marginTop: '20px', textAlign: 'center', marginBottom: "70px" }}
                 />
               )}
             </Col>
 
           </Row>
-        </Content>
+        </Content >
         <FooterPage />
-      </Layout>
+      </Layout >
     </>
   );
 };
@@ -270,14 +290,14 @@ export default ListProduct;
 
 export const PaginationBtn = styled(Pagination)`
 
-
   &.ant-pagination .ant-pagination-item-active {
-   
     border-color: #a08155;
   }
   &.ant-pagination .ant-pagination-item-active>a {
     color: #a08155;
-    
+  }
+  &.ant-pagination .ant-pagination-item{
+    font-family: 'Chakra Petch', sans-serif;
   }
 `;
 

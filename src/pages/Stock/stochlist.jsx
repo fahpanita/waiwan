@@ -15,9 +15,10 @@ import Navbar from "../../components/Header/Navbar";
 import FooterPage from "../../components/Footer/FooterPage";
 import { Link } from "react-router-dom";
 import MenuAccount from "../../components/Menu/MenuAccount";
+import styled from "styled-components";
 
 const { Content } = Layout;
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 // const columns = [
 
@@ -72,11 +73,13 @@ const StockList = () => {
               span={19}
               style={{ backgroundColor: "white", borderRadius: "10px" }}
             >
-              <Title level={5} style={{ marginTop: "10px" }}>
-                รายการที่ต้องชำระ
-              </Title>
+              <div style={{ marginTop: "16px" }}>
+                <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>
+                  รายการที่ต้องชำระ
+                </Text>
+              </div>
 
-              <Table
+              <TableStock
                 style={{
                   marginTop: 8,
                 }}
@@ -86,10 +89,9 @@ const StockList = () => {
                     dataIndex: "name",
                     key: "name",
                   },
-
                   {
                     title: "จำนวน",
-                    dataIndex: "stockอ",
+                    dataIndex: "stock",
                     key: "stock",
                   },
                   {
@@ -103,9 +105,20 @@ const StockList = () => {
           </Row>
         </Content>
         <FooterPage />
-      </Layout>
+      </Layout >
     </>
   );
 };
 
 export default StockList;
+
+export const TableStock = styled(Table)`
+  &.ant-table-thead > tr > th{
+    font-weight: 500;
+  }
+
+  &.ant-table-tbody > tr > td, .ant-table-thead > tr > th{
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 16px;
+  }
+`;
