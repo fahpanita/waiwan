@@ -13,6 +13,7 @@ export const createOrder = async (data) => {
     Modal.success({
       title: "สั่งซื้อสำเร็จ",
       content: 'สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official',
+      okText: 'ตกลง',
     });
 
     return res;
@@ -20,6 +21,7 @@ export const createOrder = async (data) => {
     Modal.error({
       title: "Error",
       content: error?.response?.data?.message || "กรุณาทำการ logIn ก่อนสั่งซื้อสินค้า",
+      okText: 'ตกลง',
     });
     return undefined;
   }

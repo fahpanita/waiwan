@@ -190,7 +190,7 @@ const BuyProduct = (props) => {
                           : 'เลือกที่อยู่จัดส่ง'}
 
                       </Button>
-                      <Modal title="เลือกที่อยู่การจัดส่ง" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
+                      <Modal title="เลือกที่อยู่การจัดส่ง" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000} okText="ตกลง" cancelText="ยกเลิก" okButtonProps={{ style: { background: '#bf9f64', borderColor: '#bf9f64' } }}>
                         <LongdoMapStyle>
                           <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />
                         </LongdoMapStyle>

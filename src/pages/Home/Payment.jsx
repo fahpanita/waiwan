@@ -82,6 +82,8 @@ const Payment = () => {
       Modal.success({
         title: 'ชำระเงินสำเร็จ',
         content: 'สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official',
+        okText: 'ตกลง',
+
         footer: (_, { OkBtn }) => (
           <>
             <Button onClick={handleBack}>กลับไปหน้าแรก
@@ -243,7 +245,7 @@ const Payment = () => {
                   <Dividers />
                   <Col style={{ justifyContent: "center", display: "flex", flexDirection: "column", alignItems: "center" }} id="myqrcode">
                     <img src="/image/img/thai_qr_payment 1.png" width={250} />
-                    <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406420.006304976A" || '-'} />
+                    <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406456.006304A60A" || '-'} />
                     <Button
                       type="primary"
                       shape="round"

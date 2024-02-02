@@ -1,14 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Header/Navbar";
-import { Layout, Row, Col, Typography, Button, Card, Image, Breadcrumb } from "antd";
+import { Layout, Row, Col, Typography, Button, Card, Image, Breadcrumb, Modal } from "antd";
 import FooterPage from "../../components/Footer/FooterPage";
 import ImageDropZone from "../../components/game/ImageDropZone";
 import styled from 'styled-components';
+import { useLocation } from "react-router-dom";
 
 const { Title } = Typography;
 const { Content } = Layout;
 
 const SetChengMeng = () => {
+
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const modalParam = params.get('modal');
+    if (modalParam === 'true') {
+      setIsModalOpen(true);
+    }
+  }, [location.search]);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const allowDrop = (event) => {
     event.preventDefault();
@@ -102,8 +126,6 @@ const SetChengMeng = () => {
   const handleSweetDrop = () => {
     alert("You put the sweet in the box!");
   };
-
-  const backgroundImagePath = "/image/img/table01.png";
 
   return (
     <>
@@ -211,7 +233,7 @@ const SetChengMeng = () => {
                 <img
                   id="tea-grop"
                   targetKey="teaBox"
-                  src="image/img/tea-grop.png"
+                  src="/image/img/tea-grop.png"
                   draggable="true"
                   onDragStart={drag}
                   width="150"
@@ -244,6 +266,13 @@ const SetChengMeng = () => {
               </ImageContainer>
             </BoxStyle>
           </div >
+          {/* <Modal title="วิธีการเล่น" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="เริ่มเกม" cancelText="โหลดรูปสำเร็จ">
+            <img
+              src="/image/img/video.png"
+              width="400"
+            />
+            <p>ลากรูปภาพจากทางขวามาวางในวงกลมตามกำหนด</p>
+          </Modal> */}
         </Content>
         <FooterPage />
       </Layout >

@@ -183,7 +183,7 @@ const BuyProductCart = (props) => {
                           ? `เลือกที่อยู่จัดส่ง : ${selectedLocation.road}, ${selectedLocation.subdistrict}, ${selectedLocation.district}, ${selectedLocation.province}, ${selectedLocation.postcode}`
                           : 'เลือกที่อยู่จัดส่ง'}
                       </Button>
-                      <Modal title="เลือกที่อยู่การจัดส่ง" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}
+                      <Modal title="เลือกที่อยู่การจัดส่ง" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000} okText="ตกลง" cancelText="ยกเลิก" okButtonProps={{ style: { background: '#bf9f64', borderColor: '#bf9f64' } }}
                         style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>
                         <LongdoMapStyle>
                           <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />

@@ -81,6 +81,7 @@ const PaymentCart = () => {
       Modal.success({
         title: 'ชำระเงินสำเร็จ',
         content: 'สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official',
+        okText: 'ตกลง',
         footer: (_, { OkBtn }) => (
           <>
             <Button onClick={handleBack}>กลับไปหน้าแรก
