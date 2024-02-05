@@ -131,15 +131,14 @@ const Cart = () => {
     <>
       <Layout style={{ background: "#F5F5F5", }}>
         <Navbar />
-        <Content style={{ margin: '24px 24px 0', }} >
-          <Breadcrumb
-            style={{
-              margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px",
-            }}
-          >
+
+        <Content style={{ padding: "0 32px", }}>
+
+          <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
             <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
             <Breadcrumb.Item>ตะกร้าสินค้า</Breadcrumb.Item>
           </Breadcrumb>
+
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center" style={{ display: "flex", alignItems: "flex-start", marginBottom: "70px" }}>
             <Col xs={24} sm={16} md={16} lg={16}>
               <CardBoxRadius>
@@ -159,18 +158,18 @@ const Cart = () => {
                 <Dividers />
                 <Row style={{ display: "flex", alignItems: "center" }}>
                   <Col span={12}>
-                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>ยอดรวม</div>
+                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>ยอดรวม</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>฿{formattedTotalPrice}</div>
+                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>฿{formattedTotalPrice}</div>
                   </Col>
                 </Row>
                 <Row style={{ display: "flex", alignItems: "center" }}>
                   <Col span={12}>
-                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>ค่าจัดส่ง</div>
+                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ค่าจัดส่ง</div>
                   </Col>
                   <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>฿{shipping}</div>
+                    <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>฿{shipping}</div>
                   </Col>
                 </Row>
                 <Dividers />

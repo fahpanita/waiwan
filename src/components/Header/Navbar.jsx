@@ -7,6 +7,7 @@ import {
   UnorderedListOutlined,
   ExperimentOutlined,
   UserOutlined,
+  ContainerOutlined,
 } from "@ant-design/icons";
 import LineLogin from "../../pages/Home/LineLogin";
 import styled from "styled-components";
@@ -147,11 +148,16 @@ const Navbar = () => {
             </Menu.Item>
             <Menu.Item key="10" icon={<UserOutlined />} >
               <Link to="/stock" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }} >
-                จัดการบัญชีผู้ใช้
+                บัญชีผู้ใช้
               </Link>
             </Menu.Item>
-            <Menu.Item key="11">
-              <LineLogin></LineLogin>
+            <Menu.Item key="11" icon={<ContainerOutlined />} >
+              <Link to="/stocklist" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }} >
+                รายการที่ต้องชำระ
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="12">
+              <LineLogin ></LineLogin>
             </Menu.Item>
           </Menu>
         </Drawer>

@@ -11,7 +11,8 @@ import { QRCode } from 'antd/es';
 import { createPayment } from '../../services/payment';
 import { useParams } from 'react-router-dom';
 
-const { Title } = Typography;
+
+const { Title, Text } = Typography;
 const { Content } = Layout;
 
 const columns = [
@@ -24,7 +25,7 @@ const columns = [
   //   render: (text) => <a>{text}</a>,
   // },
   {
-    title: "จำนวน",
+    title: <div style={{ display: "flex", justifyContent: "center" }}>จำนวน</div>,
     dataIndex: "amount",
   },
   // {
@@ -79,13 +80,18 @@ const PaymentCart = () => {
 
     if (res?.status === 200) {
       Modal.success({
-        title: 'ชำระเงินสำเร็จ',
-        content: 'สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official',
+        title: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ชำระเงินสำเร็จ</Text>,
+        content: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official</Text>,
         okText: 'ตกลง',
+        okButtonProps: {
+          style: { fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" },
+        },
         footer: (_, { OkBtn }) => (
           <>
-            <Button onClick={handleBack}>กลับไปหน้าแรก
-            </Button>
+            <Dividers />
+            <Button type="primary" onClick={handleBack}
+              style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", color: "#A08155", background: "#ffffff", border: "1px solid #A08155", borderRadius: "60px", }}>
+              กลับไปหน้าแรก</Button>
             <OkBtn />
           </>
         )
@@ -112,12 +118,12 @@ const PaymentCart = () => {
             <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
           </Col>
           <Col xs={24} sm={5} md={5} lg={5}>
-            <div style={{ fontSize: "18px", fontWeight: "400" }}>{p?.name}</div>
-            <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
+            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400" }}>{p?.name}</div>
+            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", }}>฿{p?.amount * p?.price}</div>
           </Col>
         </Row>
       ,
-      amount: <div style={{ display: "flex", justifyContent: "center" }}>{p?.amount}</div>,
+      amount: <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", display: "flex", justifyContent: "center" }}>{p?.amount}</div>,
 
     }
   });
@@ -187,24 +193,23 @@ const PaymentCart = () => {
     <>
       <Layout style={{ background: "#F5F5F5" }}>
         <Form form={createPaymentForm} layout="vertical" >
-
           <Navbar />
-          <Content style={{ margin: '24px 24px 0', }}>
+
+          <Content style={{ padding: "0 32px", }}>
             <Breadcrumb
-              style={{
-                margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px",
-              }}
+              style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}
             >
               <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
               <Breadcrumb.Item>ตะกร้าสินค้า</Breadcrumb.Item>
               <Breadcrumb.Item>สั่งซื้อสินค้า</Breadcrumb.Item>
               <Breadcrumb.Item>แจ้งหลักฐานการชำระเงิน</Breadcrumb.Item>
             </Breadcrumb>
+
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center">
               <Col xs={24} sm={16} md={16} lg={16}>
                 <CardBoxRadius>
                   <Title level={5} style={{ textAlign: "left" }}>
-                    <Tables
+                    <TablePaymentCart
                       columns={columns}
                       dataSource={data}
                       pagination={false}
@@ -214,51 +219,39 @@ const PaymentCart = () => {
               </Col>
               <Col xs={24} sm={8} md={8} lg={8}>
                 <CardBoxRadius>
-                  <Title level={5}>สรุปรายการสั่งซื้อ</Title>
+                  <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>สรุปรายการสั่งซื้อ</Text>
                   <Dividers />
                   <Row style={{ display: "flex", alignItems: "center" }}>
                     <Col span={12}>
-                      <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
+                      <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>ยอดรวม</div>
                     </Col>
                     <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                      <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{formattedTotalPrice}</div>
+                      <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>฿{formattedTotalPrice}</div>
                     </Col>
                   </Row>
                   <Row style={{ display: "flex", alignItems: "center" }}>
                     <Col span={12}>
-                      <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
+                      <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>ค่าจัดส่ง</div>
                     </Col>
                     <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                      <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{shipping}</div>
+                      <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>฿{shipping}</div>
                     </Col>
                   </Row>
                   <Dividers />
                   <Row style={{ display: "flex", alignItems: "center" }}>
                     <Col span={12}>
-                      <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมชำระเงินทั้งหมด</div>
+                      <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>ยอดรวมชำระเงินทั้งหมด</div>
                     </Col>
                     <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                      <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿{formattedTotal}</div>
+                      <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", color: "#C54142" }}>฿{formattedTotal}</div>
                     </Col>
                   </Row>
                   <Dividers />
                   <Col style={{ justifyContent: "center", display: "flex", flexDirection: "column", alignItems: "center" }} id="myqrcode">
                     <img src="/image/img/thai_qr_payment 1.png" width={250} />
                     <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406420.006304976A" || '-'} />
-                    <Button
-                      type="primary"
-                      shape="round"
-                      size="large"
-
-                      style={{
-                        background: "#FFF",
-                        width: "100%",
-                        marginTop: "20px",
-                        color: "#A08155",
-                        border: "1px solid #A08155",
-                      }}
-
-                      onClick={downloadQRCode}
+                    <Button type="primary" shape="round" size="large" onClick={downloadQRCode}
+                      style={{ width: "100%", marginTop: "16px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", color: "#A08155", background: "#ffffff", border: "1px solid #A08155" }}
                     >
                       บันทึก QR Code
                     </Button>
@@ -266,8 +259,9 @@ const PaymentCart = () => {
                 </CardBoxRadius>
 
                 <CardBoxRadius>
-                  <Title level={5}>แจ้งหลักฐานการชำระเงิน</Title>
-                  <Form.Item name="slip_img" rules={[{ required: true, message: "กรุณาใส่รูป" }]}>
+                  <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>แจ้งหลักฐานการชำระเงิน</Text>
+                  <Dividers />
+                  <Form.Item name="slip_img" rules={[{ required: true, message: <div style={{ marginTop: "10px" }}> <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", color: "#C54142" }}>*กรุณาใส่รูป</Text></div> }]}>
                     <Upload
                       listType="picture"
                       maxCount={1}
@@ -287,37 +281,29 @@ const PaymentCart = () => {
                           }}
                         />
                       ) : (
-                        <ButtonUpload icon={<UploadOutlined />} size="large" style={{ fontSize: "18px", }}>แนบหลักฐานการชำระเงิน</ButtonUpload>
+                        <>
+                          <Button size="large" icon={<UploadOutlined />}
+                            style={{ width: "100%", marginTop: "16px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", border: "1px dashed #A08155", color: "#A08155" }}
+                          >
+                            แนบหลักฐานการชำระเงิน
+                          </Button>
+                        </>
                       )}
-
                     </Upload>
                   </Form.Item>
                 </CardBoxRadius>
 
                 <Row style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
-                  <Col>
-                    <Button
-                      type="primary"
-                      shape="round"
-                      size="large"
-                      htmlType="submit"
-                      style={{
-                        background: "#bf9f64",
-                        width: "100%",
-                        marginTop: "20px",
-                      }}
-                      onClick={handleOk}
+                  <Col span={12}>
+                    <Button type="primary" shape="round" size="large" htmlType="submit" onClick={handleOk}
+                      style={{ background: "#bf9f64", width: "100%", marginTop: "16px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}
                     >
                       แจ้งการชำระเงิน
                     </Button>
-
-
                   </Col>
                 </Row>
               </Col>
-
             </Row>
-
           </Content >
           <FooterPage />
         </Form>
@@ -328,23 +314,14 @@ const PaymentCart = () => {
 
 export default PaymentCart;
 
-export const Tables = styled(Table)`
-  &.ant-table-wrapper .ant-table-thead > tr > td {
-            width: 100px;
-          /* background-color: #f2f0e6; */
-          border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+export const TablePaymentCart = styled(Table)`
+
+  &.ant-table-tbody > tr > td, .ant-table-thead > tr > th{
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
   }
-  &.ant-table-wrapper .ant-table-thead > tr > th {
-            /* background-color: #f2f0e6; */
-            border-bottom: 1px solid rgba(5, 5, 5, 0.06);
-  }
-  &.ant-table-wrapper .ant-table-tbody > tr {
-            /* background-color: #f2f0e6; */
-          }
-  &.ant-table-wrapper .ant-table-tbody > tr > td {
-            border-bottom: 1px solid rgba(5, 5, 5, 0.06);
-  }
-          `;
+`;
 
 export const CardBoxRadius = styled.div`
 border-radius: 13px;
@@ -361,23 +338,3 @@ export const Dividers = styled(Divider)`
 }
 `;
 
-export const ButtonUpload = styled(Button)`
-  &.ant-btn-default{
-    border-radius: 6px;
-    border: 1px dashed #a08155;
-    background: #FFF;
-    width: 100%;
-    padding: 2px 30px;
-    color: #a08155;
-  }
-
-  &.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-    color: #a08155;
-    border: 1px dashed #a08155;
-  }
-
-  &.ant-upload-wrapper .ant-upload-select {
-    display: inline-block;
-    width: 100%;
-  }
-`;

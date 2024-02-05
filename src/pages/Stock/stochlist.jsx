@@ -120,5 +120,6 @@ export const TableStock = styled(Table)`
   &.ant-table-tbody > tr > td, .ant-table-thead > tr > th{
     font-family: 'Chakra Petch', sans-serif;
     font-size: 16px;
+    font-weight: 500;
   }
 `;

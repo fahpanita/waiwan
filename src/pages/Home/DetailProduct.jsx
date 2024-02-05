@@ -184,7 +184,7 @@ const DetailProduct = (props) => {
                     <Button size="large" shape="round"
                       icon={<ShoppingCartOutlined />}
                       style={{
-                        fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", color: "#444", border: "1px solid #444", width: "200px", textDecoration: "none",
+                        fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", color: "#A08155", border: "1px solid #A08155", width: "200px", textDecoration: "none",
                       }}
                       htmlType="submit" onClick={() => {
                         handleAddProduct()

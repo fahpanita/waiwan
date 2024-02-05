@@ -69,6 +69,7 @@ const LineLogin = () => {
             items,
           }}
           trigger={['click']}
+          // autoAdjustOverflow={true}
           dropdownRender={(menu) => (
             <div style={contentStyle}>
               {React.cloneElement(menu, {

@@ -28,7 +28,7 @@ const columns = [
   },
 ];
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const { Content } = Layout;
 
 const BuyProduct = (props) => {
@@ -47,12 +47,12 @@ const BuyProduct = (props) => {
             <img src={`${BASE_URL}/${p?.thumbnail}`} style={{ width: "70px" }} />
           </Col>
           <Col xs={24} sm={5} md={5} lg={5}>
-            <div style={{ fontSize: "18px", fontWeight: "400" }}>{p?.name}</div>
-            <div style={{ fontSize: "18px", }}>฿{p?.amount * p?.price}</div>
+            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400" }}>{p?.name}</div>
+            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", }}>฿{p?.amount * p?.price}</div>
           </Col>
         </Row>,
       amount:
-        <div style={{ display: "flex", justifyContent: "center" }}>{p?.amount}</div>,
+        <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", display: "flex", justifyContent: "center" }}>{p?.amount}</div>,
 
     }
   });
@@ -154,78 +154,100 @@ const BuyProduct = (props) => {
     }
   }, [location])
 
+  const labelInfo = {
+    fontFamily: "'Chakra Petch', sans-serif",
+    fontSize: "16px",
+    fontWeight: "500",
+  }
+
+  const labelInput = {
+    fontFamily: "'Chakra Petch', sans-serif",
+    fontSize: "16px"
+  }
+
   return (
     <>
       <Layout style={{ background: "#F5F5F5" }}>
         <Navbar />
         <Form form={createformOrder} >
-          <Content style={{ margin: '24px 24px 0', }}>
+          <Content style={{ padding: "0 32px", }}>
 
-            <Breadcrumb
-              style={{
-                margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px",
-              }}
-            >
+            <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
               <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
               <Breadcrumb.Item>รายการสินค้า</Breadcrumb.Item>
               <Breadcrumb.Item>สั่งซื้อสินค้า</Breadcrumb.Item>
             </Breadcrumb>
 
-            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }}>
+            <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} style={{ marginBottom: "70px" }}>
 
               <Col xs={24} sm={16} md={16} >
                 <Row>
                   <Col xs={24} sm={24} md={24} lg={24}>
                     <CardBoxRadius>
-                      <Title level={5}>ที่อยู่การจัดส่ง</Title>
+                      <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ที่อยู่การจัดส่ง</Text>
                       <Dividers />
                       <Button
                         type="primary"
+                        shape="round"
+                        size="large"
                         onClick={showModal}
                         icon={<PushpinOutlined />}
-                        style={{ background: "#bf9f64" }}
+                        style={{ background: "#bf9f64", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}
                       >
                         {selectedLocation
                           ? `เลือกที่อยู่จัดส่ง : ${selectedLocation.road}, ${selectedLocation.subdistrict}, ${selectedLocation.district}, ${selectedLocation.province}, ${selectedLocation.postcode}`
                           : 'เลือกที่อยู่จัดส่ง'}
-
                       </Button>
-                      <Modal title="เลือกที่อยู่การจัดส่ง" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000} okText="ตกลง" cancelText="ยกเลิก" okButtonProps={{ style: { background: '#bf9f64', borderColor: '#bf9f64' } }}>
+                      <Modal title="เลือกที่อยู่การจัดส่ง" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000} okText="ตกลง" cancelText="ยกเลิก"
+                        okButtonProps={{ style: { fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" } }}
+                        cancelButtonProps={{ style: { fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", background: '#ffffff', borderColor: '#bf9f64', color: "#bf9f64", borderRadius: "60px" } }}
+                        style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
                         <LongdoMapStyle>
                           <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />
                         </LongdoMapStyle>
-                        <Title level={5}>ข้อมูลการจัดส่ง</Title>
-                        <Form.Item name="street" label="บ้านเลขที่ หมู่บ้าน"  >
-                          <Input placeholder="บ้านเลขที่ หมู่บ้าน ถนน ซอย อื่น ๆ" />
-                        </Form.Item>
-                        <Form.Item name="subdistrict" label="ตำบล" >
-                          <Input disabled />
-                        </Form.Item>
-                        <Form.Item name="district" label="อำเภอ" >
-                          <Input disabled />
-                        </Form.Item>
-                        <Form.Item name="province" label="จังหวัด" >
-                          <Input disabled />
-                        </Form.Item>
-                        <Form.Item name="zip_code" label="รหัสไปรษณีย์" >
-                          <Input disabled />
-                        </Form.Item>
-                        <div>เลื่อนตำแหน่งบนแผนที่ เพื่อแก้ไข แขวง เขต จังหวัด และรหัสไปรษณีย์</div>
-                        <Title level={5}>ข้อมูลดิดต่อ</Title>
-                        <Form.Item name="name" label="ชื่อ" rules={[{ required: true, message: "กรุณากรอกชื่อ" }]} >
-                          <Input placeholder="ชื่อ นามสกุล" />
-                        </Form.Item>
-                        <Form.Item name="phone" label="เบอร์โทร" rules={[{ required: true, message: "กรุณากรอกเบอร์โทร" }]} >
-                          <Input placeholder="เบอร์โทร" />
-                        </Form.Item>
-                      </Modal>
+                        <div style={{ marginTop: "10px" }}>
+                          <div style={{ marginBottom: "10px" }}>
+                            <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", marginTop: "10px" }}>ข้อมูลการจัดส่ง</Text>
+                          </div>
+                          <Form.Item name="street" label={<Text style={labelInfo}>บ้านเลขที่ หมู่บ้าน</Text>}>
+                            <Input placeholder="บ้านเลขที่ หมู่บ้าน ถนน ซอย อื่น ๆ" style={labelInput} />
+                          </Form.Item>
+                          <Form.Item name="subdistrict" label={<Text style={labelInfo}>ตำบล</Text>}>
+                            <Input disabled style={labelInput} />
+                          </Form.Item>
+                          <Form.Item name="district" label={<Text style={labelInfo}>อำเภอ</Text>}>
+                            <Input disabled style={labelInput} />
+                          </Form.Item>
+                          <Form.Item name="province" label={<Text style={labelInfo}>จังหวัด</Text>} >
+                            <Input disabled style={labelInput} />
+                          </Form.Item>
+                          <Form.Item name="zip_code" label={<Text style={labelInfo}>รหัสไปรษณีย์</Text>}>
+                            <Input disabled style={labelInput} />
+                          </Form.Item>
+                          <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
+                            เลื่อนตำแหน่งบนแผนที่ เพื่อแก้ไข แขวง เขต จังหวัด และรหัสไปรษณีย์
+                          </Text>
+                        </div>
 
+                        <div style={{ marginTop: "10px" }}>
+                          <div style={{ marginBottom: "10px" }}>
+                            <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", marginTop: "10px" }}>ข้อมูลดิดต่อ</Text>
+                          </div>
+                          <Form.Item name="name" label={<Text style={labelInfo}>ชื่อ</Text>} rules={[{ required: true, message: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>กรุณากรอกชื่อ</Text> }]} >
+                            <Input placeholder="ชื่อ นามสกุล" style={labelInput} />
+                          </Form.Item>
+                          <Form.Item name="phone" label={<Text style={labelInfo}>เบอร์โทร</Text>} rules={[{ required: true, message: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>กรุณากรอกเบอร์โทร</Text> }]} >
+                            <Input placeholder="เบอร์โทร" style={labelInput} />
+                          </Form.Item>
+                        </div>
+                      </Modal>
                     </CardBoxRadius>
                   </Col>
+
                   <Col xs={24} sm={24} md={24} lg={24}>
                     <CardBoxRadius>
                       <Title level={5} style={{ textAlign: "left" }}>
-                        <Tables
+                        <TableBuyProduct
                           columns={columns}
                           dataSource={data}
                           pagination={false}
@@ -240,11 +262,12 @@ const BuyProduct = (props) => {
                 <Row>
                   <Col xs={24} sm={24} md={24} lg={24}>
                     <CardBoxRadius>
-                      <Title level={5}>ตัวเลือกการจัดส่ง</Title>
+                      <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ตัวเลือกการจัดส่ง</Text>
+                      <Dividers />
                       <Form.Item name="type_shipping" >
                         <Radio.Group >
-                          <Radio value="จัดส่งตามที่อยู่" style={{ fontSize: "18px", }}>จัดส่งตามที่อยู่</Radio><br />
-                          <Radio value="รับหน้าร้าน" style={{ fontSize: "18px", }}>รับหน้าร้าน</Radio>
+                          <Radio value="จัดส่งตามที่อยู่" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>จัดส่งตามที่อยู่</Radio><br />
+                          <Radio value="รับหน้าร้าน" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>รับหน้าร้าน</Radio>
                         </Radio.Group>
                       </Form.Item>
                       {formDataOrder?.type_shipping === 'รับหน้าร้าน' && <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3256.382828255343!2d100.5328142693865!3d13.927994994616947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e28386458758dd%3A0x13cb0fa54fa60b64!2zNDc3IOC4luC4meC4mSDguJrguK3guJnguJTguYzguKrguJXguKPguLXguJcg4LiV4Liz4Lia4Lil4Lia4LmJ4Liy4LiZ4LmD4Lir4Lih4LmIIOC4reC4s-C5gOC4oOC4reC4m-C4suC4geC5gOC4geC4o-C5h-C4lCDguJnguJnguJfguJrguLjguKPguLUgMTExMjA!5e0!3m2!1sth!2sth!4v1700765573255!5m2!1sth!2sth" style={{ width: "100%" }}></iframe></div>}
@@ -253,67 +276,48 @@ const BuyProduct = (props) => {
 
                   <Col xs={24} sm={24} md={24} lg={24}>
                     <CardBoxRadius>
-                      <Title level={5}>สรุปรายการสั่งซื้อ</Title>
+                      <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>สรุปรายการสั่งซื้อ</Text>
                       <Dividers />
                       <Row style={{ display: "flex", alignItems: "center" }}>
                         <Col span={12}>
-                          <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวม</div>
+                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ยอดรวม</div>
                         </Col>
                         <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{formattedTotalPrice}</div>
+                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>฿{formattedTotalPrice}</div>
                         </Col>
                       </Row>
                       <Row style={{ display: "flex", alignItems: "center" }}>
                         <Col span={12}>
-                          <div style={{ fontSize: "18px", fontWeight: "400" }}>ค่าจัดส่ง</div>
+                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ค่าจัดส่ง</div>
                         </Col>
                         <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <div style={{ fontSize: "18px", fontWeight: "400" }}>฿{shipping}</div>
+                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>฿{shipping}</div>
                         </Col>
                       </Row>
                       <Dividers />
                       <Row style={{ display: "flex", alignItems: "center" }}>
                         <Col span={12}>
-                          <div style={{ fontSize: "18px", fontWeight: "400" }}>ยอดรวมทั้งสิ้น</div>
+                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>ยอดรวมทั้งสิ้น</div>
                         </Col>
                         <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <div style={{ fontSize: "24px", fontWeight: "600", color: "#C54142" }}>฿{formattedTotal}</div>
+                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", color: "#C54142" }}>฿{formattedTotal}</div>
                         </Col>
                       </Row>
                       <Row>
                         <Col span={24}>
-                          <Button
-                            type="primary"
-                            shape="round"
-                            size="large"
-                            htmlType="submit"
-
-                            style={{
-                              background: "#bf9f64",
-                              width: "100%",
-                              marginTop: "20px",
-                            }}
-                            onClick={handelOrder}
-
-                          >
+                          <Button type="primary" shape="round" size="large" htmlType="submit" onClick={handelOrder}
+                            style={{ background: "#bf9f64", width: "100%", marginTop: "16px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>
                             สั่งซื้อสินค้า
                           </Button>
                         </Col>
                       </Row>
-
                     </CardBoxRadius>
                   </Col>
                 </Row>
-
-
-
               </Col>
             </Row>
-
           </Content>
         </Form>
-
-
         <FooterPage />
       </Layout>
     </>
@@ -327,23 +331,14 @@ export const CardBoxAddress = styled.div`
           border: 1px solid #bf9f64;
           `;
 
-export const Tables = styled(Table)`
-  &.ant-table-wrapper .ant-table-thead > tr > td {
-            width: 100px;
-          /* background-color: #f2f0e6; */
-          border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+export const TableBuyProduct = styled(Table)`
+
+  &.ant-table-tbody > tr > td, .ant-table-thead > tr > th{
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
   }
-  &.ant-table-wrapper .ant-table-thead > tr > th {
-            /* background-color: #f2f0e6; */
-            border-bottom: 1px solid rgba(5, 5, 5, 0.06);
-  }
-  &.ant-table-wrapper .ant-table-tbody > tr {
-            /* background-color: #f2f0e6; */
-          }
-  &.ant-table-wrapper .ant-table-tbody > tr > td {
-            border-bottom: 1px solid rgba(5, 5, 5, 0.06);
-  }
-          `;
+`;
 
 
 export const Dividers = styled(Divider)`

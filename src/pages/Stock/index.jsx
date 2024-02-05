@@ -14,15 +14,10 @@ import {
 import Navbar from "../../components/Header/Navbar";
 import FooterPage from "../../components/Footer/FooterPage";
 import MenuAccount from "../../components/Menu/MenuAccount";
+import styled from "styled-components";
 
 const { Content } = Layout;
 const { Title, Paragraph, Text } = Typography;
-
-const boxSum = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-};
 
 const Stock = () => {
   const { profile } = useAuth();
@@ -31,6 +26,17 @@ const Stock = () => {
   const onFinish = (values) => {
     console.log(values);
   };
+
+  const labelInfo = {
+    fontFamily: "'Chakra Petch', sans-serif",
+    fontSize: "16px",
+    fontWeight: "500",
+  }
+
+  const labelInput = {
+    fontFamily: "'Chakra Petch', sans-serif",
+    fontSize: "16px"
+  }
 
   return (
     <>
@@ -72,7 +78,7 @@ const Stock = () => {
                 }}
               >
                 <Image width={100} height={100} src={profile?.picture} />
-                <Paragraph style={{ marginTop: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>
+                <Paragraph style={{ marginTop: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>
                   ชื่อผู้ใช้: {profile?.name}
                 </Paragraph>
               </div>
@@ -80,38 +86,37 @@ const Stock = () => {
               <Form layout="vertical" onFinish={onFinish}>
                 <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                   <Col className="gutter-row" span={12} >
-                    <Form.Item label="ชื่อ" name="name" >
-                      <Input placholder="name" />
+                    <Form.Item label={<Text style={labelInfo}>ชื่อ</Text>} name="name" >
+                      <Input placholder="name" style={labelInput} />
                     </Form.Item>
                   </Col>
                   <Col className="gutter-row" span={12}>
-                    <Form.Item label="นามสกุล" name="surname">
-                      <Input placholder="surname" />
+                    <Form.Item label={<Text style={labelInfo}>นามสกุล</Text>} name="surname">
+                      <Input placholder="surname" style={labelInput} />
                     </Form.Item>
                   </Col>
                 </Row>
 
                 <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                   <Col className="gutter-row" span={12}>
-                    <Form.Item label="เบอร์โทรศัพท์" name="phone_no">
-                      <Input type="number" />
+                    <Form.Item label={<Text style={labelInfo}>เบอร์โทรศัพท์</Text>} name="phone_no">
+                      <Input type="number" style={labelInput} />
                     </Form.Item>
                   </Col>
                   <Col className="gutter-row" span={12}>
-                    <Form.Item name="email" label="Email" >
-                      <Input type="email" defaultValue={profile?.email} />
+                    <Form.Item label={<Text style={labelInfo}>อีเมล</Text>} name="email" >
+                      <Input type="email" defaultValue={profile?.email} style={labelInput} />
                     </Form.Item>
                   </Col>
                 </Row>
 
-                <Form.Item label="ที่อยู่" name="address">
-                  <Input placholder="address" />
+                <Form.Item label={<Text style={labelInfo}>ที่อยู่</Text>} name="address">
+                  <Input placholder="address" style={labelInput} />
                 </Form.Item>
 
                 <Form.Item>
                   <Button
-                    type="primary"
-                    htmlType="submit"
+                    type="primary" htmlType="submit" shape="round" size="large"
                     style={{
                       backgroundColor: "#A08155", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px",
                     }}
@@ -130,3 +135,4 @@ const Stock = () => {
 };
 
 export default Stock;
+
