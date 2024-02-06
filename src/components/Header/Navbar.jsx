@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Menu, Button, Drawer, Row, Col, Image, Input } from "antd";
+import { Layout, Menu, Button, Drawer, Row, Col, Image, Input, Typography } from "antd";
 import {
   HomeOutlined,
   MenuOutlined,
@@ -14,7 +14,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import Search from "antd/es/input/Search";
 
-
+const { Text } = Typography;
 const { Header } = Layout;
 
 const Navbar = () => {
@@ -61,19 +61,10 @@ const Navbar = () => {
         }}
       >
         <Row justify="space-between" align="middle">
-          <Col xs={0} sm={0} md={2}>
+          <Col xs={0} sm={0} md={2} lg={2}>
             <Image preview={false} width={100} src="/image/img/Logo.png" />
           </Col>
-          <Col
-            xs={0}
-            sm={0}
-            md={17}
-            style={{
-              display: "flex",
-              flexWrap: "nowrap",
-              textDecoration: "none",
-            }}
-          >
+          <Col xs={17} sm={0} md={10} lg={17} style={{ display: "flex", flexWrap: "nowrap", textDecoration: "none", }}>
             <SearchInput
               placeholder="ค้นหาสินค้าในไหว้วาน"
               onSearch={onSearch}
@@ -82,30 +73,69 @@ const Navbar = () => {
               enterButton
             />
           </Col>
-          <Col xs={0} sm={0} md={1}>
+          <Col xs={0} sm={0} md={1} lg={1}>
             <LineLogin></LineLogin>
           </Col>
-          <Col xs={0} sm={0} md={1} style={{ display: "flex", justifyContent: "space-evenly" }}>
+
+          <Col xs={0} sm={0} md={1} lg={1} style={{ display: "flex", justifyContent: "space-evenly" }}>
             <Link to="/cart" style={{ color: "#000", fontSize: "20px" }}>
               {<ShoppingCartOutlined />}
             </Link>
           </Col>
+
+          <Drawer
+            title={<Text style={{ fontFamily: "Chakra Petch, sans-serif", fontSize: "16px" }}>เมนู</Text>}
+            placement="left"
+            onClick={onClose}
+            onClose={onClose}
+            visible={visible}
+          >
+            <Menu mode="vertical">
+              <Menu.Item key="7" icon={<HomeOutlined />}>
+                <Link to="/" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
+                  หน้าแรก
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="8" icon={<UnorderedListOutlined />}>
+                <Link to="/listProduct" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
+                  รายการสินค้า
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="9" icon={<ExperimentOutlined />}>
+                <Link to="/experiment" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
+                  ทดลองจัดวาง
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="11" icon={<ContainerOutlined />} >
+                <Link to="/stocklist" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }} >
+                  รายการที่ต้องชำระ
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="10" icon={<UserOutlined />} >
+                <Link to="/stock" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }} >
+                  บัญชีผู้ใช้
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="12">
+                <LineLogin ></LineLogin>
+              </Menu.Item>
+            </Menu>
+          </Drawer>
 
           <Col xs={2} sm={2} md={0}>
             <Button type="primary" onClick={showDrawer} style={{ background: "#bf9f64" }}>
               <MenuOutlined />
             </Button>
           </Col>
+
+
         </Row>
 
         <Row justify="space-between" align="middle">
-          <Col xs={0} sm={20} md={8}>
+          <Col xs={0} sm={20} md={8} lg={8}>
             <Menus theme="light" mode="horizontal" defaultSelectedKeys={["1"]}>
               <Menu.Item key="1">
-                <Link
-                  to="/"
-                  style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}
-                >
+                <Link to="/" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
                   หน้าแรก
                 </Link>
               </Menu.Item>
@@ -122,45 +152,6 @@ const Navbar = () => {
             </Menus>
           </Col>
         </Row>
-
-        <Drawer
-          title="เมนู"
-          placement="left"
-          onClick={onClose}
-          onClose={onClose}
-          visible={visible}
-        >
-          <Menu mode="vertical">
-            <Menu.Item key="7" icon={<HomeOutlined />}>
-              <Link to="/" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
-                หน้าแรก
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="8" icon={<UnorderedListOutlined />}>
-              <Link to="/listProduct" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
-                รายการสินค้า
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="9" icon={<ExperimentOutlined />}>
-              <Link to="/experiment" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
-                ทดลองจัดวาง
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="10" icon={<UserOutlined />} >
-              <Link to="/stock" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }} >
-                บัญชีผู้ใช้
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="11" icon={<ContainerOutlined />} >
-              <Link to="/stocklist" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }} >
-                รายการที่ต้องชำระ
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="12">
-              <LineLogin ></LineLogin>
-            </Menu.Item>
-          </Menu>
-        </Drawer>
       </Header >
     </>
   );

@@ -192,7 +192,7 @@ const BuyProduct = (props) => {
                         size="large"
                         onClick={showModal}
                         icon={<PushpinOutlined />}
-                        style={{ background: "#bf9f64", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}
+                        style={{ background: "#bf9f64", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", display: "flex", alignItems: "center" }}
                       >
                         {selectedLocation
                           ? `เลือกที่อยู่จัดส่ง : ${selectedLocation.road}, ${selectedLocation.subdistrict}, ${selectedLocation.district}, ${selectedLocation.province}, ${selectedLocation.postcode}`

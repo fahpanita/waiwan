@@ -156,7 +156,7 @@ const ListProduct = () => {
 
           <Row style={{ marginTop: "20px" }}>
             <Col xs={2} sm={2} md={0} >
-              <Button onClick={showDrawer} size="large">
+              <Button onClick={showDrawer} size="large" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", border: "1px solid #A08155", color: "#A08155" }}>
                 <FilterOutlined /> ค้นหาแบบละเอียด
               </Button>
             </Col>
@@ -165,36 +165,35 @@ const ListProduct = () => {
             </Col>
           </Row>
           <Drawer
-            title="ค้นหาแบบละเอียด"
+            title={<Text style={{ fontFamily: "Chakra Petch, sans-serif", fontSize: "16px" }}>ค้นหาแบบละเอียด</Text>}
             placement="left"
             onClose={onClose}
             open={open}
             extra={
               <Space>
-                <Button onClick={onClose}>ยกเลิก</Button>
-                <Button onClick={onClose} type="primary">ยืนยัน</Button>
+                {/* <Button onClick={onClose}>ยกเลิก</Button> */}
+                <Button onClick={onClose} type="primary" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" }}>ยืนยัน</Button>
               </Space>
             }
           >
             <Card>
-              <Title level={5}>หมวดหมู่สินค้า</Title>
+              <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>หมวดหมู่สินค้า</Text>
               <FilterProductCategory filterData={catagories} onCategoryChange={setSelectedCategories} />
-
               <Divider />
-              <Title level={5}>หมวดหมู่เทศกาล</Title>
+              <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>หมวดหมู่เทศกาล</Text>
               <FilterProductEvent filterData={events} />
               <Divider />
-              <Title level={5}>ช่วงราคา</Title>
+              <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ช่วงราคา</Text>
               <div className="card-body">
                 <Slider range defaultValue={rangeValues} onChange={handlePriceChange} max={1000} />
                 <div className="row mb-3">
                   <div className="col-6">
-                    <label htmlFor="min" className="form-label">ราคาต่ำ:</label>
-                    <input className="form-control" id="min" placeholder="฿0" type="number" value={rangeValues[0]} />
+                    <label htmlFor="min" className="form-label" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ราคาต่ำ:</label>
+                    <input className="form-control" id="min" placeholder="฿0" type="number" value={rangeValues[0]} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }} />
                   </div>
                   <div className="col-6">
-                    <label htmlFor="max" className="form-label">ราคาสูง:</label>
-                    <input className="form-control" id="max" placeholder="฿10,000" type="number" value={rangeValues[1]} />
+                    <label htmlFor="max" className="form-label" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ราคาสูง:</label>
+                    <input className="form-control" id="max" placeholder="฿10,000" type="number" value={rangeValues[1]} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }} />
                   </div>
                 </div>
               </div>
@@ -222,11 +221,11 @@ const ListProduct = () => {
                   <Slider range defaultValue={rangeValues} onChange={handlePriceChange} max={1000} />
                   <div className="row mb-3">
                     <div className="col-6">
-                      <label htmlFor="min" className="form-label" style={{ fontSize: "16px" }}>ราคาต่ำ:</label>
+                      <label htmlFor="min" className="form-label" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ราคาต่ำ:</label>
                       <input className="form-control" id="min" placeholder="฿0" type="number" value={rangeValues[0]} />
                     </div>
                     <div className="col-6">
-                      <label htmlFor="max" className="form-label" style={{ fontSize: "16px" }}>ราคาสูง:</label>
+                      <label htmlFor="max" className="form-label" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ราคาสูง:</label>
                       <input className="form-control" id="max" placeholder="฿10,000" type="number" value={rangeValues[1]} />
                     </div>
                   </div>

@@ -7,10 +7,7 @@ import {
   Layout,
   Typography,
   Divider,
-  Card,
-  Statistic,
   Image,
-  List,
   Pagination,
 } from "antd";
 import Filter from "../../components/Tree/Filter";
@@ -149,20 +146,9 @@ const Home = () => {
                 <Col
                   span={24}
                   className="gutter-row"
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    alignItems: "flex-start",
-                  }}
+                  style={{ display: "flex", justifyContent: "space-evenly", alignItems: "flex-start", }}
                 >
-                  <Row
-                    span={6}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      margin: "0 10px",
-                    }}
-                  >
+                  <Row span={6} style={{ display: "flex", alignItems: "center", }}>
                     <Col>
                       <Cards bordered={false}>
                         <Cardcatagory>
@@ -181,14 +167,7 @@ const Home = () => {
                     </Col>
                   </Row>
 
-                  <Row
-                    span={6}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      margin: "0 10px",
-                    }}
-                  >
+                  <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px", }}>
                     <Col>
                       <Cards bordered={false}>
                         <Cardcatagory>
@@ -207,14 +186,7 @@ const Home = () => {
                     </Col>
                   </Row>
 
-                  <Row
-                    span={6}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      margin: "0 10px",
-                    }}
-                  >
+                  <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px", }}>
                     <Col>
                       <Cards bordered={false}>
                         <Cardcatagory>
@@ -233,14 +205,7 @@ const Home = () => {
                     </Col>
                   </Row>
 
-                  <Row
-                    span={6}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      margin: "0 10px",
-                    }}
-                  >
+                  <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px", }}>
                     <Col>
                       <Cards bordered={false}>
                         <Cardcatagory>
@@ -266,11 +231,10 @@ const Home = () => {
         {/* style={{ fontFamily: "'Chakra Petch', sans-serif" }} */}
 
         <Row style={{ marginTop: "40px", marginBottom: "10px", display: "flex", alignItems: "center" }}>
-          <Col span={10}>
-
+          <Col xs={17} sm={17} md={17} lg={17}>
             <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "32px", fontWeight: "500", }} >สินค้าสำหรับคุณ</Title>
           </Col>
-          <Col span={6} offset={8}>
+          <Col xs={7} sm={7} md={7} lg={7}>
             <a
               style={{
                 float: "right",
@@ -302,10 +266,10 @@ const Home = () => {
 
         <Divider dashed style={{ marginTop: "40px" }} />
         <Row style={{ marginTop: "40px", marginBottom: "10px", display: "flex", alignItems: "center" }}>
-          <Col span={10}>
-            <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "36px", fontWeight: "500", }}>บทความเทศกาล</Title>
+          <Col xs={17} sm={17} md={17} lg={17}>
+            <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "32px", fontWeight: "500", }}>บทความเทศกาล</Title>
           </Col>
-          <Col span={6} offset={8}>
+          <Col xs={7} sm={7} md={7} lg={7}>
             <a
               style={{
                 float: "right",
@@ -352,7 +316,7 @@ const Home = () => {
 
 export const Cardcatagory = styled.div`
   width: 100px;
-  height: 100px;
+  /* height: 100px; */
   border-radius: 4px;
   border: 1px solid #e5e5e5;
   background: #fff;
