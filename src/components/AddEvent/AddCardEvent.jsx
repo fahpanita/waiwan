@@ -166,7 +166,7 @@ const AddCardEvent = () => {
                                             //value={formDataCartEvents?.detail}
                                             apiKey='7ioen7hcz2mc303clydftkxt1ez6ao4nggsb7esgdovg35a7'
                                             onInit={(evt, editor) => editorRef.current = editor}
-                                            initialValue="<p>Please put your content in here...</p>"
+                                            initialValue="<p>กรุณากรอกรายละเอียดเทศกาล...</p>"
                                             init={{
                                                 height: 500,
                                                 menubar: false,

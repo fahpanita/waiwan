@@ -11,6 +11,21 @@ const { Content } = Layout;
 
 const Experiment = () => {
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+
   return (
     <>
       <Layout
@@ -33,9 +48,9 @@ const Experiment = () => {
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} style={{ marginBottom: "70px" }}>
 
             <Col xs={12} sm={9} md={9} lg={4}>
-              <Link to="/setChengMeng" style={{ textDecoration: 'none' }}>
-                <Card hoverable style={{ border: 'none', borderRadius: '10px', display: 'flex', alignItems: 'center' }}>
-                  <TextonImage >ชุดไหว้เจ้า</TextonImage>
+              <Link to="/setChengMeng" style={{ textDecoration: 'none' }} >
+                <Card hoverable style={{ border: 'none', borderRadius: '10px', display: 'flex', alignItems: 'center' }} >
+                  <TextonImage>ชุดไหว้เจ้าวันตรุษจีน</TextonImage>
                   <Button
                     type="primary"
                     shape="round"
@@ -45,12 +60,38 @@ const Experiment = () => {
                   >
                     ทดลองจัดไหว้
                   </Button>
-                  <Card.Img variant="top" style={{ borderRadius: '10px 10px 0 0' }} src="image/img/img-minigame-01.png" />
+                  <Card.Img variant="top" style={{ borderRadius: '10px' }} src="image/img/img-minigame-01.png" />
                 </Card>
               </Link>
-
+            </Col>
+            <Col xs={12} sm={9} md={9} lg={4}>
+              <Link to="/" style={{ textDecoration: 'none' }} >
+                <Card hoverable style={{ border: 'none', borderRadius: '10px', display: 'flex', alignItems: 'center' }} >
+                  <TextonImage>ชุดไหว้บรรพบุรุษวันตรุษจีน</TextonImage>
+                  <Button
+                    type="primary"
+                    shape="round"
+                    size="large"
+                    // href="/setChengMeng"
+                    style={{ background: '#bf9f64', width: '90%', position: 'absolute', bottom: '16px', fontFamily: "'Chakra Petch', sans-serif", fontSize: '18px' }}
+                  >
+                    ทดลองจัดไหว้
+                  </Button>
+                  <Card.Img variant="top" style={{ borderRadius: '10px' }} src="https://s13.gifyu.com/images/SCYkT.png" />
+                </Card>
+              </Link>
             </Col>
           </Row>
+
+          <Modal
+            title="Your Modal Title"
+            visible={isModalVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            {/* Add your modal content here */}
+            <p>This is a sample modal content.</p>
+          </Modal>
 
         </Content>
         <FooterPage />

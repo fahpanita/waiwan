@@ -139,7 +139,9 @@ const DetailProduct = (props) => {
 
               <Col xs={24} sm={12} md={12} lg={14} >
                 <Card style={{ border: "none", padding: "20px", position: "sticky", top: "16px", boxShadow: "0 0 2px rgba(0,0,0,.15)" }}>
-                  <span style={{ fontFamily: "'Athiti', sans-serif", fontSize: "34px", fontWeight: "500" }}>{product?.name}</span>
+                  <span style={{ fontFamily: "'Athiti', sans-serif", fontSize: "34px", fontWeight: "500", marginBottom: "10px" }}>{product?.name}</span>
+                  <span style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>{product?.detailProduct}</span>
+
                   <div style={{ marginTop: "14px" }}>
                     <span style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", marginRight: "10px" }}>ประเภทสินค้า:</span>
                     {product?.typeProduct === 'พรีออเดอร์' && (

@@ -13,8 +13,11 @@ const BannerHome = () => {
       <div>
         <Img src="image/img/Banner-3.png" />
       </div>
-      <div>
+      {/* <div>
         <Img src="image/img/Banner-4.png" />
+      </div> */}
+      <div>
+        <Img src="image/img/Banner-1.png" />
       </div>
     </Carousel>
   );

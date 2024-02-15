@@ -14,3 +14,17 @@ export const getSeller = async (token, message) => {
     return undefined;
   }
 };
+
+export const getConfirmOrder = async (data, record) => {
+  try {
+    const res = await requestBackend({
+      url: "/getConfirmOrder",
+      method: "POST",
+      body: JSON.stringify({ orderId: record.id }),
+    });
+    message.success("บันทึกสำเร็จ")
+    return res;
+  } catch (error) {
+    return undefined;
+  }
+};

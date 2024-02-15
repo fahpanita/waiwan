@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Header/Navbar";
-import { Layout, Typography } from "antd";
+import { Button, Layout, Typography } from "antd";
 import FooterPage from "../../components/Footer/FooterPage";
 import styled from "styled-components";
 import { getCartEventsId } from "../../services/cartEvents";
@@ -65,7 +65,15 @@ const DetailCardEvent = () => {
               __html: cardevents?.detail,
             }}
           />
+
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
+            <Button type="primary" shape="round" size="large" href="/setChengMeng"
+              style={{ background: '#bf9f64', fontFamily: "'Chakra Petch', sans-serif", fontSize: '18px', width: "180px" }}
+            >ทดลองจัดไหว้
+            </Button>
+          </div>
         </Content>
+
         <FooterPage />
       </Layout>
     </>

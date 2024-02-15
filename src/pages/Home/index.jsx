@@ -8,7 +8,7 @@ import {
   Typography,
   Divider,
   Image,
-  Pagination,
+  Pagination, Carousel
 } from "antd";
 import Filter from "../../components/Tree/Filter";
 import CardEvent from "../../components/CardKnowlage/CardEvent";
@@ -20,6 +20,7 @@ import { getProducts } from "../../services/product";
 import { getCartEvents } from "../../services/cartEvents";
 import { RightCircleOutlined } from "@ant-design/icons";
 import "./src/App.css";
+import { Link } from "react-router-dom";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -42,6 +43,8 @@ const Home = () => {
   };
 
   const [products, setProducts] = useState([]);
+
+  // console.log(products)
 
   const handleGetProducts = async () => {
     setLoading(true)
@@ -114,13 +117,18 @@ const Home = () => {
                 xs={12} sm={9} md={9} lg={24}
                 style={{ display: "flex", marginTop: "2px" }}
               >
-                <Img src="/image/img/frame-1.png" />
+                <Link to={"/experiment"}>
+                  <Img src="/image/img/frame-5.png" />
+                </Link>
               </Col>
               <Col
                 xs={12} sm={9} md={9} lg={24}
                 style={{ display: "flex", marginTop: "2px" }}
               >
-                <Img src="/image/img/frame-2.png" />
+                <Link to={"/allCardEvent"}>
+                  <Img src="/image/img/frame-6.png" />
+                </Link>
+
               </Col>
             </Row>
           </Col>
@@ -308,9 +316,9 @@ const Home = () => {
           showSizeChanger={false}
           style={{ marginTop: '20px', textAlign: 'center', fontFamily: "'Chakra Petch', sans-serif", marginBottom: "70px" }}
         />
-      </Content>
+      </Content >
       <FooterPage />
-    </Layout>
+    </Layout >
   );
 };
 

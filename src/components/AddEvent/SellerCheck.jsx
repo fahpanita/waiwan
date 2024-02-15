@@ -1,54 +1,72 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
-import { Layout, Table, Col, Button, Space, Image } from 'antd';
+import { Layout, Table, Col, Button, Space, Image, Modal, Tag } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
 import { deleteProduts, getProducts } from '../../services/product';
 import { BASE_URL } from '../../constands/api';
 import { Link } from 'react-router-dom';
 import { FileOutlined, CheckCircleOutlined, SearchOutlined } from "@ant-design/icons";
 import Search from 'antd/es/input/Search';
-import { getSeller } from '../../services/backend';
+import { getConfirmOrder, getSeller } from '../../services/backend';
 
-const columns = [
-    {
-        title: 'หมายเลขคำสั่งซื้อ',
-        dataIndex: 'id',
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: 'ชื่อผู้สั่ง',
-        dataIndex: 'name',
-    },
-    {
-        title: 'รายละเอียดคำสั่งซื้อ',
-        dataIndex: 'detail',
-    },
-    {
-        title: 'ใบเสร็จรับเงิน',
-        dataIndex: 'image',
-        render: (text) => <Image src={`${BASE_URL}/${text}`} width={70} />,
-    },
-    {
-        title: '฿ยอดชำระ',
-        dataIndex: 'price',
-    },
-    {
-        title: 'แจ้งชำระวันที่',
-        dataIndex: 'date',
-    },
-    {
-        title: 'Action',
-        render: (_, record) => (
-            <Space size="middle">
-                <Button >ยืนยันการสั่งซื้อ</Button>
-                {/* <Button danger onClick={() => onDeleteProduct(record.id)}>Delete</Button> */}
-            </Space>),
-    },
-];
 
 const SellerCheck = () => {
 
     const [seller, setSeller] = useState([]);
+
+    // console.log(seller);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+
+    const columns = [
+        {
+            title: 'หมายเลขคำสั่งซื้อ',
+            dataIndex: 'id',
+        },
+        {
+            title: 'ชื่อผู้สั่ง',
+            dataIndex: 'name',
+        },
+        {
+            title: 'รายละเอียดคำสั่งซื้อ',
+            dataIndex: 'detail',
+        },
+        {
+            title: 'ใบเสร็จรับเงิน',
+            dataIndex: 'image',
+            render: (text) => <Image src={`${BASE_URL}/${text}`} width={70} />,
+        },
+        {
+            title: '฿ยอดชำระ',
+            dataIndex: 'price',
+        },
+        {
+            title: 'แจ้งชำระวันที่',
+            dataIndex: 'date',
+        },
+        {
+            title: 'Action',
+            render: (_, record) => (
+                <Space size="middle">
+                    <Button onClick={() => onConfirmOrder(record)}>ยืนยันการสั่งซื้อ</Button>
+                </Space>
+            ),
+        },
+    ];
+
 
     const handleGetSeller = async () => {
         const res = await getSeller()
@@ -59,16 +77,47 @@ const SellerCheck = () => {
             return {
                 key: u?.order_id,
                 id: u?.order_id,
-                name: u?.address_name || "-",
-                detail: u?.order_item_id,
-                image: u?.slip_img || "-",
-                price: u?.payment_price || "-",
+                name: u?.address_names || "-",
+                detail: u?.product_names || "-"
+                // <>
+                //     <Button type="primary" onClick={showModal}>
+                //         Open Modal
+                //     </Button>
+                // </>
+                ,
+                image: u?.slip_imgs || "-",
+                price: u?.payment_prices || "-",
                 date: u?.order_date || "-",
             }
         }))
 
+
         // console.log(typeof res?.data);
     }
+
+    const onConfirmOrder = async (record) => {
+        try {
+            const response = await fetch('/getConfirmOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
+                },
+                body: JSON.stringify({ orderId: record.id }),
+            });
+
+            if (response.ok) {
+                console.log('Notification sent successfully');
+                // Handle success, e.g., show a success message to the user
+            } else {
+                console.error('Failed to send notification');
+                // Handle failure, e.g., show an error message to the user
+            }
+        } catch (error) {
+            console.error('Error sending API request:', error);
+            // Handle other errors
+        }
+    };
 
     useEffect(() => {
         handleGetSeller()
@@ -139,6 +188,13 @@ const SellerCheck = () => {
                             </Col>
                         </div>
                     </CardBox>
+
+                    <Modal title="Basic Modal" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                        <p>สินค้าที่สั่ง</p>
+                        {seller?.data?.name && seller?.data?.name?.map((n) => (
+                            <Tag key={n?.id}>{n}</Tag>
+                        ))}
+                    </Modal>
 
                 </Content>
             </Layout >

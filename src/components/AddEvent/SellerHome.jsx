@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
-import { Layout, Table, Col, Button, Space, Image } from 'antd';
+import { Layout, Table, Col, Button, Space, Image, Tag } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
 import { deleteProduts, getProducts } from '../../services/product';
 import { BASE_URL } from '../../constands/api';
 import { Link } from 'react-router-dom';
-
+import { getSeller } from '../../services/backend';
 import { FileOutlined, CheckCircleOutlined, SearchOutlined } from "@ant-design/icons";
 import Search from 'antd/es/input/Search';
 
@@ -17,11 +17,11 @@ const columns = [
     },
     {
         title: 'ชื่อผู้สั่ง',
-        dataIndex: 'thumbnail',
+        dataIndex: 'name',
     },
     {
         title: 'วันที่สั่งซื้อ',
-        dataIndex: 'name',
+        dataIndex: 'date',
     },
     {
         title: '฿ยอดรวม',
@@ -33,15 +33,52 @@ const columns = [
     },
     {
         title: 'สถานะล่าสุด',
-        render: (_, record) => (
-            <Space size="middle">
-                <Button >Edit</Button>
-                <Button danger onClick={() => onDeleteProduct(record.id)}>Delete</Button>
-            </Space>),
+        dataIndex: 'action',
+        // render: (_, record) => (
+        //     <Space size="middle">
+        //         <Button >Edit</Button>
+        //     </Space>),
     },
 ];
 
 const SellerHome = () => {
+
+    const [seller, setSeller] = useState([]);
+
+    const handleGetSeller = async () => {
+        const res = await getSeller()
+
+        // console.log(res);
+
+        setSeller(res?.data?.map(u => {
+            return {
+                key: u?.order_id,
+                id: u?.order_id,
+                name: u?.address_names || "-",
+                date: u?.order_date || "-",
+                price: u?.payment_prices || "-",
+                stock: u?.type_shipping || "-",
+                action:
+                    <>
+                        {u?.payment_statuses ? (
+                            <Tag color="green" style={{ fontSize: "16px", padding: "8px" }}>
+                                ชำระเงินแล้ว
+                            </Tag>
+                        ) : (
+                            <Tag color="error" style={{ fontSize: "16px", padding: "8px" }}>
+                                ยังไม่ชำระเงิน
+                            </Tag>
+                        )}
+                    </>
+            }
+        }))
+
+        // console.log(typeof res?.data);
+    }
+
+    useEffect(() => {
+        handleGetSeller()
+    }, [])
 
     return (
         <>
@@ -53,7 +90,7 @@ const SellerHome = () => {
                     <CardBox >
                         <Link to={"/seller"} style={{ marginRight: "10px" }}>
                             <Button
-                                icon={<FileOutlined />}
+                                icon={<FileOutlined />} style={{ color: "#C54142", border: "1px solid #C54142" }}
                             >
                                 ทั้งหมด
                             </Button>
@@ -103,6 +140,7 @@ const SellerHome = () => {
 
                                     }}
                                     columns={columns}
+                                    dataSource={seller}
                                 />
                             </Col>
                         </div>
@@ -115,26 +153,26 @@ const SellerHome = () => {
 }
 
 export const CardBox = styled.div`
-background: #FFF;
-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.09);
-padding: 20px;
-margin-bottom: 20px;
-`;
+                    background: #FFF;
+                    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.09);
+                    padding: 20px;
+                    margin-bottom: 20px;
+                    `;
 
 const FooterCustom = styled(Footer)`
-background: #F5F5F5;
-box-shadow: 0px -1px 2px 0px rgba(0, 0, 0, 0.20);
-bottom: 0;
-position: fixed;
-width: -webkit-fill-available;
-`;
+                    background: #F5F5F5;
+                    box-shadow: 0px -1px 2px 0px rgba(0, 0, 0, 0.20);
+                    bottom: 0;
+                    position: fixed;
+                    width: -webkit-fill-available;
+                    `;
 
 export const CardBoxRadius = styled.div`
-border-radius: 13px;
-background: #FFF;
-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
-margin: 10px;
-padding: 16px;
-`;
+                    border-radius: 13px;
+                    background: #FFF;
+                    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
+                    margin: 10px;
+                    padding: 16px;
+                    `;
 
 export default SellerHome

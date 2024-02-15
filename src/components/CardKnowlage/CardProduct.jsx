@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,12 +11,17 @@ import { addCartProduct } from "../../store/AddCartProductSlice";
 const CardProduct = (prop) => {
   const { data, loading = false } = prop
 
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const [product, setProduct] = useState([]);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // const handleAddProduct = () => {
-  //   dispatch(addCartProduct({ ...product, amount }))
-  // }
+  const amount = 1;
+
+  const handleAddProduct = () => {
+    dispatch(addCartProduct({ product, amount }))
+  }
+
+
   return (
     <>
 
@@ -40,6 +45,12 @@ const CardProduct = (prop) => {
           )}
 
           <Card.Body>
+
+            <div style={{ height: "90px" }}>
+              {data?.event_names && data.event_names.map((n, index) => (
+                <Tag key={index} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "12px", fontWeight: "500", color: "#bf9f64", border: "1px solid #bf9f64", backgroundColor: "#fff", marginBottom: "4px" }}>{n}</Tag>
+              ))}
+            </div>
             <Card.Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "400", height: "40px" }}>{loading ? <Skeleton paragraph={{ rows: 1 }} title={false} /> : data?.name}</Card.Text>
 
             <Row>
@@ -47,19 +58,17 @@ const CardProduct = (prop) => {
                 <Card.Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", }}>{loading ? <Skeleton paragraph={{ rows: 1 }} title={false} /> : "฿" + data?.price}</Card.Text>
               </Col>
               <Col span={2} style={{ justifyContent: "right", display: "flex" }}>
-                <Button shape="circle" size="large"
+                {/* <Button shape="circle" size="large"
                   icon={<ShoppingCartOutlined />}
                   style={{
-                    color: "#fff",
-                    // background: "linear-gradient(0deg, rgba(223,155,21,1) 0%, rgba(235,194,57,1) 100%)", 
-                    background: "#bf9f64", textDecoration: "none", border: "none", boxShadow: " 0px 2px 4px 0px rgba(0, 0, 0, 0.15)"
+                    color: "#fff", background: "#bf9f64", textDecoration: "none", border: "none", boxShadow: " 0px 2px 4px 0px rgba(0, 0, 0, 0.15)"
                   }}
-                // onClick={() => {
-                //   handleAddProduct()
-                //   navigate(`/cart`)
-                // }}
+                  htmlType="submit" onClick={() => {
+                    handleAddProduct()
+                    navigate(`/cart`)
+                  }}
                 >
-                </Button>
+                </Button> */}
               </Col>
             </Row>
 

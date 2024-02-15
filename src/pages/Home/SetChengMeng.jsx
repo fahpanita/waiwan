@@ -1,37 +1,34 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Header/Navbar";
-import { Layout, Row, Col, Typography, Button, Card, Image, Breadcrumb, Modal } from "antd";
+import { Layout, Row, Col, Typography, Button, Card, Image, Breadcrumb, Modal, notification, message } from "antd";
 import FooterPage from "../../components/Footer/FooterPage";
 import ImageDropZone from "../../components/game/ImageDropZone";
 import styled from 'styled-components';
 import { useLocation } from "react-router-dom";
+import { DownloadOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 
-const { Title } = Typography;
+
+const { Title, Text } = Typography;
 const { Content } = Layout;
 
 const SetChengMeng = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(true);
   const location = useLocation();
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const modalParam = params.get('modal');
-    if (modalParam === 'true') {
-      setIsModalOpen(true);
-    }
-  }, [location.search]);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+  const [droppedItems, setDroppedItems] = useState([]);
 
   const handleOk = () => {
     setIsModalOpen(false);
   };
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    link.href = '/image/img/game-success01.png';
+
+    link.download = 'game-success01.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const allowDrop = (event) => {
@@ -42,6 +39,11 @@ const SetChengMeng = () => {
     event.dataTransfer.setData('text', event.target.id);
   };
 
+  const [successfulDropsCount, setSuccessfulDropsCount] = useState(0);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+
+
+
   const drop = (event, targetKey) => {
     event.preventDefault();
 
@@ -49,89 +51,64 @@ const SetChengMeng = () => {
     const draggedElement = document.getElementById(data);
     const draggedElementTargetKey = draggedElement.getAttribute('targetKey');
 
-    // Implement your custom check function here
     const canDrop = checkIfCanDrop(targetKey, draggedElementTargetKey);
 
     if (canDrop) {
-      // Matched targetKey, trigger corresponding handler
-      switch (targetKey) {
-        case 'teaBox':
-          handleTeaDrop();
-          break;
-        case 'alcoholBox':
-          handleAlcoholDrop();
-          break;
-        case 'pigBox':
-          handlePigDrop();
-          break;
-        case 'fishBox':
-          handleFishDrop();
-          break;
-        case 'chickenBox':
-          handleChickenBoxDrop();
-          break;
-        case 'fruitBox':
-          handleFruitDrop();
-          break;
-        case 'paperBox':
-          handlePaperDrop();
-          break;
-        case 'sweetBox':
-          handleSweetDrop();
-          break;
-        // Add more cases for other targetKeys if needed
-        default:
-          break;
-      }
-
-      // Append the dragged element to the target
+      setDroppedItems((prevItems) => [...prevItems, { id: data, targetKey }]);
       event.target.appendChild(draggedElement);
+
+      setSuccessfulDropsCount((prevCount) => prevCount + 1);
+
+      if (successfulDropsCount + 1 === 8) {
+        setIsSuccessModalOpen(true);
+      } else {
+        message.success(<Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>เก่งมาก! คุณวางได้ถูกต้อง</Text>);
+      }
     } else {
-      // Cannot drop, reset dragged element's position
+
       draggedElement.style.transition = 'transform 0.5s';
       draggedElement.style.transform = 'translate(0, 0)';
       setTimeout(() => {
-        draggedElement.style.transition = ''; // Reset transition after animation
+        draggedElement.style.transition = '';
       }, 500);
+
+      handleErrorDrop();
     }
+
   };
 
   const checkIfCanDrop = (targetKey, draggedElementTargetKey) => {
     return targetKey === draggedElementTargetKey;
   };
 
-  const [draggableVisibility, setDraggableVisibility] = useState("block");
+  const handleErrorDrop = () => {
+    const errorSound = new Audio('/sound/SoundEffect-error.mp3');
+    errorSound.play();
+    message.error(<Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>กรุณาวางใหม่อีกครั้ง</Text>);
+  };
 
-  const handleTeaDrop = () => {
-    alert("You put the tea in the box!");
+  const handleSuccessModalOk = () => {
+    setIsSuccessModalOpen(false);
   };
-  const handleAlcoholDrop = () => {
-    alert("You put the alcohol in the box!");
-  };
-  const handlePigDrop = () => {
-    alert("You put the pig in the box!");
-  };
-  const handleFishDrop = () => {
-    alert("You put the fish in the box!");
-  };
-  const handleChickenBoxDrop = () => {
-    alert("You put the chicken in the box!");
-  };
-  const handleFruitDrop = () => {
-    alert("You put the fruit in the box!");
-  };
-  const handlePaperDrop = () => {
-    alert("You put the paper in the box!");
-  };
-  const handleSweetDrop = () => {
-    alert("You put the sweet in the box!");
-  };
+
+
+  useEffect(() => {
+
+    const params = new URLSearchParams(location.search);
+    const modalParam = params.get('modal');
+    if (modalParam === 'true') {
+      setIsModalOpen(true);
+    }
+
+  }, [location.search]);
+
 
   return (
     <>
       <Layout
+        // /image/img/table01.png
         style={{
-          backgroundImage: `url("/image/img/table01.png")`,
+          backgroundImage: `url("https://s13.gifyu.com/images/SCfw1.png")`,
           backgroundSize: "888px",
           backgroundPosition: "center 260px ",
           backgroundRepeat: "no-repeat",
@@ -142,11 +119,11 @@ const SetChengMeng = () => {
 
           <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
             <Breadcrumb.Item>ทดลองจัดวางของไหว้เจ้า</Breadcrumb.Item>
-            <Breadcrumb.Item>ชุดไหว้เจ้า</Breadcrumb.Item>
+            <Breadcrumb.Item>ชุดไหว้เจ้าวันตรุษจีน</Breadcrumb.Item>
           </Breadcrumb>
 
           <Title style={{ fontFamily: "'Athiti', sans-serif", fontSize: "28px", fontWeight: "500", textAlign: "center" }}>
-            ชุดไหว้เจ้า
+            ชุดไหว้เจ้าวันตรุษจีน
           </Title>
 
           <div className="container" style={{ fontFamily: "'Chakra Petch', sans-serif", marginTop: "20px", fontSize: "16px" }}>
@@ -202,7 +179,6 @@ const SetChengMeng = () => {
                   src="https://i.ibb.co/Svz1zYH/sweet.png"
                   draggable="true"
                   onDragStart={drag}
-                  style={{ display: draggableVisibility }}
                   width="100"
                 />
                 <img
@@ -211,7 +187,6 @@ const SetChengMeng = () => {
                   src="https://i.ibb.co/vYyDxHV/fish.png"
                   draggable="true"
                   onDragStart={drag}
-                  style={{ display: draggableVisibility }}
                   width="100"
                 />
                 <img
@@ -266,14 +241,64 @@ const SetChengMeng = () => {
               </ImageContainer>
             </BoxStyle>
           </div >
-          {/* <Modal title="วิธีการเล่น" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="เริ่มเกม" cancelText="โหลดรูปสำเร็จ">
-            <img
-              src="/image/img/video.png"
-              width="400"
-            />
-            <p>ลากรูปภาพจากทางขวามาวางในวงกลมตามกำหนด</p>
-          </Modal> */}
-        </Content>
+          <Modal
+            title="วิธีการเล่น"
+            style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}
+            visible={isModalOpen}
+            width={600}
+            footer={[
+              <Button onClick={handleOk} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", color: "#ffffff", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" }}>
+                เริ่มเกม
+              </Button>,
+            ]}
+          >
+            <Row style={{ display: "flex", justifyContent: "center" }}>
+              <Col>
+                <img
+                  src="https://s13.gifyu.com/images/SCYke.gif"
+                  width="500"
+                />
+              </Col>
+              <Col style={{ display: "flex", alignContent: "center", flexDirection: "column", marginTop: "15px" }}>
+                <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>หากคุณต้องการภาพชุดไหว้เจ้าวันตรุษจีนชุดนี้ที่จัดสำเร็จแล้วโหลดได้ที่ปุ่มด้านล่าง ถ้าไม่ต้องการสามารถกดปุ่มเริ่มเกมได้เลย</p>
+                <Button onClick={handleDownload} icon={<DownloadOutlined />} shape="round"
+                  style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", background: '#ffffff', borderColor: '#bf9f64', color: "#bf9f64", borderRadius: "60px" }}>
+                  โหลดรูปภาพ
+                </Button>
+              </Col>
+            </Row>
+          </Modal>
+
+          <Modal
+            title="คุณจัดวางสำเร็จ !"
+            style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}
+            visible={isSuccessModalOpen}
+            // onOk={handleSuccessModalOk}
+            // onCancel={handleSuccessModalOk}
+            width={600}
+            footer={[
+              <Button href="/" shape="round"
+                style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", background: '#ffffff', borderColor: '#bf9f64', color: "#bf9f64", borderRadius: "60px" }}>
+                กลับหน้าหลัก
+              </Button>,
+              <Button href="/detailProduct?id=8" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", color: "#ffffff", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" }}>
+                ไปยังหน้าสินค้า
+              </Button>
+            ]}
+          >
+            <Row style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <Col style={{ marginTop: "20px" }}>
+                <img
+                  src="https://i.ibb.co/TPsWqHw/corect.png"
+                  width="100px"
+                />
+              </Col>
+              <Col style={{ marginTop: "20px" }}>
+                <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>หากต้องการซื้อสินค้าชุดไหว้เจ้าวันตรุษจีนชุดนี้กดปุ่มด้านล่างนี้</p>
+              </Col>
+            </Row>
+          </Modal>
+        </Content >
         <FooterPage />
       </Layout >
     </>
@@ -349,17 +374,19 @@ export const DropBox5 = styled.div`
     margin-top: -30px;
 `;
 
-
 export const BoxStyle = styled.div`
 width: 100%;
 height: 103px;
 flex-shrink: 0;
 border-radius: 15px;
 background: #F2F0E6;
+border: 2px dashed #5b5b5b;
 box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.06);
 margin-top: 100px;
 align-items: center;
 margin-bottom: 70px; 
+position: sticky;
+  bottom: 20px;
 `;
 
 export const ImageContainer = styled.div`
@@ -371,6 +398,8 @@ export const ImageContainer = styled.div`
   box-sizing: border-box;
   align-items: center;
   justify-content: space-around;
+  
+
 `;
 
 export const Img = styled.img`

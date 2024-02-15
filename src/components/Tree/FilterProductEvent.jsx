@@ -7,7 +7,7 @@ const FilterProductEvent = (props) => {
   const [checkedKeys, setCheckedKeys] = useState([]);
 
   const onCheck = (checkedKeys, info) => {
-    console.log("onCheckEvent ", checkedKeys, info);
+    // console.log("onCheckEvent ", checkedKeys, info);
     setCheckedKeys(checkedKeys);
     props?.onEventChange(checkedKeys);
   };

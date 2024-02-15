@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { uploadImages } from '../../services/upload';
 import { QRCode } from 'antd/es';
 import { createPayment } from '../../services/payment';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const { Title, Text } = Typography;
@@ -67,6 +67,7 @@ const PaymentCart = () => {
   const formDataPayment = Form.useWatch([], createPaymentForm);
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
+  const navigate = useNavigate();
 
   const { orderId } = useParams();
 
@@ -99,7 +100,6 @@ const PaymentCart = () => {
     }
 
   };
-
 
   const handleBack = async () => {
     navigate(`/`),

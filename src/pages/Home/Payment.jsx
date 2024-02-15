@@ -248,7 +248,7 @@ const Payment = () => {
                   <Dividers />
                   <Col style={{ justifyContent: "center", display: "flex", flexDirection: "column", alignItems: "center" }} id="myqrcode">
                     <img src="/image/img/thai_qr_payment 1.png" width={250} />
-                    <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406456.006304A60A" || '-'} />
+                    <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406150.006304E4B1" || '-'} />
                     <Button type="primary" shape="round" size="large" onClick={downloadQRCode}
                       style={{ width: "100%", marginTop: "16px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", color: "#A08155", background: "#ffffff", border: "1px solid #A08155" }}
                     >

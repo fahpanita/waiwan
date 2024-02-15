@@ -7,7 +7,7 @@ const FilterProductCategory = (props) => {
   const [checkedKeys, setCheckedKeys] = useState([]);
 
   const onCheck = (checkedKeys, info) => {
-    console.log("onCheck ", checkedKeys, info);
+    // console.log("onCheck ", checkedKeys, info);
     setCheckedKeys(checkedKeys);
     props?.onCategoryChange(checkedKeys);
   };
