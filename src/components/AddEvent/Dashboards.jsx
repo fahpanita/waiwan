@@ -9,7 +9,7 @@ const Dashboards = () => {
         <>
             <Layout style={{ minHeight: '100vh', }}>
                 <Header style={{ background: '#fff', }}>
-                    <div className="font-24">Dashboard</div>
+                    <div className="font-24">รายงานการขาย</div>
                 </Header >
                 <Content style={{ margin: '24px 24px 0', }}>
                     <Row gutter={24}>

@@ -25,6 +25,7 @@ const columns = [
   {
     title: <div style={{ display: "flex", justifyContent: "center" }}>จำนวน</div>,
     dataIndex: "amount",
+
   },
 ];
 
@@ -48,7 +49,7 @@ const BuyProduct = (props) => {
           </Col>
           <Col xs={24} sm={5} md={5} lg={5}>
             <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400" }}>{p?.name}</div>
-            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", }}>฿{p?.amount * p?.price}</div>
+            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", }}>฿{Number(p?.amount * p?.price)?.toLocaleString() || "-"}</div>
           </Col>
         </Row>,
       amount:
@@ -173,8 +174,8 @@ const BuyProduct = (props) => {
           <Content style={{ padding: "0 32px", }}>
 
             <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
-              <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
-              <Breadcrumb.Item>รายการสินค้า</Breadcrumb.Item>
+              <Breadcrumb.Item><Link to={'/'} style={{ textDecoration: "none" }}>หน้าแรก</Link></Breadcrumb.Item>
+              <Breadcrumb.Item><Link to={'/listProduct'} style={{ textDecoration: "none" }}>รายการสินค้า</Link></Breadcrumb.Item>
               <Breadcrumb.Item>สั่งซื้อสินค้า</Breadcrumb.Item>
             </Breadcrumb>
 
@@ -194,9 +195,11 @@ const BuyProduct = (props) => {
                         icon={<PushpinOutlined />}
                         style={{ background: "#bf9f64", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", display: "flex", alignItems: "center" }}
                       >
-                        {selectedLocation
-                          ? `เลือกที่อยู่จัดส่ง : ${selectedLocation.road}, ${selectedLocation.subdistrict}, ${selectedLocation.district}, ${selectedLocation.province}, ${selectedLocation.postcode}`
-                          : 'เลือกที่อยู่จัดส่ง'}
+                        <div style={{ whiteSpace: "nowrap", width: "200px", overflow: "hidden", textOverflow: "ellipsis" }}>
+                          {selectedLocation
+                            ? `เลือกที่อยู่จัดส่ง : ${selectedLocation.road}, ${selectedLocation.subdistrict}, ${selectedLocation.district}, ${selectedLocation.province}, ${selectedLocation.postcode}`
+                            : 'เลือกที่อยู่จัดส่ง'}
+                        </div>
                       </Button>
                       <Modal title="เลือกที่อยู่การจัดส่ง" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000} okText="ตกลง" cancelText="ยกเลิก"
                         okButtonProps={{ style: { fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" } }}
@@ -283,7 +286,7 @@ const BuyProduct = (props) => {
                           <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ยอดรวม</div>
                         </Col>
                         <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>฿{formattedTotalPrice}</div>
+                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>฿{Number(formattedTotalPrice)?.toLocaleString() || "-"}</div>
                         </Col>
                       </Row>
                       <Row style={{ display: "flex", alignItems: "center" }}>
@@ -300,7 +303,7 @@ const BuyProduct = (props) => {
                           <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>ยอดรวมทั้งสิ้น</div>
                         </Col>
                         <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", color: "#C54142" }}>฿{formattedTotal}</div>
+                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", color: "#C54142" }}>฿{Number(formattedTotal)?.toLocaleString() || "-"}</div>
                         </Col>
                       </Row>
                       <Row>

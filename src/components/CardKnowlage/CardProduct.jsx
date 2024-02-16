@@ -55,7 +55,9 @@ const CardProduct = (prop) => {
 
             <Row>
               <Col span={22}>
-                <Card.Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", }}>{loading ? <Skeleton paragraph={{ rows: 1 }} title={false} /> : "฿" + data?.price}</Card.Text>
+                <Card.Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", }}>
+                  {loading ? <Skeleton paragraph={{ rows: 1 }} title={false} /> : "฿" + (Number(data?.price)?.toLocaleString() || "-")}
+                </Card.Text>
               </Col>
               <Col span={2} style={{ justifyContent: "right", display: "flex" }}>
                 {/* <Button shape="circle" size="large"

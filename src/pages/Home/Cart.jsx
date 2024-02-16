@@ -135,7 +135,7 @@ const Cart = () => {
         <Content style={{ padding: "0 32px", }}>
 
           <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
-            <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
+            <Breadcrumb.Item><Link to={'/'} style={{ textDecoration: "none" }}>หน้าแรก</Link></Breadcrumb.Item>
             <Breadcrumb.Item>ตะกร้าสินค้า</Breadcrumb.Item>
           </Breadcrumb>
 

@@ -13,12 +13,12 @@ import { getConfirmOrder, getSeller } from '../../services/backend';
 const SellerCheck = () => {
 
     const [seller, setSeller] = useState([]);
-
-    // console.log(seller);
-
+    const [allSeller, setallSeller] = useState([]);
+    const [selectedOrderId, setSelectedOrderId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const showModal = () => {
+    const showModal = (orderId) => {
+        setSelectedOrderId(orderId);
         setIsModalOpen(true);
     };
 
@@ -47,11 +47,14 @@ const SellerCheck = () => {
         {
             title: 'ใบเสร็จรับเงิน',
             dataIndex: 'image',
-            render: (text) => <Image src={`${BASE_URL}/${text}`} width={70} />,
+            render: (text) => <Image src={`${BASE_URL}/${text}`} width={50} />,
         },
         {
             title: '฿ยอดชำระ',
             dataIndex: 'price',
+            render: (text) => (
+                typeof text === 'string' ? Number(text).toLocaleString() : text
+            ),
         },
         {
             title: 'แจ้งชำระวันที่',
@@ -59,9 +62,9 @@ const SellerCheck = () => {
         },
         {
             title: 'Action',
-            render: (_, record) => (
+            render: () => (
                 <Space size="middle">
-                    <Button onClick={() => onConfirmOrder(record)}>ยืนยันการสั่งซื้อ</Button>
+                    <Button >ยืนยันการสั่งซื้อ</Button>
                 </Space>
             ),
         },
@@ -70,64 +73,45 @@ const SellerCheck = () => {
 
     const handleGetSeller = async () => {
         const res = await getSeller()
-
-        // console.log(res);
-
         setSeller(res?.data?.map(u => {
             return {
                 key: u?.order_id,
                 id: u?.order_id,
                 name: u?.address_names || "-",
-                detail: u?.product_names || "-"
-                // <>
-                //     <Button type="primary" onClick={showModal}>
-                //         Open Modal
-                //     </Button>
-                // </>
+                detail:
+                    // u?.product_names || "-"
+                    <>
+                        <Button type="primary" onClick={() => showModal(u?.order_id)}>
+                            ดูรายละเอียด
+                        </Button>
+                    </>
                 ,
                 image: u?.slip_imgs || "-",
                 price: u?.payment_prices || "-",
                 date: u?.order_date || "-",
             }
         }))
-
-
-        // console.log(typeof res?.data);
     }
 
-    const onConfirmOrder = async (record) => {
-        try {
-            const response = await fetch('/getConfirmOrder', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
-                },
-                body: JSON.stringify({ orderId: record.id }),
-            });
+    const handleGetallSeller = async () => {
+        const res = await getSeller();
+        setallSeller(res?.data);
+    }
 
-            if (response.ok) {
-                console.log('Notification sent successfully');
-                // Handle success, e.g., show a success message to the user
-            } else {
-                console.error('Failed to send notification');
-                // Handle failure, e.g., show an error message to the user
-            }
-        } catch (error) {
-            console.error('Error sending API request:', error);
-            // Handle other errors
-        }
-    };
 
     useEffect(() => {
-        handleGetSeller()
+        handleGetSeller(),
+            handleGetallSeller()
     }, [])
+
+    const filteredOrder = allSeller.find(order => order.order_id === selectedOrderId);
+
 
     return (
         <>
             <Layout style={{ minHeight: '100vh', }}>
                 <Header style={{ background: '#fff', }}>
-                    <div className="font-24">รายงานการขาย</div>
+                    <div className="font-24">รายการคำสั่งซื้อ</div>
                 </Header >
                 <Content style={{ margin: '24px 24px 0', }}>
                     <CardBox >
@@ -168,12 +152,10 @@ const SellerCheck = () => {
                     <CardBox >
                         <Search
                             placeholder="ค้นหา"
-                            // onSearch={}
                             style={{
                                 width: 464,
                                 marginBottom: "20px",
                             }}
-                        // prefix={<SearchOutlined />}
                         />
                         <div style={{ background: '#F5F5F5', }}>
                             <Col>
@@ -189,11 +171,29 @@ const SellerCheck = () => {
                         </div>
                     </CardBox>
 
-                    <Modal title="Basic Modal" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                        <p>สินค้าที่สั่ง</p>
-                        {seller?.data?.name && seller?.data?.name?.map((n) => (
-                            <Tag key={n?.id}>{n}</Tag>
-                        ))}
+                    <Modal title="รายละเอียดคำสั่งซื้อ	" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                        {filteredOrder && (
+                            <div key={filteredOrder?.order_id}>
+                                <p>หมายเลขสั่งซื้อ: {filteredOrder?.order_id}</p>
+                                <p>ชื่อลูกค้า: {filteredOrder?.address_names}</p>
+
+                                {filteredOrder?.product_names && filteredOrder?.amounts && (
+                                    <>
+                                        <p>รายละเอียดสินค้าที่สั่งซื้อ:</p>
+                                        <ul>
+                                            {filteredOrder.product_names.split(',').map((product, index) => (
+                                                <li key={index}>{product} {filteredOrder.amounts.split(',')[index]} ชิ้น</li>
+                                            ))}
+                                        </ul>
+                                    </>
+                                )}
+
+                                <p>ราคารวม: {Number(filteredOrder?.payment_prices).toLocaleString()} บาท</p>
+                                <p style={{ fontWeight: "bold" }}>ที่อยู่จัดส่ง</p>
+                                <p>{filteredOrder?.streets} {filteredOrder?.subdistricts} {filteredOrder?.districts} {filteredOrder?.provinces} {filteredOrder?.zip_codes}</p>
+                                <p>เบอร์โทร: {filteredOrder?.phones}</p>
+                            </div>
+                        )}
                     </Modal>
 
                 </Content>

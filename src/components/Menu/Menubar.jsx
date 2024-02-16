@@ -14,8 +14,8 @@ function getItem(label, key, icon, children) {
     };
 }
 const items = [
-    getItem(<Link to="/dashboard" style={{ textDecoration: 'none' }}>Dashboard</Link>, 'Dashboard', <AppstoreOutlined />),
-    getItem(<Link to="/seller" style={{ textDecoration: 'none' }}>การขาย</Link>, 'seller', <ShoppingCartOutlined />),
+    getItem(<Link to="/dashboard" style={{ textDecoration: 'none' }}>รายงานการขาย</Link>, 'Dashboard', <AppstoreOutlined />),
+    getItem(<Link to="/seller" style={{ textDecoration: 'none' }}>รายการคำสั่งซื้อ</Link>, 'seller', <ShoppingCartOutlined />),
     // getItem('การขาย', 'seller', <ShoppingCartOutlined />),
     getItem('สินค้า', 'sub1', <ShoppingOutlined />, [
         getItem(<Link to="/listStock" style={{ textDecoration: 'none' }}>รายการสินค้า</Link>, 'product'),

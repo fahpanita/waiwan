@@ -86,16 +86,17 @@ const PaymentCart = () => {
         okText: 'ตกลง',
         okButtonProps: {
           style: { fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" },
+          onClick: handleBack,
         },
-        footer: (_, { OkBtn }) => (
-          <>
-            <Dividers />
-            <Button type="primary" onClick={handleBack}
-              style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", color: "#A08155", background: "#ffffff", border: "1px solid #A08155", borderRadius: "60px", }}>
-              กลับไปหน้าแรก</Button>
-            <OkBtn />
-          </>
-        )
+        // footer: (_, { OkBtn }) => (
+        //   <>
+        //     <Dividers />
+        //     <Button type="primary" onClick={handleBack}
+        //       style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" }}>
+        //       กลับไปหน้าแรก</Button>
+        //     <OkBtn />
+        //   </>
+        // )
       });
     }
 
@@ -119,7 +120,7 @@ const PaymentCart = () => {
           </Col>
           <Col xs={24} sm={5} md={5} lg={5}>
             <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400" }}>{p?.name}</div>
-            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", }}>฿{p?.amount * p?.price}</div>
+            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", }}>฿{Number(p?.amount * p?.price)?.toLocaleString() || "-"}</div>
           </Col>
         </Row>
       ,
@@ -199,9 +200,9 @@ const PaymentCart = () => {
             <Breadcrumb
               style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}
             >
-              <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
-              <Breadcrumb.Item>ตะกร้าสินค้า</Breadcrumb.Item>
-              <Breadcrumb.Item>สั่งซื้อสินค้า</Breadcrumb.Item>
+              <Breadcrumb.Item><Link to={'/'} style={{ textDecoration: "none" }}>หน้าแรก</Link></Breadcrumb.Item>
+              <Breadcrumb.Item><Link to={'/cart'} style={{ textDecoration: "none" }}>ตะกร้าสินค้า</Link></Breadcrumb.Item>
+              <Breadcrumb.Item><Link to={'/buyProductCart'} style={{ textDecoration: "none" }}>สั่งซื้อสินค้า</Link></Breadcrumb.Item>
               <Breadcrumb.Item>แจ้งหลักฐานการชำระเงิน</Breadcrumb.Item>
             </Breadcrumb>
 
@@ -226,7 +227,7 @@ const PaymentCart = () => {
                       <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>ยอดรวม</div>
                     </Col>
                     <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                      <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>฿{formattedTotalPrice}</div>
+                      <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>฿{Number(formattedTotalPrice)?.toLocaleString() || "-"}</div>
                     </Col>
                   </Row>
                   <Row style={{ display: "flex", alignItems: "center" }}>
@@ -243,7 +244,7 @@ const PaymentCart = () => {
                       <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>ยอดรวมชำระเงินทั้งหมด</div>
                     </Col>
                     <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                      <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", color: "#C54142" }}>฿{formattedTotal}</div>
+                      <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", color: "#C54142" }}>฿{Number(formattedTotal)?.toLocaleString() || "-"}</div>
                     </Col>
                   </Row>
                   <Dividers />

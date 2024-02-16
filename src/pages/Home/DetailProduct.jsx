@@ -111,8 +111,8 @@ const DetailProduct = (props) => {
         >
 
           <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
-            <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
-            <Breadcrumb.Item>รายการสินค้า</Breadcrumb.Item>
+            <Breadcrumb.Item><Link to={'/'} style={{ textDecoration: "none" }}>หน้าแรก</Link></Breadcrumb.Item>
+            <Breadcrumb.Item><Link to={'/listProduct'} style={{ textDecoration: "none" }}>รายการสินค้า</Link></Breadcrumb.Item>
             <Breadcrumb.Item>สินค้า</Breadcrumb.Item>
           </Breadcrumb>
           <Form >
@@ -161,7 +161,7 @@ const DetailProduct = (props) => {
 
                   <div style={{ marginTop: "14px" }}>
                     <span style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", marginRight: "10px" }}>ราคา:</span>
-                    <span style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "24px", fontWeight: "500", }}>฿{product?.price}</span>
+                    <span style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "24px", fontWeight: "500", }}>฿{Number(product?.price)?.toLocaleString() || "-"}</span>
                   </div>
                   <Divider />
                   <div style={{ display: "flex", flexWrap: "nowrap", alignItems: "center" }}>

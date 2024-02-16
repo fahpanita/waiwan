@@ -26,6 +26,9 @@ const columns = [
     {
         title: '฿ยอดรวม',
         dataIndex: 'price',
+        render: (text) => (
+            typeof text === 'string' ? Number(text).toLocaleString() : text
+        ),
     },
     {
         title: 'การจัดส่ง',
@@ -84,7 +87,7 @@ const SellerHome = () => {
         <>
             <Layout style={{ minHeight: '100vh', }}>
                 <Header style={{ background: '#fff', }}>
-                    <div className="font-24">รายงานการขาย</div>
+                    <div className="font-24">รายการคำสั่งซื้อ</div>
                 </Header >
                 <Content style={{ margin: '24px 24px 0', }}>
                     <CardBox >

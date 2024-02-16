@@ -40,7 +40,7 @@ const SellerSucceed = () => {
         <>
             <Layout style={{ minHeight: '100vh', }}>
                 <Header style={{ background: '#fff', }}>
-                    <div className="font-24">รายงานการขาย</div>
+                    <div className="font-24">รายการคำสั่งซื้อ</div>
                 </Header >
                 <Content style={{ margin: '24px 24px 0', }}>
                     <CardBox >

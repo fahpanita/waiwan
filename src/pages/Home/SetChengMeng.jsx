@@ -6,6 +6,8 @@ import ImageDropZone from "../../components/game/ImageDropZone";
 import styled from 'styled-components';
 import { useLocation } from "react-router-dom";
 import { DownloadOutlined, ExclamationCircleFilled } from '@ant-design/icons';
+import { Link } from "react-router-dom";
+
 
 
 const { Title, Text } = Typography;
@@ -62,6 +64,8 @@ const SetChengMeng = () => {
       if (successfulDropsCount + 1 === 8) {
         setIsSuccessModalOpen(true);
       } else {
+        const errorSound = new Audio('/sound/Effect-coorect.mp3');
+        errorSound.play();
         message.success(<Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>เก่งมาก! คุณวางได้ถูกต้อง</Text>);
       }
     } else {
@@ -118,7 +122,7 @@ const SetChengMeng = () => {
         <Content style={{ padding: "0 32px", }}>
 
           <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
-            <Breadcrumb.Item>ทดลองจัดวางของไหว้เจ้า</Breadcrumb.Item>
+            <Breadcrumb.Item><Link to={'/experiment'} style={{ textDecoration: "none" }}>ทดลองจัดวางของไหว้เจ้า</Link></Breadcrumb.Item>
             <Breadcrumb.Item>ชุดไหว้เจ้าวันตรุษจีน</Breadcrumb.Item>
           </Breadcrumb>
 
@@ -256,7 +260,7 @@ const SetChengMeng = () => {
               <Col>
                 <img
                   src="https://s13.gifyu.com/images/SCYke.gif"
-                  width="500"
+                  width="100%"
                 />
               </Col>
               <Col style={{ display: "flex", alignContent: "center", flexDirection: "column", marginTop: "15px" }}>

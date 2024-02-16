@@ -48,7 +48,7 @@ const BuyProductCart = (props) => {
           </Col>
           <Col xs={24} sm={5} md={5} lg={5}>
             <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400" }}>{p?.name}</div>
-            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", }}>฿{p?.amount * p?.price}</div>
+            <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", }}>฿{Number(p?.amount * p?.price)?.toLocaleString() || "-"}</div>
           </Col>
         </Row>,
       amount:
@@ -169,8 +169,8 @@ const BuyProductCart = (props) => {
           <Content style={{ padding: "0 32px", }}>
 
             <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
-              <Breadcrumb.Item>หน้าแรก</Breadcrumb.Item>
-              <Breadcrumb.Item>ตะกร้าสินค้า</Breadcrumb.Item>
+              <Breadcrumb.Item><Link to={'/'} style={{ textDecoration: "none" }}>หน้าแรก</Link></Breadcrumb.Item>
+              <Breadcrumb.Item><Link to={'/cart'} style={{ textDecoration: "none" }}>ตะกร้าสินค้า</Link></Breadcrumb.Item>
               <Breadcrumb.Item>สั่งซื้อสินค้า</Breadcrumb.Item>
             </Breadcrumb>
 
@@ -278,7 +278,7 @@ const BuyProductCart = (props) => {
                           <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ยอดรวม</div>
                         </Col>
                         <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>฿{formattedTotalPrice}</div>
+                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>฿{Number(formattedTotalPrice)?.toLocaleString() || "-"}</div>
                         </Col>
                       </Row>
                       <Row style={{ display: "flex", alignItems: "center" }}>
@@ -295,7 +295,7 @@ const BuyProductCart = (props) => {
                           <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px" }}>ยอดรวมทั้งสิ้น</div>
                         </Col>
                         <Col span={12} style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", color: "#C54142" }}>฿{formattedTotal}</div>
+                          <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "20px", fontWeight: "500", color: "#C54142" }}>฿{Number(formattedTotal)?.toLocaleString() || "-"}</div>
                         </Col>
                       </Row>
                       <Row>
