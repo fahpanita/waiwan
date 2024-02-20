@@ -58,7 +58,7 @@ const Experiment = () => {
                     href="/setChengMeng"
                     style={{ background: '#bf9f64', width: '90%', position: 'absolute', bottom: '16px', fontFamily: "'Chakra Petch', sans-serif", fontSize: '18px' }}
                   >
-                    ทดลองจัดไหว้
+                    ทดลองจัดวาง
                   </Button>
                   <Card.Img variant="top" style={{ borderRadius: '10px' }} src="image/img/img-minigame-01.png" />
                 </Card>
@@ -75,7 +75,7 @@ const Experiment = () => {
                     // href="/setChengMeng"
                     style={{ background: '#bf9f64', width: '90%', position: 'absolute', bottom: '16px', fontFamily: "'Chakra Petch', sans-serif", fontSize: '18px' }}
                   >
-                    ทดลองจัดไหว้
+                    ทดลองจัดวาง
                   </Button>
                   <Card.Img variant="top" style={{ borderRadius: '10px' }} src="https://s13.gifyu.com/images/SCYkT.png" />
                 </Card>

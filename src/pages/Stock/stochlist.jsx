@@ -20,28 +20,6 @@ import styled from "styled-components";
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
-// const columns = [
-
-//   {
-//       title: 'รูป',
-//       dataIndex: 'thumbnail',
-//       render: (text) => <Image src={`${BASE_URL}/${text}`} width={70} />,
-//   },
-//   {
-//       title: 'ชื่อสินค้า',
-//       dataIndex: 'name',
-//   },
-//   {
-//       title: 'ราคา',
-//       dataIndex: 'price',
-//   },
-//   {
-//       title: 'จำนวนสินค้า',
-//       dataIndex: 'stock',
-//   },
-
-// ];
-
 const StockList = () => {
   const { profile } = useAuth();
   console.log(profile);

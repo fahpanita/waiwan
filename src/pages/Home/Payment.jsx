@@ -8,7 +8,7 @@ import { BASE_URL } from "../../constands/api";
 import { useSelector } from 'react-redux';
 import { uploadImages } from '../../services/upload';
 import { QRCode } from 'antd/es';
-import { createPayment } from '../../services/payment';
+import { createPayment, payment } from '../../services/payment';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const { Title, Text } = Typography;
@@ -67,8 +67,18 @@ const Payment = () => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const navigate = useNavigate();
-
   const { orderId } = useParams();
+
+  const [prompay, setPrompay] = useState();
+  // console.log(prompay);
+
+  const handleGetPrompay = async () => {
+
+    const params = { order_id: orderId }
+    const res = await payment(params);
+    setPrompay(res?.data);
+    console.log(res?.data, '123456')
+  }
 
 
   const handleOk = async () => {
@@ -81,7 +91,7 @@ const Payment = () => {
 
     if (res?.status === 200) {
       Modal.success({
-        title: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ชำระเงินสำเร็จ</Text>,
+        title: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>คุณได้แจ้งชำระเงินแล้ว</Text>,
         content: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official</Text>,
         okText: 'ตกลง',
         okButtonProps: {
@@ -190,6 +200,10 @@ const Payment = () => {
     imgWindow?.document.write(image.outerHTML);
   };
 
+  useEffect(() => {
+    handleGetPrompay();
+  }, []);
+
   return (
     <>
       <Layout style={{ background: "#F5F5F5" }}>
@@ -207,8 +221,8 @@ const Payment = () => {
             </Breadcrumb>
 
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center" >
-              <Col xs={24} sm={16} md={16} lg={16}>
-                <CardBoxRadius>
+              <Col xs={24} sm={12} md={12} lg={12}>
+                <CardBoxRadius style={{ position: "sticky", top: "16px" }}>
                   <Title level={5} style={{ textAlign: "left" }}>
                     <TablePayment
                       columns={columns}
@@ -218,7 +232,7 @@ const Payment = () => {
                   </Title>
                 </CardBoxRadius>
               </Col>
-              <Col xs={24} sm={8} md={8} lg={8}>
+              <Col xs={24} sm={12} md={12} lg={12}>
                 <CardBoxRadius>
                   <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>สรุปรายการสั่งซื้อ</Text>
                   <Dividers />
@@ -250,7 +264,7 @@ const Payment = () => {
                   <Dividers />
                   <Col style={{ justifyContent: "center", display: "flex", flexDirection: "column", alignItems: "center" }} id="myqrcode">
                     <img src="/image/img/thai_qr_payment 1.png" width={250} />
-                    <QRCode value={`00020101021229370016A000000677010111011300668865654335802TH530376454074462.006304086F`} />
+                    <QRCode value={"00020101021229370016A000000677010111011300668865654335802TH53037645406420.006304976A" || '-'} />
                     <Button type="primary" shape="round" size="large" onClick={downloadQRCode}
                       style={{ width: "100%", marginTop: "16px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", color: "#A08155", background: "#ffffff", border: "1px solid #A08155" }}
                     >

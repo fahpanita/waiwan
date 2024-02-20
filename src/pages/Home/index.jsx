@@ -143,7 +143,7 @@ const Home = () => {
               style={{
                 backgroundColor: "#fff",
                 height: "auto",
-                padding: "20px 0",
+                padding: "20px 0px 20px 10px",
 
               }}
             >
@@ -257,7 +257,7 @@ const Home = () => {
           </Col>
         </Row>
 
-        <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
+        <Row justify="start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} >
           {loading ? Array.from({ length: 12 }).map((_, idx) => <Col key={idx} className="gutter-row" xs={12} sm={9} md={9} lg={4} style={{ marginBottom: '20px' }}><CardProduct data={undefined} loading={true} /></Col>) : currentProducts.map((p) => (
             <Col key={p.id} className="gutter-row" xs={12} sm={9} md={9} lg={4} style={{ marginBottom: '20px' }}><CardProduct data={p} /></Col>
           ))}

@@ -160,18 +160,23 @@ const Navbar = () => {
 export const Menus = styled(Menu)`
   justify-content: right;
   &.ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected {
-    color: #a08155;
-    /* background: #bf9f64; */
+    color: #000000;
     text-decoration: none;
+    text-decoration-color: #000000;
   }
   &.ant-menu-overflow-item .ant-menu-item .ant-menu-item-selected .ant-menu-item-only-child {
-    color: #a08155;
-    /* background: #bf9f64; */
     text-decoration: none;
+    text-decoration-color: #000000;
   }
+  &.ant-menu-light .ant-menu-item a:hover a:hover {
+    text-decoration: none;
+    text-decoration-color: #000000;
+  }
+  
   &.ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected::after {
-    border-bottom-color: #bf9f64;
+    border-bottom: none;
   }
+
 `;
 
 export const SearchInput = styled(Search)`

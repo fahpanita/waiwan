@@ -54,7 +54,6 @@ const BuyProduct = (props) => {
         </Row>,
       amount:
         <div style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500", display: "flex", justifyContent: "center" }}>{p?.amount}</div>,
-
     }
   });
 
@@ -180,34 +179,55 @@ const BuyProduct = (props) => {
             </Breadcrumb>
 
             <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} style={{ marginBottom: "70px" }}>
-
               <Col xs={24} sm={16} md={16} >
                 <Row>
                   <Col xs={24} sm={24} md={24} lg={24}>
                     <CardBoxRadius>
                       <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ที่อยู่การจัดส่ง</Text>
                       <Dividers />
+
                       <Button
                         type="primary"
                         shape="round"
                         size="large"
                         onClick={showModal}
-                        icon={<PushpinOutlined />}
-                        style={{ background: "#bf9f64", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", display: "flex", alignItems: "center" }}
+                        // icon={<PushpinOutlined />}
+                        style={{ color: "#A08155", background: "#ffffff", border: "1px solid #A08155", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", width: "100%" }}
                       >
-                        <div style={{ whiteSpace: "nowrap", width: "200px", overflow: "hidden", textOverflow: "ellipsis" }}>
-                          {selectedLocation
+                        <div
+                          style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", }}
+                        >
+                          <PushpinOutlined /> {selectedLocation
                             ? `เลือกที่อยู่จัดส่ง : ${selectedLocation.road}, ${selectedLocation.subdistrict}, ${selectedLocation.district}, ${selectedLocation.province}, ${selectedLocation.postcode}`
                             : 'เลือกที่อยู่จัดส่ง'}
                         </div>
                       </Button>
-                      <Modal title="เลือกที่อยู่การจัดส่ง" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000} okText="ตกลง" cancelText="ยกเลิก"
+
+                      <Modal title="กรอกข้อมูลการจัดส่ง" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000} okText="ตกลง" cancelText="ยกเลิก"
                         okButtonProps={{ style: { fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" } }}
                         cancelButtonProps={{ style: { fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", background: '#ffffff', borderColor: '#bf9f64', color: "#bf9f64", borderRadius: "60px" } }}
                         style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
                         <LongdoMapStyle>
                           <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />
                         </LongdoMapStyle>
+
+                        <div style={{ marginTop: "10px" }}>
+                          <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
+                            *เลื่อนตำแหน่งบนแผนที่ เพื่อแก้ไข แขวง เขต จังหวัด และรหัสไปรษณีย์
+                          </Text>
+                        </div>
+
+                        <div style={{ marginTop: "10px" }}>
+                          <div style={{ marginBottom: "10px" }}>
+                            <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", marginTop: "10px" }}>ข้อมูลติดต่อ</Text>
+                          </div>
+                          <Form.Item name="name" label={<Text style={labelInfo}>ชื่อ</Text>} rules={[{ required: true, message: <div style={{ marginTop: "5px" }}><Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", color: "#c54142", }}>*กรุณากรอกชื่อ</Text></div> }]} >
+                            <Input placeholder="ชื่อ นามสกุล" style={labelInput} />
+                          </Form.Item>
+                          <Form.Item name="phone" label={<Text style={labelInfo}>เบอร์โทร</Text>} rules={[{ required: true, message: <div style={{ marginTop: "5px" }}> <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", color: "#c54142" }}>*กรุณากรอกเบอร์โทร</Text></div> }]} >
+                            <Input placeholder="เบอร์โทร" style={labelInput} />
+                          </Form.Item>
+                        </div>
                         <div style={{ marginTop: "10px" }}>
                           <div style={{ marginBottom: "10px" }}>
                             <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", marginTop: "10px" }}>ข้อมูลการจัดส่ง</Text>
@@ -226,21 +246,6 @@ const BuyProduct = (props) => {
                           </Form.Item>
                           <Form.Item name="zip_code" label={<Text style={labelInfo}>รหัสไปรษณีย์</Text>}>
                             <Input disabled style={labelInput} />
-                          </Form.Item>
-                          <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
-                            เลื่อนตำแหน่งบนแผนที่ เพื่อแก้ไข แขวง เขต จังหวัด และรหัสไปรษณีย์
-                          </Text>
-                        </div>
-
-                        <div style={{ marginTop: "10px" }}>
-                          <div style={{ marginBottom: "10px" }}>
-                            <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", marginTop: "10px" }}>ข้อมูลดิดต่อ</Text>
-                          </div>
-                          <Form.Item name="name" label={<Text style={labelInfo}>ชื่อ</Text>} rules={[{ required: true, message: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>กรุณากรอกชื่อ</Text> }]} >
-                            <Input placeholder="ชื่อ นามสกุล" style={labelInput} />
-                          </Form.Item>
-                          <Form.Item name="phone" label={<Text style={labelInfo}>เบอร์โทร</Text>} rules={[{ required: true, message: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>กรุณากรอกเบอร์โทร</Text> }]} >
-                            <Input placeholder="เบอร์โทร" style={labelInput} />
                           </Form.Item>
                         </div>
                       </Modal>
@@ -268,7 +273,7 @@ const BuyProduct = (props) => {
                       <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ตัวเลือกการจัดส่ง</Text>
                       <Dividers />
                       <Form.Item name="type_shipping" >
-                        <Radio.Group >
+                        <Radio.Group>
                           <Radio value="จัดส่งตามที่อยู่" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>จัดส่งตามที่อยู่</Radio><br />
                           <Radio value="รับหน้าร้าน" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>รับหน้าร้าน</Radio>
                         </Radio.Group>
@@ -407,6 +412,7 @@ box-shadow: 0 0 2px rgba(0,0,0,.15);
 margin: 10px;
 padding: 16px;
 `;
+
 
 export const LongdoMapStyle = styled.div`
 height: 300px;

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { uploadImages } from '../../services/upload';
 import { QRCode } from 'antd/es';
 import { createPayment } from '../../services/payment';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 
 const { Title, Text } = Typography;
@@ -81,7 +81,7 @@ const PaymentCart = () => {
 
     if (res?.status === 200) {
       Modal.success({
-        title: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ชำระเงินสำเร็จ</Text>,
+        title: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>คุณได้แจ้งชำระเงินแล้ว</Text>,
         content: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official</Text>,
         okText: 'ตกลง',
         okButtonProps: {
@@ -207,7 +207,7 @@ const PaymentCart = () => {
             </Breadcrumb>
 
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center">
-              <Col xs={24} sm={16} md={16} lg={16}>
+              <Col xs={24} sm={12} md={12} lg={12}>
                 <CardBoxRadius>
                   <Title level={5} style={{ textAlign: "left" }}>
                     <TablePaymentCart
@@ -218,7 +218,7 @@ const PaymentCart = () => {
                   </Title>
                 </CardBoxRadius>
               </Col>
-              <Col xs={24} sm={8} md={8} lg={8}>
+              <Col xs={24} sm={12} md={12} lg={12}>
                 <CardBoxRadius>
                   <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>สรุปรายการสั่งซื้อ</Text>
                   <Dividers />

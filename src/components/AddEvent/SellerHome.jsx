@@ -126,15 +126,15 @@ const SellerHome = () => {
                         </Link>
                     </CardBox>
                     <CardBox >
-                        <Search
+                        {/* <Search
                             placeholder="ค้นหา"
-                            // onSearch={}
+                            onSearch={}
                             style={{
                                 width: 464,
                                 marginBottom: "20px",
                             }}
-                        // prefix={<SearchOutlined />}
-                        />
+                        prefix={<SearchOutlined />}
+                        /> */}
                         <div style={{ background: '#F5F5F5', }}>
                             <Col>
                                 <Table

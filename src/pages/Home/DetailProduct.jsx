@@ -145,11 +145,11 @@ const DetailProduct = (props) => {
                   <div style={{ marginTop: "14px" }}>
                     <span style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", marginRight: "10px" }}>ประเภทสินค้า:</span>
                     {product?.typeProduct === 'พรีออเดอร์' && (
-                      <Tag color="error" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", padding: "8px", }}
+                      <Tag color="#c9c9c9" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", padding: "4px 12px 4px 12px", borderRadius: "50px" }}
                       > {product?.typeProduct}</Tag>
                     )}
                     {product?.typeProduct === 'พร้อมส่ง' && (
-                      <Tag color="green" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", padding: "8px", }} > {product?.typeProduct}</Tag>
+                      <Tag color="#52c41a" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", padding: "4px 12px 4px 12px", borderRadius: "50px" }} > {product?.typeProduct}</Tag>
                     )}
 
                   </div>

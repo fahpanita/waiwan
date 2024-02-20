@@ -86,15 +86,13 @@ const SellerShipping = () => {
                         </Link>
                     </CardBox>
                     <CardBox >
-                        <Search
+                        {/* <Search
                             placeholder="ค้นหา"
-                            // onSearch={}
                             style={{
                                 width: 464,
                                 marginBottom: "20px",
                             }}
-                        // prefix={<SearchOutlined />}
-                        />
+                        /> */}
                         <div style={{ background: '#F5F5F5', }}>
                             <Col>
                                 <Table

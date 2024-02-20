@@ -64,7 +64,7 @@ const SellerCheck = () => {
             title: 'Action',
             render: () => (
                 <Space size="middle">
-                    <Button >ยืนยันการสั่งซื้อ</Button>
+                    <Button>ยืนยันการชำระเงิน</Button>
                 </Space>
             ),
         },
@@ -150,13 +150,13 @@ const SellerCheck = () => {
                         </Link>
                     </CardBox>
                     <CardBox >
-                        <Search
+                        {/* <Search
                             placeholder="ค้นหา"
                             style={{
                                 width: 464,
                                 marginBottom: "20px",
                             }}
-                        />
+                        /> */}
                         <div style={{ background: '#F5F5F5', }}>
                             <Col>
                                 <Table
@@ -176,7 +176,7 @@ const SellerCheck = () => {
                             <div key={filteredOrder?.order_id}>
                                 <p>หมายเลขสั่งซื้อ: {filteredOrder?.order_id}</p>
                                 <p>ชื่อลูกค้า: {filteredOrder?.address_names}</p>
-
+                                <p>เบอร์โทร: {filteredOrder?.phones}</p>
                                 {filteredOrder?.product_names && filteredOrder?.amounts && (
                                     <>
                                         <p>รายละเอียดสินค้าที่สั่งซื้อ:</p>
@@ -191,7 +191,7 @@ const SellerCheck = () => {
                                 <p>ราคารวม: {Number(filteredOrder?.payment_prices).toLocaleString()} บาท</p>
                                 <p style={{ fontWeight: "bold" }}>ที่อยู่จัดส่ง</p>
                                 <p>{filteredOrder?.streets} {filteredOrder?.subdistricts} {filteredOrder?.districts} {filteredOrder?.provinces} {filteredOrder?.zip_codes}</p>
-                                <p>เบอร์โทร: {filteredOrder?.phones}</p>
+
                             </div>
                         )}
                     </Modal>

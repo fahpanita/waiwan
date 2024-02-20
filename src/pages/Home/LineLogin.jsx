@@ -54,7 +54,7 @@ const LineLogin = () => {
   }, [liff, isLoggedIn]);
 
   const showDisplayName = () => {
-    if (error) return <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>Something is wrong.</Text>;
+    if (error) return <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>กรุณาโหลดอีกครั้ง</Text>;
     if (!isReady) return <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>Loading...</Text>;
 
     if (!isLoggedIn) {

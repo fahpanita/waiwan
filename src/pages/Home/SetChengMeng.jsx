@@ -246,12 +246,12 @@ const SetChengMeng = () => {
             </BoxStyle>
           </div >
           <Modal
-            title="วิธีการเล่น"
+            title="วิธีการเล่นชุดไหว้เจ้าวันตรุษจีน"
             style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}
             visible={isModalOpen}
             width={600}
             footer={[
-              <Button onClick={handleOk} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", color: "#ffffff", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" }}>
+              <Button onClick={handleOk} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", color: "#ffffff", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px", width: "-webkit-fill-available" }}>
                 เริ่มเกม
               </Button>,
             ]}
@@ -267,8 +267,9 @@ const SetChengMeng = () => {
                 <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>หากคุณต้องการภาพชุดไหว้เจ้าวันตรุษจีนชุดนี้ที่จัดสำเร็จแล้วโหลดได้ที่ปุ่มด้านล่าง ถ้าไม่ต้องการสามารถกดปุ่มเริ่มเกมได้เลย</p>
                 <Button onClick={handleDownload} icon={<DownloadOutlined />} shape="round"
                   style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", background: '#ffffff', borderColor: '#bf9f64', color: "#bf9f64", borderRadius: "60px" }}>
-                  โหลดรูปภาพ
+                  โหลดรูปภาพการจัดไหว้สำเร็จ
                 </Button>
+
               </Col>
             </Row>
           </Modal>
