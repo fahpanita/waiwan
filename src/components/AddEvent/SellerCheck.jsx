@@ -16,6 +16,9 @@ const SellerCheck = () => {
     const [allSeller, setallSeller] = useState([]);
     const [selectedOrderId, setSelectedOrderId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [confirmOrder, setConfirmOrder] = useState([]);
+
+    // console.log(allSeller);
 
     const showModal = (orderId) => {
         setSelectedOrderId(orderId);
@@ -30,6 +33,13 @@ const SellerCheck = () => {
         setIsModalOpen(false);
     };
 
+    const handleLineNoti = async (line_id, order_id, payment_prices) => {
+
+        const res = await getConfirmOrder({ line_id, order_id, payment_prices });
+        // setConfirmOrder(res?.data);
+        console.log(res);
+
+    }
 
     const columns = [
         {
@@ -62,11 +72,12 @@ const SellerCheck = () => {
         },
         {
             title: 'Action',
-            render: () => (
-                <Space size="middle">
-                    <Button>ยืนยันการชำระเงิน</Button>
-                </Space>
-            ),
+            dataIndex: 'action',
+            // render: () => (
+            //     <Space size="middle">
+            //         <Button>ยืนยันการชำระเงิน</Button>
+            //     </Space>
+            // ),
         },
     ];
 
@@ -89,6 +100,13 @@ const SellerCheck = () => {
                 image: u?.slip_imgs || "-",
                 price: u?.payment_prices || "-",
                 date: u?.order_date || "-",
+                action:
+                    <>
+                        <Button type="primary" onClick={() => handleLineNoti(u?.line_id, u?.order_id, u?.payment_prices)}>
+                            ยืนยันการชำระเงิน
+                        </Button>
+                    </>
+                ,
             }
         }))
     }
@@ -171,7 +189,7 @@ const SellerCheck = () => {
                         </div>
                     </CardBox>
 
-                    <Modal title="รายละเอียดคำสั่งซื้อ	" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    <Modal title="รายละเอียดคำสั่งซื้อ	" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="ตกลง">
                         {filteredOrder && (
                             <div key={filteredOrder?.order_id}>
                                 <p>หมายเลขสั่งซื้อ: {filteredOrder?.order_id}</p>

@@ -15,14 +15,42 @@ export const getSeller = async (token, message) => {
   }
 };
 
-export const getConfirmOrder = async (data, record) => {
+export const getallSeller = async (token, message) => {
+  try {
+    const res = await requestBackend({
+      url: "/getallSeller",
+      method: "GET",
+
+    });
+    return res;
+  } catch (error) {
+    return undefined;
+  }
+};
+
+export const getConfirmOrder = async (data) => {
   try {
     const res = await requestBackend({
       url: "/getConfirmOrder",
       method: "POST",
-      body: JSON.stringify({ orderId: record.id }),
+      data: data,
+
     });
-    message.success("บันทึกสำเร็จ")
+    // console.log(data);
+    message.success("ยืนยันการชำระเงินสำเร็จ")
+    return res;
+  } catch (error) {
+    return undefined;
+  }
+};
+
+export const getDataDashboard = async (data) => {
+  try {
+    const res = await requestBackend({
+      url: "/getDataDashboard",
+      method: "GET",
+      data: data,
+    });
     return res;
   } catch (error) {
     return undefined;

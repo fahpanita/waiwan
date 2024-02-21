@@ -21,10 +21,10 @@ const { Title, Paragraph, Text } = Typography;
 
 const Stock = () => {
   const { profile } = useAuth();
-  console.log(profile);
+  // console.log(profile);
 
   const onFinish = (values) => {
-    console.log(values);
+    // console.log(values);
   };
 
   const labelInfo = {

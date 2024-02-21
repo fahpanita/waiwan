@@ -37,9 +37,9 @@ const Home = () => {
 
   const [loading, setLoading] = useState(true);
   const { Search } = Input;
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  // const onSearch = (value, _e, info) => console.log(info?.source, value);
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
   };
 
   const [products, setProducts] = useState([]);

@@ -5,7 +5,7 @@ import { Content, Footer, Header } from 'antd/es/layout/layout';
 import { deleteProduts, getProducts } from '../../services/product';
 import { BASE_URL } from '../../constands/api';
 import { Link } from 'react-router-dom';
-import { getSeller } from '../../services/backend';
+import { getSeller, getallSeller } from '../../services/backend';
 import { FileOutlined, CheckCircleOutlined, SearchOutlined } from "@ant-design/icons";
 import Search from 'antd/es/input/Search';
 
@@ -49,9 +49,9 @@ const SellerHome = () => {
     const [seller, setSeller] = useState([]);
 
     const handleGetSeller = async () => {
-        const res = await getSeller()
+        const res = await getallSeller()
 
-        // console.log(res);
+        console.log(res);
 
         setSeller(res?.data?.map(u => {
             return {
@@ -63,7 +63,11 @@ const SellerHome = () => {
                 stock: u?.type_shipping || "-",
                 action:
                     <>
-                        {u?.payment_statuses ? (
+                        {u?.payment_statuses === "Paid" ? (
+                            <Tag color="orange" style={{ fontSize: "16px", padding: "8px" }}>
+                                รอตรวจสอบ
+                            </Tag>
+                        ) : u?.payment_statuses === "confirmPaid" ? (
                             <Tag color="green" style={{ fontSize: "16px", padding: "8px" }}>
                                 ชำระเงินแล้ว
                             </Tag>
