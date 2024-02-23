@@ -7,7 +7,7 @@ import { BASE_URL } from '../../constands/api';
 import { Link } from 'react-router-dom';
 import { FileOutlined, CheckCircleOutlined, SearchOutlined } from "@ant-design/icons";
 import Search from 'antd/es/input/Search';
-import { getConfirmOrder, getSeller } from '../../services/backend';
+import { getConfirmOrder, getSeller, getallSeller } from '../../services/backend';
 
 
 const SellerCheck = () => {
@@ -112,7 +112,7 @@ const SellerCheck = () => {
     }
 
     const handleGetallSeller = async () => {
-        const res = await getSeller();
+        const res = await getallSeller();
         setallSeller(res?.data);
     }
 

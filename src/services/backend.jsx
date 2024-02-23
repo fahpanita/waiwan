@@ -56,3 +56,29 @@ export const getDataDashboard = async (data) => {
     return undefined;
   }
 };
+
+export const getShippingLocation = async (token, message) => {
+  try {
+    const res = await requestBackend({
+      url: "/getShippingLocation",
+      method: "GET",
+
+    });
+    return res;
+  } catch (error) {
+    return undefined;
+  }
+};
+
+export const getShippingStore = async (token, message) => {
+  try {
+    const res = await requestBackend({
+      url: "/getShippingStore",
+      method: "GET",
+
+    });
+    return res;
+  } catch (error) {
+    return undefined;
+  }
+};

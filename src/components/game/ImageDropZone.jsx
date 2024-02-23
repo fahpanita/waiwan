@@ -93,9 +93,6 @@ const ImageDropZone = () => {
         alert("You put the paper in the box!");
     };
 
-
-
-
     return (
         <div className="container">
             <DropZone>

@@ -33,6 +33,8 @@ import Sellersucceed from "./pages/Dashboard/sellersucceed";
 import StockList from "./pages/Stock/stochlist";
 import SetAncestor from "./pages/Home/SetAncestor";
 import SetChengMeng from "./pages/Home/SetChengMeng";
+import SetChineseYear from "./pages/Home/SetChineseYear";
+import SetCaiXingYea from "./pages/Home/SetCaiXingYea";
 
 // import Cart from "./pages/Home/Cart";
 
@@ -89,6 +91,22 @@ const Routing = () => {
             element={
               <Suspense fallback={<Loading />}>
                 <SetChengMeng />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/setChineseYear"
+            element={
+              <Suspense fallback={<Loading />}>
+                <SetChineseYear />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/setCaiXingYea"
+            element={
+              <Suspense fallback={<Loading />}>
+                <SetCaiXingYea />
               </Suspense>
             }
           />

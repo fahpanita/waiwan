@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 const { Title, Text } = Typography;
 const { Content } = Layout;
 
-const SetChengMeng = () => {
+const SetCaiXingYea = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(true);
   const location = useLocation();
@@ -61,7 +61,7 @@ const SetChengMeng = () => {
 
       setSuccessfulDropsCount((prevCount) => prevCount + 1);
 
-      if (successfulDropsCount + 1 === 14) {
+      if (successfulDropsCount + 1 === 8) {
         setIsSuccessModalOpen(true);
       } else {
         const errorSound = new Audio('/sound/Effect-coorect.mp3');
@@ -112,9 +112,9 @@ const SetChengMeng = () => {
       <Layout
         // /image/img/table01.png
         style={{
-          backgroundImage: `url("https://i.postimg.cc/yY7f5TDB/table-03.png")`,
+          backgroundImage: `url("https://i.postimg.cc/qMxWWyN2/table-02.png")`,
           backgroundSize: "888px",
-          backgroundPosition: "center 238px ",
+          backgroundPosition: "center 230px ",
           backgroundRepeat: "no-repeat",
         }}
       >
@@ -123,98 +123,60 @@ const SetChengMeng = () => {
 
           <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
             <Breadcrumb.Item><Link to={'/experiment'} style={{ textDecoration: "none" }}>ทดลองจัดวางของไหว้เจ้า</Link></Breadcrumb.Item>
-            <Breadcrumb.Item>ชุดไหว้เจ้าวันเช็งเม้ง</Breadcrumb.Item>
+            <Breadcrumb.Item>ชุดไหว้เจ้าวันไฉ่ซิงเอี๊ย</Breadcrumb.Item>
           </Breadcrumb>
 
           <Title style={{ fontFamily: "'Athiti', sans-serif", fontSize: "28px", fontWeight: "500", textAlign: "center" }}>
-            ชุดไหว้เจ้าวันเช็งเม้ง
+            ชุดไหว้เจ้าวันไฉ่ซิงเอี๊ย
           </Title>
 
           <div className="container" style={{ fontFamily: "'Chakra Petch', sans-serif", marginTop: "20px", fontSize: "16px" }}>
             <DropZone>
-              <div style={{ display: 'flex' }}>
-                <DropBox onDrop={(event) => drop(event, 'teaBox')} onDragOver={allowDrop} >
-                  <a>น้ำชา</a>
+              <div style={{ display: 'flex', marginBottom: '20px' }}>
+                <DropBox onDrop={(event) => drop(event, 'teaBox')} onDragOver={allowDrop} style={{ marginRight: "150px" }}>
+                  <a>น้ำชา 5 ที่</a>
+                </DropBox>
+                <DropBox onDrop={(event) => drop(event, 'alcoholBox')} onDragOver={allowDrop}>
+                  <a>เหล้า 5 ที่</a>
                 </DropBox>
               </div>
             </DropZone>
+
             <DropZone>
-              <div style={{ display: 'flex', alignItems: "center", marginTop: "-14px" }}>
-                <DropBox2 onDrop={(event) => drop(event, 'fruitBox')} onDragOver={allowDrop} >
-                  <a>ผลไม้</a>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+                <DropBox2 onDrop={(event) => drop(event, 'pigBox')} onDragOver={allowDrop} style={{ marginRight: "10px" }}>
+                  <a>หัวหมู</a>
                 </DropBox2>
-                <DropBox3 onDrop={(event) => drop(event, 'alcoholBox')} onDragOver={allowDrop} >
-                  <a>เหล้า</a>
+              </div>
+            </DropZone>
+
+            <DropZone>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+                <DropBox3 onDrop={(event) => drop(event, 'fruitBox')} onDragOver={allowDrop} style={{ marginRight: "30px" }}>
+                  <a>ผลไม้</a>
+                </DropBox3>
+                <DropBox4 onDrop={(event) => drop(event, 'fishBox')} onDragOver={allowDrop} style={{ marginRight: "85px" }}>
+                  <a>ปลา</a>
+                </DropBox4>
+                <DropBox4 onDrop={(event) => drop(event, 'chickenBox')} onDragOver={allowDrop} style={{ marginRight: "30px" }}>
+                  <a>ไก่</a>
+                </DropBox4>
+                <DropBox3 onDrop={(event) => drop(event, 'sweetBox')} onDragOver={allowDrop} >
+                  <a>ขนม</a>
                 </DropBox3>
               </div>
             </DropZone>
 
             <DropZone>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: "-32px", alignItems: "center", }}>
-                <DropBox4 onDrop={(event) => drop(event, 'riceBox')} onDragOver={allowDrop} style={{ marginRight: "10px" }}>
-                  <a>ข้าว</a>
-                </DropBox4>
-                <DropBox4 onDrop={(event) => drop(event, 'riceBox')} onDragOver={allowDrop} style={{ marginRight: "10px" }}>
-                  <a>ข้าว</a>
-                </DropBox4>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
                 <DropBox5 onDrop={(event) => drop(event, 'paperBox')} onDragOver={allowDrop} >
                   <a style={{ textAlign: "center" }}>กระดาษเงิน/ทอง</a>
                 </DropBox5>
               </div>
             </DropZone>
 
-            <DropZone>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: "-3px", marginBottom: "10px" }}>
-                <DropBox6 onDrop={(event) => drop(event, 'sweetBox')} onDragOver={allowDrop} style={{ marginRight: "24px" }}>
-                  <a style={{ textAlign: "center" }}>ขนมหวาน</a>
-                </DropBox6>
-                <DropBox7 onDrop={(event) => drop(event, 'dishBox')} onDragOver={allowDrop} style={{ marginRight: "10px" }}>
-                  <a style={{ textAlign: "center" }}>อาหารคาว</a>
-                </DropBox7>
-                <DropBox7 onDrop={(event) => drop(event, 'dishBox')} onDragOver={allowDrop} style={{ marginRight: "10px" }}>
-                  <a style={{ textAlign: "center" }}>อาหารคาว</a>
-                </DropBox7>
-                <DropBox7 onDrop={(event) => drop(event, 'dishBox')} onDragOver={allowDrop} style={{ marginRight: "10px" }}>
-                  <a style={{ textAlign: "center" }}>อาหารคาว</a>
-                </DropBox7>
-                <DropBox7 onDrop={(event) => drop(event, 'dishBox')} onDragOver={allowDrop} >
-                  <a style={{ textAlign: "center" }}>อาหารคาว</a>
-                </DropBox7>
-              </div>
-            </DropZone>
-
-            <DropZone>
-              <div style={{ display: 'flex', justifyContent: 'space-between', }}>
-                <DropBox8 onDrop={(event) => drop(event, 'pigBox')} onDragOver={allowDrop} style={{ marginRight: "10px" }}>
-                  <a style={{ textAlign: "center" }}>หัวหมู</a>
-                </DropBox8>
-                <DropBox8 onDrop={(event) => drop(event, 'fishBox')} onDragOver={allowDrop} style={{ marginRight: "10px" }}>
-                  <a style={{ textAlign: "center" }}>ปลา</a>
-                </DropBox8>
-                <DropBox8 onDrop={(event) => drop(event, 'chickenBox')} onDragOver={allowDrop} style={{ marginRight: "10px" }}>
-                  <a style={{ textAlign: "center" }}>ไก่</a>
-                </DropBox8>
-              </div>
-            </DropZone>
-
             <BoxStyle>
               <ImageContainer onDrop={drop} onDragOver={allowDrop}>
-                <img
-                  id="dish1"
-                  targetKey="dishBox"
-                  src="/image/img/dish1.png"
-                  draggable="true"
-                  onDragStart={drag}
-                  width="100"
-                />
-                <img
-                  id="dish2"
-                  targetKey="dishBox"
-                  src="/image/img/dish2.png"
-                  draggable="true"
-                  onDragStart={drag}
-                  width="100"
-                />
                 <img
                   id="sweet"
                   targetKey="sweetBox"
@@ -237,38 +199,6 @@ const SetChengMeng = () => {
                   src="https://i.ibb.co/Hnw4bLW/pig.png"
                   draggable="true"
                   onDragStart={drag}
-                  width="80"
-                />
-                <img
-                  id="rice1"
-                  targetKey="riceBox"
-                  src="/image/img/rice.png"
-                  draggable="true"
-                  onDragStart={drag}
-                  width="80"
-                />
-                <img
-                  id="dish3"
-                  targetKey="dishBox"
-                  src="/image/img/dish3.png"
-                  draggable="true"
-                  onDragStart={drag}
-                  width="80"
-                />
-                <img
-                  id="tea-grop"
-                  targetKey="teaBox"
-                  src="/image/img/tea-two.png"
-                  draggable="true"
-                  onDragStart={drag}
-                  width="80"
-                />
-                <img
-                  id="dish4"
-                  targetKey="dishBox"
-                  src="/image/img/dish4.png"
-                  draggable="true"
-                  onDragStart={drag}
                   width="100"
                 />
                 <img
@@ -277,23 +207,24 @@ const SetChengMeng = () => {
                   src="https://i.ibb.co/XxDGmBW/fruit.png"
                   draggable="true"
                   onDragStart={drag}
-                  width="80"
+                  width="100"
                 />
                 <img
-                  id="rice2"
-                  targetKey="riceBox"
-                  src="/image/img/rice.png"
+                  id="tea-grop"
+                  targetKey="teaBox"
+                  src="/image/img/tea-grop.png"
                   draggable="true"
                   onDragStart={drag}
-                  width="80"
+                  width="150"
                 />
                 <img
                   id="alcohol-grop"
                   targetKey="alcoholBox"
-                  src="/image/img/alcohol-two.png"
+                  src="image/img/alcohol-grop.png"
                   draggable="true"
                   onDragStart={drag}
-                  width="80"
+                  width="150"
+                  style={{ height: "fit-content" }}
                 />
                 <img
                   id="chicken"
@@ -306,16 +237,16 @@ const SetChengMeng = () => {
                 <img
                   id="paper"
                   targetKey="paperBox"
-                  src="/image/img/paper-2.png"
+                  src="https://i.ibb.co/716dNsQ/paper-god.png"
                   draggable="true"
                   onDragStart={drag}
-                  width="80"
+                  width="100"
                 />
               </ImageContainer>
             </BoxStyle>
           </div >
           <Modal
-            title="วิธีการเล่นชุดไหว้เจ้าวันเช็งเม้ง"
+            title="วิธีการเล่นชุดไหว้เจ้าวันไฉ่ซิงเอี๊ย"
             style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}
             visible={isModalOpen}
             width={600}
@@ -333,7 +264,7 @@ const SetChengMeng = () => {
                 />
               </Col>
               <Col style={{ display: "flex", alignContent: "center", flexDirection: "column", marginTop: "15px" }}>
-                <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>หากคุณต้องการภาพชุดไหว้เจ้าวันเช็งเม้งชุดนี้ที่จัดสำเร็จแล้วโหลดได้ที่ปุ่มด้านล่าง ถ้าไม่ต้องการสามารถกดปุ่มเริ่มเกมได้เลย</p>
+                <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>หากคุณต้องการภาพชุดไหว้เจ้าวันไฉ่ซิงเอี๊ยชุดนี้ที่จัดสำเร็จแล้วโหลดได้ที่ปุ่มด้านล่าง ถ้าไม่ต้องการสามารถกดปุ่มเริ่มเกมได้เลย</p>
                 <Button onClick={handleDownload} icon={<DownloadOutlined />} shape="round"
                   style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", background: '#ffffff', borderColor: '#bf9f64', color: "#bf9f64", borderRadius: "60px" }}>
                   โหลดรูปภาพการจัดไหว้สำเร็จ
@@ -368,7 +299,7 @@ const SetChengMeng = () => {
                 />
               </Col>
               <Col style={{ marginTop: "20px" }}>
-                <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>หากต้องการซื้อสินค้าชุดไหว้เจ้าวันตรุษจีนชุดนี้กดปุ่มด้านล่างนี้</p>
+                <p style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>หากต้องการซื้อสินค้าชุดไหว้เจ้าวันไฉ่ซิงเอี๊ยชุดนี้กดปุ่มด้านล่างนี้</p>
               </Col>
             </Row>
           </Modal>
@@ -379,7 +310,7 @@ const SetChengMeng = () => {
   );
 };
 
-export default SetChengMeng;
+export default SetCaiXingYea;
 
 export const DropZone = styled.div`
       display: flex;
@@ -391,12 +322,12 @@ export const DropBox = styled.div`
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    width: 160px;
     height: 45px;
     border-radius: 50%;
     border: 2px dashed #1D1D1F;
     padding: 1rem;
-    margin-top: 230px;
+    margin-top: 210px;
 `;
 
 export const DropBox2 = styled.div`
@@ -404,13 +335,12 @@ export const DropBox2 = styled.div`
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    width: 100px;
-    height: 100px;
+    width: 85px;
+height: 85px;
     border-radius: 50%;
     border: 2px dashed #1D1D1F;
     padding: 1rem;
-    margin-left: -150px;
-    margin-right: 50px;
+    margin-top: -30px;
 `;
 export const DropBox3 = styled.div`
     display: flex;
@@ -418,7 +348,7 @@ export const DropBox3 = styled.div`
     justify-content: center;
     align-items: center;
     width: 100px;
-    height: 45px;
+    height: 100px;
     border-radius: 50%;
     border: 2px dashed #1D1D1F;
     padding: 1rem;
@@ -429,8 +359,8 @@ export const DropBox4 = styled.div`
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    width: 65px;
-    height: 65px;
+    width: 85px;
+    height: 85px;
     border-radius: 50%;
     border: 2px dashed #1D1D1F;
     padding: 1rem;
@@ -446,46 +376,7 @@ export const DropBox5 = styled.div`
     border-radius: 50%;
     border: 2px dashed #1D1D1F;
     padding: 1rem;
-    margin-left: 74px;
-    margin-right: -193px;
-`;
-
-export const DropBox6 = styled.div`
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    width: 85px;
-    height: 85px;
-    border-radius: 50%;
-    border: 2px dashed #1D1D1F;
-    padding: 1rem;
-    margin-left: -102px;
-    margin-top: -45px;
-`;
-
-export const DropBox7 = styled.div`
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    border: 2px dashed #1D1D1F;
-    padding: 1rem;
-`;
-
-export const DropBox8 = styled.div`
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    width: 85px;
-    height: 85px;
-    border-radius: 50%;
-    border: 2px dashed #1D1D1F;
-    padding: 1rem;
+    margin-top: -30px;
 `;
 
 export const BoxStyle = styled.div`
@@ -496,7 +387,7 @@ border-radius: 15px;
 background: #F2F0E6;
 border: 2px dashed #5b5b5b;
 box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.06);
-margin-top: 190px;
+margin-top: 150px;
 align-items: center;
 margin-bottom: 70px; 
 position: sticky;
