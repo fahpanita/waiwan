@@ -70,10 +70,55 @@ export const getShippingLocation = async (token, message) => {
   }
 };
 
+export const getConfirmShippingLocation = async (data) => {
+  try {
+    const res = await requestBackend({
+      url: "/getConfirmShippingLocation",
+      method: "POST",
+      data: data,
+
+    });
+    // console.log(data);
+    message.success("ยืนยันการจัดส่งสำเร็จ")
+    return res;
+  } catch (error) {
+    return undefined;
+  }
+};
+
+export const getConfirmShippingStore = async (data) => {
+  try {
+    const res = await requestBackend({
+      url: "/getConfirmShippingStore",
+      method: "POST",
+      data: data,
+
+    });
+    // console.log(data);
+    message.success("ยืนยันการจัดส่งสำเร็จ")
+    return res;
+  } catch (error) {
+    return undefined;
+  }
+};
+
 export const getShippingStore = async (token, message) => {
   try {
     const res = await requestBackend({
       url: "/getShippingStore",
+      method: "GET",
+
+    });
+    return res;
+  } catch (error) {
+    return undefined;
+  }
+};
+
+export const getShippingComplete = async (token, message) => {
+  try {
+    const res = await requestBackend({
+      url: "/getShippingComplete",
       method: "GET",
 
     });

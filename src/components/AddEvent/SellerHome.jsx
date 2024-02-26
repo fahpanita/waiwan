@@ -63,13 +63,17 @@ const SellerHome = () => {
                 stock: u?.type_shipping || "-",
                 action:
                     <>
-                        {u?.payment_statuses === "Paid" ? (
+                        {u?.shipping_status === "complete" ? (
+                            <Tag color="green" style={{ fontSize: "16px", padding: "8px" }}>
+                                จัดส่งแล้ว
+                            </Tag>
+                        ) : u?.payment_statuses === "Paid" ? (
                             <Tag color="orange" style={{ fontSize: "16px", padding: "8px" }}>
                                 รอตรวจสอบ
                             </Tag>
                         ) : u?.payment_statuses === "confirmPaid" ? (
-                            <Tag color="green" style={{ fontSize: "16px", padding: "8px" }}>
-                                ชำระเงินแล้ว
+                            <Tag color="blue" style={{ fontSize: "16px", padding: "8px" }}>
+                                รอจัดส่ง
                             </Tag>
                         ) : (
                             <Tag color="error" style={{ fontSize: "16px", padding: "8px" }}>

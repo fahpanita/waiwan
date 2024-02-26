@@ -37,7 +37,7 @@ const SellerCheck = () => {
 
         const res = await getConfirmOrder({ line_id, order_id, payment_prices });
         // setConfirmOrder(res?.data);
-        console.log(res);
+        // console.log(res);
 
     }
 

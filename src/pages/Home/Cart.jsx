@@ -132,7 +132,7 @@ const Cart = () => {
       <Layout style={{ background: "#F5F5F5", }}>
         <Navbar />
 
-        <Content style={{ padding: "0 32px", }}>
+        <Content style={{ padding: "0 32px", marginBottom: "280px" }}>
 
           <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
             <Breadcrumb.Item><Link to={'/'} style={{ textDecoration: "none" }}>หน้าแรก</Link></Breadcrumb.Item>

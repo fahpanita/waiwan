@@ -38,7 +38,7 @@ const DetailCardEvent = () => {
     <>
       <Layout style={{ background: "#ffffff" }}>
         <Navbar />
-        <Img src={`${BASE_URL}/${cardevents?.thumbnail}`} />
+        <Img src={`${BASE_URL}/${cardevents?.thumbnail}`} style={{ height: "600px", objectFit: "cover", objectPosition: "top" }} />
         <div
           className="card"
           style={{
@@ -49,6 +49,7 @@ const DetailCardEvent = () => {
             borderRadius: "none",
             background:
               "linear-gradient(0deg, #ffffff 0%, rgba(255, 254, 246, 0.00) 100%)",
+
           }}
         />
         <Content

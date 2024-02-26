@@ -134,6 +134,50 @@ const Home = () => {
           </Col>
         </Row>
 
+        <Row style={{ marginTop: "40px", marginBottom: "10px", display: "flex", alignItems: "center" }}>
+          <Col xs={17} sm={17} md={17} lg={17}>
+            <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "32px", fontWeight: "500", }}>เทรนด์นิยมช่วงนี้</Title>
+          </Col>
+          <Col xs={7} sm={7} md={7} lg={7}>
+            <a
+              style={{
+                float: "right",
+                textDecoration: "none",
+                color: "#1D1D1F",
+                fontFamily: "'Athiti', sans-serif", fontSize: "18px", fontWeight: "500",
+              }}
+              href="/allCardEvent"
+            >
+              ดูทั้งหมด {<RightCircleOutlined />}
+            </a>
+          </Col>
+        </Row>
+
+        <Row justify="center" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+          {currentEvents.map((c) => (
+            <Col
+              key={c.id}
+              className="gutter-row"
+              xs={24}
+              sm={9}
+              md={9}
+              lg={6}
+              style={{ marginBottom: '20px' }}
+            >
+              <CardEvent datacard={c} />
+            </Col>
+          ))}
+        </Row>
+
+        <PaginationBtn
+          current={currentPageEvents}
+          pageSize={itemsPerPageEvents}
+          total={cardevents.length}
+          onChange={handlePageChangeEvents}
+          showSizeChanger={false}
+          style={{ marginTop: '20px', textAlign: 'center', fontFamily: "'Chakra Petch', sans-serif", marginBottom: "70px" }}
+        />
+
         <Row style={{ marginTop: "40px" }}>
           <Col span={24}>
             <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "32px", fontWeight: "500", }}>หมวดหมู่</Title>
@@ -273,49 +317,7 @@ const Home = () => {
         />
 
         <Divider dashed style={{ marginTop: "40px" }} />
-        <Row style={{ marginTop: "40px", marginBottom: "10px", display: "flex", alignItems: "center" }}>
-          <Col xs={17} sm={17} md={17} lg={17}>
-            <Title level={3} style={{ fontFamily: "'Athiti', sans-serif", fontSize: "32px", fontWeight: "500", }}>บทความเทศกาล</Title>
-          </Col>
-          <Col xs={7} sm={7} md={7} lg={7}>
-            <a
-              style={{
-                float: "right",
-                textDecoration: "none",
-                color: "#1D1D1F",
-                fontFamily: "'Athiti', sans-serif", fontSize: "18px", fontWeight: "500",
-              }}
-              href="/allCardEvent"
-            >
-              ดูทั้งหมด {<RightCircleOutlined />}
-            </a>
-          </Col>
-        </Row>
 
-        <Row justify="flex-start" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-          {currentEvents.map((c) => (
-            <Col
-              key={c.id}
-              className="gutter-row"
-              xs={24}
-              sm={9}
-              md={9}
-              lg={6}
-              style={{ marginBottom: '20px' }}
-            >
-              <CardEvent datacard={c} />
-            </Col>
-          ))}
-        </Row>
-
-        <PaginationBtn
-          current={currentPageEvents}
-          pageSize={itemsPerPageEvents}
-          total={cardevents.length}
-          onChange={handlePageChangeEvents}
-          showSizeChanger={false}
-          style={{ marginTop: '20px', textAlign: 'center', fontFamily: "'Chakra Petch', sans-serif", marginBottom: "70px" }}
-        />
       </Content >
       <FooterPage />
     </Layout >

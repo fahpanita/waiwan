@@ -34,14 +34,14 @@ const Experiment = () => {
         }}
       >
         <Navbar />
-        <Content style={{ padding: "0 32px", }}>
+        <Content style={{ padding: "0 32px", marginBottom: "130px" }}>
 
           <Breadcrumb style={{ margin: '16px 0', fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", }}>
             <Breadcrumb.Item><Link to={'/'} style={{ textDecoration: "none" }}>หน้าแรก</Link></Breadcrumb.Item>
             <Breadcrumb.Item>ทดลองจัดวางของไหว้เจ้า</Breadcrumb.Item>
           </Breadcrumb>
 
-          <Title style={{ fontFamily: "'Athiti', sans-serif", fontSize: "28px", fontWeight: "500", marginTop: "50px", textAlign: "center" }}>
+          <Title style={{ fontFamily: "'Athiti', sans-serif", fontSize: "28px", fontWeight: "500", marginTop: "50px", textAlign: "center", marginBottom: "60px" }}>
             ทดลองจัดวางของไหว้เจ้า
           </Title>
 
@@ -59,7 +59,7 @@ const Experiment = () => {
                   >
                     ทดลองจัดวาง
                   </Button>
-                  <Card.Img variant="top" style={{ borderRadius: '10px' }} src="https://s13.gifyu.com/images/SCYkT.png" />
+                  <Card.Img variant="top" style={{ borderRadius: '10px' }} src="https://i.postimg.cc/t4t93Q5f/A3-9.png" />
                 </Card>
               </Link>
             </Col>
@@ -76,7 +76,7 @@ const Experiment = () => {
                   >
                     ทดลองจัดวาง
                   </Button>
-                  <Card.Img variant="top" style={{ borderRadius: '10px' }} src="image/img/img-minigame-01.png" />
+                  <Card.Img variant="top" style={{ borderRadius: '10px' }} src="https://i.postimg.cc/2yCqxSDq/A3-8.png" />
                 </Card>
               </Link>
             </Col>
@@ -93,7 +93,7 @@ const Experiment = () => {
                   >
                     ทดลองจัดวาง
                   </Button>
-                  <Card.Img variant="top" style={{ borderRadius: '10px' }} src="image/img/img-minigame-01.png" />
+                  <Card.Img variant="top" style={{ borderRadius: '10px' }} src="https://i.postimg.cc/sxbkrvgx/A3-7.png" />
                 </Card>
               </Link>
             </Col>
@@ -126,6 +126,7 @@ font-weight: 500;
 position: absolute;
 left: 20px;
 top: 20px;
-color: #ffffff;
+color: #FFEE53;
+text-shadow: 1px 2px 5px #000;
 height: 100px;
 `;

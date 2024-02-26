@@ -90,7 +90,6 @@ const ListProduct = () => {
 
     setFilteredPrice(newFilteredPrice);
 
-    console.log(newFilteredPrice)
   };
 
 
@@ -109,22 +108,10 @@ const ListProduct = () => {
     setOpen(false);
   };
 
-  const filterProductsByCategories = (selectedCategories, allProducts) => {
-    if (selectedCategories?.length === 0) {
-      return allProducts; // No categories selected, return all products
-    }
-
-    // Filter products that belong to at least one selected category
-    return allProducts?.filter((product) =>
-      product?.categories?.some((category) => selectedCategories?.includes(category.id))
-    );
-  };
-
   const handleGetProducts = async () => {
     const res = await getProducts();
     const fetchedProducts = res?.data || [];
 
-    // Update both products and filteredProducts states
     setProducts(fetchedProducts);
     setFilteredProducts(fetchedProducts);
   };

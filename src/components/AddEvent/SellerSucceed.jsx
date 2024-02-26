@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 import { FileOutlined, CheckCircleOutlined, SearchOutlined } from "@ant-design/icons";
 import Search from 'antd/es/input/Search';
+import { getShippingComplete } from '../../services/backend';
 
 const columns = [
     {
@@ -17,24 +18,53 @@ const columns = [
     },
     {
         title: 'ชื่อผู้สั่ง',
-        dataIndex: 'thumbnail',
-    },
-    {
-        title: 'วันที่จัดส่ง-รับสินค้า',
         dataIndex: 'name',
     },
     {
-        title: 'ที่อยูู่การจัดส่ง',
-        dataIndex: 'price',
+        title: 'ที่อยู่การจัดส่ง',
+        dataIndex: 'address',
+    },
+    {
+        title: 'วันที่จัดส่ง-รับสินค้า',
+        dataIndex: 'receiveDay',
     },
     {
         title: 'รูปแบบการจัดส่ง',
-        dataIndex: 'stock',
+        dataIndex: 'typeShipping',
     },
 
 ];
 
 const SellerSucceed = () => {
+
+    const [sellerComplete, setSellerComplete] = useState([]);
+
+    const handleGetSellerComplete = async () => {
+        const res = await getShippingComplete()
+
+        setSellerComplete(res?.data?.map(u => {
+            return {
+                key: u?.order_id,
+                id: u?.order_id,
+                name: u?.address_names,
+                address: `${u?.streets || "-"}, ${u?.districts || "-"}, ${u?.subdistricts || "-"}, ${u?.provinces || "-"}, ${u?.zip_codes || "-"}`,
+                receiveDay: u?.receive_day === "Null"
+                    ? new Date(u?.created_at).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                    })
+                    : u?.receive_day,
+                typeShipping: u?.type_shipping || "-",
+            }
+        }))
+        // console.log(res);
+        // console.log(typeof res?.data);
+    }
+
+    useEffect(() => {
+        handleGetSellerComplete()
+    }, [])
 
     return (
         <>
@@ -72,20 +102,13 @@ const SellerSucceed = () => {
                         </Link>
                         <Link to={"/sellersucceed"} style={{ marginRight: "10px" }}>
                             <Button
-                                icon={<CheckCircleOutlined />}
+                                icon={<CheckCircleOutlined />} style={{ color: "#C54142", border: "1px solid #C54142" }}
                             >
                                 จัดส่งแล้ว
                             </Button>
                         </Link>
                     </CardBox>
                     <CardBox >
-                        {/* <Search
-                            placeholder="ค้นหา"
-                            style={{
-                                width: 464,
-                                marginBottom: "20px",
-                            }}
-                        /> */}
                         <div style={{ background: '#F5F5F5', }}>
                             <Col>
                                 <Table
@@ -94,6 +117,7 @@ const SellerSucceed = () => {
 
                                     }}
                                     columns={columns}
+                                    dataSource={sellerComplete}
                                 />
                             </Col>
                         </div>

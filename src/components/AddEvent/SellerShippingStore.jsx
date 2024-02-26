@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
-import { Layout, Table, Col, Button, Space, Image, Input, Modal } from 'antd';
+import { Layout, Table, Col, Button, Space, Image, Input, Modal, Form } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import { getShippingStore, getallSeller } from '../../services/backend';
+import { getConfirmShippingStore, getShippingStore, getallSeller } from '../../services/backend';
 
 
 const columns = [
@@ -35,6 +35,18 @@ const SellerShippingStore = () => {
     const [allSeller, setallSeller] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedOrderId, setSelectedOrderId] = useState(null);
+    const [createShippingForm] = Form.useForm();
+    const formDataShipping = Form.useWatch([], createShippingForm);
+
+    const handleLineNoti = async (line_id, order_id) => {
+        try {
+            const values = await createShippingForm.validateFields();
+            const res = await getConfirmShippingStore({ line_id, order_id, ...values });
+            // handle response
+        } catch (errorInfo) {
+            console.log("Failed:", errorInfo);
+        }
+    };
 
     const handleGetShippingStore = async () => {
         const res = await getShippingStore()
@@ -53,11 +65,14 @@ const SellerShippingStore = () => {
                     </>,
                 date:
                     <>
-                        <Input placeholder="กรอกวันที่รับสินค้า" />
+                        <Form.Item name="receive_day" rules={[{ required: true, message: "กรุณากรอกวันที่รับสินค้า" }]}>
+                            <Input placeholder="กรอกวันที่รับสินค้า" value={formDataShipping?.receive_day} />
+                        </Form.Item>
+
                     </>,
                 action:
                     <>
-                        <Button type="primary" >
+                        <Button type="primary" onClick={() => handleLineNoti(u?.line_id, u?.order_id)}>
                             ยืนยันการรับสินค้า
                         </Button>
                     </>
@@ -98,14 +113,17 @@ const SellerShippingStore = () => {
                     <CardBox >
                         <div style={{ background: '#F5F5F5', }}>
                             <Col>
-                                <Table
-                                    rowSelection={{
-                                        type: "checkbox",
+                                <Form form={createShippingForm}>
+                                    <Table
+                                        rowSelection={{
+                                            type: "checkbox",
 
-                                    }}
-                                    columns={columns}
-                                    dataSource={shippingStore}
-                                />
+                                        }}
+                                        columns={columns}
+                                        dataSource={shippingStore}
+                                    />
+                                </Form>
+
                             </Col>
                         </div>
                     </CardBox>

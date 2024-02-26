@@ -83,6 +83,7 @@ const BuyProduct = (props) => {
 
   const handelOrder = async () => {
     const address = createformOrder?.getFieldsValue()
+
     const res = await createAddress(address)
     if (res?.data?.id) {
 
@@ -236,16 +237,16 @@ const BuyProduct = (props) => {
                             <Input placeholder="บ้านเลขที่ หมู่บ้าน ถนน ซอย อื่น ๆ" style={labelInput} />
                           </Form.Item>
                           <Form.Item name="subdistrict" label={<Text style={labelInfo}>ตำบล</Text>}>
-                            <Input disabled style={labelInput} />
+                            <Input placeholder="ตำบล" style={labelInput} />
                           </Form.Item>
                           <Form.Item name="district" label={<Text style={labelInfo}>อำเภอ</Text>}>
-                            <Input disabled style={labelInput} />
+                            <Input placeholder="อำเภอ" style={labelInput} />
                           </Form.Item>
                           <Form.Item name="province" label={<Text style={labelInfo}>จังหวัด</Text>} >
-                            <Input disabled style={labelInput} />
+                            <Input placeholder="จังหวัด" style={labelInput} />
                           </Form.Item>
                           <Form.Item name="zip_code" label={<Text style={labelInfo}>รหัสไปรษณีย์</Text>}>
-                            <Input disabled style={labelInput} />
+                            <Input placeholder="รหัสไปรษณีย์" style={labelInput} />
                           </Form.Item>
                         </div>
                       </Modal>

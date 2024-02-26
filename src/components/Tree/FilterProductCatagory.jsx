@@ -7,10 +7,11 @@ const FilterProductCategory = (props) => {
   const [checkedKeys, setCheckedKeys] = useState([]);
 
   const onCheck = (checkedKeys, info) => {
-    // console.log("onCheck ", checkedKeys, info);
+    console.log("onCheck ", checkedKeys, info);
     setCheckedKeys(checkedKeys);
     props?.onCategoryChange(checkedKeys);
   };
+
 
   const renderTreeNodes = (data) => {
     return data.map((category) => (

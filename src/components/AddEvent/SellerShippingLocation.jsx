@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
-import { Layout, Table, Col, Button, Space, Image, Input, Select } from 'antd';
+import { Layout, Table, Col, Button, Space, Image, Input, Select, Form } from 'antd';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import { getShippingLocation } from '../../services/backend';
+import { getConfirmShippingLocation, getShippingLocation } from '../../services/backend';
 
 
 const columns = [
@@ -34,17 +34,27 @@ const columns = [
 ];
 
 const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
 };
 
 const SellerShippingLocation = () => {
 
     const [shippingLocation, setShippingLocation] = useState([]);
+    const [createShippingForm] = Form.useForm();
+    const formDataShipping = Form.useWatch([], createShippingForm);
+
+    const handleLineNoti = async (line_id, order_id) => {
+        try {
+            const values = await createShippingForm.validateFields();
+            const res = await getConfirmShippingLocation({ line_id, order_id, ...values });
+            // handle response
+        } catch (errorInfo) {
+            console.log("Failed:", errorInfo);
+        }
+    };
 
     const handleGetShippingLocation = async () => {
         const res = await getShippingLocation()
-
-        // console.log(res);
 
         setShippingLocation(res?.data?.map(u => {
             return {
@@ -54,35 +64,41 @@ const SellerShippingLocation = () => {
                 address: `${u?.streets || "-"}, ${u?.districts || "-"}, ${u?.subdistricts || "-"}, ${u?.provinces || "-"}, ${u?.zip_codes || "-"}`,
                 transport:
                     <>
-                        <Select
-                            defaultValue="ไปรษณีย์ไทย"
-                            style={{
-                                width: 120,
-                            }}
-                            onChange={handleChange}
-                            options={[
-                                {
-                                    value: 'ไปรษณีย์ไทย',
-                                    label: 'ไปรษณีย์ไทย',
-                                },
-                                {
-                                    value: 'SCG Express',
-                                    label: 'SCG Express',
-                                },
-                                {
-                                    value: 'NIM Express',
-                                    label: 'NIM Express',
-                                },
-                            ]}
-                        />
+                        <Form.Item name="transport" rules={[{ required: true, message: "กรุณากรอกขนส่ง" }]}>
+                            <Select
+                                defaultValue="ไปรษณีย์ไทย"
+                                style={{
+                                    width: 120,
+                                }}
+                                onChange={handleChange}
+                                options={[
+                                    {
+                                        value: 'ไปรษณีย์ไทย',
+                                        label: 'ไปรษณีย์ไทย',
+                                    },
+                                    {
+                                        value: 'SCG Express',
+                                        label: 'SCG Express',
+                                    },
+                                    {
+                                        value: 'NIM Express',
+                                        label: 'NIM Express',
+                                    },
+                                ]}
+                            />
+                        </Form.Item>
+
                     </>,
                 tracking_number:
                     <>
-                        <Input placeholder="กรอก Tracking Nnumber" />
+                        <Form.Item name="tracking_number" rules={[{ required: true, message: "กรุณากรอก Tracking Nnumber" }]}>
+                            <Input placeholder="กรอก Tracking Nnumber" value={formDataShipping?.tracking_number} />
+                        </Form.Item>
+
                     </>,
                 action:
                     <>
-                        <Button type="primary" >
+                        <Button type="primary" onClick={() => handleLineNoti(u?.line_id, u?.order_id)}>
                             ยืนยันการจัดส่ง
                         </Button>
                     </>
@@ -104,14 +120,17 @@ const SellerShippingLocation = () => {
                     <CardBox >
                         <div style={{ background: '#F5F5F5', }}>
                             <Col>
-                                <Table
-                                    rowSelection={{
-                                        type: "checkbox",
+                                <Form form={createShippingForm}>
+                                    <Table
+                                        rowSelection={{
+                                            type: "checkbox",
 
-                                    }}
-                                    columns={columns}
-                                    dataSource={shippingLocation}
-                                />
+                                        }}
+                                        columns={columns}
+                                        dataSource={shippingLocation}
+                                    />
+                                </Form>
+
                             </Col>
                         </div>
                     </CardBox>

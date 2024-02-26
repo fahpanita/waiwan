@@ -7,7 +7,7 @@ const { Text } = Typography;
 const centered = {
   position: "absolute",
   top: "97%",
-  left: "50%",
+  left: "38%",
   transform: "translate(-50%, -50%)",
   marginTop: "-30px",
   color: "#FFEE53",

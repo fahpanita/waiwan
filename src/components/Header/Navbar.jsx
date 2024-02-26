@@ -62,7 +62,7 @@ const Navbar = () => {
       >
         <Row justify="space-between" align="middle">
           <Col xs={0} sm={0} md={2} lg={2}>
-            <Image preview={false} width={100} src="/image/img/Logo.png" />
+            <Image preview={false} width={100} src="/image/img/logo-new-01.png" />
           </Col>
           <Col xs={17} sm={0} md={10} lg={17} style={{ display: "flex", flexWrap: "nowrap", textDecoration: "none", }}>
             <SearchInput
