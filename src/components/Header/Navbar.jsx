@@ -66,7 +66,7 @@ const Navbar = () => {
           </Col>
           <Col xs={17} sm={0} md={10} lg={17} style={{ display: "flex", flexWrap: "nowrap", textDecoration: "none", }}>
             <SearchInput
-              placeholder="ค้นหาสินค้าในไหว้วาน"
+              placeholder="ค้นหาสินค้าในไหว้วาน เช่น ตรุษจีน"
               onSearch={onSearch}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}

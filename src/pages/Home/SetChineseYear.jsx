@@ -286,7 +286,7 @@ const SetChineseYear = () => {
                 style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", background: '#ffffff', borderColor: '#bf9f64', color: "#bf9f64", borderRadius: "60px" }}>
                 กลับหน้าหลัก
               </Button>,
-              <Button href="/detailProduct?id=8" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", color: "#ffffff", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" }}>
+              <Button href="/detailProduct?id=2" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "500", color: "#ffffff", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" }}>
                 ไปยังหน้าสินค้า
               </Button>
             ]}

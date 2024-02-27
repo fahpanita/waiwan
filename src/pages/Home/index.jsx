@@ -158,10 +158,10 @@ const Home = () => {
             <Col
               key={c.id}
               className="gutter-row"
-              xs={24}
-              sm={9}
-              md={9}
-              lg={6}
+              xs={12}
+              sm={12}
+              md={12}
+              lg={4}
               style={{ marginBottom: '20px' }}
             >
               <CardEvent datacard={c} />
@@ -175,7 +175,7 @@ const Home = () => {
           total={cardevents.length}
           onChange={handlePageChangeEvents}
           showSizeChanger={false}
-          style={{ marginTop: '20px', textAlign: 'center', fontFamily: "'Chakra Petch', sans-serif", marginBottom: "70px" }}
+          style={{ marginTop: '20px', textAlign: 'center', fontFamily: "'Chakra Petch', sans-serif", }}
         />
 
         <Row style={{ marginTop: "40px" }}>

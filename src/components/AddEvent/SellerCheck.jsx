@@ -102,9 +102,10 @@ const SellerCheck = () => {
                 date: u?.order_date || "-",
                 action:
                     <>
-                        <Button type="primary" onClick={() => handleLineNoti(u?.line_id, u?.order_id, u?.payment_prices)}>
-                            ยืนยันการชำระเงิน
+                        <Button type="primary" onClick={() => handleLineNoti(u?.line_id, u?.order_id, u?.payment_prices)} >
+                            ตรวจสอบแล้วและยืนยันการชำระเงิน
                         </Button>
+
                     </>
                 ,
             }

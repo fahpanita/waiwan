@@ -13,7 +13,7 @@ export const createOrder = async (data) => {
     });
 
     Modal.success({
-      title: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>สั่งซื้อสำเร็จ</Text>,
+      title: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ได้รับคำสั่งซื้อแล้ว</Text>,
       content: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>สามารถตรวจสถานะคำสั่งซื้อของคุณผ่าน Line WAI-WAN Official</Text>,
       okText: 'ตกลง',
       okButtonProps: {

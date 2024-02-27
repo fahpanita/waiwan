@@ -208,7 +208,7 @@ const PaymentCart = () => {
 
             <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32, }} justify="center">
               <Col xs={24} sm={12} md={12} lg={12}>
-                <CardBoxRadius>
+                <CardBoxRadius style={{ position: "sticky", top: "16px" }}>
                   <Title level={5} style={{ textAlign: "left" }}>
                     <TablePaymentCart
                       columns={columns}

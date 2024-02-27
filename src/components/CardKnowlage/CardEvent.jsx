@@ -6,16 +6,17 @@ const { Text } = Typography;
 
 const centered = {
   position: "absolute",
-  top: "97%",
-  left: "38%",
-  transform: "translate(-50%, -50%)",
-  marginTop: "-30px",
+  bottom: "5px",
+  // top: "97%",
+  // left: "38%",
+  // transform: "translate(-50%, -50%)",
+  // marginTop: "-30px",
   color: "#FFEE53",
   fontSize: "24px",
   textShadow: "1px 2px 5px #000",
   fontFamily: "'Athiti', sans-serif",
   fontWeight: "500",
-  width: "200px",
+  // width: "200px",
   display: "flex",
   justifyContent: "center",
 };
@@ -25,7 +26,7 @@ const CardEvent = (prop) => {
 
   return (
     <>
-      <Link to={`/detailCardEvent?id=${datacard?.id}`} style={{ textDecoration: "none", boxShadow: "0 0 2px rgba(0,0,0,.15)" }}>
+      <Link to={`/detailCardEvent?id=${datacard?.id}`} style={{ textDecoration: "none", display: "flex", justifyContent: "center" }}>
         <Image preview={false} src={`${BASE_URL}/${datacard?.thumbnail}`} style={{ width: "100%", borderRadius: "10px", }} />
         <Text style={centered} >{datacard?.name}</Text>
 

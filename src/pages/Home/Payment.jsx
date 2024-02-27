@@ -75,7 +75,9 @@ const Payment = () => {
   const handleGetPrompay = async () => {
     if (orderId) {
       const params = { order_id: parseInt(orderId, 10) };
-      const res = await payment(params);
+      const res = await payment({ params });
+      // console.log(res);
+      console.log(orderId);
       setPrompay(res?.data);
       setQRCodeValue(res?.data?.payload || '');
     }
@@ -87,6 +89,7 @@ const Payment = () => {
     const data = createPaymentForm?.getFieldsValue()
 
     const params = { ...data, order_id: orderId }
+
 
     const res = await createPayment(params)
 
@@ -279,13 +282,14 @@ const Payment = () => {
                       beforeUpload={beforeUpload}
                       onChange={handleChangeImg}
                       onPreview={onPreview}
+
                     >
                       {imageUrl ? (
                         <img
                           src={imageUrl}
                           alt="avatar"
                           style={{
-                            width: '100%',
+                            width: '30%',
                           }}
                         />
                       ) : (

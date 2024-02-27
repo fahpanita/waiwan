@@ -66,7 +66,7 @@ const SellerShippingStore = () => {
                 date:
                     <>
                         <Form.Item name="receive_day" rules={[{ required: true, message: "กรุณากรอกวันที่รับสินค้า" }]}>
-                            <Input placeholder="กรอกวันที่รับสินค้า" value={formDataShipping?.receive_day} />
+                            <Input type='date' placeholder="กรอกวันที่รับสินค้า" value={formDataShipping?.receive_day} />
                         </Form.Item>
 
                     </>,

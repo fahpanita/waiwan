@@ -68,9 +68,9 @@ const DetailCardEvent = () => {
           />
 
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "50px" }}>
-            <Button type="primary" shape="round" size="large" href="/setChengMeng"
-              style={{ background: '#bf9f64', fontFamily: "'Chakra Petch', sans-serif", fontSize: '18px', width: "180px" }}
-            >ทดลองจัดไหว้
+            <Button type="primary" shape="round" size="large" href="/setChineseYear"
+              style={{ background: '#bf9f64', fontFamily: "'Chakra Petch', sans-serif", fontSize: '18px' }}
+            >ทดลองจัดไหว้เทศกาลนี้
             </Button>
           </div>
         </Content>
