@@ -13,6 +13,9 @@ const FilterProductEvent = (props) => {
   };
 
   const renderTreeNodes = (data) => {
+
+    if (!data) return null;
+
     return data.map((event) => (
       <TreeNode
         key={event.value}

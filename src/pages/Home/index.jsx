@@ -200,81 +200,91 @@ const Home = () => {
                   className="gutter-row"
                   style={{ display: "flex", justifyContent: "space-evenly", alignItems: "flex-start", }}
                 >
-                  <Row span={6} style={{ display: "flex", alignItems: "center", }}>
-                    <Col>
-                      <Cards bordered={false}>
-                        <Cardcatagory>
-                          <Image
-                            style={{ borderRadius: "4px" }}
-                            src="image/img/เทศกาลไทย.png"
-                            preview={false}
-                          />
-                        </Cardcatagory>
-                      </Cards>
-                    </Col>
-                    <Col style={{ textAlign: "center" }}>
-                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
-                        เทศกาลไทย
-                      </div>
-                    </Col>
-                  </Row>
+                  <Link to={'/listProduct'} style={{ textDecoration: 'none', color: 'black' }}>
+                    <Row span={6} style={{ display: "flex", alignItems: "center", }}>
+                      <Col>
+                        <Cards bordered={false}>
+                          <Cardcatagory>
+                            <Image
+                              style={{ borderRadius: "4px" }}
+                              src="/image/img/เทศกาลไทย.png"
+                              preview={false}
+                            />
+                          </Cardcatagory>
+                        </Cards>
+                      </Col>
+                      <Col style={{ textAlign: "center" }}>
+                        <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
+                          <a style={{ textDecoration: 'none', color: 'black' }}>เทศกาลไทย</a>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Link>
 
-                  <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px", }}>
-                    <Col>
-                      <Cards bordered={false}>
-                        <Cardcatagory>
-                          <Image
-                            style={{ borderRadius: "4px" }}
-                            src="image/img/เทศกาลจีน.png"
-                            preview={false}
-                          />
-                        </Cardcatagory>
-                      </Cards>
-                    </Col>
-                    <Col style={{ textAlign: "center" }}>
-                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
-                        เทศกาลจีน
-                      </div>
-                    </Col>
-                  </Row>
+                  <Link to={'/listProduct'} style={{ textDecoration: 'none', color: 'black' }}>
+                    <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px", }}>
+                      <Col>
+                        <Cards bordered={false}>
+                          <Cardcatagory>
+                            <Image
+                              style={{ borderRadius: "4px" }}
+                              src="/image/img/เทศกาลจีน.png"
+                              preview={false}
+                            />
+                          </Cardcatagory>
+                        </Cards>
+                      </Col>
+                      <Col style={{ textAlign: "center" }}>
+                        <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
+                          <a style={{ textDecoration: 'none', color: 'black' }}>เทศกาลจีน</a>
+                        </div>
+                      </Col>
+                    </Row>
 
-                  <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px", }}>
-                    <Col>
-                      <Cards bordered={false}>
-                        <Cardcatagory>
-                          <Image
-                            style={{ borderRadius: "4px" }}
-                            src="image/img/เทพฮินดู.png"
-                            preview={false}
-                          />
-                        </Cardcatagory>
-                      </Cards>
-                    </Col>
-                    <Col style={{ textAlign: "center" }}>
-                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
-                        เทพเจ้าฮินดู
-                      </div>
-                    </Col>
-                  </Row>
+                  </Link>
 
-                  <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px", }}>
-                    <Col>
-                      <Cards bordered={false}>
-                        <Cardcatagory>
-                          <Image
-                            style={{ borderRadius: "4px" }}
-                            src="image/img/เทพจีน.png"
-                            preview={false}
-                          />
-                        </Cardcatagory>
-                      </Cards>
-                    </Col>
-                    <Col style={{ textAlign: "center" }}>
-                      <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
-                        เทพเจ้าจีน
-                      </div>
-                    </Col>
-                  </Row>
+                  <Link to={'/listProduct'} style={{ textDecoration: 'none', color: 'black' }}>
+                    <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px", }}>
+                      <Col>
+                        <Cards bordered={false}>
+                          <Cardcatagory>
+                            <Image
+                              style={{ borderRadius: "4px" }}
+                              src="/image/img/เทพฮินดู.png"
+                              preview={false}
+                            />
+                          </Cardcatagory>
+                        </Cards>
+                      </Col>
+                      <Col style={{ textAlign: "center" }}>
+                        <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
+                          <a style={{ textDecoration: 'none', color: 'black' }}>เทพเจ้าฮินดู</a>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Link>
+
+                  <Link to={'/listProduct'} style={{ textDecoration: 'none', color: 'black' }}>
+                    <Row span={6} style={{ display: "flex", alignItems: "center", margin: "0 10px", }}>
+                      <Col>
+                        <Cards bordered={false}>
+                          <Cardcatagory>
+                            <Image
+                              style={{ borderRadius: "4px" }}
+                              src="image/img/เทพจีน.png"
+                              preview={false}
+                            />
+                          </Cardcatagory>
+                        </Cards>
+                      </Col>
+                      <Col style={{ textAlign: "center" }}>
+                        <div style={{ marginLeft: "10px", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", }}>
+                          <a style={{ textDecoration: 'none', color: 'black' }}>เทพเจ้าจีน</a>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Link>
+
                 </Col>
               </Row>
             </div>

@@ -30,22 +30,11 @@ const Navbar = () => {
   };
 
   const { SearchStyle } = Input;
-  // const onSearch = (value, _e, info) => {
-  //   console.log(info?.source, value);
-
-  //   const filteredProducts = products.filter(product =>
-  //     product.name.toLowerCase().includes(value.toLowerCase())
-  //   );
-  //   setProducts(filteredProducts);
-
-  //   navigate('/listProduct')
-  // };
 
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
 
   const onSearch = (value) => {
-    // Set the search query in state before filtering
     setSearchQuery(value);
 
     navigate('/listProduct', { state: { searchQuery: value } });

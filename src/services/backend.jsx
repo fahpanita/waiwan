@@ -127,3 +127,33 @@ export const getShippingComplete = async (token, message) => {
     return undefined;
   }
 };
+
+export const getCategory = async (params) => {
+  try {
+    const res = await requestBackend({
+      url: "/getCategory",
+      method: "GET",
+      params,
+    });
+    // console.log('API Response:', res.data);
+    return res.data;
+  } catch (error) {
+    console.error("Error in getCategory function:", error);
+    throw error;
+  }
+};
+
+export const getEvents = async (params) => {
+  try {
+    const res = await requestBackend({
+      url: "/getEvent",
+      method: "GET",
+      params,
+    });
+    console.log('API Response:', res.data);
+    return res.data;
+  } catch (error) {
+    console.error("Error in getEvent function:", error);
+    throw error;
+  }
+};

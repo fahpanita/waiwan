@@ -14,7 +14,7 @@ import FilterProductCategory from "../../components/Tree/FilterProductCatagory";
 import FilterProductEvent from "../../components/Tree/FilterProductEvent";
 import styled from "styled-components";
 import { MehOutlined } from '@ant-design/icons';
-
+import { getCategory, getEvents } from "../../services/backend";
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
@@ -25,8 +25,25 @@ const ListProduct = () => {
   const [catagories, setCatagory] = useState([]);
   const [events, setEvent] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState([]);
   const [rangeValues, setRangeValues] = useState([0, 0]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const location = useLocation();
+  const searchQueryFromUrl = location.state?.searchQuery || '';
+
+  const [searchQuery, setSearchQuery] = useState(searchQueryFromUrl);
+
+  const handleGetProducts = async () => {
+    try {
+      const res = await getProducts();
+      const fetchedProducts = res?.data || [];
+
+      setProducts(fetchedProducts);
+      setFilteredProducts(fetchedProducts);
+    } catch (error) {
+    }
+  };
 
   const handleGetCategories = async () => {
     const res = await getCatagory();
@@ -49,6 +66,38 @@ const ListProduct = () => {
     setCatagory(data);
   };
 
+  const getProductsByCategory = async (selectedCategoryIds) => {
+    try {
+      const res = await getCategory({ categoryIds: selectedCategoryIds });
+
+      if (res && res.data) {
+        const products = res.data;
+
+        return products;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const handleCategoryChange = async (selectedCategoryIds) => {
+    setSelectedCategories(selectedCategoryIds);
+
+    try {
+      const res = await getProductsByCategory(selectedCategoryIds);
+      const products = res || [];
+
+      const uniqueProducts = Array.from(new Set(products.map(p => p.id))).map(id => {
+        return products.find(p => p.id === id);
+      });
+
+      setFilteredProducts(uniqueProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
 
   const handleGetEvent = async () => {
     const res = await getEvent()
@@ -71,34 +120,38 @@ const ListProduct = () => {
     setEvent(data)
   }
 
-  const location = useLocation();
-  const searchQuery = location.state?.searchQuery || '';
+  const getProductsByEvent = async (selectedEventIds) => {
+    try {
+      const res = await getEvents({ eventIds: selectedEventIds });
 
-  const [filteredPrice, setFilteredPrice] = useState([]);
+      if (res && res.data) {
+        const products = res.data;
 
-  const filteredSearch = products?.filter((product) =>
-    product.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
-  );
-
-  const handlePriceChange = (values) => {
-    setRangeValues(values);
-
-    const newFilteredPrice = products?.filter(product => {
-      const productPrice = product?.price || 0;
-      return productPrice >= values[0] && productPrice <= values[1];
-    });
-
-    setFilteredPrice(newFilteredPrice);
-
+        return products;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      throw error;
+    }
   };
 
+  const handleEventChange = async (selectedEventIds) => {
+    setSelectedEvent(selectedEventIds);
 
-  useEffect(() => {
-    handleGetProducts(),
-      handleGetCategories(),
-      handleGetEvent()
-  }, [])
+    try {
+      const res = await getProductsByEvent(selectedEventIds);
+      const products = res || [];
 
+      const uniqueProducts = Array.from(new Set(products.map(p => p.id))).map(id => {
+        return products.find(p => p.id === id);
+      });
+
+      setFilteredProducts(uniqueProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
 
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -108,25 +161,14 @@ const ListProduct = () => {
     setOpen(false);
   };
 
-  const handleGetProducts = async () => {
-    const res = await getProducts();
-    const fetchedProducts = res?.data || [];
 
-    setProducts(fetchedProducts);
-    setFilteredProducts(fetchedProducts);
-  };
+  useEffect(() => {
+    handleGetProducts();
+    handleGetCategories();
+    handleGetEvent();
+    setFilteredProducts(products);
+  }, []);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
-
-  const combinedProducts = [...filteredPrice, ...filteredSearch];
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentProducts = combinedProducts.slice(indexOfFirstItem, indexOfLastItem);
-
-  const handleChangePage = (page) => {
-    setCurrentPage(page);
-  };
 
   return (
     <>
@@ -167,14 +209,14 @@ const ListProduct = () => {
           >
             <Card>
               <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>หมวดหมู่สินค้า</Text>
-              <FilterProductCategory filterData={catagories} onCategoryChange={setSelectedCategories} />
+              <FilterProductCategory filterData={catagories} onCategoryChange={handleCategoryChange} />
               <Divider />
               <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>หมวดหมู่เทศกาล</Text>
-              <FilterProductEvent filterData={events} />
+              <FilterProductEvent filterData={events} onEventChange={handleEventChange} />
               <Divider />
               <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ช่วงราคา</Text>
               <div className="card-body">
-                <Slider range defaultValue={rangeValues} onChange={handlePriceChange} max={1000} />
+                <Slider range defaultValue={rangeValues} max={1000} />
                 <div className="row mb-3">
                   <div className="col-6">
                     <label htmlFor="min" className="form-label" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ราคาต่ำ:</label>
@@ -196,18 +238,18 @@ const ListProduct = () => {
                 bordered={false} style={{ position: "sticky", top: "16px", fontFamily: "'Chakra Petch', sans-serif" }}>
                 <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>หมวดหมู่สินค้า</Text>
                 <div style={{ marginTop: "10px" }}>
-                  <FilterProductCategory filterData={catagories} onCategoryChange={setSelectedCategories} />
+                  <FilterProductCategory filterData={catagories} onCategoryChange={handleCategoryChange} />
                 </div>
                 <Divider />
                 <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>หมวดหมู่เทศกาล</Text>
                 <div style={{ marginTop: "10px" }}>
-                  <FilterProductEvent filterData={events} />
+                  <FilterProductEvent filterData={events} onEventChange={handleEventChange} />
                 </div>
                 <Divider />
                 <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ช่วงราคา</Text>
 
                 <div className="card-body">
-                  <Slider range defaultValue={rangeValues} onChange={handlePriceChange} max={1000} />
+                  <Slider range defaultValue={rangeValues} max={1000} />
                   <div className="row mb-3">
                     <div className="col-6">
                       <label htmlFor="min" className="form-label" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ราคาต่ำ:</label>
@@ -223,9 +265,10 @@ const ListProduct = () => {
               </Card>
             </Col>
             <Col lg={16}>
+
               <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                {currentProducts.length > 0 ? (
-                  currentProducts.map((p) => (
+                {filteredProducts.length > 0 ? (
+                  filteredProducts.map((p) => (
                     <Col key={p.id} className="gutter-row" xs={12} sm={9} md={9} lg={6}>
                       <div style={{ marginTop: '10px' }}>
                         <CardProduct data={p} />
@@ -234,36 +277,28 @@ const ListProduct = () => {
                   ))
                 ) : (
                   <Col style={{ width: "80%", display: "flex", justifyContent: "center" }}>
-                    <div >
+                    <div>
                       <div id="notfound" style={{ backgroundColor: "#F4E5C8", width: "250px", height: "250px", borderRadius: "50%", display: "flex", flexDirection: "column" }}>
                         <div class="notfound" style={{ width: "400px", marginTop: "80px", marginLeft: "60px", display: "flex" }}>
                           <Col span={1}>
-                            <MehOutlined style={{ fontSize: "100px", }} />
+                            <MehOutlined style={{ fontSize: "100px" }} />
                           </Col>
-                          <Col span={23} style={{ marginLeft: "80px" }}>
+                          <Col span={23} style={{ marginLeft: "80px", fontFamily: "'Chakra Petch', sans-serif" }}>
                             <div class="notfound-404">
-                              <h1>No products found</h1>
-                              <p>Your search did not match any products.<br></br>
-                                Please try again.</p>
+                              <h1>ไม่พบสินค้า</h1>
+                              <p>คำที่คุณค้นหาไม่มีในรายการสินค้า<br />โปรดลองอีกครั้ง</p>
                             </div>
                           </Col>
-                        </div >
+                        </div>
                       </div>
                     </div>
                   </Col>
-
-
                 )}
+
+
               </Row>
-              {combinedProducts.length > itemsPerPage && (
-                <PaginationBtn
-                  current={currentPage}
-                  onChange={handleChangePage}
-                  pageSize={itemsPerPage}
-                  total={combinedProducts.length}
-                  style={{ marginTop: '20px', textAlign: 'center', marginBottom: "70px" }}
-                />
-              )}
+
+
             </Col>
 
           </Row>
