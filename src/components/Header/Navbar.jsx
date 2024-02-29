@@ -13,6 +13,7 @@ import LineLogin from "../../pages/Home/LineLogin";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import Search from "antd/es/input/Search";
+import { getSearch } from "../../services/product";
 
 const { Text } = Typography;
 const { Header } = Layout;
@@ -29,15 +30,23 @@ const Navbar = () => {
     setVisible(false);
   };
 
-  const { SearchStyle } = Input;
+  const { Search } = Input;
 
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
 
-  const onSearch = (value) => {
+  const onSearch = async (value) => {
     setSearchQuery(value);
+    try {
+      const res = await getSearch({ searchQuery: value, exactMatch: true });
+      setProducts(res.data);
+    } catch (error) {
+      console.error("Error in onSearch function:", error);
+      throw error;
+    }
 
     navigate('/listProduct', { state: { searchQuery: value } });
+
   };
 
   return (

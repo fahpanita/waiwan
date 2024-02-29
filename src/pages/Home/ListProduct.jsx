@@ -7,7 +7,7 @@ import { getProducts } from "../../services/product";
 import Filter from "../../components/Tree/Filter";
 import { getCatagory } from "../../services/catagory";
 import { getEvent } from "../../services/event";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { FilterOutlined } from "@ant-design/icons";
 import FilterProductCatagory from "../../components/Tree/FilterProductCatagory";
 import FilterProductCategory from "../../components/Tree/FilterProductCatagory";
@@ -21,27 +21,37 @@ const { Content } = Layout;
 
 const ListProduct = () => {
 
+  const { searchQuery: urlSearchQuery } = useParams();
+  const location = useLocation();
+  const searchQueryFromUrl = location.state?.searchQuery || urlSearchQuery || '';
+
   const [products, setProducts] = useState([]);
+
+  // const [products, setProducts] = useState([]);
   const [catagories, setCatagory] = useState([]);
   const [events, setEvent] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState([]);
   const [rangeValues, setRangeValues] = useState([0, 0]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-
-  const location = useLocation();
-  const searchQueryFromUrl = location.state?.searchQuery || '';
-
+  const [open, setOpen] = useState(false);
+  // const location = useLocation();
+  // const searchQueryFromUrl = location.state?.searchQuery || '';
   const [searchQuery, setSearchQuery] = useState(searchQueryFromUrl);
 
   const handleGetProducts = async () => {
     try {
-      const res = await getProducts();
+      const res = await getProducts(searchQuery);
       const fetchedProducts = res?.data || [];
 
-      setProducts(fetchedProducts);
-      setFilteredProducts(fetchedProducts);
+      const filteredProducts = fetchedProducts.filter(product =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+      setProducts(filteredProducts);
+      setFilteredProducts(filteredProducts);
     } catch (error) {
+      console.error("Error fetching products:", error);
     }
   };
 
@@ -153,7 +163,7 @@ const ListProduct = () => {
     }
   };
 
-  const [open, setOpen] = useState(false);
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -162,13 +172,21 @@ const ListProduct = () => {
   };
 
 
+  // useEffect(() => {
+  //   handleGetProducts();
+  //   handleGetCategories();
+  //   handleGetEvent();
+  //   setFilteredProducts(products);
+  // }, [searchQuery]);
+
   useEffect(() => {
+
     handleGetProducts();
     handleGetCategories();
     handleGetEvent();
+    setSearchQuery(searchQueryFromUrl);
     setFilteredProducts(products);
-  }, []);
-
+  }, [searchQueryFromUrl]);
 
   return (
     <>

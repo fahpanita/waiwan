@@ -135,7 +135,6 @@ export const getCategory = async (params) => {
       method: "GET",
       params,
     });
-    // console.log('API Response:', res.data);
     return res.data;
   } catch (error) {
     console.error("Error in getCategory function:", error);
@@ -150,7 +149,6 @@ export const getEvents = async (params) => {
       method: "GET",
       params,
     });
-    console.log('API Response:', res.data);
     return res.data;
   } catch (error) {
     console.error("Error in getEvent function:", error);

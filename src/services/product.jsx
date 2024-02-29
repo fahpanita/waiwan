@@ -13,6 +13,20 @@ export const getProducts = async () => {
   }
 };
 
+export const getSearch = async (params) => {
+  try {
+    const res = await requestBackend({
+      url: "/getSearch",
+      method: "GET",
+      params,
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Error in getCategory function:", error);
+    throw error;
+  }
+};
+
 export const getProductId = async (id) => {
   try {
     const res = await requestBackend({
