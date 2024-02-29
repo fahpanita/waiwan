@@ -39,19 +39,19 @@ const CardProduct = (prop) => {
             </Tag>
           )}
           {data?.typeProduct === 'พร้อมส่ง' && (
-            <Tag color="#52c41a" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "14px", position: "absolute", margin: "14px 0 0 14px", borderRadius: "50px" }}>
+            <Tag color="#ebfed8" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "14px", position: "absolute", margin: "14px 0 0 14px", borderRadius: "50px", color: "#52c41a" }}>
               {data?.typeProduct}
             </Tag>
           )}
 
           <Card.Body>
-            <marquee class="css1" scrollamount="5">
-              <div>
-                {data?.event_names && data.event_names.map((n, index) => (
-                  <Tag key={index} color="gold" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", fontWeight: "400", marginBottom: "4px", padding: "6px" }}>{n}</Tag>
-                ))}
-              </div>
-            </marquee>
+            {/* <marquee class="css1" scrollamount="5"> */}
+            <div style={{ height: "70px" }}>
+              {data?.event_names && data.event_names.map((n, index) => (
+                <Tag key={index} color="gold" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "14px", fontWeight: "400", marginBottom: "4px", borderRadius: "50px", }}>{n}</Tag>
+              ))}
+            </div>
+            {/* </marquee> */}
             <Card.Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "400", height: "40px" }}>{loading ? <Skeleton paragraph={{ rows: 1 }} title={false} /> : data?.name}</Card.Text>
 
             <Row>

@@ -149,7 +149,7 @@ const DetailProduct = (props) => {
                       > {product?.typeProduct}</Tag>
                     )}
                     {product?.typeProduct === 'พร้อมส่ง' && (
-                      <Tag color="#52c41a" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", padding: "4px 12px 4px 12px", borderRadius: "50px" }} > {product?.typeProduct}</Tag>
+                      <Tag color="#ebfed8" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", padding: "4px 12px 4px 12px", borderRadius: "50px", color: "#52c41a" }} > {product?.typeProduct}</Tag>
                     )}
 
                   </div>

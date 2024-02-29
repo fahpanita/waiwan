@@ -128,7 +128,6 @@ const Home = () => {
                 <Link to={"/allCardEvent"}>
                   <Img src="/image/img/frame-6.png" />
                 </Link>
-
               </Col>
             </Row>
           </Col>
