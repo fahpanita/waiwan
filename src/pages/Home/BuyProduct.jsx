@@ -136,6 +136,7 @@ const BuyProduct = (props) => {
   }
 
   useEffect(() => {
+
     const handleGetAddress = async () => {
       const res = await getAddress(location)
       createformOrder.setFieldsValue(

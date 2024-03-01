@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAuth } from "../../Providers/AuthProvider";
-import { Image } from "antd";
+import { Image, Tabs } from "antd";
 import {
   Input,
   Col,
@@ -16,13 +16,31 @@ import FooterPage from "../../components/Footer/FooterPage";
 import { Link } from "react-router-dom";
 import MenuAccount from "../../components/Menu/MenuAccount";
 import styled from "styled-components";
+import HistoryUser from "../../components/Users/historyUser";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
+const onChange = (key) => {
+  // console.log(key);
+};
+const items = [
+  {
+    key: '1',
+    label: 'รายการที่ค้างชำระ',
+    children: <HistoryUser />,
+  },
+  {
+    key: '2',
+    label: 'รายการที่สั่งซื้อสำเร็จ',
+    children: 2,
+  },
+];
+
+
 const StockList = () => {
   const { profile } = useAuth();
-  console.log(profile);
+  // console.log(profile);
 
   return (
     <>
@@ -53,11 +71,15 @@ const StockList = () => {
             >
               <div style={{ marginTop: "16px" }}>
                 <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>
-                  รายการที่ต้องชำระ
+                  ประวัติการสั่งซื้อ
                 </Text>
               </div>
 
-              <TableStock
+              {/* <CardBox > */}
+              <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+              {/* </CardBox> */}
+
+              {/* <TableStock
                 style={{
                   marginTop: 8,
                 }}
@@ -78,7 +100,7 @@ const StockList = () => {
                     key: "price",
                   },
                 ]}
-              />
+              /> */}
             </Col>
           </Row>
         </Content>

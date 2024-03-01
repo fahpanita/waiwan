@@ -19,26 +19,26 @@ const Dashboards = () => {
         handleGetDashboards()
     }, [])
 
-    const data = [
-        { month: 'JAN', price: 3 },
-        { month: 'FEB', price: 4 },
-        { month: 'MAR', price: 3.5 },
-        { month: 'APR', price: 5 },
-        { month: 'MAY', price: 4.9 },
-        { month: 'JUN', price: 6 },
-        { month: 'JUL', price: 7 },
-        { month: 'AUG', price: 9 },
-        { month: 'SEP', price: 13 },
-        { month: 'OCT', price: 10 },
-        { month: 'NOV', price: 4 },
-        { month: 'DEC', price: 6 },
-    ];
+    // const data = [
+    //     { month: 'JAN', price: 3 },
+    //     { month: 'FEB', price: 4 },
+    //     { month: 'MAR', price: 3.5 },
+    //     { month: 'APR', price: 5 },
+    //     { month: 'MAY', price: 4.9 },
+    //     { month: 'JUN', price: 6 },
+    //     { month: 'JUL', price: 7 },
+    //     { month: 'AUG', price: 9 },
+    //     { month: 'SEP', price: 13 },
+    //     { month: 'OCT', price: 10 },
+    //     { month: 'NOV', price: 4 },
+    //     { month: 'DEC', price: 6 },
+    // ];
 
-    const props = {
-        data,
-        xField: 'month',
-        yField: 'price',
-    };
+    // const props = {
+    //     data,
+    //     xField: 'month',
+    //     yField: 'price',
+    // };
 
 
     return (
@@ -99,9 +99,9 @@ const Dashboards = () => {
                                 />
                             </Card>
                         </Col>
-                        <CardBox bordered={false}>
+                        {/* <CardBox bordered={false}>
                             <Line {...props} />
-                        </CardBox>
+                        </CardBox> */}
 
                     </Row>
                 </Content>

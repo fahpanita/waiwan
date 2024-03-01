@@ -47,7 +47,7 @@ export const createAddress = async (data) => {
   } catch (error) {
     Modal.error({
       title: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>Error</Text>,
-      content: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>{error?.response?.data?.message}</Text>,
+      content: <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", }}>{error?.response?.data?.message || 'กรุณาทำการ logIn ก่อนสั่งซื้อสินค้า'} </Text>,
       okText: 'ตกลง',
       okButtonProps: {
         style: { fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px", background: '#bf9f64', borderColor: '#bf9f64', borderRadius: "60px" },

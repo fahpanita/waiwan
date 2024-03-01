@@ -15,7 +15,7 @@ const items = [
     key: "1",
     label: (
       <Link to="/stocklist" icon={<ContainerOutlined />} style={{ fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }} >
-        รายการที่ต้องชำระ
+        ประวัติการสั่งซื้อ
       </Link>
     ),
   },
@@ -86,8 +86,8 @@ const LineLogin = () => {
                 </div>
               )}
             >
-              <a onClick={(e) => e.preventDefault()}>
-                <Space style={{ color: "#000", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }}>
+              <a onClick={(e) => e.preventDefault()} style={{ textDecoration: "none" }}>
+                <Space style={{ color: "#000", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px", display: "flex", justifyContent: "center" }}>
                   <UserOutlined />
                   บัญชี
                   <DownOutlined />

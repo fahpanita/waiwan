@@ -6,14 +6,14 @@ import { useAuth } from "../../Providers/AuthProvider";
 
 const MenuAccount = () => {
   const { profile } = useAuth();
-  console.log(profile);
+  // console.log(profile);
 
   return (
     <>
       <Menu theme="light" mode="inline" defaultSelectedKeys={[""]}>
         <Menu.Item key={1} icon={<ContainerOutlined />}>
           <Link to="/stocklist" style={{ textDecoration: "none", fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>
-            รายการที่ต้องชำระ
+            ประวัติการสั่งซื้อ
           </Link>
         </Menu.Item>
         <Menu.Divider />

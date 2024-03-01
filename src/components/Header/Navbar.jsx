@@ -60,7 +60,7 @@ const Navbar = () => {
       >
         <Row justify="space-between" align="middle">
           <Col xs={0} sm={0} md={2} lg={2}>
-            <Image preview={false} width={100} src="/image/img/logo-new-01.png" />
+            <Image preview={false} width={100} src="/image/img/Logo (2).png" />
           </Col>
           <Col xs={17} sm={0} md={10} lg={17} style={{ display: "flex", flexWrap: "nowrap", textDecoration: "none", }}>
             <SearchInput
@@ -71,7 +71,7 @@ const Navbar = () => {
               enterButton
             />
           </Col>
-          <Col xs={0} sm={0} md={1} lg={1}>
+          <Col xs={0} sm={0} md={2} lg={2}>
             <LineLogin></LineLogin>
           </Col>
 
@@ -106,7 +106,7 @@ const Navbar = () => {
               </Menu.Item>
               <Menu.Item key="11" icon={<ContainerOutlined />} >
                 <Link to="/stocklist" style={{ textDecoration: "none", fontFamily: "Chakra Petch, sans- serif", fontSize: "16px" }} >
-                  รายการที่ต้องชำระ
+                  ประวัติการสั่งซื้อ
                 </Link>
               </Menu.Item>
               <Menu.Item key="10" icon={<UserOutlined />} >

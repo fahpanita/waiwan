@@ -155,3 +155,16 @@ export const getEvents = async (params) => {
     throw error;
   }
 };
+
+export const getHistoryUser = async (data) => {
+  try {
+    const res = await requestBackend({
+      url: "/getHistoryUser",
+      method: "GET",
+      data: "data",
+    });
+    return res;
+  } catch (error) {
+    return undefined;
+  }
+};

@@ -27,7 +27,6 @@ const ListProduct = () => {
 
   const [products, setProducts] = useState([]);
 
-  // const [products, setProducts] = useState([]);
   const [catagories, setCatagory] = useState([]);
   const [events, setEvent] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -38,6 +37,9 @@ const ListProduct = () => {
   // const location = useLocation();
   // const searchQueryFromUrl = location.state?.searchQuery || '';
   const [searchQuery, setSearchQuery] = useState(searchQueryFromUrl);
+
+  const [minPrice, setMinPrice] = useState();
+  const [maxPrice, setMaxPrice] = useState();
 
   const handleGetProducts = async () => {
     try {
@@ -171,6 +173,12 @@ const ListProduct = () => {
     setOpen(false);
   };
 
+  const handlePriceChange = (values) => {
+    // Update the state when the price range changes
+    setMinPrice(values[0]);
+    setMaxPrice(values[1]);
+  };
+
 
   // useEffect(() => {
   //   handleGetProducts();
@@ -180,13 +188,56 @@ const ListProduct = () => {
   // }, [searchQuery]);
 
   useEffect(() => {
+    const fetchProducts = async () => {
 
-    handleGetProducts();
-    handleGetCategories();
-    handleGetEvent();
-    setSearchQuery(searchQueryFromUrl);
-    setFilteredProducts(products);
-  }, [searchQueryFromUrl]);
+      try {
+        const res = await getProducts(searchQuery);
+        const fetchedProducts = res?.data || [];
+
+        // Apply search query filter
+        const filteredBySearch = fetchedProducts.filter(product =>
+          product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+        // Apply category filter
+        const filteredByCategory = selectedCategories.length > 0
+          ? await getProductsByCategory(selectedCategories)
+          : fetchedProducts;
+
+        // Apply event filter
+        const filteredByEvent = selectedEvent.length > 0
+          ? await getProductsByEvent(selectedEvent)
+          : filteredByCategory;
+
+        // Apply price range filter
+        const filteredByPriceRange = filteredByEvent.filter(product =>
+          product.price >= minPrice && product.price <= maxPrice
+        );
+
+        // If no specific filters are selected, return all products
+        const finalFilteredProducts = selectedCategories.length > 0 || selectedEvent.length > 0 || minPrice > 0 || maxPrice > 0
+          ? filteredByPriceRange
+          : filteredBySearch;
+
+        setProducts(finalFilteredProducts);
+        setFilteredProducts(finalFilteredProducts);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    const fetchCategoriesAndEvents = async () => {
+      try {
+        await handleGetCategories();
+        await handleGetEvent();
+      } catch (error) {
+        console.error("Error fetching categories and events:", error);
+      }
+    };
+
+    fetchProducts();
+    fetchCategoriesAndEvents();
+  }, [searchQuery, selectedCategories, selectedEvent, minPrice, maxPrice]);
 
   return (
     <>
@@ -234,15 +285,31 @@ const ListProduct = () => {
               <Divider />
               <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ช่วงราคา</Text>
               <div className="card-body">
-                <Slider range defaultValue={rangeValues} max={1000} />
+                <Slider range defaultValue={[minPrice, maxPrice]} max={5000} onChange={handlePriceChange} />
                 <div className="row mb-3">
                   <div className="col-6">
                     <label htmlFor="min" className="form-label" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ราคาต่ำ:</label>
-                    <input className="form-control" id="min" placeholder="฿0" type="number" value={rangeValues[0]} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }} />
+                    <input
+                      className="form-control"
+                      id="min"
+                      placeholder="฿0"
+                      type="number"
+                      value={minPrice}
+                      onChange={(e) => setMinPrice(parseInt(e.target.value))}
+                      style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}
+                    />
                   </div>
                   <div className="col-6">
                     <label htmlFor="max" className="form-label" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ราคาสูง:</label>
-                    <input className="form-control" id="max" placeholder="฿10,000" type="number" value={rangeValues[1]} style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }} />
+                    <input
+                      className="form-control"
+                      id="max"
+                      placeholder="฿10,000"
+                      type="number"
+                      value={maxPrice}
+                      onChange={(e) => setMaxPrice(parseInt(e.target.value))}
+                      style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}
+                    />
                   </div>
                 </div>
               </div>
@@ -267,15 +334,31 @@ const ListProduct = () => {
                 <Text style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "18px", fontWeight: "500" }}>ช่วงราคา</Text>
 
                 <div className="card-body">
-                  <Slider range defaultValue={rangeValues} max={1000} />
+                  <Slider range defaultValue={[minPrice, maxPrice]} max={5000} onChange={handlePriceChange} />
                   <div className="row mb-3">
                     <div className="col-6">
                       <label htmlFor="min" className="form-label" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ราคาต่ำ:</label>
-                      <input className="form-control" id="min" placeholder="฿0" type="number" value={rangeValues[0]} />
+                      <input
+                        className="form-control"
+                        id="min"
+                        placeholder="฿0"
+                        type="number"
+                        value={minPrice}
+                        onChange={(e) => setMinPrice(parseInt(e.target.value))}
+                        style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}
+                      />
                     </div>
                     <div className="col-6">
                       <label htmlFor="max" className="form-label" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}>ราคาสูง:</label>
-                      <input className="form-control" id="max" placeholder="฿10,000" type="number" value={rangeValues[1]} />
+                      <input
+                        className="form-control"
+                        id="max"
+                        placeholder="฿10,000"
+                        type="number"
+                        value={maxPrice}
+                        onChange={(e) => setMaxPrice(parseInt(e.target.value))}
+                        style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "16px" }}
+                      />
                     </div>
                   </div>
                 </div>

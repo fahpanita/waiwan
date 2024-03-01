@@ -48,7 +48,7 @@ const CardProduct = (prop) => {
             {/* <marquee class="css1" scrollamount="5"> */}
             <div style={{ height: "70px" }}>
               {data?.event_names && data.event_names.map((n, index) => (
-                <Tag key={index} color="gold" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "14px", fontWeight: "400", marginBottom: "4px", borderRadius: "50px", }}>{n}</Tag>
+                <Tag key={index} color="gold" style={{ fontFamily: "'Chakra Petch', sans-serif", fontSize: "12px", fontWeight: "400", marginBottom: "4px", borderRadius: "50px", }}>{n}</Tag>
               ))}
             </div>
             {/* </marquee> */}
